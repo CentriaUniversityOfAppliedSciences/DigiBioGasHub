@@ -1,0 +1,11 @@
+{
+    "menu": {
+        "home": "Koti",
+        "offers": "Tarjoukset",
+        "articles": "Artikkelit",
+        "login": "Kirjaudu sisään",
+        "logoPath": "src/assets/funder-logo-fi.png",
+        "language": "Kieli"
+    }
+
+}

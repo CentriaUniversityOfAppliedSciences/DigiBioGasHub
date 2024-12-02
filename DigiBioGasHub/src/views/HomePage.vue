@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title>Blank</ion-title>
+        <NavBarComponent />
       </ion-toolbar>
     </ion-header>
 
@@ -21,8 +21,14 @@
   </ion-page>
 </template>
 
-<script setup>
+<script>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { defineComponent } from 'vue';
+import NavBarComponent from '../components/NavBarComponent.vue';
+export default defineComponent ({
+  name: 'HomePage',
+  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent }
+})
 </script>
 
 <style scoped>

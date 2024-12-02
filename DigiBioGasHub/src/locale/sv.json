@@ -1,0 +1,11 @@
+{
+    "menu":{
+        "home": "Hem",
+        "offers": "Erbjudanden",
+        "articles": "Artiklar",
+        "login": "Logga in",
+        "logoPath": "src/assets/funder-logo-sv.png",
+        "language": "Språk"
+    }
+
+}

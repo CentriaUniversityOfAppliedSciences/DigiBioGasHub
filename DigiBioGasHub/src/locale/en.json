@@ -1,0 +1,11 @@
+{
+    "menu":{
+        "home": "Home",
+        "offers": "Offers",
+        "articles": "Articles",
+        "login": "Login",
+        "logoPath": "src/assets/funder-logo-en.png",
+        "language": "Language"
+    }
+
+}

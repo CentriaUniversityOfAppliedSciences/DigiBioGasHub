@@ -11,6 +11,9 @@ import '@ionic/vue/css/core.css';
 import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';
 import '@ionic/vue/css/typography.css';
+import fi from './locale/fi.json';
+import en from './locale/en.json';
+import sv from './locale/sv.json';
 
 /* Optional CSS utils that can be commented out */
 import '@ionic/vue/css/padding.css';
@@ -34,8 +37,22 @@ import '@ionic/vue/css/palettes/dark.system.css';
 /* Theme variables */
 import './theme/variables.css';
 
+import {createI18n} from 'vue-i18n';
+const messages = {
+  fi: fi,
+  en: en,
+  sv: sv,
+};
+const i18n = createI18n({
+  locales: ['fi', 'en', 'sv'],
+  fallbackLocale: 'fi',
+  locale: 'fi',
+  messages,
+});
+
 const app = createApp(App)
   .use(IonicVue)
+  .use(i18n)
   .use(router);
 
 router.isReady().then(() => {
