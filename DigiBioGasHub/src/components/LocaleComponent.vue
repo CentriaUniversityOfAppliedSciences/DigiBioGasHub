@@ -14,9 +14,15 @@
 <script>
 import { defineComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { IonItem, IonSelect, IonSelectOption } from '@ionic/vue';
 
 export default defineComponent({
     name: 'LocaleComponent',
+    components: {
+        IonItem,
+        IonSelect,
+        IonSelectOption,
+    },
     setup() {
         const { locale } = useI18n();
         const selectedLanguage = ref(locale.value);

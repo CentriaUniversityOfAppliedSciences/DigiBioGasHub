@@ -7,28 +7,76 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-header collapse="condense">
-        <ion-toolbar>
-          <ion-title size="large">Blank</ion-title>
-        </ion-toolbar>
-      </ion-header>
-
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+      <ion-grid>
+        <ion-row>
+          <ion-col>
+            <div id="container">
+              <strong>Welcome to DigiBioGasHub</strong>
+              <p>Your hub for all things biogas</p>
+            </div>
+          </ion-col>
+          <ion-col>
+            <img src="https://via.placeholder.com/300" alt="Placeholder Image" />
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ul>
+              <li><ListingComponent :product="product1" /></li>
+              <li><ListingComponent :product="product2" /></li>
+              <li><ListingComponent :product="product3" /></li>
+            </ul>
+          </ion-col>
+          <ion-col>
+            <article>
+              <h2>Article 1</h2>
+              <p>This is the first article.</p>
+            </article>
+            <article>
+              <h2>Article 2</h2>
+              <p>This is the second article.</p>
+            </article>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
     </ion-content>
+    <footer-component />
   </ion-page>
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
+import ListingComponent from '../components/ListingComponent.vue';
 export default defineComponent ({
   name: 'HomePage',
-  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent }
+  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, ListingComponent },
+  data() {
+    return {
+      product1: {
+        name: 'Product 1',
+        category: 'Category 1',
+        description: 'This is the first product.',
+        price: 100
+      },
+      product2: {
+        name: 'Product 2',
+        category: 'Category 2',
+        description: 'This is the second product.',
+        price: 200
+      },
+      product3: {
+        name: 'Product 3',
+        category: 'Category 3',
+        description: 'This is the third product.',
+        price: 300
+      }
+    }
+  }
 })
+
 </script>
 
 <style scoped>

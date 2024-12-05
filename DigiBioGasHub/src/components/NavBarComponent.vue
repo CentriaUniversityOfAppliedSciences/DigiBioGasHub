@@ -11,7 +11,7 @@
                 <li class="menu-item"><a href="#">{{$t('menu.home')}}</a></li>
                 <li class="menu-item"><a href="#">{{ $t('menu.offers') }}</a></li>
                 <li class="menu-item"><a href="#">{{ $t('menu.articles') }}</a></li>
-                <li class="menu-item"><a href="#">{{$t('menu.login')}}</a></li>
+                <li class="menu-item" ><button @click="handleLoginModal()"><LoginComponent :showModal="showModal" />{{ $t('menu.login') }}</button></li>
                 <li class="menu-item"><LocaleComponent /></li>
             </ul>
         </div>
@@ -21,9 +21,26 @@
 <script>
 import {defineComponent} from 'vue';
 import LocaleComponent from './LocaleComponent.vue';
+import LoginComponent from './LoginComponent.vue';
 export default defineComponent ({
     name: 'NavBarComponent',
-    components: { LocaleComponent}
+    components: { LocaleComponent, LoginComponent},
+    setup() {
+        return {};
+    },
+    methods: {
+        handleLoginModal(){
+            this.showModal = true;
+        },
+        closeModal(){
+            this.showModal = false;
+        }
+    },
+    data() {
+        return {
+            showModal: false
+        }
+    }
 });
 </script>
 
