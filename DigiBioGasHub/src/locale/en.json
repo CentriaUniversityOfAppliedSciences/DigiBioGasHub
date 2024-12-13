@@ -70,6 +70,79 @@
         "P-logo": "Ostrobothnia Regional Council",
         "Centria": "src/assets/Centria.jpg",
         "Centria-logo": "Centria University of Applied Sciences"
+    },
+    "account":{
+        "firstName": "First name",
+        "lastName": "Last name",
+        "email": "Email",
+        "phone": "Phone number",
+        "address": "Address",
+        "city": "City",
+        "postal": "Postal code",
+        "company": "Company",
+        "update": "Update",
+        "updateSuccess": "Details updated",
+        "updateFail": "Failed to update details",
+        "updateFailMessage": "Failed to update details. Check the information and try again.",
+        "password": "Password",
+        "newPassword": "New password",
+        "confirmPassword": "Confirm password",
+        "changePassword": "Change password",
+        "changePasswordSuccess": "Password changed",
+        "changePasswordFail": "Failed to change password",
+        "changePasswordFailMessage": "Failed to change password. Check the information and try again.",
+        "deleteAccount": "Delete account",
+        "deleteAccountSuccess": "Account deleted",
+        "deleteAccountFail": "Failed to delete account",
+        "deleteAccountFailMessage": "Failed to delete account. Check the information and try again.",
+        "deleteAccountConfirm": "Are you sure you want to delete your account? This action is irreversible.",
+        "deleteAccountConfirmMessage": "Your account and all related information will be deleted. Are you sure you want to continue?",
+        "terms": "Accept the terms and conditions"
+    },
+    "forms":{
+        "helper":{
+            "firstName": "Enter your first name",
+            "lastName": "Enter your last name",
+            "email": "Enter your email address",
+            "phone": "Enter your phone number",
+            "address": "Enter your address",
+            "city": "Enter your city",
+            "postal": "Enter your postal code",
+            "company": "Enter your company name",
+            "password": "Enter your password, it must be at least 8 characters long",
+            "confirmPassword": "Make sure the passwords match",
+            "newPassword": "Enter your new password, it must be at least 8 characters long",
+            "terms": "Accepting the terms and conditions is mandatory"
+        },
+        "error":{
+            "firstName": "Enter your first name",
+            "lastName": "Enter your last name",
+            "email": "Your email address is invalid.",
+            "phone": "Your phone number is invalid.",
+            "address": "Address is missing.",
+            "city": "City is missing.",
+            "postal": "Enter your postal code",
+            "company": "Enter your company name",
+            "password": "Enter your password, it must be at least 8 characters long",
+            "confirmPassword": "Passwords do not match!",
+            "newPassword": "Enter your new password, it must be at least 8 characters long",
+            "terms": "Accepting the terms and conditions is mandatory"
+        },
+        "register": "Register"
+    },
+    
+    "product": {
+        "productDetails": {
+            "title": "Product Details",
+            "type": "Type",
+            "price": "Price",
+            "location": "Location",
+            "offerValidFrom": "Offer Valid From",
+            "pickUpNeeded": "Pick Up Needed",
+            "delivered": "Delivered",
+            "yes": "Yes",
+            "no": "No"
+        }
     }
 
 }

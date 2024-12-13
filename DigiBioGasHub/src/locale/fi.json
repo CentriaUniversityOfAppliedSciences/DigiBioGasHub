@@ -72,6 +72,79 @@
         "P-logo": "Pohjanmaan liitto",
         "Centria": "src/assets/Centria.jpg",
         "Centria-logo": "Centria-ammattikorkeakoulu"
+    },
+    "account":{
+        "firstName": "Etunimi",
+        "lastName": "Sukunimi",
+        "email": "Sähköposti",
+        "phone": "Puhelinnumero",
+        "address": "Osoite",
+        "city": "Kaupunki",
+        "postal": "Postinumero",
+        "company": "Yritys",
+        "update": "Päivitä",
+        "updateSuccess": "Tiedot päivitetty",
+        "updateFail": "Tietojen päivitys epäonnistui",
+        "updateFailMessage": "Tietojen päivitys epäonnistui. Tarkista tiedot ja yritä uudelleen.",
+        "password": "Salasana",
+        "newPassword": "Uusi salasana",
+        "confirmPassword": "Vahvista salasana",
+        "changePassword": "Vaihda salasana",
+        "changePasswordSuccess": "Salasana vaihdettu",
+        "changePasswordFail": "Salasanan vaihto epäonnistui",
+        "changePasswordFailMessage": "Salasanan vaihto epäonnistui. Tarkista tiedot ja yritä uudelleen.",
+        "deleteAccount": "Poista tili",
+        "deleteAccountSuccess": "Tili poistettu",
+        "deleteAccountFail": "Tilin poisto epäonnistui",
+        "deleteAccountFailMessage": "Tilin poisto epäonnistui. Tarkista tiedot ja yritä uudelleen.",
+        "deleteAccountConfirm": "Haluatko varmasti poistaa tilisi? Tämä toiminto on peruuttamaton.",
+        "deleteAccountConfirmMessage": "Tilisi poistetaan ja kaikki siihen liittyvät tiedot menetetään. Haluatko varmasti jatkaa?",
+        "terms": "Hyväksy käyttöehdot"
+    },
+    "forms":{
+        "helper":{
+            "firstName": "Anna etunimesi",
+            "lastName": "Anna sukunimesi",
+            "email": "Anna sähköpostiosoitteesi",
+            "phone": "Anna puhelinnumerosi",
+            "address": "Anna osoitteesi",
+            "city": "Anna kaupunkisi",
+            "postal": "Anna postinumerosi",
+            "company": "Anna yrityksesi nimi",
+            "password": "Kirjoita salasanasi, sen pitää vähintään 8 merkkiä pitkä",
+            "confirmPassword": "Salasanojen täytyy täsmätä!",
+            "newPassword": "Kirjoita uusi salasanasi, sen pitää vähintään 8 merkkiä pitkä",
+            "terms": "Käyttöehtojen hyväksyminen on pakollista"
+
+        },
+        "error":{
+            "firstName": "Anna etunimesi",
+            "lastName": "Anna sukunimesi",
+            "email": "Sähköpostiosoitteesi on virheellinen.",
+            "phone": "Puhelinnumerosi on virheellinen.",
+            "address": "Osoite puuttuu.",
+            "city": "Kaupunki puuttuu.",
+            "postal": "Anna postinumerosi",
+            "company": "Anna yrityksesi nimi",
+            "password": "Kirjoita salasanasi, sen pitää olla vähintään 8 merkkiä pitkä",
+            "confirmPassword": "Salasanat eivät täsmää!",
+            "newPassword": "Kirjoita uusi salasanasi, sen pitää olla vähintään 8 merkkiä pitkä",
+            "terms": "Käyttöehtojen hyväksyminen on pakollista"
+        },
+        "register": "Rekisteröidy"
+    },
+    "product": {
+        "productDetails": {
+            "title": "Tuotetiedot",
+            "type": "Tyyppi",
+            "price": "Hinta",
+            "location": "Sijainti",
+            "offerValidFrom": "Tarjous voimassa alkaen",
+            "pickUpNeeded": "Nouto tarvitaan",
+            "delivered": "Toimitettu",
+            "yes": "Kyllä",
+            "no": "Ei"
+        }
     }
 
 }

@@ -70,6 +70,78 @@
         "P-logo": "Österbottens Förbund",
         "Centria": "src/assets/Centria.jpg",
         "Centria-logo": "Centria-ammattikorkeakoulu"
+    },
+    "account":{
+        "firstName": "Förnamn",
+        "lastName": "Efternamn",
+        "email": "E-post",
+        "phone": "Telefonnummer",
+        "address": "Adress",
+        "city": "Stad",
+        "postal": "Postnummer",
+        "company": "Företag",
+        "update": "Uppdatera",
+        "updateSuccess": "Uppgifterna har uppdaterats",
+        "updateFail": "Uppdatering av uppgifterna misslyckades",
+        "updateFailMessage": "Uppdatering av uppgifterna misslyckades. Kontrollera uppgifterna och försök igen.",
+        "password": "Lösenord",
+        "newPassword": "Nytt lösenord",
+        "confirmPassword": "Bekräfta lösenord",
+        "changePassword": "Byt lösenord",
+        "changePasswordSuccess": "Lösenordet har bytts",
+        "changePasswordFail": "Byte av lösenord misslyckades",
+        "changePasswordFailMessage": "Byte av lösenord misslyckades. Kontrollera uppgifterna och försök igen.",
+        "deleteAccount": "Radera konto",
+        "deleteAccountSuccess": "Kontot har raderats",
+        "deleteAccountFail": "Radering av kontot misslyckades",
+        "deleteAccountFailMessage": "Radering av kontot misslyckades. Kontrollera uppgifterna och försök igen.",
+        "deleteAccountConfirm": "Är du säker på att du vill radera ditt konto? Denna åtgärd är oåterkallelig.",
+        "deleteAccountConfirmMessage": "Ditt konto kommer att raderas och all relaterad information kommer att förloras. Är du säker på att du vill fortsätta?",
+        "terms": "Jag godkänner användarvillkoren"
+    },
+    "forms":{
+        "helper":{
+            "firstName": "Ange ditt förnamn",
+            "lastName": "Ange ditt efternamn",
+            "email": "Ange din e-postadress",
+            "phone": "Ange ditt telefonnummer",
+            "address": "Ange din adress",
+            "city": "Ange din stad",
+            "postal": "Ange ditt postnummer",
+            "company": "Ange ditt företagsnamn",
+            "password": "Ange ditt lösenord, det måste vara minst 8 tecken långt",
+            "confirmPassword": "Lösenord måste matcha!",
+            "newPassword": "Ange ditt nya lösenord, det måste vara minst 8 tecken långt",
+            "terms": "Godkännande av användarvillkoren är obligatoriskt"
+        },
+        "error":{
+            "firstName": "Ange ditt förnamn",
+            "lastName": "Ange ditt efternamn",
+            "email": "Din e-postadress är ogiltig.",
+            "phone": "Ditt telefonnummer är ogiltigt.",
+            "address": "Adress saknas.",
+            "city": "Stad saknas.",
+            "postal": "Ange ditt postnummer",
+            "company": "Ange ditt företagsnamn",
+            "password": "Ange ditt lösenord, det måste vara minst 8 tecken långt",
+            "confirmPassword": "Lösenorden matchar inte!",
+            "newPassword": "Ange ditt nya lösenord, det måste vara minst 8 tecken långt",
+            "terms": "Godkännande av användarvillkoren är obligatoriskt"
+        },
+        "register": "Registrera"
+    },
+    "product": {
+        "productDetails": {
+            "title": "Produktdetaljer",
+            "type": "Typ",
+            "price": "Pris",
+            "location": "Plats",
+            "offerValidFrom": "Erbjudandet gäller från",
+            "pickUpNeeded": "Hämtning behövs",
+            "delivered": "Levererad",
+            "yes": "Ja",
+            "no": "Nej"
+        }
     }
 
 
