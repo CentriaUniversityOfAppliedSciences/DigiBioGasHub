@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 
 import HomePage from '../views/HomePage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
+import MapPage from '../views/MapPage.vue';
 
 const routes = [
   {
@@ -17,6 +18,11 @@ const routes = [
     path: '/register',
     name: 'Register',
     component: RegisterPage
+  },
+  {
+    path: '/map',
+    name: 'Map',
+    component: MapPage
   }
 ]
 
