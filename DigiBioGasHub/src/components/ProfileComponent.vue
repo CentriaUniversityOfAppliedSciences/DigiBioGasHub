@@ -1,14 +1,9 @@
 <template>
     <ion-page>
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>User Profile</ion-title>
-            </ion-toolbar>
-        </ion-header>
         <ion-content>
             <ion-card>
                 <ion-card-header>
-                    <ion-card-title>{{ user.name }}</ion-card-title>
+                    <ion-card-title>{{ $t('menu.profile')}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
                     <ion-list>
@@ -17,12 +12,48 @@
                             <ion-text>{{ user.email }}</ion-text>
                         </ion-item>
                         <ion-item>
-                            <ion-label>Phone</ion-label>
+                            <ion-label>{{$t('account.email')}}</ion-label>
+                            <ion-text>{{ user.email }}</ion-text>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>{{$t('account.phone')}}</ion-label>
                             <ion-text>{{ user.phone }}</ion-text>
                         </ion-item>
                         <ion-item>
-                            <ion-label>Address</ion-label>
+                            <ion-label>{{ $t('account.address') }}</ion-label>
                             <ion-text>{{ user.address }}</ion-text>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>{{$t('account.company')}}</ion-label>
+                            <ion-text>{{ user.company }}</ion-text>
+                        </ion-item>
+                        <ion-item>
+                            <ion-label>{{$t('account.role')}}</ion-label>
+                            <ion-text>{{ user.role }}</ion-text>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>{{ $t('menu.offers')}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item v-for="offer in offers" :key="offer.id">
+                            <ion-label>{{ offer.name }}</ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+            </ion-card>
+            <ion-card>
+                <ion-card-header>
+                    <ion-card-title>{{ $t('menu.company')}}</ion-card-title>
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-list>
+                        <ion-item v-for="company in companies" :key="company.id">
+                            <ion-label>{{ company.name }}</ion-label>
                         </ion-item>
                     </ion-list>
                 </ion-card-content>
@@ -52,14 +83,29 @@ export default defineComponent({
         IonLabel,
         IonText
     },
+    props: {
+        user: {
+            name: String,
+            email: String,
+            phone: String,
+            address: String,
+            company: String,
+            role: String,
+            
+            
+        },
+        offers: {
+            type: Array,
+            required: true
+        },
+        company:{
+            type: Array,
+            required: true
+        }
+    },
     data() {
         return {
-            user: {
-                name: 'John Doe',
-                email: 'john.doe@example.com',
-                phone: '123-456-7890',
-                address: '123 Main St, Anytown, USA'
-            }
+            
         };
     }
 });

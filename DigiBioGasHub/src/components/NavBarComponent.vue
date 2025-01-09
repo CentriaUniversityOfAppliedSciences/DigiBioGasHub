@@ -8,10 +8,13 @@
         </div>
         <div class="navbar-right">
             <ul class="menu">
-                <li class="menu-item"><a href="#">{{$t('menu.home')}}</a></li>
-                <li class="menu-item"><a href="#">{{ $t('menu.offers') }}</a></li>
-                <li class="menu-item"><a href="#">{{ $t('menu.articles') }}</a></li>
-                <li class="menu-item" ><button @click="handleLoginModal()"><LoginComponent :showModal="showModal" />{{ $t('menu.login') }}</button></li>
+                <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
+                <li class="menu-item"><a href="/offers">{{ $t('menu.offers') }}</a></li>
+                <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
+                <li v-if="!LoggedIn" class="menu-item" ><button @click="handleLoginModal()"><LoginComponent :showModal="showModal" />{{ $t('menu.login') }}</button></li>
+                <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
+                <li v-if="LoggedIn" class="menu-item"><button @click="closeModal()">{{ $t('menu.logout') }}</button></li>
+                <li v-if="Admin" class="menu-item"><AdminComponent /></li>
                 <li class="menu-item"><LocaleComponent /></li>
             </ul>
         </div>
@@ -20,11 +23,12 @@
 
 <script>
 import {defineComponent} from 'vue';
+import AdminComponent from './AdminComponent.vue';
 import LocaleComponent from './LocaleComponent.vue';
 import LoginComponent from './LoginComponent.vue';
 export default defineComponent ({
     name: 'NavBarComponent',
-    components: { LocaleComponent, LoginComponent},
+    components: { LocaleComponent, LoginComponent, AdminComponent},
     setup() {
         return {};
     },
@@ -38,7 +42,9 @@ export default defineComponent ({
     },
     data() {
         return {
-            showModal: false
+            showModal: false,
+            LoggedIn: false,
+            Admin: false
         }
     }
 });

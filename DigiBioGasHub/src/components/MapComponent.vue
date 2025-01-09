@@ -20,6 +20,7 @@ import Feature from 'ol/Feature'
 import Point from 'ol/geom/Point'
 import { fromLonLat } from 'ol/proj'
 import { Style, Circle, Fill } from 'ol/style'
+import Overlay from 'ol/Overlay'
 
 export default defineComponent( {
     name: 'MapComponent',
@@ -29,7 +30,7 @@ export default defineComponent( {
     },
     setup() {
         const mapElement = ref(null)
-        
+        useGeographic();
         return { mapElement }
             
     },
@@ -37,14 +38,18 @@ export default defineComponent( {
         return {
             map: null,
             markers: this.propA,
-            
+            hoverOverlay: null
         }
     },
     methods:{
         addMarkers(){
             const features = this.markers.map((m) => {
                 const feature = new Feature({
-                    geometry: new Point(m.coords)
+                    geometry: new Point(m.coords),
+                    name: m.name,
+                    type: m.type,
+                    location: m.location,
+                    info: m.info
                 })
                 feature.setStyle(
                     new Style({
@@ -73,12 +78,43 @@ export default defineComponent( {
                     constrainResolution: true
                 })
             })
-            
+            this.map.render();
         }
     },
     mounted(){
-        useGeographic();
-        this.addMarkers()
+        
+        this.addMarkers();
+        // create overlay
+    const container = document.createElement('div')
+    container.style.backgroundColor = '#fff'
+    container.style.padding = '4px'
+    container.style.border = '1px solid #333'
+    this.hoverOverlay = new Overlay({ element: container, offset: [10, 0] })
+    this.map.addOverlay(this.hoverOverlay)
+
+    // handle pointermove
+    this.map.on('pointermove', (evt) => {
+      const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
+      if (feature) {
+        container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
+        this.hoverOverlay.setPosition(evt.coordinate)
+      } else {
+        this.hoverOverlay.setPosition(undefined)
+      }
+    })
+    },
+    watch: {
+        propA: {
+            handler(newVal, oldVal) {
+                if(newVal !== oldVal) {
+                    this.markers = newVal
+                    this.addMarkers()
+                }
+                
+            },
+            immediate: true,
+            flush: 'post'
+        }
     }
 });
 
