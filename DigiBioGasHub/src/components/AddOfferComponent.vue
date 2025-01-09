@@ -1,39 +1,30 @@
 <template>
-    <ion-page>
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>Add Product Listing</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
             <ion-item>
-                <ion-label position="floating">Product Name</ion-label>
+                <ion-label position="floating">{{ $t('product.image') }}</ion-label>
+                <img :src="image64" :alt="$t('product.image')" />
+                <ion-input type="file" @IonChange="processImg"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-label position="floating">{{ $t('product.name') }}</ion-label>
                 <ion-input v-model="productName"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">Description</ion-label>
+                <ion-label position="floating">{{ $t('product.desc') }}</ion-label>
                 <ion-textarea v-model="description"></ion-textarea>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">Price</ion-label>
+                <ion-label position="floating">{{ $t('product.price') }}</ion-label>
                 <ion-input type="number" v-model="price"></ion-input>
             </ion-item>
-            <ion-button expand="full" @click="addProduct">Add Product</ion-button>
-        </ion-content>
-    </ion-page>
+            <ion-button expand="full" @click="addProduct">{{ $t('product.submit') }}</ion-button>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonItem, IonLabel, IonInput, IonTextarea, IonButton } from '@ionic/vue';
+import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton } from '@ionic/vue';
 
 export default {
     name: 'AddOfferComponent',
     components: {
-        IonPage,
-        IonHeader,
-        IonToolbar,
-        IonTitle,
-        IonContent,
         IonItem,
         IonLabel,
         IonInput,
@@ -44,7 +35,9 @@ export default {
         return {
             productName: '',
             description: '',
-            price: null
+            price: null,
+            productImage: null,
+            image64: ''
         };
     },
     methods: {
@@ -55,6 +48,19 @@ export default {
                 description: this.description,
                 price: this.price
             });
+        },
+        processImg(img) {
+            let rawImg;
+            const file = document.querySelector('input[type=file]').files[0];
+            let reader = new FileReader();
+            
+            reader.onloadend = () => {
+                rawImg = reader.result;
+                console.log('Image:', rawImg);
+                this.image64 = rawImg;
+            };
+            this.image64 = reader.readAsDataURL(file);
+            
         }
     }
 };

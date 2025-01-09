@@ -10,6 +10,7 @@ import OfferPage from '../views/OfferPage.vue';
 import MarketplacePage from '../views/MarketplacePage.vue';
 import ProfilePage from '../views/ProfilePage.vue';
 import ToSPage from '../views/ToSPage.vue';
+import ProductPage from '../views/ProductPage.vue';
 
 const routes = [
   {
@@ -45,6 +46,16 @@ const routes = [
     path: '/articles',
     name: 'Articles Listing',
     component: BlogListingPage
+  },
+  {
+    path: '/offers/:id',
+    name: 'Product Offer',
+    component: OfferPage
+  },
+  {
+    path: '/products',
+    name: 'Marketplace',
+    component: ProductPage
   }
 ]
 
