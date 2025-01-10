@@ -27,7 +27,7 @@
 
 <script>
 import { IonPage, IonContent, IonCheckbox,  } from '@ionic/vue'
-import MapComponent from '@/components/MapComponent.vue'
+import MapComponent from '../components/MapComponent.vue'
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import { defineComponent } from 'vue';

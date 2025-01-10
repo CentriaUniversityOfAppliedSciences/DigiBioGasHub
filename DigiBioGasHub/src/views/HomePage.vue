@@ -28,14 +28,11 @@
             </ul>
           </ion-col>
           <ion-col>
-            <article>
-              <h2>Article 1</h2>
-              <p>This is the first article.</p>
-            </article>
-            <article>
-              <h2>Article 2</h2>
-              <p>This is the second article.</p>
-            </article>
+            <ion-row>
+              <ion-col size="12" size-sm="12" size-md="6" v-for="article in articles" :key="article.title">
+                <BlogListingComponent class="blog-card" :article="article" />
+              </ion-col>
+            </ion-row>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -49,10 +46,11 @@ import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, 
 import { defineComponent } from 'vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import BlogListingComponent from '../components/BlogListingComponent.vue';
 import ListingComponent from '../components/ListingComponent.vue';
 export default defineComponent ({
   name: 'HomePage',
-  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, ListingComponent },
+  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent },
   data() {
     return {
       product1: {
@@ -72,7 +70,37 @@ export default defineComponent ({
         category: 'Category 3',
         description: 'This is the third product.',
         price: 300
-      }
+      },
+      articles: [
+        {
+            title: 'Article 1',
+            abstract: 'This is the abstract of article 1',
+            picture: 'https://via.placeholder.com/150',
+            link: 'https://www.google.com',
+            date: '2021-01-01'
+        },
+        {
+            title: 'Article 2',
+            abstract: 'This is the abstract of article 2',
+            picture: 'https://via.placeholder.com/150',
+            link: 'https://www.google.com',
+            date: '2021-01-02'
+        },
+        {
+            title: 'Article 3',
+            abstract: 'This is the abstract of article 3',
+            picture: 'https://via.placeholder.com/150',
+            link: 'https://www.google.com',
+            date: '2021-01-03'
+        },
+        {
+            title: 'Article 4',
+            abstract: 'This is the abstract of article 1',
+            picture: 'https://via.placeholder.com/150',
+            link: 'https://www.google.com',
+            date: '2021-01-01'
+        },
+            ]
     }
   }
 })
@@ -106,5 +134,9 @@ export default defineComponent ({
 
 #container a {
   text-decoration: none;
+}
+.blog-card {
+    text-align: center;
+    
 }
 </style>
