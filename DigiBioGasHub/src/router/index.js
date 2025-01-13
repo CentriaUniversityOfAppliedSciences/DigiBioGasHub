@@ -11,6 +11,7 @@ import MarketplacePage from '../views/MarketplacePage.vue';
 import ProfilePage from '../views/ProfilePage.vue';
 import ToSPage from '../views/ToSPage.vue';
 import ProductPage from '../views/ProductPage.vue';
+import CompanyPage from '../views/CompanyPage.vue';
 
 const routes = [
   {
@@ -56,7 +57,12 @@ const routes = [
     path: '/products',
     name: 'Marketplace',
     component: ProductPage
-  }
+  },
+  {
+    path: '/company',
+    name: 'Company',
+    component: CompanyPage
+  },
 ]
 
 const router = createRouter({
