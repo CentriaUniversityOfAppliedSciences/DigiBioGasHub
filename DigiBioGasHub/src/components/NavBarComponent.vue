@@ -11,7 +11,7 @@
                 <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
                 <li class="menu-item"><a href="/offers">{{ $t('menu.offers') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
-                <li v-if="!LoggedIn" class="menu-item" ><button @click="handleLoginModal()"><LoginComponent :showModal="showModal" />{{ $t('menu.login') }}</button></li>
+                <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><button @click="closeModal()">{{ $t('menu.logout') }}</button></li>
                 <li v-if="Admin" class="menu-item"><AdminComponent /></li>

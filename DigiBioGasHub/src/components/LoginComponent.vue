@@ -1,10 +1,11 @@
 <template>
-    <ion-modal :is-open="triggerModal" @didDismiss="closeModal">
+    <ion-button id="login">{{ $t('menu.login') }}</ion-button>
+    <ion-modal trigger="login">
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{ $t('general.login') }}</ion-title>
                 <ion-buttons slot="end">
-                    <ion-button @click="closeModal">{{ $t('general.close') }}</ion-button>
+                    <ion-button @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
                 </ion-buttons>
             </ion-toolbar>
         </ion-header>
@@ -20,14 +21,17 @@
                 </ion-item>
             </ion-list>
             <ion-button expand="full" @click="login">{{ $t('general.loginButton') }}</ion-button>
+            <ToastComponent v-if="errorMessage" :is-open="true" :message="errorMessage" :duration="5000" :color="'danger'" />
             <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
         </ion-content>
     </ion-modal>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
-import { IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput } from '@ionic/vue';
+import { defineComponent } from 'vue';
+import { IonModal, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent, IonList, IonItem, IonLabel, IonInput, modalController } from '@ionic/vue';
+import ToastComponent from './ToastComponent.vue';
+import axios from 'axios';
 
 export default defineComponent({
     name: 'LoginComponent',
@@ -42,32 +46,38 @@ export default defineComponent({
         IonList,
         IonItem,
         IonLabel,
-        IonInput
+        IonInput,
+        ToastComponent
     },
-    props: {
-        showModal: Boolean
-    },
+    
     setup() {
         
-        return{}
+        return{modalController}
     },
     methods: {
-        closeModal(){
-            this.triggerModal = false;
-            this.$emit('closeModal');
-        },
         login(){
-            if (!validateEmail(username.value)) {
-                errorMessage.value = 'Invalid email address';
+            this.errorMessage = '';
+            if (!this.validateEmail(this.username)) {
+                this.errorMessage = 'Invalid email address';
                 return;
             }
-            if (password.value.length < 6) {
-                errorMessage.value = 'Password must be at least 6 characters long';
+            if (this.password.length < 6) {
+                this.errorMessage = 'Password must be at least 6 characters long';
                 return;
             }
-            console.log('Username:', username.value);
-            console.log('Password:', password.value);
-            closeModal();
+            axios.post('http://localhost:28765/login', {
+                username: this.username,
+                password: this.password
+            }).then(response => {
+                if (response.data.result === 'ok') {
+                    localStorage.setItem('token', response.data.token);
+                    this.$router.push('/home');
+                } else {
+                    console.log('error')
+                }
+            }).catch(error => {
+                this.errorMessage = error;
+            });
         },
 
         
@@ -81,7 +91,7 @@ export default defineComponent({
             username: '',
             password: '',
             errorMessage: '',
-            triggerModal: this.showModal
+            
         }
     }
 });

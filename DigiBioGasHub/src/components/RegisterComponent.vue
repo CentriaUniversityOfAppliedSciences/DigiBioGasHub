@@ -95,9 +95,9 @@
 
 <script>
 import {  IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton, IonCheckbox } from '@ionic/vue';
-
-
-export default {
+import { defineComponent } from 'vue';
+import axios from 'axios';
+export default defineComponent ({
     name: 'RegisterComponent',
     components: {
         
@@ -132,9 +132,20 @@ export default {
     methods: {
         register() {
             // Handle registration logic here
-            console.log('Email:', this.email);
-            console.log('Password:', this.password);
-            console.log('Address:', this.address);
+            axios.post('http://localhost:28765/register', {
+                name: this.firstName + ' ' + this.lastName,
+                phone: this.phoneNumber,
+                username: this.email,
+                email: this.email,
+                password: this.password1
+            }).then(response => {
+                if (response.status === 200) {
+                    // Registration successful
+                    this.$router.push('/home');
+                }
+            }).catch(error => {
+                console.error(error);
+            });
         },
         validateFirstName(ev) {
             if (ev.target.value === '') {
@@ -223,7 +234,7 @@ export default {
         }
 
     }
-};
+});
 </script>
 
 <style scoped>
