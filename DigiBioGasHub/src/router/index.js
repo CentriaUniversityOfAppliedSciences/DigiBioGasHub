@@ -63,6 +63,11 @@ const routes = [
     name: 'Company',
     component: CompanyPage
   },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: ProfilePage
+  }
 ]
 
 const router = createRouter({

@@ -13,7 +13,7 @@
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
-                <li v-if="LoggedIn" class="menu-item"><button @click="closeModal()">{{ $t('menu.logout') }}</button></li>
+                <li v-if="LoggedIn" class="menu-item"><LogoutComponent /></li>
                 <li v-if="Admin" class="menu-item"><AdminComponent /></li>
                 <li class="menu-item"><LocaleComponent /></li>
             </ul>
@@ -26,9 +26,10 @@ import {defineComponent} from 'vue';
 import AdminComponent from './AdminComponent.vue';
 import LocaleComponent from './LocaleComponent.vue';
 import LoginComponent from './LoginComponent.vue';
+import LogoutComponent from './LogoutComponent.vue';
 export default defineComponent ({
     name: 'NavBarComponent',
-    components: { LocaleComponent, LoginComponent, AdminComponent},
+    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent },
     setup() {
         return {};
     },
@@ -45,6 +46,14 @@ export default defineComponent ({
             showModal: false,
             LoggedIn: false,
             Admin: false
+        }
+    },
+    mounted() {
+        if (localStorage.getItem('token')) {
+            this.LoggedIn = true;
+        }
+        if (localStorage.getItem('admin')) {
+            this.Admin = true;
         }
     }
 });

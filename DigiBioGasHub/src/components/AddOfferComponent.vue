@@ -1,26 +1,44 @@
 <template>
             <ion-item>
-                <ion-label position="floating">{{ $t('product.image') }}</ion-label>
-                <img :src="image64" :alt="$t('product.image')" />
-                <ion-input type="file" @IonChange="processImg"></ion-input>
+                
+                <img :src="image64"  />
+                <ion-input :label="$t('product.image')" labelPlacement="floating" type="file" @IonChange="processImg"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">{{ $t('product.name') }}</ion-label>
-                <ion-input v-model="productName"></ion-input>
+                <ion-input :label="$t('product.name')" labelPlacement="floating" v-model="productName"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">{{ $t('product.desc') }}</ion-label>
-                <ion-textarea v-model="description"></ion-textarea>
+                <ion-select v-model="type" labelPlacement="floating" :label="$t('product.offerTypes')" :placeholder="$t('product.chooseType')">
+                    <ion-select-option value="offer">{{ $t('product.type.offer') }}</ion-select-option>
+                    <ion-select-option value="demand">{{ $t('product.type.demand') }}</ion-select-option>
+                    <ion-select-option value="auction">{{ $t('product.type.auction') }}</ion-select-option>
+                </ion-select>
             </ion-item>
             <ion-item>
-                <ion-label position="floating">{{ $t('product.price') }}</ion-label>
-                <ion-input type="number" v-model="price"></ion-input>
+                <ion-textarea :label="$t('product.desc')" labelPlacement="floating" v-model="description"></ion-textarea>
+            </ion-item>
+            <ion-item v-if="type === 'offer'">
+                <ion-input :label="$t('product.price.offer')" labelPlacement="floating" type="number" v-model="price"></ion-input>
+            </ion-item>
+            <ion-item v-if="type === 'demand'">
+                <ion-input :label="$t('product.price.demand')" labelPlacement="floating" type="number" v-model="price"></ion-input>
+            </ion-item>
+            <ion-item v-if="type === 'auction'">
+                <ion-input :label="$t('product.price.auction')" labelPlacement="floating" type="number" v-model="price"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-select v-model="logisticType" :label="$t('product.logistic.type')">
+                    <ion-select-option value="included">{{ $t('product.logistic.includedInPrice') }}</ion-select-option>
+                    <ion-select-option value="freetopickup">{{ $t('product.logistic.freeToPickup') }}</ion-select-option>
+                    <ion-select-option value="agreedupon">{{ $t('product.logistic.agreedupon') }}</ion-select-option>
+                    
+                </ion-select>
             </ion-item>
             <ion-button expand="full" @click="addProduct">{{ $t('product.submit') }}</ion-button>
 </template>
 
 <script>
-import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton } from '@ionic/vue';
+import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect } from '@ionic/vue';
 
 export default {
     name: 'AddOfferComponent',
@@ -29,7 +47,9 @@ export default {
         IonLabel,
         IonInput,
         IonTextarea,
-        IonButton
+        IonButton,
+        IonSelectOption,
+        IonSelect,
     },
     data() {
         return {
@@ -37,7 +57,8 @@ export default {
             description: '',
             price: null,
             productImage: null,
-            image64: ''
+            image64: '',
+            type: null
         };
     },
     methods: {

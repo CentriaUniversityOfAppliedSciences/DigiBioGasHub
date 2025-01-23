@@ -21,7 +21,6 @@
                 </ion-item>
             </ion-list>
             <ion-button expand="full" @click="login">{{ $t('general.loginButton') }}</ion-button>
-            <ToastComponent v-if="errorMessage" :is-open="true" :message="errorMessage" :duration="5000" :color="'danger'" />
             <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
         </ion-content>
     </ion-modal>
@@ -47,22 +46,24 @@ export default defineComponent({
         IonItem,
         IonLabel,
         IonInput,
-        ToastComponent
+        
     },
     
     setup() {
         
-        return{modalController}
+        return{modalController, ToastComponent}
     },
     methods: {
         login(){
             this.errorMessage = '';
             if (!this.validateEmail(this.username)) {
-                this.errorMessage = 'Invalid email address';
+                this.errorMessage = this.$t('account.loginEmailFail');
+                this.ToastComponent.methods.showToast($t('account.loginEmailFail'), 2000, 'danger');
                 return;
             }
             if (this.password.length < 6) {
-                this.errorMessage = 'Password must be at least 6 characters long';
+                this.errorMessage = this.$t('account.loginPasswordFail');
+                this.ToastComponent.methods.showToast(this.$t('account.loginPasswordFail'), 2000, 'danger');
                 return;
             }
             axios.post('http://localhost:28765/login', {
@@ -70,12 +71,17 @@ export default defineComponent({
                 password: this.password
             }).then(response => {
                 if (response.data.result === 'ok') {
+                    this.ToastComponent.methods.showToast(this.$t('account.loginSuccess'), 2000, 'success');
+                    
                     localStorage.setItem('token', response.data.token);
-                    this.$router.push('/home');
+                    this.modalController.dismiss();
+                    window.location.href = '/home';
                 } else {
                     console.log('error')
+                    this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
                 }
             }).catch(error => {
+                this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
                 this.errorMessage = error;
             });
         },
