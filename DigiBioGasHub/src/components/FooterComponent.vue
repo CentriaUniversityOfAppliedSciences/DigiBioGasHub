@@ -37,13 +37,13 @@
                 </ion-col>
                 <ion-col size="12" size-sm="3">
                     <ion-item class="logo">
-                        <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo">
+                        <img :src="$t('footer.seAMK')" :alt="$t('footer.seamk-logo')" class="logo">
                     </ion-item>
                 </ion-col>
 
                 <ion-col size="12" size-sm="3">
                     <ion-item class="logo">
-                        <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo">
+                        <img :src="$t('footer.vaasanYliopisto')" :alt="$t('footer.vaasanYliopisto-logo')" class="logo">
                     </ion-item>
                 </ion-col>
             </ion-row>

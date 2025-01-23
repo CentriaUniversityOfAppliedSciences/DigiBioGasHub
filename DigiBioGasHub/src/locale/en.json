@@ -64,12 +64,16 @@
     "footer":{
         "KP": "src/assets/kp-eng.jpg",
         "EP": "src/assets/ep.jpg",
-        "P": "src/assets/poh-eng.jpg",
+        "P": "src/assets/poh-eng.png",
         "KP-logo": "Central Ostrobothnia Regional Council",
         "EP-logo": "South Ostrobothnia Regional Council",
         "P-logo": "Ostrobothnia Regional Council",
         "Centria": "src/assets/Centria.jpg",
-        "Centria-logo": "Centria University of Applied Sciences"
+        "Centria-logo": "Centria University of Applied Sciences",
+        "vaasanYliopisto": "src/assets/vaasa.png",
+        "seAMK": "src/assets/seamk.png",
+        "vaasanYliopisto-logo": "University of Vaasa",
+        "seAMK-logo": "Seinäjoki University of Applied Sciences"
     },
     "account":{
         "firstName": "First name",

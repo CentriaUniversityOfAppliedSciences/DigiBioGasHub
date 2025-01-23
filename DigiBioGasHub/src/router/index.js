@@ -59,6 +59,11 @@ const routes = [
     component: ProductPage
   },
   {
+    path: '/marketplace',
+    name: 'Marketplace',
+    component: MarketplacePage
+  },
+  {
     path: '/company',
     name: 'Company',
     component: CompanyPage

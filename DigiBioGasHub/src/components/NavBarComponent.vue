@@ -9,8 +9,9 @@
         <div class="navbar-right">
             <ul class="menu">
                 <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
-                <li class="menu-item"><a href="/offers">{{ $t('menu.offers') }}</a></li>
+                <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
+                <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li>
                 <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><LogoutComponent /></li>

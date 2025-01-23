@@ -64,12 +64,16 @@
     "footer":{
         "KP": "src/assets/kp.jpg",
         "EP": "src/assets/ep.jpg",
-        "P": "src/assets/poh.jpg",
+        "P": "src/assets/poh.png",
         "KP-logo": "Mellersta Österbottens Förbund",
         "EP-logo": "Etelä-Pohjanmaan liitto",
         "P-logo": "Österbottens Förbund",
         "Centria": "src/assets/Centria.jpg",
-        "Centria-logo": "Centria-ammattikorkeakoulu"
+        "Centria-logo": "Centria-ammattikorkeakoulu",
+        "vaasanYliopisto": "src/assets/vaasa.png",
+        "seAMK": "src/assets/seamk.png",
+        "vaasanYliopisto-logo": "Vasa universitet",
+        "seAMK-logo": "Seinäjoki Yrkehögskola"
     },
     "account":{
         "firstName": "Förnamn",
