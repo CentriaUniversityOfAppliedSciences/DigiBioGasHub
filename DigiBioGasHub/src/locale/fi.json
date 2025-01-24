@@ -5,7 +5,17 @@
         "articles": "Artikkelit",
         "login": "Kirjaudu sisään",
         "logoPath": "src/assets/funder-logo-fi.png",
-        "language": "Kieli"
+        "language": "Kieli",
+        "knowledgeBase": "Tietopankki",
+        "profile": "Profiili",
+        "logout": "Kirjaudu ulos",
+        "register": "Rekisteröidy",
+        "myOffers": "Omat tarjoukset",
+        "myRequests": "Omat pyynnöt",
+        "myProducts": "Omat tuotteet",
+        "mycompany": "Yritykseni",
+        "marketplace": "Markkinapaikka",
+        "map": "Kartta"
     },
     "general":{
         "loading": "Ladataan...",
@@ -60,7 +70,7 @@
         "company": "Yritys",
         "TermsAndConditions": "Käyttöehdot",
         "PrivacyPolicy": "Tietosuojakäytäntö"
-
+        
 
     },
     "footer":{
@@ -149,6 +159,20 @@
             "yes": "Kyllä",
             "no": "Ei"
         }
+    },
+    "logisticQuotation": {
+        "title": "Logistiikkatarjous",
+        "pickupAddress": "Nouto-osoite",
+        "deliveryAddress": "Toimitusosoite",
+        "pickupDate": "Noutopäivä",
+        "deliveryDate": "Toimituspäivä",
+        "recurring": "Toistuva",
+        "weekly": "Viikoittain",
+        "biweekly": "Kahden viikon välein",
+        "monthly": "Kuukausittain",
+        "userInput": "Käyttäjän syöte",
+        "endDate": "Päättymispäivä",
+        "submit": "Lähetä"
     }
 
 }

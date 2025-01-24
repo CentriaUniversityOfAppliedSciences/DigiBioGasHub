@@ -5,7 +5,17 @@
         "articles": "Artiklar",
         "login": "Logga in",
         "logoPath": "src/assets/funder-logo-sv.png",
-        "language": "Språk"
+        "language": "Språk",
+        "knowledgeBase": "Kunskapsbank",
+        "profile": "Profil",
+        "logout": "Logga ut",
+        "register": "Registrera",
+        "myOffers": "Mina erbjudanden",
+        "myRequests": "Mina förfrågningar",
+        "myProducts": "Mina produkter",
+        "mycompany": "Mitt företag",
+        "marketplace": "Marknadsplats",
+        "map": "Karta"
     },
     "general":{
         "loading": "Laddar...",
@@ -146,6 +156,20 @@
             "yes": "Ja",
             "no": "Nej"
         }
+    },
+    "logisticQuotation": {
+        "title": "Logistikanbud",
+        "pickupAddress": "Hämtningsadress",
+        "deliveryAddress": "Leveransadress",
+        "pickupDate": "Hämtningsdatum",
+        "deliveryDate": "Leveransdatum",
+        "recurring": "Återkommande",
+        "weekly": "Veckovis",
+        "biweekly": "Varannan vecka",
+        "monthly": "Månadsvis",
+        "userInput": "Användarinmatning",
+        "endDate": "Slutdatum",
+        "submit": "Skicka"
     }
 
 

@@ -10,6 +10,8 @@
             <ul class="menu">
                 <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
                 <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
+                <li class="menu-item"><a href="/map">{{ $t('menu.map') }}</a></li>
+                <li class="menu-item" v-if="LoggedIn"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li>
                 <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
@@ -93,11 +95,16 @@ export default defineComponent ({
     list-style: none;
     display: flex;
     gap: 20px;
+    
+}
+.menu-item{
+    margin: auto;
 }
 
 .menu-item a {
     color: #fff;
     text-decoration: none;
+    
 }
 
 .menu-item a:hover {

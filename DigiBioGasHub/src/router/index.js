@@ -12,6 +12,7 @@ import ProfilePage from '../views/ProfilePage.vue';
 import ToSPage from '../views/ToSPage.vue';
 import ProductPage from '../views/ProductPage.vue';
 import CompanyPage from '../views/CompanyPage.vue';
+import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
 
 const routes = [
   {
@@ -72,6 +73,11 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component: ProfilePage
+  },
+  {
+    path: '/knowledge-base',
+    name: 'Knowledge Base',
+    component: KnowledgeBasePage
   }
 ]
 

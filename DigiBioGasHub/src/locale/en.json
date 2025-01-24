@@ -5,7 +5,17 @@
         "articles": "Articles",
         "login": "Login",
         "logoPath": "src/assets/funder-logo-en.png",
-        "language": "Language"
+        "language": "Language",
+        "knowledgeBase": "Knowledge Bank",
+        "profile": "Profile",
+        "logout":"Logout",
+        "register":"Register",
+        "myOffers":"My Offers",
+        "myRequests":"My Requests",
+        "myProducts":"My Products",
+        "mycompany": "My Company",
+        "marketplace": "Marketplace",
+        "map": "Map"
     },
     "general":{
         "loading": "Loading...",
@@ -147,6 +157,20 @@
             "yes": "Yes",
             "no": "No"
         }
-    }
+    },
+    "logisticQuotation": {
+            "title": "Logistic Quotation",
+            "pickupAddress": "Pickup Address",
+            "deliveryAddress": "Delivery Address",
+            "pickupDate": "Pickup Date",
+            "deliveryDate": "Delivery Date",
+            "recurring": "Recurring",
+            "weekly": "Weekly",
+            "biweekly": "Biweekly",
+            "monthly": "Monthly",
+            "userInput": "User Input",
+            "endDate": "End Date",
+            "submit": "Submit"
+        }
 
 }
