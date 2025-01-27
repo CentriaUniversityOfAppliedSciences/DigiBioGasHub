@@ -23,9 +23,12 @@
     "axios": "^1.7.9",
     "ionicons": "^7.0.0",
     "ol": "^10.3.1",
+    "ol-contextmenu": "^5.5.0",
+    "ol-ext": "^4.0.24",
     "vue": "^3.3.0",
     "vue-i18n": "^10.0.5",
-    "vue-router": "^4.2.0"
+    "vue-router": "^4.2.0",
+    "vue3-openlayers": "^11.3.0"
   },
   "devDependencies": {
     "@capacitor/cli": "6.2.0",

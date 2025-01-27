@@ -13,6 +13,7 @@ import '@ionic/vue/css/typography.css';
 import fi from './locale/fi.json';
 import en from './locale/en.json';
 import sv from './locale/sv.json';
+import OpenLayersMap from 'vue3-openlayers';
 
 /* Optional CSS utils that can be commented out */
 import '@ionic/vue/css/padding.css';
@@ -52,7 +53,8 @@ const i18n = createI18n({
 const app = createApp(App)
   .use(IonicVue)
   .use(i18n)
-  .use(router);
+  .use(router)
+  .use(OpenLayersMap);
 
 router.isReady().then(() => {
   app.mount('#app');
