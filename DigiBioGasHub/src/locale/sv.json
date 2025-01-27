@@ -5,7 +5,17 @@
         "articles": "Artiklar",
         "login": "Logga in",
         "logoPath": "src/assets/funder-logo-sv.png",
-        "language": "Språk"
+        "language": "Språk",
+        "knowledgeBase": "Kunskapsbank",
+        "profile": "Profil",
+        "logout": "Logga ut",
+        "register": "Registrera",
+        "myOffers": "Mina erbjudanden",
+        "myRequests": "Mina förfrågningar",
+        "myProducts": "Mina produkter",
+        "mycompany": "Mitt företag",
+        "marketplace": "Marknadsplats",
+        "map": "Karta"
     },
     "general":{
         "loading": "Laddar...",
@@ -64,12 +74,16 @@
     "footer":{
         "KP": "src/assets/kp.jpg",
         "EP": "src/assets/ep.jpg",
-        "P": "src/assets/poh.jpg",
+        "P": "src/assets/poh.png",
         "KP-logo": "Mellersta Österbottens Förbund",
         "EP-logo": "Etelä-Pohjanmaan liitto",
         "P-logo": "Österbottens Förbund",
         "Centria": "src/assets/Centria.jpg",
-        "Centria-logo": "Centria-ammattikorkeakoulu"
+        "Centria-logo": "Centria-ammattikorkeakoulu",
+        "vaasanYliopisto": "src/assets/vaasa.png",
+        "seAMK": "src/assets/seamk.png",
+        "vaasanYliopisto-logo": "Vasa universitet",
+        "seAMK-logo": "Seinäjoki Yrkehögskola"
     },
     "account":{
         "firstName": "Förnamn",
@@ -142,6 +156,20 @@
             "yes": "Ja",
             "no": "Nej"
         }
+    },
+    "logisticQuotation": {
+        "title": "Logistikanbud",
+        "pickupAddress": "Hämtningsadress",
+        "deliveryAddress": "Leveransadress",
+        "pickupDate": "Hämtningsdatum",
+        "deliveryDate": "Leveransdatum",
+        "recurring": "Återkommande",
+        "weekly": "Veckovis",
+        "biweekly": "Varannan vecka",
+        "monthly": "Månadsvis",
+        "userInput": "Användarinmatning",
+        "endDate": "Slutdatum",
+        "submit": "Skicka"
     }
 
 

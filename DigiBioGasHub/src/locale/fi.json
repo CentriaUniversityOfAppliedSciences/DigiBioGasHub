@@ -5,7 +5,17 @@
         "articles": "Artikkelit",
         "login": "Kirjaudu sisään",
         "logoPath": "src/assets/funder-logo-fi.png",
-        "language": "Kieli"
+        "language": "Kieli",
+        "knowledgeBase": "Tietopankki",
+        "profile": "Profiili",
+        "logout": "Kirjaudu ulos",
+        "register": "Rekisteröidy",
+        "myOffers": "Omat tarjoukset",
+        "myRequests": "Omat pyynnöt",
+        "myProducts": "Omat tuotteet",
+        "mycompany": "Yritykseni",
+        "marketplace": "Markkinapaikka",
+        "map": "Kartta"
     },
     "general":{
         "loading": "Ladataan...",
@@ -60,18 +70,22 @@
         "company": "Yritys",
         "TermsAndConditions": "Käyttöehdot",
         "PrivacyPolicy": "Tietosuojakäytäntö"
-
+        
 
     },
     "footer":{
         "KP": "src/assets/kp.jpg",
         "EP": "src/assets/ep.jpg",
-        "P": "src/assets/poh.jpg",
+        "P": "src/assets/poh.png",
         "KP-logo": "Keski-Pohjanmaan liitto",
         "EP-logo": "Etelä-Pohjanmaan liitto",
         "P-logo": "Pohjanmaan liitto",
         "Centria": "src/assets/Centria.jpg",
-        "Centria-logo": "Centria-ammattikorkeakoulu"
+        "Centria-logo": "Centria-ammattikorkeakoulu",
+        "vaasanYliopisto": "src/assets/vaasa.png",
+        "seAMK": "src/assets/seamk.png",
+        "vaasanYliopisto-logo": "Vaasan Yliopisto",
+        "seAMK-logo": "Seinäjoen ammattikorkeakoulu"
     },
     "account":{
         "firstName": "Etunimi",
@@ -145,6 +159,20 @@
             "yes": "Kyllä",
             "no": "Ei"
         }
+    },
+    "logisticQuotation": {
+        "title": "Logistiikkatarjous",
+        "pickupAddress": "Nouto-osoite",
+        "deliveryAddress": "Toimitusosoite",
+        "pickupDate": "Noutopäivä",
+        "deliveryDate": "Toimituspäivä",
+        "recurring": "Toistuva",
+        "weekly": "Viikoittain",
+        "biweekly": "Kahden viikon välein",
+        "monthly": "Kuukausittain",
+        "userInput": "Käyttäjän syöte",
+        "endDate": "Päättymispäivä",
+        "submit": "Lähetä"
     }
 
 }

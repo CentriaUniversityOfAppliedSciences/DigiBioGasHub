@@ -2,43 +2,29 @@
     <ion-page>
         <nav-bar-component />
         <ion-content>
-            <CompanyComponent />
-            <agreement-component />
+            <KnowledgeBaseComponent />
         </ion-content>
         <footer-component />
     </ion-page>
 </template>
-
 <script>
 import { defineComponent } from 'vue'
 import {
     IonPage,
-    IonHeader,
-    IonToolbar,
-    IonTitle,
     IonContent
 } from '@ionic/vue'
 import NavBarComponent from '../components/NavBarComponent.vue';
-import CompanyComponent from '../components/CompanyComponent.vue';
-import AgreementComponent from '../components/AgreementComponent.vue';
+import KnowledgeBaseComponent from '../components/KnowledgeBaseComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 
 export default defineComponent({
-    name: 'CompanyPage',
+    name: 'KnowledgeBasePage',
     components: {
         IonPage,
-        IonHeader,
-        IonToolbar,
-        IonTitle,
         IonContent,
-        CompanyComponent,
+        KnowledgeBaseComponent,
         FooterComponent,
-        NavBarComponent,
-        AgreementComponent,
+        NavBarComponent
     }
 })
 </script>
-
-<style scoped>
-/* Optional styling */
-</style>

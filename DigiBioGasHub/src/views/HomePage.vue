@@ -16,7 +16,7 @@
             </div>
           </ion-col>
           <ion-col>
-            <img src="https://via.placeholder.com/300" alt="Placeholder Image" />
+            <img src="https://images.placeholders.dev/?width=600&height=400&text=picture here" alt="Placeholder Image" />
           </ion-col>
         </ion-row>
         <ion-row>
@@ -36,6 +36,7 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      
     </ion-content>
     <footer-component />
   </ion-page>
