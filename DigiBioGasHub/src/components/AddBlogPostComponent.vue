@@ -1,21 +1,27 @@
 <template>
-    <umo-editor v-bind="options"></umo-editor>
+    <umo-editor ref="editorRef" v-bind="options"></umo-editor>
+    
 </template>
+
 <script>
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import {UmoEditor} from '@umoteam/editor';
+
 export default defineComponent({
     name: 'AddBlogPostComponent',
     components: {
         UmoEditor
     },
     setup() {
-        return{}
+      const editorRef = ref(null);
+      
+  
+        return{editorRef}
     },
     data() {
         return {
             options:{
-  "editorKey": "demo",
+  "editorKey": "default",
   "locale": "en-US",
   "theme": "light",
   "height": "100%",
@@ -366,7 +372,7 @@ export default defineComponent({
     "importWord": {
       "enabled": true,
       "options": {},
-      "useCustomMethod": false
+      "useCustomMethod": true
     }
   },
   "page": {
@@ -518,6 +524,17 @@ export default defineComponent({
         savePost(){
             console.log(this.$refs.editor.getContent());
         }
+    },
+    mounted() {
+        this.$refs.editorRef.setOptions(this.options);
+        this.$refs.editorRef.setLocale('en-US');
+    },
+    metaInfo() {
+        script:[
+          {
+            src: 'https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.9.0/mammoth.browser.min.js', async: true, defer:true
+          }
+        ]
     }
-    })
+})
 </script>
