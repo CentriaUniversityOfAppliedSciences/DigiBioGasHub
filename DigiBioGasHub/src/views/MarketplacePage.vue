@@ -7,13 +7,17 @@
                 <ion-row class="ion-align-items-start">
                 <ion-col size="2">
                     <FilterComponent :filtersData="filtersData" :dataToFilter="products" @filtered-data="updateData" />
+                    <ion-button @click="addOffer">Add offer</ion-button>
                 </ion-col>
-                <ion-row>
-                    <ion-col v-for="product in currentProducts" :key="product.id">
-                        <ListingComponent :product="product" />
-                    </ion-col>
-                </ion-row>
+                <ion-col>
+                    <ion-row>
+                        <ion-col v-for="product in currentProducts" :key="product.id">
+                            <ListingComponent :product="product" />
+                        </ion-col>
+                    </ion-row>
+                </ion-col>  
             </ion-row>
+           
             </ion-grid>
         </div>
         <FooterComponent />
@@ -27,6 +31,7 @@ import FilterComponent from '../components/FilterComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import ListingComponent from '../components/ListingComponent.vue'
 import {IonPage, IonContent, IonCol, IonGrid, IonRow} from '@ionic/vue'
+import axios from 'axios'
 export default defineComponent ({
     name: 'MarketplacePage',
     components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent},
@@ -96,10 +101,26 @@ export default defineComponent ({
         updateData(data){
             console.log('Filtered data:', data);
             this.currentProducts = data;
+        },
+        getProducts(){
+            
+            var url = "http://localhost:28765/getoffers";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                console.log(response);
+                if (response.data.type="result" && response.data.result.length > 0){
+                    this.products = response.data.result;
+                    this.currentProducts = response.data.result;
+                    
+                }
+            });
+        },
+        addOffer(){
+
         }
     },
     mounted() {
         this.currentProducts = this.products;
+        this.getProducts();
     }
 
 })
