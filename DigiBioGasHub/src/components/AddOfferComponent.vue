@@ -5,6 +5,12 @@
                 <ion-input :label="$t('product.image')" labelPlacement="floating" type="file" @IonChange="processImg"></ion-input>
             </ion-item>
             <ion-item>
+                <ion-select v-model="material" :label="$t('product.material')" :placeholder="$t('product.chooseMaterial')">
+                    <ion-select-option v-for="material in materials" :key="material.name" :value="material.name">{{ material.locality[$i18n.locale] }}</ion-select-option>
+                    
+                </ion-select>
+            </ion-item>
+            <ion-item>
                 <ion-input :label="$t('product.name')" labelPlacement="floating" v-model="productName"></ion-input>
             </ion-item>
             <ion-item>
