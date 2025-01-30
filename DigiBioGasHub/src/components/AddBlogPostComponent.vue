@@ -502,7 +502,7 @@ export default defineComponent({
   },
   "shareUrl": "",
   "templates": [],
-  "cdnUrl": "",
+  "cdnUrl": "https://unpkg.com/@umoteam/editor-external@4",
   "diagrams": {
     "domain": "https://embed.diagrams.net",
     "params": {}
