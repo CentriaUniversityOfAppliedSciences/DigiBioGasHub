@@ -37,7 +37,7 @@
                 </ion-col>
                 <ion-col size="12" size-sm="3">
                     <ion-item class="logo">
-                        <img :src="$t('footer.seAMK')" :alt="$t('footer.seamk-logo')" class="logo">
+                        <img :src="$t('footer.seAMK')" :alt="$t('footer.seAMK-logo')" class="logo">
                     </ion-item>
                 </ion-col>
 
