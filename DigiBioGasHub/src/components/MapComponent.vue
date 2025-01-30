@@ -71,6 +71,11 @@ export default defineComponent( {
 
                 })
             }),
+            vectorSource: null,
+            vectorLayer: null,
+            stationSource: null, 
+            stationLayer: null,
+
         }
     },
     methods:{
@@ -79,6 +84,7 @@ export default defineComponent( {
                 parseFloat(0.25),
                 parseFloat(0.25),
             ]);
+            this.stationSource.clear();
             var features = this.stations.map((m) => {
                 const feature = new Feature({
                     geometry: new Point([m.longitude, m.latitude]),
@@ -91,9 +97,7 @@ export default defineComponent( {
                 feature.setStyle(this.stationStyle);
                 return feature;
             });
-            const stationSource = new VectorSource({ features });
-            const stationLayer = new VectorLayer({ source: stationSource });
-            this.map.addLayer(stationLayer);
+            this.stationSource.addFeatures(features); 
         },
         addMarkers(){
              
@@ -105,6 +109,7 @@ export default defineComponent( {
                 parseFloat(0.25),
                 parseFloat(0.25),
             ]);
+            this.vectorSource.clear();  
             var features = this.markers.map((m) => {
                 const feature = new Feature({
                     geometry: new Point(m.coords),
@@ -132,21 +137,18 @@ export default defineComponent( {
                 }
                 return feature
             })
+            this.vectorSource.addFeatures(features);
             
-            //features = features.concat(st);
-            
-            
-            const vectorSource = new VectorSource({ features })
-            const vectorLayer = new VectorLayer({ source: vectorSource })
-            
-            
-            this.map.addLayer(vectorLayer);
-           
-
         }
     },
     mounted(){
         this.map = this.$refs.regionMap.map;
+        this.vectorSource= new VectorSource({ });
+        this.vectorLayer= new VectorLayer({ source: this.vectorSource });
+        this.stationSource=  new VectorSource({ });
+        this.stationLayer= new VectorLayer({ source: this.stationSource });
+        this.map.addLayer(this.vectorLayer);
+        this.map.addLayer(this.stationLayer);
         this.addMarkers();
         this.addStations();
         // create overlay
@@ -175,6 +177,7 @@ export default defineComponent( {
                 if(newVal !== oldVal) {
                     this.markers = newVal
                     if (this.map != undefined && this.map != null){
+                        
                         this.addMarkers();
                     }
                 }
@@ -185,8 +188,6 @@ export default defineComponent( {
         },
         probB: {
             handler(newVal) {
-                console.log(newVal);
-                
                 this.stations = newVal
                 if (this.map != undefined && this.map != null){
                     this.addStations();

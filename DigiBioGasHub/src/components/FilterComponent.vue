@@ -39,17 +39,13 @@ export default defineComponent({
         dataToFilter: { type: Array, default: () => [] }
     },
     setup(props, { emit }) {
-        const selectedFilters = ref({})
-        const isCardVisible = ref(true)
-        const isWide = ref(true)
+        const selectedFilters = ref({});
+        const isCardVisible = ref(true);
+        const isWide = ref(true);
         props.filtersData.forEach(cat => {
-            
-                selectedFilters.value[cat.label] = false
-            
-            
+                selectedFilters.value[cat.label] = false;
         })
         
-        console.log(selectedFilters.value)
         watch(
             selectedFilters,
             () => {
@@ -89,6 +85,7 @@ export default defineComponent({
             toggleWidth
         }
     }
+    
 })
 </script>
 
