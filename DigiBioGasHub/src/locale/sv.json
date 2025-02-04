@@ -155,7 +155,43 @@
             "delivered": "Levererad",
             "yes": "Ja",
             "no": "Nej"
-        }
+        },
+        
+            "image": "Bild",
+            "material": "Material",
+            "chooseMaterial": "Välj material",
+            "name": "Produktnamn",
+            "offerTypes": "Offertyper",
+            "chooseType": "Välj typ",
+            "type": {
+                "offer": "Erbjudande",
+                "demand": "Efterfrågan",
+                "auction": "Auktion"
+            },
+            "desc": "Beskrivning",
+            "price": {
+                "offer": "Erbjudande",
+                "demand": "Begärt",
+                "auction": "Auktions"
+            },
+            "quantity": "Antal",
+            "unit": "Enhet",
+            "logistic": {
+                "type": "Logistik",
+                "includedInPrice": "Ingår i priset",
+                "freeToPickup": "Gratis att hämta",
+                "agreedupon": "Bestäms"
+            },
+            "endTime": "Sluttid",
+            "time": "Tid",
+            "submit": "Skicka",
+            "visibility": {
+                "info": "Synlighet",
+                "chooseVisibility": "Välj synlighet",
+                "public": "Offentlig",
+                "private": "Privat"
+            }
+        
     },
     "logisticQuotation": {
         "title": "Logistikanbud",
@@ -170,7 +206,48 @@
         "userInput": "Användarinmatning",
         "endDate": "Slutdatum",
         "submit": "Skicka"
+    },
+    "offers": {
+        "addOffer": "Lägg till erbjudande",
+        "editOffer": "Redigera erbjudande",
+        "deleteOffer": "Radera erbjudande"
+    },
+    "company": {
+        "name": "Företagsnamn",
+        "businessId": "Företags-ID",
+        "address": "Adress",
+        "city": "Stad",
+        "postalCode": "Postnummer",
+        "phone": "Telefon",
+        "email": "E-post",
+        "website": "Hemsida",
+        "description": "Beskrivning",
+        "update": "Uppdatera",
+        "updateSuccess": "Information uppdaterad",
+        "updateFail": "Uppdatering av information misslyckades",
+        "updateFailMessage": "Uppdatering av information misslyckades. Kontrollera uppgifterna och försök igen.",
+        "deleteCompany": "Radera företag",
+        "deleteCompanySuccess": "Företag raderat",
+        "deleteCompanyFail": "Radering av företag misslyckades",
+        "deleteCompanyFailMessage": "Radering av företag misslyckades. Kontrollera uppgifterna och försök igen.",
+        "users": "Användare",
+        "addUser": "Lägg till användare",
+        "editUser": "Redigera användare",
+        "deleteUser": "Radera användare",
+        "companyUsers": "Företagsanvändare",
+        "offers": "Erbjudanden",
+        "addOffer": "Lägg till erbjudande",
+        "editOffer": "Redigera erbjudande",
+        "deleteOffer": "Radera erbjudande",
+        "requests": "Förfrågningar",
+        "agreements": "Avtal",
+        "addAgreement": "Lägg till avtal",
+        "editAgreement": "Redigera avtal",
+        "deleteAgreement": "Radera avtal",
+        "products": "Produkter",
+        "types": "Typer"
     }
+
 
 
 }

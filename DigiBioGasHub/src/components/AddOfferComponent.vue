@@ -47,13 +47,13 @@
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-datetime :locale="getLocale" :first-day-of-week="1" hour-cycle="h24" >
+                <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" >
                     <span slot="title">{{ $t('product.endTime') }}</span>
                     <span slot="time-label">{{ $t('product.time') }}</span>
                 </ion-datetime>
             </ion-item>
             <ion-item>
-                <ion-select required v-model="visibility">
+                <ion-select required v-model="visibility" :label="$t('product.visibility.info')" :placeholder="$t('product.visibility.chooseVisibility')">
                     <ion-select-option value="1">{{ $t('product.visibility.public') }}</ion-select-option>
                     <ion-select-option value="2">{{ $t('product.visibility.private') }}</ion-select-option>
                 </ion-select>
@@ -114,6 +114,7 @@ export default defineComponent({
             
         },
         getLocale(){
+            
             if(this.$i18n.locale === 'en'){
                 return 'en-GB';
             } else if(this.$i18n.locale === 'fi'){
