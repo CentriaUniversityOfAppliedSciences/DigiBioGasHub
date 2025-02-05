@@ -155,7 +155,8 @@
             "pickUpNeeded": "Pick Up Needed",
             "delivered": "Delivered",
             "yes": "Yes",
-            "no": "No"
+            "no": "No",
+            "amount": "Amount"
         }
     },
     "logisticQuotation": {
@@ -171,6 +172,24 @@
             "userInput": "User Input",
             "endDate": "End Date",
             "submit": "Submit"
+        },
+        "material":{
+            "type":{
+                "0":"unknown",
+                "1":"straw",
+                "2":"dung solid",
+                "3":"dung liquid",
+                "4":"compressed biogas",
+                "5":"liquid biogas",
+                "6":"feedstock"
+            }
+        },
+        "unit":{
+            "amount":{
+                "0":"not available",
+                "1":"kg",
+                "2":"m3"
+            }
         }
 
 }

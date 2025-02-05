@@ -20,12 +20,8 @@
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col>
-            <ul>
-              <li><ListingComponent :product="product1" /></li>
-              <li><ListingComponent :product="product2" /></li>
-              <li><ListingComponent :product="product3" /></li>
-            </ul>
+          <ion-col v-for="product in products" :key="product.id">
+            <ListingComponent :product="product" />
           </ion-col>
           <ion-col>
             <ion-row>
@@ -49,29 +45,16 @@ import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import BlogListingComponent from '../components/BlogListingComponent.vue';
 import ListingComponent from '../components/ListingComponent.vue';
+import axios from 'axios';
 export default defineComponent ({
   name: 'HomePage',
   components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent },
   data() {
     return {
-      product1: {
-        name: 'Product 1',
-        category: 'Category 1',
-        description: 'This is the first product.',
-        price: 100
-      },
-      product2: {
-        name: 'Product 2',
-        category: 'Category 2',
-        description: 'This is the second product.',
-        price: 200
-      },
-      product3: {
-        name: 'Product 3',
-        category: 'Category 3',
-        description: 'This is the third product.',
-        price: 300
-      },
+      products: [
+                
+            ],
+            currentProducts: [],
       articles: [
         {
             title: 'Article 1',
@@ -103,7 +86,26 @@ export default defineComponent ({
         },
             ]
     }
-  }
+  },
+  methods:{
+    getProducts(){
+            
+            var url = "http://localhost:28765/getoffers";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                console.log(response);
+                if (response.data.type="result" && response.data.result.length > 0){
+                    this.products = response.data.result;
+                    this.currentProducts = response.data.result;
+                    
+                }
+            });
+        }
+    
+  },
+  mounted() {
+        this.currentProducts = this.products;
+        this.getProducts();
+    }
 })
 
 </script>
