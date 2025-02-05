@@ -1,13 +1,13 @@
 <template>
             <ion-card>
-                <ion-img :src="offer.image"></ion-img>
+                <ion-img :src="offers.image"></ion-img>
                 <ion-card-header>
-                    <ion-card-title>{{ offer.details }}</ion-card-title>
-                    <ion-card-subtitle>{{ offer.type }} - {{ offer.category }}</ion-card-subtitle>
+                    <ion-card-title>{{ offers.details }}</ion-card-title>
+                    <ion-card-subtitle>{{ offers.type }} - {{ offers.category }}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
-                    <p>Logistics: {{ offer.logistics }}</p>
-                    <p>Amount: {{ offer.amount }}</p>
+                    <p>Logistics: {{ offers.logistics }}</p>
+                    <p>Amount: {{ offers.amount }}</p>
                 </ion-card-content>
             </ion-card>
 </template>
@@ -33,16 +33,14 @@ export default defineComponent({
         IonCardContent,
         IonImg
     },
+    props:{
+        offer: Object
+    },
     data() {
         return {
-            offer: {
-                image: 'https://example.com/sample.jpg',
-                details: 'Product details go here',
-                type: 'Sample Type',
-                category: 'Sample Category',
-                logistics: 'Pickup',
-                amount: '100'
-            }
+            offers: this.offer
+                
+            
         }
     }
 });

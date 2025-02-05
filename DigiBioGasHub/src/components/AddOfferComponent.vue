@@ -47,7 +47,7 @@
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" >
+                <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" v-model="endTime" >
                     <span slot="title">{{ $t('product.endTime') }}</span>
                     <span slot="time-label">{{ $t('product.time') }}</span>
                 </ion-datetime>
@@ -63,6 +63,7 @@
 
 <script>
 import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime } from '@ionic/vue';
+import { get } from 'ol/proj';
 import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'AddOfferComponent',
@@ -88,17 +89,34 @@ export default defineComponent({
             unit: '',
             logisticType: null,
             visibility: null,
+            materials: [],
+            material: null,
+            endTime: '',
 
         };
     },
     methods: {
         addProduct() {
-            // Logic to add the product
-            console.log('Product added:', {
-                name: this.productName,
-                description: this.description,
-                price: this.price
-            });
+           axios.post('http://localhost:28765/createoffer', {
+            type: this.type,
+            materialID: this.material.id,
+            companyID: this.companyID,
+            locationID: this.locationID,
+            unit: this.unit,
+            price: this.price,
+            amount: this.quantity,
+            startDate: new Date().toISOString(),
+            endDate: this.endTime,
+            availableAmount: this.quantity,
+            creator: this.userID,
+            status: this.status,
+            cargoType: this.logisticType,
+            visibility: this.visibility,
+           }).then(response => {
+               if(response.headers.status === 200){
+                     this.$router.push('/profile');
+               }
+           });
         },
         processImg(img) {
             let rawImg;
@@ -123,7 +141,18 @@ export default defineComponent({
                 return 'sv-SE';
             
         }
-    }
+    },
+        getMaterials(){
+            axios.get('http://localhost:28765/getmaterials').then(response => {
+                if(response.headers.status === 200){
+                    this.materials = response.data.results;
+                }
+            });
+        }
+    
+},
+mounted() {
+    this.getMaterials();
 }
 });
 </script>
