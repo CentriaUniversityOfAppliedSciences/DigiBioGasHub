@@ -1,13 +1,17 @@
 <template>
     <ion-card>
         <ion-card-header>
-            <ion-card-title>{{ product.name }}</ion-card-title>
-            <ion-card-subtitle>{{ product.category }}</ion-card-subtitle>
+            <ion-card-title>{{ product.Material.name }}</ion-card-title>
+            <ion-card-subtitle> {{ getMaterialTypeTranslation(product.type) }}</ion-card-subtitle>
+            
         </ion-card-header>
         <ion-card-content>
-            <p>{{ product.description }}</p>
+            <p>{{ product.Material.description }}</p>
             <ion-item>
-                <ion-label>Price: {{ product.price }}</ion-label>
+                <ion-label>{{ $t('product.productDetails.price') }}: {{ product.price }} €</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.amount }} {{  getUnitAmountTranslation(product.unit) }}</ion-label>
             </ion-item>
         </ion-card-content>
     </ion-card>
@@ -30,6 +34,14 @@ export default {
         product: {
             type: Object,
             required: true
+        }
+    },
+    methods:{
+        getMaterialTypeTranslation(type) {
+            return this.$t(`material.type.${type}`);
+        },
+        getUnitAmountTranslation(type) {
+            return this.$t(`unit.amount.${type}`);
         }
     }
 }

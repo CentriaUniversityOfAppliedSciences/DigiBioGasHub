@@ -157,7 +157,8 @@
             "pickUpNeeded": "Nouto tarvitaan",
             "delivered": "Toimitettu",
             "yes": "Kyllä",
-            "no": "Ei"
+            "no": "Ei",
+            "amount": "Määrä"
         },
         "image": "Kuva",
         "material": "Materiaali",
@@ -207,6 +208,24 @@
         "userInput": "Käyttäjän syöte",
         "endDate": "Päättymispäivä",
         "submit": "Lähetä"
+    },
+    "material":{
+        "type":{
+            "0":"tuntematon",
+            "1":"olki",
+            "2":"kiinteä lanta",
+            "3":"nestemäinen lanta",
+            "4":"paineistettu biokaasu",
+            "5":"nestemäinen biokaasu",
+            "6":"syöte"
+        }
+    },
+    "unit":{
+        "amount":{
+            "0":"not available",
+            "1":"kg",
+            "2":"m3"
+        }
     },
     "offers":{
         "addOffer": "Lisää tarjous",

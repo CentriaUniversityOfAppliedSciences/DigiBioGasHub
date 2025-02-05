@@ -30,11 +30,11 @@ import NavBarComponent from '../components/NavBarComponent.vue'
 import FilterComponent from '../components/FilterComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import ListingComponent from '../components/ListingComponent.vue'
-import {IonPage, IonContent, IonCol, IonGrid, IonRow} from '@ionic/vue'
+import {IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton} from '@ionic/vue'
 import axios from 'axios'
 export default defineComponent ({
     name: 'MarketplacePage',
-    components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent},
+    components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent, IonButton},
     setup() {
         return {
         }
@@ -42,58 +42,17 @@ export default defineComponent ({
     data(){
         return {
             products: [
-                {
-                    id: 1,
-                    name: 'Product 1',
-                    category: 'Category 1',
-                    description: 'This is the first product.',
-                    price: 100
-                },
-                {
-                    id: 2,
-                    name: 'Product 2',
-                    category: 'Category 2',
-                    description: 'This is the second product.',
-                    price: 200
-                },
-                {
-                    id: 3,
-                    name: 'Product 3',
-                    category: 'Category 3',
-                    description: 'This is the third product.',
-                    price: 300
-                },
-                {
-                    id: 4,
-                    name: 'Product 4',
-                    category: 'Category 4',
-                    description: 'This is the first product.',
-                    price: 400
-                },
-                {
-                    id: 5,
-                    name: 'Product 5',
-                    category: 'Category 5',
-                    description: 'This is the second product.',
-                    price: 500
-                },
-                {
-                    id: 6,
-                    name: 'Product 6',
-                    category: 'Category 6',
-                    description: 'This is the third product.',
-                    price: 600
-                }
+                
             ],
             currentProducts: [],
             filtersData: [
                 
-                        { label: 'Category 1', value: 'Category 1' },
-                        { label: 'Category 2', value: 'Category 2' },
-                        { label: 'Category 3', value: 'Category 3' },
-                        { label: 'Category 4', value: 'Category 4' },
-                        { label: 'Category 5', value: 'Category 5' },
-                        { label: 'Category 6', value: 'Category 6' }
+                        { label: 'Category 1', value: '1' },
+                        { label: 'Category 2', value: '2' },
+                        { label: 'Category 3', value: '3' },
+                        { label: 'Category 4', value: '4' },
+                        { label: 'Category 5', value: '5' },
+                        { label: 'Category 6', value: '6' }
             ]
         }
     },

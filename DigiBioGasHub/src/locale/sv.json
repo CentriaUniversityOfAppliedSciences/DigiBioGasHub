@@ -154,7 +154,8 @@
             "pickUpNeeded": "Hämtning behövs",
             "delivered": "Levererad",
             "yes": "Ja",
-            "no": "Nej"
+            "no": "Nej",
+            "amount": "Mängd"
         },
         
             "image": "Bild",
@@ -206,6 +207,24 @@
         "userInput": "Användarinmatning",
         "endDate": "Slutdatum",
         "submit": "Skicka"
+    },
+    "material":{
+        "type":{
+            "0":"okänd",
+            "1":"halm",
+            "2":"fast gödsel",
+            "3":"flytande gödsel",
+            "4":"komprimerad biogas",
+            "5":"flytande biogas",
+            "6":"råmaterial"
+        }
+    },
+    "unit":{
+        "amount":{
+            "0":"not available",
+            "1":"kg",
+            "2":"m3"
+        }
     },
     "offers": {
         "addOffer": "Lägg till erbjudande",
