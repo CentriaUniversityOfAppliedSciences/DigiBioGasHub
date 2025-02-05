@@ -159,6 +159,40 @@
             "yes": "Kyllä",
             "no": "Ei",
             "amount": "Määrä"
+        },
+        "image": "Kuva",
+        "material": "Materiaali",
+        "chooseMaterial": "Valitse materiaali",
+        "name": "Tuotenimi",
+        "offerTypes": "Tarjoustyypit",
+        "chooseType": "Valitse tyyppi",
+        "type": {
+            "offer": "Tarjous",
+            "demand": "Kysyntä",
+            "auction": "Huutokauppa"
+        },
+        "desc": "Kuvaus",
+        "price": {
+            "offer": "Tarjoushinta",
+            "demand": "Pyyntihinta",
+            "auction": "Huutokauppahinta"
+        },
+        "quantity": "Määrä",
+        "unit": "Yksikkö",
+        "logistic": {
+            "type": "Logistiikka",
+            "includedInPrice": "Sisältyy hintaan",
+            "freeToPickup": "Ilmaista noutaa",
+            "agreedupon": "Sovitaan"
+        },
+        "endTime": "Päättymisaika",
+        "time": "Aika",
+        "submit": "Lähetä",
+        "visibility": {
+            "info": "Näkyvyys",
+            "chooseVisibility": "Valitse näkyvyys",
+            "public": "Julkinen",
+            "private": "Yksityinen"
         }
     },
     "logisticQuotation": {
@@ -192,6 +226,49 @@
             "1":"kg",
             "2":"m3"
         }
+    },
+    "offers":{
+        "addOffer": "Lisää tarjous",
+        "editOffer": "Muokkaa tarjousta",
+        "deleteOffer": "Poista tarjous"
+        
+
+    },
+    "company":{
+        "name": "Yrityksen nimi",
+        "businessId": "Y-tunnus",
+        "address": "Osoite",
+        "city": "Kaupunki",
+        "postalCode": "Postinumero",
+        "phone": "Puhelinnumero",
+        "email": "Sähköposti",
+        "website": "Verkkosivusto",
+        "description": "Kuvaus",
+        "update": "Päivitä",
+        "updateSuccess": "Tiedot päivitetty",
+        "updateFail": "Tietojen päivitys epäonnistui",
+        "updateFailMessage": "Tietojen päivitys epäonnistui. Tarkista tiedot ja yritä uudelleen.",
+        "deleteCompany": "Poista yritys",
+        "deleteCompanySuccess": "Yritys poistettu",
+        "deleteCompanyFail": "Yrityksen poisto epäonnistui",
+        "deleteCompanyFailMessage": "Yrityksen poisto epäonnistui. Tarkista tiedot ja yritä uudelleen.",
+        "users": "Käyttäjät",
+        "addUser": "Lisää käyttäjä",
+        "editUser": "Muokkaa käyttäjää",
+        "deleteUser": "Poista käyttäjä",
+        "companyUsers": "Yrityksen käyttäjät",
+        "offers": "Tarjoukset",
+        "addOffer": "Lisää tarjous",
+        "editOffer": "Muokkaa tarjousta",
+        "deleteOffer": "Poista tarjous",
+        "requests": "Pyynnöt",
+        "agreements": "Sopimukset",
+        "addAgreement": "Lisää sopimus",
+        "editAgreement": "Muokkaa sopimusta",
+        "deleteAgreement": "Poista sopimus",
+        "products": "Tuotteet",
+        "types": "Tyypit"
+
     }
 
 }

@@ -69,8 +69,11 @@
                         <ion-button slot="end" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
 
                 </ion-toolbar>
-                </ion-header>   
-            <AddOfferComponent />
+                </ion-header>
+                <ion-content>
+                    <AddOfferComponent />
+                </ion-content>   
+            
         </ion-modal>
     </ion-page>
 </template>

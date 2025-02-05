@@ -157,9 +157,42 @@
             "yes": "Yes",
             "no": "No",
             "amount": "Amount"
+        },
+        "image": "Image",
+        "material": "Material",
+        "chooseMaterial": "Choose material",
+        "name": "Product name",
+        "offerTypes": "Offer types",
+        "chooseType": "Choose type",
+        "type": {
+            "offer": "Offer",
+            "demand": "Demand",
+            "auction": "Auction"
+        },
+        "desc": "Description",
+        "price": {
+            "offer": "Offer",
+            "demand": "Ask for offers",
+            "auction": "Auction"
+        },
+        "quantity": "Quantity",
+        "unit": "Unit",
+        "logistic": {
+            "type": "Logistics",
+            "includedInPrice": "Included in price",
+            "freeToPickup": "Free to pick up",
+            "agreedupon": "Agreed upon"
+        },
+        "endTime": "End time",
+        "time": "Time",
+        "submit": "Submit",
+        "visibility": {
+            "info": "Visibility",
+            "chooseVisibility": "Choose visibility",
+            "public": "Public",
+            "private": "Private"
         }
     },
-    "logisticQuotation": {
             "title": "Logistic Quotation",
             "pickupAddress": "Pickup Address",
             "deliveryAddress": "Delivery Address",
@@ -171,8 +204,8 @@
             "monthly": "Monthly",
             "userInput": "User Input",
             "endDate": "End Date",
-            "submit": "Submit"
-        },
+            "submit": "Submit",
+        
         "material":{
             "type":{
                 "0":"unknown",
@@ -190,6 +223,46 @@
                 "1":"kg",
                 "2":"m3"
             }
-        }
+        },
+    "offers": {
+        "addOffer": "Add offer",
+        "editOffer": "Edit offer",
+        "deleteOffer": "Delete offer"
+    },
+    "company": {
+        "name": "Company name",
+        "businessId": "Business ID",
+        "address": "Address",
+        "city": "City",
+        "postalCode": "Postal code",
+        "phone": "Phone",
+        "email": "Email",
+        "website": "Website",
+        "description": "Description",
+        "update": "Update",
+        "updateSuccess": "Information updated",
+        "updateFail": "Information update failed",
+        "updateFailMessage": "Information update failed. Check the data and try again.",
+        "deleteCompany": "Delete company",
+        "deleteCompanySuccess": "Company deleted",
+        "deleteCompanyFail": "Company deletion failed",
+        "deleteCompanyFailMessage": "Company deletion failed. Check the data and try again.",
+        "users": "Users",
+        "addUser": "Add user",
+        "editUser": "Edit user",
+        "deleteUser": "Delete user",
+        "companyUsers": "Company users",
+        "offers": "Offers",
+        "addOffer": "Add offer",
+        "editOffer": "Edit offer",
+        "deleteOffer": "Delete offer",
+        "requests": "Requests",
+        "agreements": "Agreements",
+        "addAgreement": "Add agreement",
+        "editAgreement": "Edit agreement",
+        "deleteAgreement": "Delete agreement",
+        "products": "Products",
+        "types": "Types"
+    }
 
 }
