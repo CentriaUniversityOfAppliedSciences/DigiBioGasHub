@@ -1,4 +1,5 @@
 <template>
+        
             <ion-card class="company-card">
                 <ion-card-header>
                     <ion-card-title>{{ company.name }}</ion-card-title>
@@ -33,7 +34,7 @@
                         </ion-item>
                         <ion-item>
                             <ion-icon :icon="icons.website" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.website">{{ $t('general.website') }}</ion-input>
+                            <ion-input :disabled="companyEdit" v-model="company.web">{{ $t('general.website') }}</ion-input>
                         </ion-item>
                     </ion-list>
                     <ion-button @click="toggleCompanyEdit" color="warning" >{{$t('menu.edit')}}</ion-button>
@@ -41,6 +42,7 @@
                     <ion-button @click="saveCompany" color="success" >{{$t('menu.save')}}</ion-button>
                 </ion-card-content>
             </ion-card>
+        
 </template>
 
 <script>
@@ -77,7 +79,6 @@ export default defineComponent({
     },
     props: {
         company: Object,
-        
     },
     setup() {
     
@@ -96,7 +97,7 @@ export default defineComponent({
     },
     data() {
         return {
-            company: {
+            /*company: {
             name: 'Your Company Name',
             industry: 'Industry Type',
             description: 'A brief description of the company.',
@@ -104,13 +105,16 @@ export default defineComponent({
             phone: '+1 (555) 123-4567',
             email: 'info@company.com',
             website: 'www.company.com',
-        },
+        },*/
         companyEdit: true,
         };
     },
     methods: {
         toggleCompanyEdit(){
             this.companyEdit = !this.companyEdit;
+        },
+        saveCompany(){
+            // Logic to save the company
         }
     }
 });

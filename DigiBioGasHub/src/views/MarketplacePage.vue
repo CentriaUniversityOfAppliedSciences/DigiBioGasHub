@@ -7,7 +7,7 @@
                 <ion-row class="ion-align-items-start">
                 <ion-col size="2">
                     <FilterComponent :filtersData="filtersData" :dataToFilter="products" @filtered-data="updateData" />
-                    <ion-button @click="addOffer">Add offer</ion-button>
+                    <ion-button id="addOffer">Add offer</ion-button>
                 </ion-col>
                 <ion-col>
                     <ion-row>
@@ -19,6 +19,9 @@
             </ion-row>
            
             </ion-grid>
+            
+                <AddOfferComponent />
+            
         </div>
         <FooterComponent />
     </ion-page>
@@ -30,11 +33,12 @@ import NavBarComponent from '../components/NavBarComponent.vue'
 import FilterComponent from '../components/FilterComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import ListingComponent from '../components/ListingComponent.vue'
-import {IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton} from '@ionic/vue'
+import AddOfferComponent from '../components/AddOfferComponent.vue'
+import {IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton, IonModal} from '@ionic/vue'
 import axios from 'axios'
 export default defineComponent ({
     name: 'MarketplacePage',
-    components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent, IonButton},
+    components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent, IonButton, IonModal, AddOfferComponent},
     setup() {
         return {
         }
@@ -66,9 +70,9 @@ export default defineComponent ({
             var url = "http://localhost:28765/getoffers";
             axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 console.log(response);
-                if (response.data.type="result" && response.data.result.length > 0){
-                    this.products = response.data.result;
-                    this.currentProducts = response.data.result;
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    this.products = response.data.message;
+                    this.currentProducts = response.data.message;
                     
                 }
             });
