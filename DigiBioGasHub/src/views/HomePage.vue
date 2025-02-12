@@ -92,18 +92,29 @@ export default defineComponent ({
             
             var url = "http://localhost:28765/getoffers";
             axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                console.log(response);
-                if (response.data.type="result" && response.data.result.length > 0){
-                    this.products = response.data.result;
-                    this.currentProducts = response.data.result;
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    this.products = response.data.message;
+                    this.currentProducts = response.data.message;
                     
                 }
             });
+        },
+        getCompanies() {
+          if (localStorage.getItem('token') != null){
+            var url = "http://localhost:28765/getusercompanies";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    
+                    localStorage.setItem('current_company', response.data.message[0].id);
+                }
+            });
+          }
         }
     
   },
   mounted() {
         this.currentProducts = this.products;
+        this.getCompanies();
         this.getProducts();
     }
 })
