@@ -11,7 +11,7 @@
                 <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
                 <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
                 <li class="menu-item"><a href="/map">{{ $t('menu.map') }}</a></li>
-                <li class="menu-item" v-if="LoggedIn"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
+                <li class="menu-item" v-if="inCompany"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li>
                 <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
@@ -42,22 +42,60 @@ export default defineComponent ({
         },
         closeModal(){
             this.showModal = false;
+        },
+        decodeJWT(token){
+            try {
+                return JSON.parse(atob(token.split('.')[1]));
+            } catch (e) {
+                return null;
+            }
+        },
+        checkCompany(){
+            let token = localStorage.getItem('token');
+            if (token) {
+                let decoded = this.decodeJWT(token);
+                if (decoded) {
+                    if (decoded.userlevel >= 20) {
+                        this.inCompany = true;
+                    }
+                }
+            }
+        },
+        checkLogin(){
+            let token = localStorage.getItem('token');
+            if (token) {
+                let decoded = this.decodeJWT(token);
+                if (decoded) {
+                    if (decoded.userlevel >= 1) {
+                        this.LoggedIn = true;
+                    }
+                }
+            }
+        },
+        checkAdmin(){
+            let token = localStorage.getItem('token');
+            if (token) {
+                let decoded = this.decodeJWT(token);
+                if (decoded) {
+                    if (decoded.userlevel >= 99) {
+                        this.inCompany = true;
+                    }
+                }
+            }
         }
     },
     data() {
         return {
             showModal: false,
             LoggedIn: false,
+            inCompany: false,
             Admin: false
         }
     },
     mounted() {
-        if (localStorage.getItem('token')) {
-            this.LoggedIn = true;
-        }
-        if (localStorage.getItem('admin')) {
-            this.Admin = true;
-        }
+        this.checkLogin();
+        this.checkCompany();
+        this.checkAdmin();
     }
 });
 </script>
