@@ -6,7 +6,7 @@
             </ion-item>
             <ion-item>
                 <ion-select required v-model="material" :label="$t('product.material')" :placeholder="$t('product.chooseMaterial')">
-                    <ion-select-option v-for="material in materials" :key="material.name" :value="material.name">{{ material.locality[$i18n.locale] }}</ion-select-option>
+                    <ion-select-option v-for="material in materials" :key="material.name" :value="material.id">{{ material.name }}</ion-select-option>
                     
                 </ion-select>
             </ion-item>
@@ -23,13 +23,13 @@
             <ion-item>
                 <ion-textarea :label="$t('product.desc')" labelPlacement="floating" v-model="description"></ion-textarea>
             </ion-item>
-            <ion-item v-if="type === 'offer'">
+            <ion-item v-if="type === '1'">
                 <ion-input required :label="$t('product.price.offer')" labelPlacement="floating" type="number" v-model="price"></ion-input>
             </ion-item>
-            <ion-item v-if="type === 'demand'">
+            <ion-item v-if="type === '2'">
                 <ion-input required :label="$t('product.price.demand')" labelPlacement="floating" type="number" v-model="price"></ion-input>
             </ion-item>
-            <ion-item v-if="type === 'auction'">
+            <ion-item v-if="type === '3'">
                 <ion-input required :label="$t('product.price.auction')" labelPlacement="floating" type="number" v-model="price"></ion-input>
             </ion-item>
             <ion-item>
@@ -63,7 +63,7 @@
 
 <script>
 import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime } from '@ionic/vue';
-import { get } from 'ol/proj';
+import axios from 'axios';
 import { defineComponent } from 'vue';
 export default defineComponent({
     name: 'AddOfferComponent',
@@ -99,9 +99,9 @@ export default defineComponent({
         addProduct() {
            axios.post('http://localhost:28765/createoffer', {
             type: this.type,
-            materialID: this.material.id,
-            companyID: this.companyID,
-            locationID: this.locationID,
+            materialID: this.material,
+            companyID: localStorage.getItem('companyID'),
+            locationID: localStorage.getItem('locationID'),
             unit: this.unit,
             price: this.price,
             amount: this.quantity,
@@ -143,11 +143,14 @@ export default defineComponent({
         }
     },
         getMaterials(){
-            axios.get('http://localhost:28765/getmaterials').then(response => {
-                if(response.headers.status === 200){
-                    this.materials = response.data.results;
+            axios.post('http://localhost:28765/getmaterials').then(response => {
+                
+                if(response.status === 200){
+                    this.materials = response.data.result;
                 }
+
             });
+            console.log(this.materials);
         }
     
 },

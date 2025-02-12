@@ -36,8 +36,11 @@ import '@ionic/vue/css/palettes/dark.system.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import axios from 'axios';
 
 import {createI18n} from 'vue-i18n';
+
+axios.defaults.headers.common['authorization'] = localStorage.getItem('token');
 const messages = {
   fi: fi,
   en: en,
@@ -52,6 +55,7 @@ const i18n = createI18n({
 
 const app = createApp(App)
   .use(IonicVue)
+
   .use(i18n)
   .use(router)
   .use(OpenLayersMap);
