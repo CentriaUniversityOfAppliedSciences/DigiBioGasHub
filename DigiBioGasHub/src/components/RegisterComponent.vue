@@ -27,6 +27,7 @@
                         </ion-item>
                     </ion-col>
                 </ion-row>
+                <!--
                 <ion-row class="ion-justify-content-center ion-padding-horizontal">
                     <ion-col size="12" size-md="8">
                         <ion-item>
@@ -51,6 +52,7 @@
                         </ion-item>
                     </ion-col>
                 </ion-row>
+                --->
                 <ion-row class="ion-justify-content-center ion-padding-horizontal">
                     <ion-col size="12" size-md="8">
                         <ion-item>
