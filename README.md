@@ -1,6 +1,6 @@
 # DigiBioGasHub
 
-![Project is co-funded by the European Union](src/assets/funder-logo-en.png)
+![Project is co-funded by the European Union](DigiBioGasHub/src/assets/funder-logo-en.png)
 [Project Website](https://sites.uwasa.fi/digibiogashubs/)
 
 DigiBioGasHub is a platform for selling biogas and biomass to create biogas products. This platform can also be used for other product types.
