@@ -22,6 +22,19 @@ function jwtDecode(token) {
       return null;
   }
 }
+function checkAdmin(to, from, next) {
+  let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel === 99) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+}
 
 const routes = [
   {
@@ -44,28 +57,14 @@ const routes = [
     component: MapPage
   },
   {
-    path: '/admin',
-    beforeEnter: (to, from, next) => {
-      let token = localStorage.getItem('token')
-      if (token) {
-        if (jwtDecode(token).userlevel === 99) {
-        next()
-        }
-        else {
-          next('/home')
-        }
-      } else {
-        next('/home')
-      }
-
-    },
-    children: [
-      {
-        path: '/add-blog-post',
-        name: 'AddBlogPost',
-        component: AddBlogPostPage
-      }
-    ]
+    path: '/admin/add-blog-post',
+    name: 'AddBlogPost',
+    component: AddBlogPostPage,
+    beforeEnter: [checkAdmin]
+    
+        
+        
+    
     
   },
   {
