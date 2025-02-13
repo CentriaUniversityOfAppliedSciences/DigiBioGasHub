@@ -2,7 +2,7 @@
 
         <ion-item>
             
-            <ion-select v-model="selectedLanguage" @ionChange="changeLanguage" value="fi">
+            <ion-select v-model="selectedLanguage" @ionChange="changeLanguage" >
                 <ion-select-option value="en">English</ion-select-option>
                 <ion-select-option value="fi">Suomi</ion-select-option>
                 <ion-select-option value="sv">Svenska</ion-select-option>
@@ -24,17 +24,33 @@ export default defineComponent({
         IonSelectOption,
     },
     setup() {
-        const { locale } = useI18n();
-        const selectedLanguage = ref(locale.value);
-
-        const changeLanguage = (event) => {
-            locale.value = event.target.value;
-        };
+        
 
         return {
-            selectedLanguage,
-            changeLanguage,
+          
         };
+    },
+    data() {
+        return {
+            selectedLanguage: '',
+        };
+    },
+    methods: {
+        changeLanguage(event) {
+            this.selectedLanguage = event.target.value;
+            localStorage.setItem('selectedLanguage', this.selectedLanguage);
+            this.$i18n.locale = this.selectedLanguage;
+        },
+        checkLanguage() {
+            if (localStorage.getItem('selectedLanguage')) {
+                this.selectedLanguage = localStorage.getItem('selectedLanguage');
+                this.$i18n.locale = this.selectedLanguage;
+            } 
+        },
+
+    },
+    mounted() {
+        this.checkLanguage();
     },
 });
 </script>

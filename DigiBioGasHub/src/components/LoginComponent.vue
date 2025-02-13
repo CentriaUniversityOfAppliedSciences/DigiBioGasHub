@@ -91,6 +91,7 @@ export default defineComponent({
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         },
+        
     },
     data() {
         return {

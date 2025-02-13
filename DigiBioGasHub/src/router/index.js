@@ -15,7 +15,13 @@ import CompanyPage from '../views/CompanyPage.vue';
 import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
 import AddBlogPostComponent from '../components/AddBlogPostComponent.vue';
 
-
+function jwtDecode(token) {
+  try {
+      return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+      return null;
+  }
+}
 
 const routes = [
   {
@@ -38,6 +44,7 @@ const routes = [
     component: MapPage
   },
   {
+<<<<<<< HEAD
     path: '/add-blog-post',
     name: 'AddBlogPost',
     component: AddBlogPostPage
@@ -58,6 +65,30 @@ const routes = [
   //       component: AddBlogPostPage
   //     }
   //   ]
+=======
+    path: '/admin',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel === 99) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+
+    },
+    children: [
+      {
+        path: '/add-blog-post',
+        name: 'AddBlogPost',
+        component: AddBlogPostPage
+      }
+    ]
+>>>>>>> 23143b82a7f2bd1c7adf695e3b913f69fdd80ba6
     
   },
   {
@@ -89,8 +120,14 @@ const routes = [
     path: '/company',
     name: 'Company',
     beforeEnter: (to, from, next) => {
-      if (localStorage.getItem('token')) {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 20) {
         next()
+        }
+        else {
+          next('/home')
+        }
       } else {
         next('/home')
       }
@@ -101,8 +138,14 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     beforeEnter: (to, from, next) => {
-      if (localStorage.getItem('token')) {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
         next()
+        }
+        else {
+          next('/home')
+        }
       } else {
         next('/home')
       }
@@ -115,6 +158,8 @@ const routes = [
     component: KnowledgeBasePage
   }
 ]
+
+
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
