@@ -75,6 +75,19 @@
                 </ion-content>   
             
         </ion-modal>
+        <ion-modal trigger="addCompany">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>{{ $t('company.addCompany') }}</ion-title>
+
+                        <ion-button slot="end" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
+
+                </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                    <AddCompanyComponent />
+                </ion-content>
+        </ion-modal>
     </ion-page>
 </template>
 
@@ -82,6 +95,7 @@
 import { defineComponent } from 'vue';
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonText, IonButton, IonModal, modalController } from '@ionic/vue';
 import AddOfferComponent from './AddOfferComponent.vue';
+import AddCompanyComponent from './AddCompanyComponent.vue';
 
 export default defineComponent({
     name: 'ProfileComponent',
@@ -101,7 +115,8 @@ export default defineComponent({
         IonText,
         IonButton,
         AddOfferComponent,
-        IonModal
+        IonModal,
+        AddCompanyComponent
     },
     setup() {
         return { modalController };

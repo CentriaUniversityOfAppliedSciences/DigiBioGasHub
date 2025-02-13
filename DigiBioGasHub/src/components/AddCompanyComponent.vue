@@ -9,7 +9,15 @@
                         </ion-item>
                         <ion-item >
                             <ion-icon :icon="icons.location" slot="start" />
-                            <ion-input  v-model="company.companyType">{{ $t('general.industry') }}</ion-input>
+                            <ion-select  v-model="company.companyType" :placeholder="$t('general.industry')">
+                                <ion-select-option v-if="isAdmin" value="0">{{ $t('company.type.0') }}</ion-select-option>
+                                <ion-select-option value="1">{{ $t('company.type.1') }}</ion-select-option>
+                                <ion-select-option value="2">{{ $t('company.type.2') }}</ion-select-option>
+                                <ion-select-option value="3">{{ $t('company.type.3') }}</ion-select-option>
+                                <ion-select-option value="4">{{ $t('company.type.4') }}</ion-select-option>
+                                <ion-select-option value="5">{{ $t('company.type.5') }}</ion-select-option>
+                                <ion-select-option value="6">{{ $t('company.type.6') }}</ion-select-option>
+                            </ion-select>
                         </ion-item>
                         
                         <ion-item>
@@ -78,13 +86,15 @@ export default defineComponent({
     },
     data() {
         return {
-            company: {  name: '', address: '', city: '', zipcode: '', phone: '', email:'', companyType: '', web:'' },
+            company: {  name: '', address: '', city: '', zipcode: '', phone: '', email:'', companyType: null, web:'' },
+            isAdmin: false,
+            userID: null
         };
     },
     methods: {
         addCompany(){
             var url = "http://localhost:28765/createcompany";
-            axios.post(url,{ "name": this.company.name, "address": this.company.address, "city": this.company.city, "zipcode": this.company.zipcode, "phone": this.company.phone, "email":this.company.email, "companyType": this.company.companyType, "web":this.company.web },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            axios.post(url,{ "userid": this.userID, "name": this.company.name, "address": this.company.address, "city": this.company.city, "zipcode": this.company.zipcode, "phone": this.company.phone, "email":this.company.email, "companyType": this.company.companyType, "web":this.company.web },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 console.log(response);
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.materials = response.data.message;
@@ -101,9 +111,20 @@ export default defineComponent({
             } else if(this.$i18n.locale === 'sv'){
                 return 'sv-SE';
             }
+        },
+        checkToken(){
+            if(localStorage.getItem('token') ){
+                let token = localStorage.getItem('token');
+                let decoded = JSON.parse(atob(token.split('.')[1]));
+                if(decoded.userlevel === 99){
+                    this.isAdmin = true;
+                }
+                this.userID = decoded.id;
+            }
         }
     },
     mounted(){
+        this.checkToken();
     }
 });
 </script>
