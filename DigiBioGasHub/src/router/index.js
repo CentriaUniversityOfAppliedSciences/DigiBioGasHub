@@ -13,6 +13,7 @@ import ToSPage from '../views/ToSPage.vue';
 import ProductPage from '../views/ProductPage.vue';
 import CompanyPage from '../views/CompanyPage.vue';
 import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
+import AddBlogPostComponent from '../components/AddBlogPostComponent.vue';
 
 function jwtDecode(token) {
   try {
@@ -43,6 +44,28 @@ const routes = [
     component: MapPage
   },
   {
+<<<<<<< HEAD
+    path: '/add-blog-post',
+    name: 'AddBlogPost',
+    component: AddBlogPostPage
+  
+  // {
+  //   path: '/admin',
+  //   beforeEnter: (to, from, next) => {
+  //     if (localStorage.getItem('token')) {
+  //       next()
+  //     } else {
+  //       next('/home')
+  //     }
+  //   },
+  //   children: [
+  //     {
+  //       path: '/add-blog-post',
+  //       name: 'AddBlogPost',
+  //       component: AddBlogPostPage
+  //     }
+  //   ]
+=======
     path: '/admin',
     beforeEnter: (to, from, next) => {
       let token = localStorage.getItem('token')
@@ -65,6 +88,7 @@ const routes = [
         component: AddBlogPostPage
       }
     ]
+>>>>>>> 23143b82a7f2bd1c7adf695e3b913f69fdd80ba6
     
   },
   {
