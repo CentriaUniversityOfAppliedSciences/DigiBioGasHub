@@ -17,9 +17,9 @@ PostgreSQL
 
 ## Project structure
 Project is split into 3 parts + docs
-This repository is for the front end. THIS IS REQUIRED
-[Backend](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend) THIS IS REQUIRED
-[Docker for PostgreSQL](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-database) OPTIONAL
+- This repository is for the front end. THIS IS REQUIRED
+- [Backend](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend) THIS IS REQUIRED
+- [Docker for PostgreSQL](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-database) OPTIONAL
 
 ## Features
 ### Implemented
