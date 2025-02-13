@@ -13,6 +13,7 @@ import ToSPage from '../views/ToSPage.vue';
 import ProductPage from '../views/ProductPage.vue';
 import CompanyPage from '../views/CompanyPage.vue';
 import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
+import AddBlogPostComponent from '../components/AddBlogPostComponent.vue';
 
 
 
@@ -37,21 +38,26 @@ const routes = [
     component: MapPage
   },
   {
-    path: '/admin',
-    beforeEnter: (to, from, next) => {
-      if (localStorage.getItem('token')) {
-        next()
-      } else {
-        next('/home')
-      }
-    },
-    children: [
-      {
-        path: '/add-blog-post',
-        name: 'AddBlogPost',
-        component: AddBlogPostPage
-      }
-    ]
+    path: '/add-blog-post',
+    name: 'AddBlogPost',
+    component: AddBlogPostPage
+  
+  // {
+  //   path: '/admin',
+  //   beforeEnter: (to, from, next) => {
+  //     if (localStorage.getItem('token')) {
+  //       next()
+  //     } else {
+  //       next('/home')
+  //     }
+  //   },
+  //   children: [
+  //     {
+  //       path: '/add-blog-post',
+  //       name: 'AddBlogPost',
+  //       component: AddBlogPostPage
+  //     }
+  //   ]
     
   },
   {
