@@ -14,7 +14,8 @@ import axios from 'axios';
 export default defineComponent({
   name: 'AddBlogPostComponent',
   components: {
-    UmoEditor
+    UmoEditor,
+    IonButton
   },
   setup() {
     const editorRef = ref(null);
@@ -531,22 +532,15 @@ export default defineComponent({
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, 'text/html');
 
-
       const title = this.extractTitle(doc) || 'Default Title';
       console.log('Title:', title);
 
-      // Extract the body content excluding the title and image
-      const bodyContent = this.extractBodyContent(doc);
-      console.log('Body Content:', bodyContent);
-
-      // Extract the image from the content
       const image = this.extractImage(doc) || this.imageBase64;
       console.log('Image:', image);
 
-
       const postData = {
         title: title,
-        content: bodyContent,
+        content: content,
         image: image,
         userID: "b2aaa2f4-0217-436b-9a18-0ee12f0a8296",
         blogPostType: 1
@@ -565,32 +559,11 @@ export default defineComponent({
       }
     },
       extractTitle(doc) {
-      // Extract the first line as the title
       const title = doc.querySelector('h1');
       return title ? title.textContent : '';
     },
 
-    extractBodyContent(doc) {
-      const bodyContent = doc.body.innerHTML;
-
-      // Remove <h1> tags and their content
-      const withoutH1 = bodyContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/g, '');
-
-      // Remove <img> tags
-      const withoutImages = withoutH1.replace(/<img[^>]*>/g, '');
-
-      // Create a temporary div to extract the plain text
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = withoutImages;
-
-      // Get the plain text content
-      const plainTextContent = tempDiv.textContent || tempDiv.innerText;
-
-      return plainTextContent.trim();
-    },
-
     extractImage(doc) {
-      // Extract the first image from the content
       const img = doc.querySelector('img');
       return img ? img.src : '';
     },
