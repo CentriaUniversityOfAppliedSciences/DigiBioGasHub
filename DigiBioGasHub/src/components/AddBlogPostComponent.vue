@@ -538,17 +538,13 @@ export default defineComponent({
       const image = this.extractImage(doc) || this.imageBase64;
       console.log('Image:', image);
 
-      const postData = {
-        title: title,
-        content: content,
-        image: image,
-        userID: "b2aaa2f4-0217-436b-9a18-0ee12f0a8296",
-        blogPostType: 1
-      };
-      console.log('Post Data:', postData);
       try {
-        const response = await axios.post('http://localhost:28765/createblogpost', postData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+        
+        var url = "http://localhost:28765/createblogpost";
+        const response = await axios.post(url, { "title": title, "content": content, "image": image, "userID": "b2aaa2f4-0217-436b-9a18-0ee12f0a8296", "blogPostType": 1 },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
       
+        console.log(response);
+        
         if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0) {
           console.log('Blog post saved successfully');
         } else {
