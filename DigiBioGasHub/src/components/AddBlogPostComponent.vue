@@ -1,14 +1,12 @@
 <template>
   <div>
-    <umo-editor ref="editorRef" v-bind="options"></umo-editor>
-    <ion-button expand="full" @click="savePost">Save</ion-button>
+    <umo-editor ref="editorRef" v-bind="options"   @save="onSave"></umo-editor>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
 import { UmoEditor } from '@umoteam/editor';
-import { IonButton } from '@ionic/vue';
 import axios from 'axios';
 import { jwtDecode } from '../router/index';
 
@@ -16,7 +14,6 @@ export default defineComponent({
   name: 'AddBlogPostComponent',
   components: {
     UmoEditor,
-    IonButton
   },
   setup() {
     const editorRef = ref(null);
@@ -526,10 +523,29 @@ export default defineComponent({
     }
   },
   methods: {
-    async savePost() {
+
+    async onSave() {
+
       const content = this.$refs.editorRef.getContent();
       console.log('Content:', content);
 
+      if (!content) {
+        console.error('No content to save.');
+        return false;
+      }
+
+      try {
+        await this.savePost(content);
+        console.log('Document saved successfully');
+        return true;
+      } catch (error) {
+        console.error('Error saving document:', error);
+        return false;
+      }
+    },
+
+    async savePost(content) {
+      
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, 'text/html');
 
@@ -549,9 +565,10 @@ export default defineComponent({
       const userID = decodedToken.id; 
     
       try {
+        console.log('Saving blog post...');
         
         var url = "http://localhost:28765/createblogpost";
-        const response = await axios.post(url, { "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 1 },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
+        const response = await axios.post(url, { "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
 
         console.log(response);
 
@@ -584,7 +601,12 @@ export default defineComponent({
         reader.onerror = reject;
         reader.readAsDataURL(file);
       });
-    }
+    },
+
+    // onSaved() {
+    //   console.log('Document has been saved.');
+    // }
+  
   },
   mounted() {
     this.$refs.editorRef.setOptions(this.options);
