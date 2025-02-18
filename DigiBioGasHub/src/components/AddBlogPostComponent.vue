@@ -149,7 +149,7 @@ export default defineComponent({
             "#25272E",
             "#15316A",
             "#1C415A",
-            "#284D34",Conversion of biowaste to biogas: A review of current status on techno-economic challenges, policies, technologies and mitigation to environmental impacts edited 2 should work gg
+            "#284D34",
             "#511712",
             "#573213",
             "#635217",
