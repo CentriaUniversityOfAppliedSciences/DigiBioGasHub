@@ -21,6 +21,7 @@ export default defineComponent({
   },
   data() {
     return {
+      postID: null,
       options: {
         "editorKey": "default",
         "locale": "en-US",
@@ -148,7 +149,7 @@ export default defineComponent({
             "#25272E",
             "#15316A",
             "#1C415A",
-            "#284D34",
+            "#284D34",Conversion of biowaste to biogas: A review of current status on techno-economic challenges, policies, technologies and mitigation to environmental impacts edited 2 should work gg
             "#511712",
             "#573213",
             "#635217",
@@ -535,8 +536,9 @@ export default defineComponent({
       }
 
       try {
-        await this.savePost(content);
-        console.log('Document saved successfully');
+        const isUpdate = this.postID !== null && this.postID !== undefined;
+        await this.savePost(content, isUpdate);
+        console.log(isUpdate ? 'Document updated successfully' : 'Document saved successfully');
         return true;
       } catch (error) {
         console.error('Error saving document:', error);
@@ -544,7 +546,7 @@ export default defineComponent({
       }
     },
 
-    async savePost(content) {
+    async savePost(content, isUpdate) {
       
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, 'text/html');
@@ -567,13 +569,18 @@ export default defineComponent({
       try {
         console.log('Saving blog post...');
         
-        var url = "http://localhost:28765/createblogpost";
-        const response = await axios.post(url, { "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
+        let url = isUpdate ? `http://localhost:28765/updateBlogPost` : "http://localhost:28765/createblogpost"; 
+
+        const response = await axios.post(url, { "postID": this.postID,"title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
 
         console.log(response);
 
-        if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0) {
-          console.log('Blog post saved successfully');
+        if (response.data.type =="result" && response.data.result == "ok") {
+          console.log('Blog post saved successfully ---');
+
+          this.postID = response.data.message.postID;
+
+          return response.data.message.postID;
         } else {
           console.error('Failed to save blog post');
         }
