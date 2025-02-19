@@ -25,8 +25,8 @@
           </ion-col>
           <ion-col>
             <ion-row>
-              <ion-col size="12" size-sm="12" size-md="6" v-for="article in articles" :key="article.title">
-                <BlogListingComponent class="blog-card" :article="article" />
+              <ion-col >
+                <BlogListingComponent class="blog-card" :limit="4" />
               </ion-col>
             </ion-row>
           </ion-col>
