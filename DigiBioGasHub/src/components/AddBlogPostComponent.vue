@@ -1,6 +1,6 @@
 <template>
   <div>
-    <umo-editor ref="editorRef" v-bind="options"   @save="onSave"></umo-editor>
+    <umo-editor ref="editorRef" v-bind="options" @save="onSave"></umo-editor>
   </div>
 </template>
 
@@ -537,9 +537,13 @@ export default defineComponent({
 
       try {
         const isUpdate = this.postID !== null && this.postID !== undefined;
-        await this.savePost(content, isUpdate);
-        console.log(isUpdate ? 'Document updated successfully' : 'Document saved successfully');
-        return true;
+        const result = await this.savePost(content, isUpdate);
+        if (result) {
+          console.log(isUpdate ? 'Document updated successfully' : 'Document saved successfully');
+        } else {
+          console.log('Unable to save. See logs for more info.');
+        }
+        return result;
       } catch (error) {
         console.error('Error saving document:', error);
         return false;
@@ -547,7 +551,7 @@ export default defineComponent({
     },
 
     async savePost(content, isUpdate) {
-      
+
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, 'text/html');
 
@@ -564,18 +568,18 @@ export default defineComponent({
       }
 
       const decodedToken = jwtDecode(token);
-      const userID = decodedToken.id; 
-    
+      const userID = decodedToken.id;
+
       try {
         console.log('Saving blog post...');
-        
-        let url = isUpdate ? `http://localhost:28765/updateBlogPost` : "http://localhost:28765/createblogpost"; 
 
-        const response = await axios.post(url, { "postID": this.postID,"title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
+        let url = isUpdate ? `http://localhost:28765/updateBlogPost` : "http://localhost:28765/createblogpost";
+
+        const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 
         console.log(response);
 
-        if (response.data.type =="result" && response.data.result == "ok") {
+        if (response.data.type == "result" && response.data.result == "ok") {
           console.log('Blog post saved successfully ---');
 
           this.postID = response.data.message.postID;
@@ -583,12 +587,14 @@ export default defineComponent({
           return response.data.message.postID;
         } else {
           console.error('Failed to save blog post');
+          return false;
         }
       } catch (error) {
         console.error('Error:', error);
+        return false;
       }
     },
-      extractTitle(doc) {
+    extractTitle(doc) {
       const title = doc.querySelector('h1');
       return title ? title.textContent : '';
     },
@@ -613,7 +619,7 @@ export default defineComponent({
     // onSaved() {
     //   console.log('Document has been saved.');
     // }
-  
+
   },
   mounted() {
     this.$refs.editorRef.setOptions(this.options);
