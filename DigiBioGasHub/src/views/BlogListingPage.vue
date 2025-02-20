@@ -44,7 +44,7 @@ export default defineComponent ({
                         title: post.title,
                         abstract: this.extractAbstract(post.content),
                         picture: post.image,
-                        link: `/blog/${post.postID}/${slugify(post.title, { lower: true })}`,
+                        link: `/blog/${post.postID}/${slugify(post.title, { lower: true, strict: true })}`,
                         date: post.createdAt ? new Date(post.createdAt).toLocaleDateString() : 'Unknown Date'
                     }));
                 }
