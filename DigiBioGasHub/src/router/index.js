@@ -68,7 +68,7 @@ const routes = [
     
   },
   {
-    path: '/blog/:title',
+    path: '/blog/:postID/:title',
     name: 'Blog',
     component: BlogPage
   },
