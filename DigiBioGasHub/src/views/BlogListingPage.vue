@@ -1,5 +1,5 @@
 <template>
-    <ion-page>
+       <ion-page>
         <NavBarComponent />
         <ion-content>
   <ion-grid>
@@ -19,60 +19,44 @@ import NavBarComponent from '../components/NavBarComponent.vue'
 import BlogListingComponent from '../components/BlogListingComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import {IonPage, IonContent, IonGrid, IonRow, IonCol} from '@ionic/vue'
+import axios from 'axios'
+import slugify from 'slugify'
+
 export default defineComponent ({
     name: 'BlogListingPage',
     components: { NavBarComponent, BlogListingComponent, FooterComponent, IonPage, IonContent, IonGrid, IonRow, IonCol},
-    setup() {
-        return {
-            
-        }
-    },
     data() {
         return {
-            articles: [
-                {
-                    title: 'Article 1',
-                    abstract: 'This is the abstract of article 1',
-                    picture: 'https://via.placeholder.com/150',
-                    link: 'https://www.google.com',
-                    date: '2021-01-01'
-                },
-                {
-                    title: 'Article 2',
-                    abstract: 'This is the abstract of article 2',
-                    picture: 'https://via.placeholder.com/150',
-                    link: 'https://www.google.com',
-                    date: '2021-01-02'
-                },
-                {
-                    title: 'Article 3',
-                    abstract: 'This is the abstract of article 3',
-                    picture: 'https://via.placeholder.com/150',
-                    link: 'https://www.google.com',
-                    date: '2021-01-03'
-                },
-                {
-                    title: 'Article 4',
-                    abstract: 'This is the abstract of article 1',
-                    picture: 'https://via.placeholder.com/150',
-                    link: 'https://www.google.com',
-                    date: '2021-01-01'
-                },
-                {
-                    title: 'Article 5',
-                    abstract: 'This is the abstract of article 2',
-                    picture: 'https://via.placeholder.com/150',
-                    link: 'https://www.google.com',
-                    date: '2021-01-02'
-                },
-                {
-                    title: 'Article 6',
-                    abstract: 'This is the abstract of article 3',
-                    picture: 'https://via.placeholder.com/150',
-                    link: 'https://www.google.com',
-                    date: '2021-01-03'
+            articles: []
+        }
+    },
+    mounted() {
+        this.fetchArticles()
+    },
+    methods: {
+        async fetchArticles() {
+            try {
+                var url = "http://localhost:28765/getallblogposts";
+                const response = await axios.post(url, {}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                console.log(response);
+                if (response.data.result === 'ok' && Array.isArray(response.data.message)) {
+                    this.articles = response.data.message.map(post => ({
+                        title: post.title,
+                        abstract: this.extractAbstract(post.content),
+                        picture: post.image,
+                        link: `/blog/${post.postID}/${slugify(post.title, { lower: true, strict: true })}`,
+                        date: post.createdAt ? new Date(post.createdAt).toLocaleDateString() : 'Unknown Date'
+                    }));
                 }
-            ]
+            } catch (error) {
+                console.error('Error fetching articles:', error);
+            }
+        },
+        extractAbstract(htmlContent) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(htmlContent, 'text/html');
+            const firstParagraph = doc.querySelector('p');
+            return firstParagraph ? firstParagraph.textContent.substring(0, 200) + '...' : '';
         }
     }
 })
