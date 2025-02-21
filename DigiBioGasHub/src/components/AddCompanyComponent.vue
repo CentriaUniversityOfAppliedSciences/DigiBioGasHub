@@ -94,7 +94,7 @@ export default defineComponent({
     methods: {
         addCompany(){
             var url = "http://localhost:28765/createcompany";
-            axios.post(url,{ "userid": this.userID, "name": this.company.name, "address": this.company.address, "city": this.company.city, "zipcode": this.company.zipcode, "phone": this.company.phone, "email":this.company.email, "companyType": this.company.companyType, "web":this.company.web },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            axios.post(url,{ "userID": this.userID, "name": this.company.name, "address": this.company.address, "city": this.company.city, "zipcode": this.company.zipcode, "phone": this.company.phone, "email":this.company.email, "companyType": this.company.companyType, "web":this.company.web },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 console.log(response);
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.materials = response.data.message;

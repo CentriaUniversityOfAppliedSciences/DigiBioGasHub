@@ -71,14 +71,19 @@ export default defineComponent({
     methods: {
         getCompanies() {
             var url = "http://localhost:28765/getusercompanies";
-            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                console.log(response);
-                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
-                    this.companies = response.data.message;
+            axios.post(url,{"userID": this.getUserID() },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                
+                if (response.data.type="result"){
+                    this.companies = response.data.result;
                     //TODO make current_company actually set according to user input
-                    localStorage.setItem('current_company', response.data.message[0].id);
+                    localStorage.setItem('current_company', response.data.result[0].id);
                 }
             });
+        },
+        getUserID(){
+            let token = localStorage.getItem('token');
+            let decoded = JSON.parse(atob(token.split('.')[1]));
+            return decoded.id;
         }
     },
     mounted() {

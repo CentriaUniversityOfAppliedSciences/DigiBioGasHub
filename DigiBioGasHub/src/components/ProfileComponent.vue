@@ -44,7 +44,7 @@
                             <ion-label>{{ offer.name }}</ion-label>
                         </ion-item>
                     </ion-list>
-                    <ion-button id="addOffer">{{ $t('offers.addOffer') }}</ion-button>
+                    <ion-button :disabled="isInCompany" id="addOffer">{{ $t('offers.addOffer') }}</ion-button>
                 </ion-card-content>
             </ion-card>
             <ion-card class="profile-card">
@@ -143,9 +143,10 @@ export default defineComponent({
     },
     data() {
         return {
-            
+            isInCompany: false
         };
     }
+    
 });
 </script>
 
