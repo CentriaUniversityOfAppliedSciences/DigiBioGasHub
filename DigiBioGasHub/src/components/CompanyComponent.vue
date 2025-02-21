@@ -14,7 +14,7 @@
                         </ion-item>
                         <ion-item v-if="!companyEdit">
                             <ion-icon :icon="icons.location" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.industry">{{ $t('general.industry') }}</ion-input>
+                            <ion-input :disabled="companyEdit" v-model="company.companyType">{{ $t('general.industry.'+company.companyType) }}</ion-input>
                         </ion-item>
                         <ion-item v-if="!companyEdit">
                             <ion-icon :icon="icons.location" slot="start" />

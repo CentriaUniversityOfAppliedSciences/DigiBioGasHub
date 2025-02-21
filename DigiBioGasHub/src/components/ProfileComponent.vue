@@ -8,30 +8,19 @@
                 <ion-card-content>
                     <ion-list>
                         <ion-item>
-                            <ion-label>{{$t('account.name')}}</ion-label>
-                            <ion-text>{{ user.name }}</ion-text>
+                            <ion-input :label="$t('account.name')" :disabled="EditUser" v-model="user.name"></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label>{{$t('account.email')}}</ion-label>
-                            <ion-text>{{ user.email }}</ion-text>
+                            <ion-input :label="$t('account.email')" :disabled="EditUser" v-model="user.email"></ion-input>
                         </ion-item>
                         <ion-item>
-                            <ion-label>{{$t('account.phone')}}</ion-label>
-                            <ion-text>{{ user.phone }}</ion-text>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>{{ $t('account.address') }}</ion-label>
-                            <ion-text>{{ user.address }}</ion-text>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>{{$t('account.company')}}</ion-label>
-                            <ion-text>{{ user.company }}</ion-text>
-                        </ion-item>
-                        <ion-item>
-                            <ion-label>{{$t('account.role')}}</ion-label>
-                            <ion-text>{{ user.role }}</ion-text>
+                            <ion-input :label="$t('account.phone')" :disabled="EditUser" v-model="user.phone"></ion-input>
                         </ion-item>
                     </ion-list>
+                    <ion-button @click="toggleEditUser" color="warning">{{ $t('menu.edit') }}</ion-button>
+                    <ion-button @click="saveUser" color="success">{{ $t('menu.save') }}</ion-button>
+                    <ion-button id="deleteUser" color="danger">{{ $t('menu.delete') }}</ion-button>
+                    <ion-button id="changePassword">{{ $t('menu.changePassword') }}</ion-button>
                 </ion-card-content>
             </ion-card>
             <ion-card class="profile-card">
@@ -88,14 +77,34 @@
                     <AddCompanyComponent />
                 </ion-content>
         </ion-modal>
+        <ion-modal trigger="changePassword">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>{{ $t('menu.changePassword') }}</ion-title>
+                    
+                        <ion-button slot="end" color="danger" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
+                    
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+
+            </ion-content>
+        </ion-modal>
+        <ion-alert
+        trigger="deleteUser"
+        :header="$t('menu.delete')"
+        :message="$t('account.deleteUser')"
+        :buttons="[{text: $t('general.cancel'), role: 'cancel'}, {text: $t('general.ok'), handler: deleteUser}]"
+        ></ion-alert>
     </ion-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonText, IonButton, IonModal, modalController } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonInput, IonButton, IonModal, modalController, IonAlert } from '@ionic/vue';
 import AddOfferComponent from './AddOfferComponent.vue';
 import AddCompanyComponent from './AddCompanyComponent.vue';
+import axios from 'axios';
 
 export default defineComponent({
     name: 'ProfileComponent',
@@ -112,11 +121,12 @@ export default defineComponent({
         IonList,
         IonItem,
         IonLabel,
-        IonText,
+        IonInput,
         IonButton,
         AddOfferComponent,
         IonModal,
-        AddCompanyComponent
+        AddCompanyComponent,
+        IonAlert
     },
     setup() {
         return { modalController };
@@ -145,6 +155,29 @@ export default defineComponent({
         return {
             isInCompany: false
         };
+    },
+    methods: {
+        toggleEditUser() {
+            this.EditUser = !this.EditUser;
+        },
+        saveUser() {
+            axios.post('http://localhost:28765/updateuser', {
+                name: this.user.name,
+                email: this.user.email,
+                phone: this.user.phone,
+            }).then(response => {
+                if (response.data.result === 'ok') {
+                    this.ToastComponent.methods.showToast(this.$t('account.saveSuccess'), 2000, 'success');
+                } else {
+                    this.ToastComponent.methods.showToast(this.$t('account.saveFail'), 2000, 'danger');
+                }
+            }).catch(error => {
+                this.ToastComponent.methods.showToast(this.$t('account.saveFail'), 2000, 'danger');
+            });
+        },
+        deleteUser() {
+            // Delete user
+        }
     }
     
 });

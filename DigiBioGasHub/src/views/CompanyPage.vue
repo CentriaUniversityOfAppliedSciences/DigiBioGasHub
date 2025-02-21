@@ -74,7 +74,7 @@ export default defineComponent({
             axios.post(url,{"userID": this.getUserID() },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 
                 if (response.data.type="result"){
-                    this.companies = response.data.result;
+                    this.companies = response.data.message;
                     //TODO make current_company actually set according to user input
                     localStorage.setItem('current_company', response.data.result[0].id);
                 }
@@ -84,7 +84,8 @@ export default defineComponent({
             let token = localStorage.getItem('token');
             let decoded = JSON.parse(atob(token.split('.')[1]));
             return decoded.id;
-        }
+        },
+        
     },
     mounted() {
         this.getCompanies()

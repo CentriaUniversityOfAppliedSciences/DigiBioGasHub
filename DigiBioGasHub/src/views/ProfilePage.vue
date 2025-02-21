@@ -13,6 +13,7 @@ import NavBarComponent from '../components/NavBarComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import ProfileComponent from '../components/ProfileComponent.vue'
 import {IonPage, IonContent} from '@ionic/vue'
+import axios from 'axios'
 export default defineComponent ({
     name: 'ToSPage',
     components: { NavBarComponent, FooterComponent, IonPage, IonContent, ProfileComponent },
@@ -23,19 +24,33 @@ export default defineComponent ({
     data() {
         return {
             myUser: {
-                name: 'Jyri Mäkelä',
-                email: 'jyri.makela@centria.fi',
-                company: 'Centria',
+                name: '',
+                email: '',
+                company: '',
                 role: 'Admin',
-                phone: '040 123 4567',
-                address: 'Kiviharjuntie 4, 40740 Jyväskylä'
+                phone: '',
+                address: ''
             }
         }
     },
     methods:{
         getMyUser(){
-            //todo
+            axios.post('http://localhost:28765/getuser', {id: this.getUserID()}).then(response => {
+                
+                    this.myUser = response.data.message;
+                
+                
+            });
+            console.log(this.myUser);
+        },
+        getUserID(){
+            let token = localStorage.getItem('token');
+            let decoded = JSON.parse(atob(token.split('.')[1]));
+            return decoded.id;
         }
-    }
+    },
+    mounted(){
+        this.getMyUser();
+    }   
 })
 </script>
