@@ -1,20 +1,19 @@
 <template>
   <div>
-    <umo-editor ref="editorRef" v-bind="options"></umo-editor>
-    <ion-button expand="full" @click="savePost">Save</ion-button>
+    <umo-editor ref="editorRef" v-bind="options" @save="onSave"></umo-editor>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
 import { UmoEditor } from '@umoteam/editor';
-import { IonButton } from '@ionic/vue';
 import axios from 'axios';
+import { jwtDecode } from '../router/index';
 
 export default defineComponent({
   name: 'AddBlogPostComponent',
   components: {
-    UmoEditor
+    UmoEditor,
   },
   setup() {
     const editorRef = ref(null);
@@ -22,6 +21,7 @@ export default defineComponent({
   },
   data() {
     return {
+      postID: null,
       options: {
         "editorKey": "default",
         "locale": "en-US",
@@ -524,73 +524,82 @@ export default defineComponent({
     }
   },
   methods: {
-    async savePost() {
+
+    async onSave() {
+
       const content = this.$refs.editorRef.getContent();
       console.log('Content:', content);
+
+      if (!content) {
+        console.error('No content to save.');
+        return false;
+      }
+
+      try {
+        const isUpdate = this.postID !== null && this.postID !== undefined;
+        const result = await this.savePost(content, isUpdate);
+        if (result) {
+          console.log(isUpdate ? 'Document updated successfully' : 'Document saved successfully');
+        } else {
+          console.log('Unable to save. See logs for more info.');
+        }
+        return result;
+      } catch (error) {
+        console.error('Error saving document:', error);
+        return false;
+      }
+    },
+
+    async savePost(content, isUpdate) {
 
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, 'text/html');
 
-
       const title = this.extractTitle(doc) || 'Default Title';
       console.log('Title:', title);
 
-      // Extract the body content excluding the title and image
-      const bodyContent = this.extractBodyContent(doc);
-      console.log('Body Content:', bodyContent);
-
-      // Extract the image from the content
       const image = this.extractImage(doc) || this.imageBase64;
       console.log('Image:', image);
 
+      const token = localStorage.getItem('token');
+      if (!token) {
+        console.error('No token found');
+        return;
+      }
 
-      const postData = {
-        title: title,
-        content: bodyContent,
-        image: image,
-        userID: "b2aaa2f4-0217-436b-9a18-0ee12f0a8296",
-        blogPostType: 1
-      };
-      console.log('Post Data:', postData);
+      const decodedToken = jwtDecode(token);
+      const userID = decodedToken.id;
+
       try {
-        const response = await axios.post('http://localhost:28765/createblogpost', postData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-      
-        if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0) {
-          console.log('Blog post saved successfully');
+        console.log('Saving blog post...');
+
+        let url = isUpdate ? `http://localhost:28765/updateBlogPost` : "http://localhost:28765/createblogpost";
+
+        const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+
+        console.log(response);
+
+        if (response.data.type == "result" && response.data.result == "ok") {
+          console.log('Blog post saved successfully ---');
+
+          this.postID = response.data.message.postID;
+
+          return response.data.message.postID;
         } else {
           console.error('Failed to save blog post');
+          return false;
         }
       } catch (error) {
         console.error('Error:', error);
+        return false;
       }
     },
-      extractTitle(doc) {
-      // Extract the first line as the title
+    extractTitle(doc) {
       const title = doc.querySelector('h1');
       return title ? title.textContent : '';
     },
 
-    extractBodyContent(doc) {
-      const bodyContent = doc.body.innerHTML;
-
-      // Remove <h1> tags and their content
-      const withoutH1 = bodyContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>/g, '');
-
-      // Remove <img> tags
-      const withoutImages = withoutH1.replace(/<img[^>]*>/g, '');
-
-      // Create a temporary div to extract the plain text
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = withoutImages;
-
-      // Get the plain text content
-      const plainTextContent = tempDiv.textContent || tempDiv.innerText;
-
-      return plainTextContent.trim();
-    },
-
     extractImage(doc) {
-      // Extract the first image from the content
       const img = doc.querySelector('img');
       return img ? img.src : '';
     },
@@ -605,7 +614,12 @@ export default defineComponent({
         reader.onerror = reject;
         reader.readAsDataURL(file);
       });
-    }
+    },
+
+    // onSaved() {
+    //   console.log('Document has been saved.');
+    // }
+
   },
   mounted() {
     this.$refs.editorRef.setOptions(this.options);

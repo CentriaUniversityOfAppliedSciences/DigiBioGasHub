@@ -15,7 +15,7 @@ import CompanyPage from '../views/CompanyPage.vue';
 import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
 import AddBlogPostComponent from '../components/AddBlogPostComponent.vue';
 
-function jwtDecode(token) {
+export function jwtDecode(token) {
   try {
       return JSON.parse(atob(token.split('.')[1]));
   } catch (e) {
