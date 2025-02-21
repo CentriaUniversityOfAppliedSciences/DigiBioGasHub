@@ -1,13 +1,14 @@
 <template>
-    
-       
-            <div v-html="content"></div>
+
+
+        <div class="ion-padding" v-html="content" ></div>
+   
         
+
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-
 
 export default defineComponent({
     name: 'BlogPostComponent',
@@ -23,3 +24,11 @@ export default defineComponent({
     }
 })
 </script>
+
+<style scoped>
+.ion-padding {
+    padding: 20px;
+    margin: auto;
+    max-width: 80%;
+}
+</style>
