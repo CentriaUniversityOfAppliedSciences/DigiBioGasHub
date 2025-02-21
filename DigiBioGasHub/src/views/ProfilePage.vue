@@ -31,6 +31,11 @@ export default defineComponent ({
                 address: 'Kiviharjuntie 4, 40740 Jyväskylä'
             }
         }
+    },
+    methods:{
+        getMyUser(){
+            //todo
+        }
     }
 })
 </script>
