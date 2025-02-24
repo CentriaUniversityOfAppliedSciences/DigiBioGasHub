@@ -115,8 +115,24 @@ export default defineComponent({
       // Logic to unpublish the post
     },
     deletePost(postId) {
-      // Logic to delete the post
+
+      console.log('Deleting post:', postId);
+      try {
+        const url = `http://localhost:28765/deleteblogpost`;
+        axios.post(url, { "postID": postId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false })
+          .then(response => {
+            if (response.data.result === 'ok') {
+              this.fetchPosts();
+            }
+          })
+          .catch(error => {
+            console.error('Error deleting post:', error);
+          });
+      } catch (error) {
+        console.error('Error deleting post:', error);
+      }
     },
+  
     async fetchPosts() {
       try {
         const url = "http://localhost:28765/getallblogposts";
