@@ -78,9 +78,12 @@
 
 <script>
 
-import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonImg } from '@ionic/vue';
+import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonImg, IonAlert } from '@ionic/vue';
 import axios from 'axios';
 import { defineComponent } from 'vue';
+import NavBarComponent from '../../components/NavBarComponent.vue';
+import FooterComponent from '../../components/FooterComponent.vue';
+import ToastComponent from '../../components/ToastComponent.vue';
 
 export default defineComponent({
   name: 'ManageBlogPosts',
@@ -95,13 +98,19 @@ export default defineComponent({
     IonCardTitle,
     IonCardContent,
     IonButton,
-    IonImg
+    IonImg,
+    IonAlert,
+    ToastComponent,
+    NavBarComponent,
+    FooterComponent
   },
   data() {
     return {
       publishedPosts: [],
       unpublishedPosts: [],
-      draftPosts: []
+      draftPosts: [],
+      showDeleteAlert: false,
+      postIdToDelete: null
     };
   },
   methods: {
@@ -114,15 +123,22 @@ export default defineComponent({
     unpublishPost(postId) {
       // Logic to unpublish the post
     },
+    confirmDelete(postId) {
+      this.postIdToDelete = postId;
+      this.showDeleteAlert = true;
+    },
+
     deletePost(postId) {
 
       console.log('Deleting post:', postId);
+
       try {
         const url = `http://localhost:28765/deleteblogpost`;
         axios.post(url, { "postID": postId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false })
           .then(response => {
             if (response.data.result === 'ok') {
               this.fetchPosts();
+              this.$refs.toastComponent.showToast('Post deleted successfully', 2000, 'success');
             }
           })
           .catch(error => {
@@ -132,7 +148,7 @@ export default defineComponent({
         console.error('Error deleting post:', error);
       }
     },
-  
+
     async fetchPosts() {
       try {
         const url = "http://localhost:28765/getallblogposts";
