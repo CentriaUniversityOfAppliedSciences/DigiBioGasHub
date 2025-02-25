@@ -1,79 +1,104 @@
 <template>
-  <ion-content>
-    <ion-grid>
-      <!-- Published Section -->
-      <ion-row>
-        <ion-col>
-          <h2>Published</h2>
-          <ion-row>
-            <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in publishedPosts" :key="post.postID">
-              <ion-card class="blog-card">
-                <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
-                <ion-card-header>
-                  <ion-card-title>{{ post.title }}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  <div class="button-group">
-                    <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
-                    <ion-button @click="unpublishPost(post.postID)" expand="block">Unpublish</ion-button>
-                    <ion-button @click="deletePost(post.postID)" color="danger" expand="block">Delete</ion-button>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
+  <ion-page>
+    <NavBarComponent />
+    <ion-content>
+      <ion-grid>
+        <!-- Published Section -->
+        <ion-row>
+          <ion-col>
+            <h2>Published</h2>
+            <ion-row>
+              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in publishedPosts" :key="post.postID">
+                <ion-card class="blog-card">
+                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
+                  <ion-card-header>
+                    <ion-card-title>{{ post.title }}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <div class="button-group">
+                      <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
+                      <ion-button @click="unpublishPost(post.postID)" expand="block">Unpublish</ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
+                    </div>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
 
-      <!-- Unpublished Section -->
-      <ion-row>
-        <ion-col>
-          <h2>Unpublished</h2>
-          <ion-row>
-            <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in unpublishedPosts" :key="post.postID">
-              <ion-card class="blog-card">
-                <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
-                <ion-card-header>
-                  <ion-card-title>{{ post.title }}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  <div class="button-group">
-                    <ion-button @click="publishPost(post.postID)" expand="block">Publish</ion-button>
-                    <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
-                    <ion-button @click="deletePost(post.postID)" color="danger" expand="block">Delete</ion-button>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
+        <!-- Unpublished Section -->
+        <ion-row>
+          <ion-col>
+            <h2>Unpublished</h2>
+            <ion-row>
+              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in unpublishedPosts"
+                :key="post.postID">
+                <ion-card class="blog-card">
+                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
+                  <ion-card-header>
+                    <ion-card-title>{{ post.title }}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <div class="button-group">
+                      <ion-button @click="publishPost(post.postID)" expand="block">Publish</ion-button>
+                      <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
+                    </div>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
 
-      <!-- Draft Section -->
-      <ion-row>
-        <ion-col>
-          <h2>Drafts</h2>
-          <ion-row>
-            <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in draftPosts" :key="post.postID">
-              <ion-card class="blog-card">
-                <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
-                <ion-card-header>
-                  <ion-card-title>{{ post.title }}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                  <div class="button-group">
-                    <ion-button @click="publishPost(post.postID)" expand="block">Publish</ion-button>
-                    <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
-                    <ion-button @click="deletePost(post.postID)" color="danger" expand="block">Delete</ion-button>
-                  </div>
-                </ion-card-content>
-              </ion-card>
-            </ion-col>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-content>
+        <!-- Draft Section -->
+        <ion-row>
+          <ion-col>
+            <h2>Drafts</h2>
+            <ion-row>
+              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in draftPosts" :key="post.postID">
+                <ion-card class="blog-card">
+                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
+                  <ion-card-header>
+                    <ion-card-title>{{ post.title }}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <div class="button-group">
+                      <ion-button @click="publishPost(post.postID)" expand="block">Publish</ion-button>
+                      <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
+                    </div>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <ion-alert :is-open="showDeleteAlert" header="Confirm Delete" message="Are you sure you want to delete this post?"
+        :buttons="[
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+              this.showDeleteAlert = false;
+            }
+          },
+          {
+            text: 'Delete',
+            handler: () => {
+              deletePost(postIdToDelete);
+              this.showDeleteAlert = false;
+            }
+          }
+        ]"></ion-alert>
+
+      <ToastComponent ref="toastComponent" />
+
+    </ion-content>
+    <FooterComponent />
+  </ion-page>
 </template>
 
 <script>
