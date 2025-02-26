@@ -16,7 +16,7 @@
                   </ion-card-header>
                   <ion-card-content>
                     <div class="button-group">
-                      <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
+                      <ion-button @click="editPost(post.postID,post.title)" expand="block">Edit</ion-button>
                       <ion-button @click="unpublishPost(post.postID)" expand="block">Unpublish</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
                     </div>
@@ -42,7 +42,7 @@
                   <ion-card-content>
                     <div class="button-group">
                       <ion-button @click="publishPost(post.postID)" expand="block">Publish</ion-button>
-                      <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
+                      <ion-button @click="editPost(post.postID, post.title)" expand="block">Edit</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
                     </div>
                   </ion-card-content>
@@ -66,7 +66,7 @@
                   <ion-card-content>
                     <div class="button-group">
                       <ion-button @click="publishPost(post.postID)" expand="block">Publish</ion-button>
-                      <ion-button @click="editPost(post.postID)" expand="block">Edit</ion-button>
+                      <ion-button @click="editPost(post.postID, post.title)" expand="block">Edit</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
                     </div>
                   </ion-card-content>
@@ -109,6 +109,8 @@ import { defineComponent } from 'vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import ToastComponent from '../../components/ToastComponent.vue';
+import EditBlogPostPage from './EditBlogPostPage.vue';
+import slugify from 'slugify';
 
 export default defineComponent({
   name: 'ManageBlogPosts',
@@ -126,6 +128,7 @@ export default defineComponent({
     IonImg,
     IonAlert,
     ToastComponent,
+    EditBlogPostPage,
     NavBarComponent,
     FooterComponent
   },
@@ -139,8 +142,8 @@ export default defineComponent({
     };
   },
   methods: {
-    editPost(postId) {
-      // Logic to edit the post
+    editPost(postId, title) {
+      this.$router.push({ name: 'EditBlogPostPage', params: { postID: postId, title: slugify(title, { lower: true, strict: true }) } });
     },
     publishPost(postId) {
       // Logic to publish the post
