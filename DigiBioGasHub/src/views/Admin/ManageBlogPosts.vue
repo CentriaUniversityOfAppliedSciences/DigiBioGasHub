@@ -66,6 +66,7 @@
                   <ion-card-content>
                     <div class="button-group">
                       <ion-button @click="publishPost(post.postID)" expand="block">Publish</ion-button>
+                      <ion-button @click="unpublishPost(post.postID)" expand="block">Unpublish</ion-button>
                       <ion-button @click="editPost(post.postID, post.title)" expand="block">Edit</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
                     </div>
