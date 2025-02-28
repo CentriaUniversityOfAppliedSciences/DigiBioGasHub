@@ -186,7 +186,7 @@ export default defineComponent({
   },
   methods: {
     editPost(postId, title) {
-      this.$router.push({ name: 'EditBlogPostPage', params: { postID: postId, title: slugify(title, { lower: true, strict: true }) } });
+      window.location.href = `/admin/edit-blog-post/${postId}/${slugify(title, { lower: true, strict: true })}`;
     },
 
     confirmPublish(postId) {
