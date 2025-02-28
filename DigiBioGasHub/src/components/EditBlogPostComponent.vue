@@ -1,6 +1,6 @@
 <template>
     <div>
-        <umo-editor ref="editorRef" v-bind="options" @save="onSave"></umo-editor>
+        <umo-editor ref="editorRef" v-bind="options" @save="onSave" @changed="onChanged"></umo-editor>
     </div>
 </template>
 
@@ -8,6 +8,8 @@
 import { defineComponent, ref, watch } from 'vue';
 import { UmoEditor } from '@umoteam/editor';
 import axios from 'axios';
+import { onBeforeRouteLeave } from 'vue-router';
+import { useEventListener } from '@vueuse/core';
 import { jwtDecode } from '../router/index';
 
 export default defineComponent({
@@ -27,6 +29,7 @@ export default defineComponent({
     },
     setup(props) {
         const editorRef = ref(null);
+        const isDirty = ref(false);
 
         watch(() => props.content, (newVal) => {
             if (editorRef.value) {
@@ -34,7 +37,26 @@ export default defineComponent({
             }
         });
 
-        return { editorRef };
+
+        const onChanged = () => {
+            isDirty.value = true;
+        };
+
+        onBeforeRouteLeave((to, from, next) => {
+            if (isDirty.value && !confirm("You have unsaved changes. Are you sure you want to leave?")) {
+                next(false); 
+            } else {
+                next();
+            }
+        });
+
+        useEventListener(window, "beforeunload", (event) => {
+            if (isDirty.value) {
+                event.preventDefault();
+            }
+        });
+
+        return { editorRef, onChanged, isDirty };
     },
     data() {
         return {
@@ -576,6 +598,7 @@ export default defineComponent({
 
                 if (response.data.type == "result" && response.data.result == "ok") {
                     console.log('Blog post saved successfully ---');
+                    this.isDirty = false;
                     return true;
 
                 } else {
