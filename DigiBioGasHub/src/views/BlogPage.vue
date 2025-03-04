@@ -21,7 +21,7 @@ export default defineComponent({
     components: { NavBarComponent, FooterComponent, IonPage, IonContent, BlogPostComponent },
     setup() {
 
-        const content = ref(null)
+        const content = ref('')
         const route = useRoute()
         const postID = route.params.postID
 
