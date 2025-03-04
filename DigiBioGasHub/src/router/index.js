@@ -9,11 +9,11 @@ import BlogPage from '../views/BlogPage.vue';
 import OfferPage from '../views/OfferPage.vue';
 import MarketplacePage from '../views/MarketplacePage.vue';
 import ProfilePage from '../views/ProfilePage.vue';
-import ToSPage from '../views/ToSPage.vue';
 import ProductPage from '../views/ProductPage.vue';
 import CompanyPage from '../views/CompanyPage.vue';
 import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
-import AddBlogPostComponent from '../components/AddBlogPostComponent.vue';
+import ManageBlogPosts from '../views/Admin/ManageBlogPosts.vue';
+import EditBlogPostPage from '../views/Admin/EditBlogPostPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -60,12 +60,19 @@ const routes = [
     path: '/admin/add-blog-post',
     name: 'AddBlogPost',
     component: AddBlogPostPage,
+    beforeEnter: [checkAdmin] 
+  },
+  {
+    path: '/admin/edit-blog-post/:postID/:title',
+    name: 'EditBlogPostPage',
+    component: EditBlogPostPage,
     beforeEnter: [checkAdmin]
-    
-        
-        
-    
-    
+  },
+  {
+    path: '/admin/manage-blog-post',
+    name: 'ManageBlogPosts',
+    component: ManageBlogPosts,
+    beforeEnter: [checkAdmin] 
   },
   {
     path: '/blog/:postID/:title',
