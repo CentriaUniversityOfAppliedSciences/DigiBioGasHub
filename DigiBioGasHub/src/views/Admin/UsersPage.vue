@@ -24,11 +24,11 @@
                     <IonCol>{{ user.name }}</IonCol>
                     <IonCol>{{ user.email }}</IonCol>
                     <IonCol>{{ user.phone }}</IonCol>
-                    <IonCol>{{ user.userLevel }}</IonCol>
+                    <IonCol>{{ user.userlevel }}</IonCol>
                     <IonCol>{{ user.hubID }}</IonCol>
                     <IonCol>
                         <IonButton @click="editUser(user.id)">Edit</IonButton>
-                        <IonButton color="danger" @click="deleteUser(user.id)">Delete</IonButton>
+                        <IonButton color="danger" @click="confirmDelete(user.id)">Delete</IonButton>
                     </IonCol>
                 </IonRow>
             </IonGrid>
@@ -61,7 +61,7 @@
                         </IonItem>
                         <IonItem>
                             <IonLabel position="floating">User Level</IonLabel>
-                            <IonInput type="text" v-model="editUserData.userLevel" required></IonInput>
+                            <IonInput type="text" v-model="editUserData.userlevel" required></IonInput>
                         </IonItem>
                         <IonItem>
                             <IonLabel position="floating">Hub ID</IonLabel>
@@ -73,13 +73,34 @@
                 </div>
             </IonModal>
 
+            <ToastComponent ref="toastComponent" />
+
+            <ion-alert :is-open="showDeleteAlert" header="Confirm Delete"
+                message="Are you sure you want to delete this account? This action is irreversible." :buttons="[
+                    {
+                        text: 'Cancel',
+                        role: 'cancel',
+                        handler: () => {
+                            this.showDeleteAlert = false;
+                        }
+                    },
+                    {
+                        text: 'Delete',
+                        handler: () => {
+                            deleteUser(userIdToDelete);
+                            this.showDeleteAlert = false;
+                        }
+                    }
+                ]"></ion-alert>
+
         </IonContent>
         <FooterComponent />
     </IonPage>
 </template>
 
 <script>
-import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput } from '@ionic/vue';
+import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput, IonAlert } from '@ionic/vue';
+import ToastComponent from '../../components/ToastComponent.vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import axios from 'axios';
@@ -100,6 +121,8 @@ export default {
         IonItem,
         IonLabel,
         IonInput,
+        IonAlert,
+        ToastComponent,
         NavBarComponent,
         FooterComponent,
     },
@@ -111,13 +134,14 @@ export default {
             limit: Number(this.$route.query.limit) || 25,
             totalUsers: 0,
             isModalOpen: false,
+            showDeleteAlert: false,
             editUserData: {
                 id: '',
                 username: '',
                 name: '',
                 email: '',
                 phone: '',
-                userLevel: '',
+                userlevel: '',
                 hubID: ''
             }
         };
@@ -132,7 +156,7 @@ export default {
     methods: {
         async fetchUsers() {
             try {
-                const url = "http://localhost:28765/getusers";
+                const url = "http://localhost:28765/getlimitedusers";
                 const response = await axios.post(url, { page: this.page - 1, limit: this.limit }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 this.users = response.data.message;
                 this.totalUsers = response.data.total;
@@ -160,13 +184,37 @@ export default {
             this.isModalOpen = false;
         },
 
-        saveUser() {
-            console.log('User data saved:', this.editUserData);
+        async saveUser() {
+            try {
+                const url = `http://localhost:28765/admin/updateuser`;
+            
+                const response = await axios.post(url, this.editUserData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.result === "ok") {
+                    this.$refs.toastComponent.showToast('User updated successfully', 2000, 'success');
+                }
+            } catch (error) { 
+                console.error(error);
+            }
             this.closeModal();
         },
 
-        deleteUser(userId) {
-            console.log(`Delete user with ID: ${userId}`);
+        confirmDelete(id) {
+            this.userIdToDelete = id;
+            this.showDeleteAlert = true;
+        },
+
+        async deleteUser(id) {
+            console.log(`Delete user with ID: ${id}`);
+            try {
+                const url = `http://localhost:28765/deleteuser`
+
+                const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.result === "ok") {
+                    this.$refs.toastComponent.showToast('User deleted successfully', 2000, 'success');
+                }
+            } catch (error) { 
+                console.error(error);
+            }
         }
     },
 
