@@ -191,8 +191,13 @@ export default {
                 const response = await axios.post(url, this.editUserData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {
                     this.$refs.toastComponent.showToast('User updated successfully', 2000, 'success');
+
+                    const index = this.users.findIndex(user => user.id === this.editUserData.id);
+                    if (index !== -1) {
+                        this.users[index] = { ...this.editUserData };
+                    }
                 }
-            } catch (error) { 
+            } catch (error) {
                 console.error(error);
             }
             this.closeModal();
@@ -211,6 +216,7 @@ export default {
                 const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {
                     this.$refs.toastComponent.showToast('User deleted successfully', 2000, 'success');
+                    this.users = this.users.filter(user => user.id !== id);
                 }
             } catch (error) { 
                 console.error(error);
@@ -219,9 +225,11 @@ export default {
     },
 
     watch: {
-        '$route.query.page'(newPage) {
-            this.page = Number(newPage) || 1;
-            this.fetchUsers();
+        '$route.query.page'(newPage, oldPage) {
+            if (newPage !== oldPage) {
+                this.page = Number(newPage) || 1;
+                this.fetchUsers();
+            }
         }
     },
 
