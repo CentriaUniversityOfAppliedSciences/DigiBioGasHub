@@ -241,7 +241,7 @@ export default {
 <style scoped>
 ion-col {
     padding: 10px;
-    border-bottom: 1px solid #ddd;
+    border: 1px solid #ddd;
 }
 
 ion-button {
