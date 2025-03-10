@@ -171,13 +171,13 @@ export default {
 
         async editUser(userId) {
             try {
-            const url = `http://localhost:28765/getuser`;
-            const response = await axios.post(url, { id: userId }, {headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-            this.editUserData = response.data.message;
-            this.isModalOpen = true;
-        } catch (error) {
-            console.error(error);
-        }
+                const url = `http://localhost:28765/getuser`;
+                const response = await axios.post(url, { id: userId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                this.editUserData = response.data.message;
+                this.isModalOpen = true;
+            } catch (error) {
+                console.error(error);
+            }
         },
 
         closeModal() {
@@ -187,7 +187,7 @@ export default {
         async saveUser() {
             try {
                 const url = `http://localhost:28765/admin/updateuser`;
-            
+
                 const response = await axios.post(url, this.editUserData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {
                     this.$refs.toastComponent.showToast('User updated successfully', 2000, 'success');
@@ -209,7 +209,6 @@ export default {
         },
 
         async deleteUser(id) {
-            console.log(`Delete user with ID: ${id}`);
             try {
                 const url = `http://localhost:28765/deleteuser`
 
@@ -218,7 +217,7 @@ export default {
                     this.$refs.toastComponent.showToast('User deleted successfully', 2000, 'success');
                     this.users = this.users.filter(user => user.id !== id);
                 }
-            } catch (error) { 
+            } catch (error) {
                 console.error(error);
             }
         }
