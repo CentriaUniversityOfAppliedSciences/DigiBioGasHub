@@ -44,7 +44,7 @@
                     </IonSelect>
                 </IonItem>
 
-                <IonButton v-for="pageNumber in totalPages" :key="pageNumber" @click="changePage(pageNumber)">
+                <IonButton v-for="pageNumber in totalPages" :key="pageNumber" @click="changePage(pageNumber)" :class="{ 'selected': pageNumber === page }">
                     {{ pageNumber }}
                 </IonButton>
             </div>
@@ -274,4 +274,9 @@ ion-button {
     margin-top: 20px;
     margin-bottom: 10px;
 }
+
+.selected {
+    --background: green;
+}
+
 </style>
