@@ -34,7 +34,17 @@
             </IonGrid>
 
             <div class="pagination">
-                <IonButton v-for="pageNumber in totalPages" :key="pageNumber" @click="goToPage(pageNumber)">
+
+                <IonItem>
+                    <IonLabel>Results per page:</IonLabel>
+                    <IonSelect v-model="limit">
+                        <IonSelectOption v-for="option in [5, 25, 50, 75, 100]" :key="option" :value="option">
+                            {{ option }}
+                        </IonSelectOption>
+                    </IonSelect>
+                </IonItem>
+
+                <IonButton v-for="pageNumber in totalPages" :key="pageNumber" @click="changePage(pageNumber)">
                     {{ pageNumber }}
                 </IonButton>
             </div>
@@ -99,7 +109,7 @@
 </template>
 
 <script>
-import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput, IonAlert } from '@ionic/vue';
+import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput, IonAlert, IonList, IonSelect, IonSelectOption } from '@ionic/vue';
 import ToastComponent from '../../components/ToastComponent.vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
@@ -120,8 +130,11 @@ export default {
         IonModal,
         IonItem,
         IonLabel,
+        IonSelectOption,
         IonInput,
         IonAlert,
+        IonList,
+        IonSelect,
         ToastComponent,
         NavBarComponent,
         FooterComponent,
@@ -165,8 +178,12 @@ export default {
             }
         },
 
-        goToPage(pageNumber) {
-            this.$router.push({ path: '/admin/manage-users', query: { page: pageNumber, limit: this.limit } });
+        changePage(pageNumber) {
+            if (this.page !== pageNumber) {
+                this.page = pageNumber;
+                this.$router.replace({ path: '/admin/manage-users', query: { page: this.page, limit: this.limit } });
+                this.fetchUsers();
+            }
         },
 
         async editUser(userId) {
@@ -224,11 +241,10 @@ export default {
     },
 
     watch: {
-        '$route.query.page'(newPage, oldPage) {
-            if (newPage !== oldPage) {
-                this.page = Number(newPage) || 1;
-                this.fetchUsers();
-            }
+        limit(newLimit) {
+            this.page = 1;
+            this.$router.replace({ path: '/admin/manage-users', query: { page: this.page, limit: newLimit } });
+            this.fetchUsers();
         }
     },
 
