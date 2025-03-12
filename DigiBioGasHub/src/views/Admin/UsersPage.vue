@@ -9,7 +9,6 @@
             </IonHeader>
             <IonGrid class="margin-style">
                 <IonRow>
-                    <IonCol size="2"><strong>ID</strong></IonCol>
                     <IonCol><strong>UserName</strong></IonCol>
                     <IonCol><strong>Name</strong></IonCol>
                     <IonCol><strong>Email</strong></IonCol>
@@ -19,7 +18,6 @@
                     <IonCol><strong>Actions</strong></IonCol>
                 </IonRow>
                 <IonRow v-for="user in users" :key="user.id">
-                    <IonCol size="2">{{ user.id }}</IonCol>
                     <IonCol>{{ user.username }}</IonCol>
                     <IonCol>{{ user.name }}</IonCol>
                     <IonCol>{{ user.email }}</IonCol>
