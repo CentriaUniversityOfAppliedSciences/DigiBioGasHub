@@ -14,6 +14,7 @@ import CompanyPage from '../views/CompanyPage.vue';
 import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
 import ManageBlogPosts from '../views/Admin/ManageBlogPosts.vue';
 import EditBlogPostPage from '../views/Admin/EditBlogPostPage.vue';
+import UsersPage from '../views/Admin/UsersPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -56,6 +57,13 @@ const routes = [
     name: 'Map',
     component: MapPage
   },
+  {
+    path: '/admin/manage-users',
+    name: 'UsersPage',
+    component: UsersPage,
+    beforeEnter: [checkAdmin]
+  },
+
   {
     path: '/admin/add-blog-post',
     name: 'AddBlogPost',
