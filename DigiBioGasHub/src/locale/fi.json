@@ -15,7 +15,32 @@
         "myProducts": "Omat tuotteet",
         "mycompany": "Yritykseni",
         "marketplace": "Markkinapaikka",
-        "map": "Kartta"
+        "map": "Kartta",
+        "deleteAccount": "Poista tilisi",
+        "save": "Tallenna",
+        "cancel": "Peruuta",
+        "changePassword": "Vaihda salasana",
+        "changeLanguage": "Vaihda kieli",
+        "deleteAccountConfirm": "Haluatko varmasti poistaa tilisi? Tämä toiminto on peruuttamaton.",
+        "deleteAccountConfirmMessage": "Tilisi poistetaan ja kaikki siihen liittyvät tiedot menetetään. Haluatko varmasti jatkaa?",
+        "terms": "Käyttöehdot",
+        "privacyPolicy": "Tietosuojakäytäntö",
+        "contact": "Ota yhteyttä",
+        "about": "Tietoa meistä",
+        "search": "Haku",
+        "searchPlaceholder": "Hae...",
+        "searchResults": "Hakutulokset",
+        "searchNoResults": "Ei hakutuloksia",
+        "searchResultsFor": "Hakutulokset haulle",
+        "resetPassword": "Nollaa salasana",
+        "resetPasswordButton": "Lähetä nollauslinkki",
+        "resetPasswordSuccess": "Nollauslinkki lähetetty",
+        "resetPasswordSuccessMessage": "Jos käyttäjätunnus on olemassa, nollauslinkki on lähetetty sähköpostiisi.",
+        "resetPasswordFail": "Nollauslinkin lähetys epäonnistui",
+        "resetPasswordFailMessage": "Käyttäjätunnusta ei löytynyt. Tarkista käyttäjätunnus ja yritä uudelleen.",
+        "forgotPassword": "Unohditko salasanasi?",
+        "edit": "Muokkaa",
+        "company": "Yritys"
     },
     "general":{
         "loading": "Ladataan...",
@@ -69,7 +94,8 @@
         "lastName": "Sukunimi",
         "company": "Yritys",
         "TermsAndConditions": "Käyttöehdot",
-        "PrivacyPolicy": "Tietosuojakäytäntö"
+        "PrivacyPolicy": "Tietosuojakäytäntö",
+        "industry": "Toimiala"
         
 
     },
@@ -267,7 +293,17 @@
         "editAgreement": "Muokkaa sopimusta",
         "deleteAgreement": "Poista sopimus",
         "products": "Tuotteet",
-        "types": "Tyypit"
+        "types": "Tyypit",
+        "addCompany": "Lisää yritys",
+        "type": {
+            "0":"Palvelun tarjoaja",
+            "1":"Maatalous",
+            "2":"Biokaasun pientuottaja",
+            "3":"Biokaasun tuottaja",
+            "4":"Teollisuus",
+            "5":"Logistiikka",
+            "6":"Muu"
+        }
 
     }
 

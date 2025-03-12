@@ -19,7 +19,7 @@
                     </ion-list>
                     <ion-button @click="toggleEditUser" color="warning">{{ $t('menu.edit') }}</ion-button>
                     <ion-button @click="saveUser" color="success">{{ $t('menu.save') }}</ion-button>
-                    <ion-button id="deleteUser" color="danger">{{ $t('menu.delete') }}</ion-button>
+                    <ion-button id="deleteUser" color="danger">{{ $t('menu.deleteAccount') }}</ion-button>
                     <ion-button id="changePassword">{{ $t('menu.changePassword') }}</ion-button>
                 </ion-card-content>
             </ion-card>
@@ -87,7 +87,10 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content>
-
+                <ion-input :label="$t('account.oldPassword')" type="password"></ion-input>
+                <ion-input :label="$t('account.newPassword')" type="password"></ion-input>
+                <ion-input :label="$t('account.newPasswordRepeat')" type="password"></ion-input>
+                <ion-button @click="changePassword()">{{ $t('menu.save') }}</ion-button>
             </ion-content>
         </ion-modal>
         <ion-alert
@@ -153,7 +156,11 @@ export default defineComponent({
     },
     data() {
         return {
-            isInCompany: false
+            isInCompany: false,
+            currPassword: '',
+            newPassword: '',
+            repeatPassword: '',
+            EditUser: true,
         };
     },
     methods: {
@@ -176,7 +183,39 @@ export default defineComponent({
             });
         },
         deleteUser() {
-            // Delete user
+            axios.post('http://localhost:28765/deleteuser',{id: this.getUserID()}).then(response =>{
+                if (response.data.result === 'ok') {
+                    this.ToastComponent.methods.showToast(this.$t('account.deleteSuccess'), 2000, 'success');
+                    localStorage.removeItem('token');
+                    this.$router.push({ name: 'Login' });
+                } else {
+                    this.ToastComponent.methods.showToast(this.$t('account.deleteFail'), 2000, 'danger');
+                }
+            }).catch(error => {
+                this.ToastComponent.methods.showToast(this.$t('account.deleteFail'), 2000, 'danger');
+            })
+        },
+        getUserID(){
+            let token = localStorage.getItem('token');
+            let decoded = JSON.parse(atob(token.split('.')[1]));
+            return decoded.id;
+        },
+        changePassword(){
+            axios.post('http://localhost:28765/changepassword', {
+                id: this.getUserID(),
+                currPassword: this.currPassword,
+                newPassword: this.newPassword,
+                repeatPassword: this.repeatPassword
+            }).then(response => {
+                if (response.data.result === 'ok') {
+                    this.ToastComponent.methods.showToast(this.$t('account.passwordChangeSuccess'), 2000, 'success');
+                    this.modalController.dismiss();
+                } else {
+                    this.ToastComponent.methods.showToast(this.$t('account.passwordChangeFail'), 2000, 'danger');
+                }
+            }).catch(error => {
+                this.ToastComponent.methods.showToast(this.$t('account.passwordChangeFail'), 2000, 'danger');
+            });
         }
     }
     
