@@ -15,6 +15,7 @@ import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
 import ManageBlogPosts from '../views/Admin/ManageBlogPosts.vue';
 import EditBlogPostPage from '../views/Admin/EditBlogPostPage.vue';
 import UsersPage from '../views/Admin/UsersPage.vue';
+import CompaniesPage from '../views/Admin/CompaniesPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -80,6 +81,12 @@ const routes = [
     path: '/admin/manage-blog-post',
     name: 'ManageBlogPosts',
     component: ManageBlogPosts,
+    beforeEnter: [checkAdmin] 
+  },
+  {
+    path: '/admin/manage-companies',
+    name: 'CompaniesPage',
+    component: CompaniesPage,
     beforeEnter: [checkAdmin] 
   },
   {
