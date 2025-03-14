@@ -13,18 +13,11 @@
             </ion-segment>
 
             <ion-list>
-                <ion-item v-for="company in filteredCompanies" :key="company.id">
+                <ion-item v-for="company in filteredCompanies" :key="company.id" @click="openCompanyModal(company)" style="cursor: pointer;">
                     <ion-label>
                         <h2>{{ company.name }}</h2>
                         <p>{{ company.city }}</p>
                     </ion-label>
-                    <ion-buttons slot="end">
-                        <ion-button v-if="company.companyStatus === 0" @click="reviewCompany(company)">Review and Verify</ion-button>
-                        <ion-button v-if="company.companyStatus === 1" @click="confirmAction('Unverify', company.id, 0)">Unverify</ion-button>
-                        <ion-button v-if="company.companyStatus !== 2" @click="confirmAction('Disable', company.id, 2)">Disable</ion-button>
-                        <ion-button @click="editCompany(company)">Edit</ion-button>
-                        <ion-button color="danger" @click="confirmAction('Delete', company.id, null, true)">Delete</ion-button>
-                    </ion-buttons>
                 </ion-item>
             </ion-list>
         </ion-content>
@@ -32,7 +25,7 @@
         <ion-modal :is-open="isReviewOpen" @didDismiss="isReviewOpen = false">
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>Review Company</ion-title>
+                    <ion-title>Company Details</ion-title>
                     <ion-buttons slot="end">
                         <ion-button @click="isReviewOpen = false">Close</ion-button>
                     </ion-buttons>
@@ -70,12 +63,15 @@
                         </ion-row>
                     </ion-grid>
 
-                    <ion-button v-if="selectedCompany.companyStatus === 0"
-                        @click="confirmAction('Verify', selectedCompany.id, 1)">
-                        Verify
-                    </ion-button>
+                    <ion-buttons>
+                        <ion-button v-if="selectedCompany.companyStatus === 0" @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
+                        <ion-button v-if="selectedCompany.companyStatus === 1" @click="confirmAction('Unverify', selectedCompany.id, 0)">Unverify</ion-button>
+                        <ion-button v-if="selectedCompany.companyStatus !== 2" @click="confirmAction('Disable', selectedCompany.id, 2)">Disable</ion-button>
+                        <ion-button expand="block" v-if="selectedCompany.companyStatus === 2" @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
+                        <ion-button @click="editCompany(selectedCompany)">Edit</ion-button>
+                        <ion-button color="danger" @click="confirmAction('Delete', selectedCompany.id, null, true)">Delete</ion-button>
+                    </ion-buttons>
                 </div>
-
             </ion-content>
         </ion-modal>
     </ion-page>
@@ -124,7 +120,6 @@ export default {
     },
 
     methods: {
-
         async fetchCompanies() {
             try {
                 const response = await axios.post('http://localhost:28765/admin/getallcompanies');
@@ -175,7 +170,7 @@ export default {
             
         },
 
-        reviewCompany(company) {
+        openCompanyModal(company) {
             this.selectedCompany = company;
             this.isReviewOpen = true;
         }
