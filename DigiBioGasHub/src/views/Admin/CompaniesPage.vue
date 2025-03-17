@@ -151,9 +151,10 @@ export default {
                         handler: () => {
                             if (isDelete) {
                                 this.deleteCompany(id);
+                                this.isReviewOpen = false;
                             } else {
                                 this.updateCompanyStatus(id, status);
-                                if (action === 'Verify') {
+                                if (action === 'Verify' || action === 'Unverify' || action === 'Disable') {
                                     this.isReviewOpen = false;
                                 }
                             }
