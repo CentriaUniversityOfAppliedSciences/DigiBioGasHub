@@ -74,12 +74,15 @@
                 </div>
             </ion-content>
         </ion-modal>
+
+        <ToastComponent ref="toastComponent" />
     </ion-page>
 </template>
 
 <script>
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonText, IonGrid, IonRow, IonCol } from '@ionic/vue';
 import axios from 'axios';
+import ToastComponent from '../../components/ToastComponent.vue';
 
 export default {
     components: { 
@@ -98,7 +101,8 @@ export default {
         IonModal, 
         IonGrid, 
         IonRow, 
-        IonCol 
+        IonCol ,
+        ToastComponent
     },
 
     data() {
@@ -133,8 +137,19 @@ export default {
            //logic to update company
         },
 
-        async deleteCompany() {
-            //logic to delete company
+        async deleteCompany(id) {
+            try {
+                const url = `http://localhost:28765/deletecompany`
+
+                const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.type = "result" && response.data.result == "ok") {
+                    this.$refs.toastComponent.showToast('Company deleted successfully', 2000, 'success');
+                    this.companies = this.companies.filter(company => company.id !== id);
+                    this.isReviewOpen= false;
+                }
+            } catch (error) {
+                console.error(error);
+            }
         },
 
         async confirmAction(action, id, status = null, isDelete = false) {
@@ -154,9 +169,6 @@ export default {
                                 this.isReviewOpen = false;
                             } else {
                                 this.updateCompanyStatus(id, status);
-                                if (action === 'Verify' || action === 'Unverify' || action === 'Disable') {
-                                    this.isReviewOpen = false;
-                                }
                             }
                         },
                     },
