@@ -134,7 +134,23 @@ export default {
         },
 
         async updateCompanyStatus(id, status) {
-           //logic to update company
+            try {
+                const url = "http://localhost:28765/admin/updatecompanystatus";
+                const response = await axios.post(url, {id, status}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                console.log(response);
+                if (response.data.type = "result" && response.data.result == "ok") {
+                    this.$refs.toastComponent.showToast('Company status updated successfully', 2000, 'success');
+                    const companyIndex = this.companies.findIndex(c => c.id === id);
+
+                    if (companyIndex !== -1) {
+                        this.companies[companyIndex].companyStatus = status;
+                    }
+
+                    this.isReviewOpen = false;
+                }
+            } catch (error) {
+                console.error('Error updating company status:', error);
+            }
         },
 
         async deleteCompany(id) {
@@ -145,7 +161,7 @@ export default {
                 if (response.data.type = "result" && response.data.result == "ok") {
                     this.$refs.toastComponent.showToast('Company deleted successfully', 2000, 'success');
                     this.companies = this.companies.filter(company => company.id !== id);
-                    this.isReviewOpen= false;
+                    this.isReviewOpen = false;
                 }
             } catch (error) {
                 console.error(error);
@@ -180,7 +196,7 @@ export default {
         editCompany(company) {
             console.log('Edit company', company);
             //logic to edit company
-            
+
         },
 
         openCompanyModal(company) {
