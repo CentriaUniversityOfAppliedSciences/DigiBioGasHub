@@ -75,12 +75,56 @@
             </ion-content>
         </ion-modal>
 
+        <ion-modal :is-open="isEditOpen" @didDismiss="isEditOpen = false">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>Edit Company</ion-title>
+                    <ion-buttons slot="end">
+                        <ion-button @click="isEditOpen = false">Close</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
+                <ion-list>
+                    <ion-item>
+                        <ion-label position="stacked">Name</ion-label>
+                        <ion-input v-model="editCompanyData.name"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Address</ion-label>
+                        <ion-input v-model="editCompanyData.address"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">City</ion-label>
+                        <ion-input v-model="editCompanyData.city"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Zipcode</ion-label>
+                        <ion-input v-model="editCompanyData.zipcode"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Email</ion-label>
+                        <ion-input v-model="editCompanyData.email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Phone</ion-label>
+                        <ion-input v-model="editCompanyData.phone"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Website</ion-label>
+                        <ion-input v-model="editCompanyData.web"></ion-input>
+                    </ion-item>
+                </ion-list>
+                <ion-button expand="block" @click="saveCompanyChanges">Save Changes</ion-button>
+            </ion-content>
+        </ion-modal>
+
         <ToastComponent ref="toastComponent" />
     </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonText, IonGrid, IonRow, IonCol } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonGrid, IonRow, IonCol, IonInput } from '@ionic/vue';
 import axios from 'axios';
 import ToastComponent from '../../components/ToastComponent.vue';
 
@@ -98,6 +142,7 @@ export default {
         IonLabel, 
         IonButtons, 
         IonButton, 
+        IonInput,
         IonModal, 
         IonGrid, 
         IonRow, 
@@ -110,7 +155,9 @@ export default {
             companies: [],
             selectedSegment: 'verified',
             isReviewOpen: false,
-            selectedCompany: null
+            isEditOpen: false,
+            selectedCompany: null,
+            editCompanyData: {}
         };
     },
     computed: {
@@ -182,7 +229,6 @@ export default {
                         handler: () => {
                             if (isDelete) {
                                 this.deleteCompany(id);
-                                this.isReviewOpen = false;
                             } else {
                                 this.updateCompanyStatus(id, status);
                             }
@@ -194,9 +240,26 @@ export default {
         },
 
         editCompany(company) {
-            console.log('Edit company', company);
-            //logic to edit company
+            this.editCompanyData = { ...company };
+            this.isEditOpen = true;
+        },
 
+        async saveCompanyChanges() {
+            try {
+                const url = 'http://localhost:28765/updatecompany'
+                const response = await axios.post(url, this.editCompanyData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.result === 'ok') {
+                    this.$refs.toastComponent.showToast('Company updated successfully', 2000, 'success');
+                    const index = this.companies.findIndex(c => c.id === this.editCompanyData.id);
+                    if (index !== -1) {
+                        this.companies[index] = { ...this.editCompanyData };
+                    }
+                    this.isEditOpen = false;
+                    this.isReviewOpen = false;
+                }
+            } catch (error) {
+                console.error('Error updating company:', error);
+            }
         },
 
         openCompanyModal(company) {
