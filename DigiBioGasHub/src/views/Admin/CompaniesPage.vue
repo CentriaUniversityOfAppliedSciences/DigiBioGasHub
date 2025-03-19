@@ -1,6 +1,7 @@
 <template>
     <ion-page>
         <ion-header>
+            <NavBarComponent />
             <ion-toolbar>
                 <ion-title>Company Management</ion-title>
             </ion-toolbar>
@@ -126,6 +127,9 @@
         </ion-modal>
 
         <ToastComponent ref="toastComponent" />
+
+        <FooterComponent />
+
     </ion-page>
 </template>
 
@@ -133,6 +137,8 @@
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonGrid, IonRow, IonCol, IonInput } from '@ionic/vue';
 import axios from 'axios';
 import ToastComponent from '../../components/ToastComponent.vue';
+import NavBarComponent from '../../components/NavBarComponent.vue';
+import FooterComponent from '../../components/FooterComponent.vue';
 
 export default {
     components: {
@@ -153,7 +159,9 @@ export default {
         IonGrid,
         IonRow,
         IonCol,
-        ToastComponent
+        ToastComponent,
+        NavBarComponent,
+        FooterComponent
     },
 
     data() {
