@@ -252,7 +252,7 @@ export default {
 
         async saveCompanyChanges() {
             try {
-                const url = 'http://localhost:28765/updatecompany';
+                const url = "http://localhost:28765/updatecompany";
                 const response = await axios.post(url, this.editCompanyData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === 'ok') {
                     this.$refs.toastComponent.showToast('Company updated successfully', 2000, 'success');
