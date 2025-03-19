@@ -38,27 +38,27 @@
                     <h2>{{ selectedCompany.name }}</h2>
                     <ion-grid>
                         <ion-row>
-                            <ion-col size="4"><strong>Address:</strong></ion-col>
+                            <ion-col size="4"><strong>{{ $t('company.address') }}:</strong></ion-col>
                             <ion-col size="8">{{ selectedCompany.address }}</ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col size="4"><strong>City:</strong></ion-col>
+                            <ion-col size="4"><strong>{{ $t('company.city') }}:</strong></ion-col>
                             <ion-col size="8">{{ selectedCompany.city }}</ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col size="4"><strong>Zipcode:</strong></ion-col>
+                            <ion-col size="4"><strong>{{ $t('company.postalCode') }}:</strong></ion-col>
                             <ion-col size="8">{{ selectedCompany.zipcode }}</ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col size="4"><strong>Email:</strong></ion-col>
+                            <ion-col size="4"><strong>{{ $t('company.email') }}:</strong></ion-col>
                             <ion-col size="8">{{ selectedCompany.email }}</ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col size="4"><strong>Phone:</strong></ion-col>
+                            <ion-col size="4"><strong>{{ $t('company.phone') }}:</strong></ion-col>
                             <ion-col size="8">{{ selectedCompany.phone }}</ion-col>
                         </ion-row>
                         <ion-row>
-                            <ion-col size="4"><strong>Website:</strong></ion-col>
+                            <ion-col size="4"><strong>{{ $t('company.website') }}:</strong></ion-col>
                             <ion-col size="8">
                                 <a :href="selectedCompany.web" target="_blank">{{ selectedCompany.web }}</a>
                             </ion-col>
@@ -94,31 +94,31 @@
             <ion-content>
                 <ion-list>
                     <ion-item>
-                        <ion-label position="stacked">Name</ion-label>
+                        <ion-label position="stacked">{{ $t('company.name') }}</ion-label>
                         <ion-input v-model="editCompanyData.name"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Address</ion-label>
+                        <ion-label position="stacked">{{ $t('company.address') }}</ion-label>
                         <ion-input v-model="editCompanyData.address"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">City</ion-label>
+                        <ion-label position="stacked">{{ $t('company.city') }}</ion-label>
                         <ion-input v-model="editCompanyData.city"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Zipcode</ion-label>
+                        <ion-label position="stacked">{{ $t('company.postalCode') }}</ion-label>
                         <ion-input v-model="editCompanyData.zipcode"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Email</ion-label>
+                        <ion-label position="stacked">{{ $t('company.email') }}</ion-label>
                         <ion-input v-model="editCompanyData.email"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Phone</ion-label>
+                        <ion-label position="stacked">{{ $t('company.phone') }}</ion-label>
                         <ion-input v-model="editCompanyData.phone"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Website</ion-label>
+                        <ion-label position="stacked">{{ $t('company.website') }}</ion-label>
                         <ion-input v-model="editCompanyData.web"></ion-input>
                     </ion-item>
                 </ion-list>
@@ -244,7 +244,7 @@ export default {
 
                 const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.type = "result" && response.data.result == "ok") {
-                    this.$refs.toastComponent.showToast('Company deleted successfully', 2000, 'success');
+                    this.$refs.toastComponent.showToast(this.$t('company.deleteCompanySuccess'), 2000, 'success');
                     this.companies = this.companies.filter(company => company.id !== id);
                     this.isReviewOpen = false;
                 }
@@ -263,7 +263,7 @@ export default {
                 const url = "http://localhost:28765/updatecompany";
                 const response = await axios.post(url, this.editCompanyData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === 'ok') {
-                    this.$refs.toastComponent.showToast('Company updated successfully', 2000, 'success');
+                    this.$refs.toastComponent.showToast(this.$t('company.updateSuccess'), 2000, 'success');
                     const index = this.companies.findIndex(c => c.id === this.editCompanyData.id);
                     if (index !== -1) {
                         this.companies[index] = { ...this.editCompanyData };
