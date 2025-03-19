@@ -153,7 +153,7 @@ export default defineComponent({
             });
             var url = "http://localhost:28765/createoffer";
             axios.post(url,{"type":this.type, "materialID":this.material,"companyID":localStorage.getItem("current_company"),"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                console.log(response);
+                
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.materials = response.data.message;
                     this.modalController.dismiss();
@@ -163,7 +163,7 @@ export default defineComponent({
         getMaterials(){
             var url = "http://localhost:28765/getmaterials";
             axios.post(url,{"locality":this.$i18n.locale},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                console.log(response);
+               
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.materials = response.data.message;
                     

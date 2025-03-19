@@ -2,7 +2,7 @@
 
         <ion-item>
             
-            <ion-select v-model="selectedLanguage" @ionChange="changeLanguage" >
+            <ion-select v-model="selectedLanguage" @ionChange="changeLanguage($event)" >
                 <ion-select-option value="en">English</ion-select-option>
                 <ion-select-option value="fi">Suomi</ion-select-option>
                 <ion-select-option value="sv">Svenska</ion-select-option>
@@ -37,7 +37,7 @@ export default defineComponent({
     },
     methods: {
         changeLanguage(event) {
-            this.selectedLanguage = event.target.value;
+            this.selectedLanguage = event.detail.value;
             localStorage.setItem('selectedLanguage', this.selectedLanguage);
             this.$i18n.locale = this.selectedLanguage;
         },

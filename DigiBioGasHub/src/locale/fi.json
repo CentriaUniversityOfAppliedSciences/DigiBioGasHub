@@ -41,6 +41,7 @@
         "forgotPassword": "Unohditko salasanasi?",
         "edit": "Muokkaa",
         "company": "Yritys"
+        
     },
     "general":{
         "loading": "Ladataan...",
@@ -139,7 +140,13 @@
         "deleteAccountFailMessage": "Tilin poisto epäonnistui. Tarkista tiedot ja yritä uudelleen.",
         "deleteAccountConfirm": "Haluatko varmasti poistaa tilisi? Tämä toiminto on peruuttamaton.",
         "deleteAccountConfirmMessage": "Tilisi poistetaan ja kaikki siihen liittyvät tiedot menetetään. Haluatko varmasti jatkaa?",
-        "terms": "Hyväksy käyttöehdot"
+        "terms": "Hyväksy käyttöehdot",
+        "oldPassword": "Nykyinen salasana",
+        "passwordMismatch": "Salasanat eivät täsmää",
+        "passwordLength": "Salasanan pitää olla vähintään 8 merkkiä pitkä",
+        "newPasswordRepeat": "Toista uusi salasana",
+        "name": "Nimi",
+        "noOffers": "Ei myynti-ilmoituksia"
     },
     "forms":{
         "helper":{

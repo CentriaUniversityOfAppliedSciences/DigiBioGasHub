@@ -28,11 +28,13 @@
                     <ion-card-title>{{ $t('menu.offers')}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                    <ion-list>
+                    <ion-list v-if="offers.length > 0">
                         <ion-item v-for="offer in offers" :key="offer.id">
                             <ion-label>{{ offer.name }}</ion-label>
                         </ion-item>
                     </ion-list>
+                    <ion-label v-else>{{ $t('account.noOffers') }}</ion-label>
+                    <p></p>
                     <ion-button :disabled="isInCompany" id="addOffer">{{ $t('offers.addOffer') }}</ion-button>
                 </ion-card-content>
             </ion-card>
@@ -42,28 +44,16 @@
                 </ion-card-header>
                 <ion-card-content>
                     <ion-list>
-                        <ion-item v-for="company in companies" :key="company.id">
-                            <ion-label>{{ company.name }}</ion-label>
+                        <ion-item v-for="comp in company" :key="comp.id">
+                            <ion-label>{{ comp.name }}</ion-label>
                         </ion-item>
                     </ion-list>
                     <ion-button id="addCompany">{{ $t('company.addCompany') }}</ion-button>
                 </ion-card-content>
             </ion-card>
         </ion-content>
-        <ion-modal trigger="addOffer">
-            <ion-header>
-                <ion-toolbar>
-                    <ion-title>{{ $t('offers.addOffer') }}</ion-title>
-
-                        <ion-button slot="end" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
-
-                </ion-toolbar>
-                </ion-header>
-                <ion-content>
-                    <AddOfferComponent />
-                </ion-content>   
-            
-        </ion-modal>
+    
+        <AddOfferComponent trigger="addOffer" />
         <ion-modal trigger="addCompany">
             <ion-header>
                 <ion-toolbar>
@@ -108,6 +98,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardH
 import AddOfferComponent from './AddOfferComponent.vue';
 import AddCompanyComponent from './AddCompanyComponent.vue';
 import axios from 'axios';
+
 
 export default defineComponent({
     name: 'ProfileComponent',
@@ -216,6 +207,11 @@ export default defineComponent({
             }).catch(error => {
                 this.ToastComponent.methods.showToast(this.$t('account.passwordChangeFail'), 2000, 'danger');
             });
+        }
+    },
+    mounted(){
+        if(this.company){
+            this.isInCompany = false;
         }
     }
     

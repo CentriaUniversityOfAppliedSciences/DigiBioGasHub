@@ -2,7 +2,7 @@
     <ion-page>
         <NavBarComponent />
         <ion-content>
-            <ProfileComponent :user="myUser"/>
+            <ProfileComponent :user="myUser" :offers="myOffers" :company="myCompanies"/>
         </ion-content>
         <FooterComponent />
     </ion-page>
@@ -27,10 +27,12 @@ export default defineComponent ({
                 name: '',
                 email: '',
                 company: '',
-                role: 'Admin',
+                role: '',
                 phone: '',
                 address: ''
-            }
+            },
+            myCompanies: [],
+            myOffers: []
         }
     },
     methods:{
@@ -43,6 +45,11 @@ export default defineComponent ({
             });
             console.log(this.myUser);
         },
+        getMyCompanies(){
+            axios.post('http://localhost:28765/getusercompanies', {id: this.getUserID()}).then(response => {
+                this.myCompanies = response.data.message;
+            });
+        },
         getUserID(){
             let token = localStorage.getItem('token');
             let decoded = JSON.parse(atob(token.split('.')[1]));
@@ -51,6 +58,7 @@ export default defineComponent ({
     },
     mounted(){
         this.getMyUser();
+        this.getMyCompanies();
     }   
 })
 </script>
