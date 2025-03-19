@@ -13,7 +13,8 @@
             </ion-segment>
 
             <ion-list>
-                <ion-item v-for="company in filteredCompanies" :key="company.id" @click="openCompanyModal(company)" style="cursor: pointer;">
+                <ion-item v-for="company in filteredCompanies" :key="company.id" @click="openCompanyModal(company)"
+                    style="cursor: pointer;">
                     <ion-label>
                         <h2>{{ company.name }}</h2>
                         <p>{{ company.city }}</p>
@@ -64,12 +65,17 @@
                     </ion-grid>
 
                     <ion-buttons>
-                        <ion-button v-if="selectedCompany.companyStatus === 0" @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
-                        <ion-button v-if="selectedCompany.companyStatus === 1" @click="confirmAction('Unverify', selectedCompany.id, 0)">Unverify</ion-button>
-                        <ion-button v-if="selectedCompany.companyStatus !== 2" @click="confirmAction('Disable', selectedCompany.id, 2)">Disable</ion-button>
-                        <ion-button expand="block" v-if="selectedCompany.companyStatus === 2" @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
+                        <ion-button v-if="selectedCompany.companyStatus === 0"
+                            @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
+                        <ion-button v-if="selectedCompany.companyStatus === 1"
+                            @click="confirmAction('Unverify', selectedCompany.id, 0)">Unverify</ion-button>
+                        <ion-button v-if="selectedCompany.companyStatus !== 2"
+                            @click="confirmAction('Disable', selectedCompany.id, 2)">Disable</ion-button>
+                        <ion-button expand="block" v-if="selectedCompany.companyStatus === 2"
+                            @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
                         <ion-button @click="editCompany(selectedCompany)">Edit</ion-button>
-                        <ion-button color="danger" @click="confirmAction('Delete', selectedCompany.id, null, true)">Delete</ion-button>
+                        <ion-button color="danger"
+                            @click="confirmAction('Delete', selectedCompany.id, null, true)">Delete</ion-button>
                     </ion-buttons>
                 </div>
             </ion-content>
@@ -129,24 +135,24 @@ import axios from 'axios';
 import ToastComponent from '../../components/ToastComponent.vue';
 
 export default {
-    components: { 
-        IonPage, 
-        IonHeader, 
-        IonToolbar, 
-        IonTitle, 
+    components: {
+        IonPage,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
         IonContent,
-        IonSegment, 
-        IonSegmentButton, 
-        IonList, 
-        IonItem, 
-        IonLabel, 
-        IonButtons, 
-        IonButton, 
+        IonSegment,
+        IonSegmentButton,
+        IonList,
+        IonItem,
+        IonLabel,
+        IonButtons,
+        IonButton,
         IonInput,
-        IonModal, 
-        IonGrid, 
-        IonRow, 
-        IonCol ,
+        IonModal,
+        IonGrid,
+        IonRow,
+        IonCol,
         ToastComponent
     },
 
@@ -173,45 +179,10 @@ export default {
     methods: {
         async fetchCompanies() {
             try {
-                const response = await axios.post('http://localhost:28765/admin/getallcompanies');
+                const response = await axios.post("http://localhost:28765/admin/getallcompanies");
                 this.companies = response.data.message;
             } catch (error) {
                 console.error('Error fetching companies:', error);
-            }
-        },
-
-        async updateCompanyStatus(id, status) {
-            try {
-                const url = "http://localhost:28765/admin/updatecompanystatus";
-                const response = await axios.post(url, {id, status}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-                console.log(response);
-                if (response.data.type = "result" && response.data.result == "ok") {
-                    this.$refs.toastComponent.showToast('Company status updated successfully', 2000, 'success');
-                    const companyIndex = this.companies.findIndex(c => c.id === id);
-
-                    if (companyIndex !== -1) {
-                        this.companies[companyIndex].companyStatus = status;
-                    }
-
-                    this.isReviewOpen = false;
-                }
-            } catch (error) {
-                console.error('Error updating company status:', error);
-            }
-        },
-
-        async deleteCompany(id) {
-            try {
-                const url = `http://localhost:28765/deletecompany`
-
-                const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-                if (response.data.type = "result" && response.data.result == "ok") {
-                    this.$refs.toastComponent.showToast('Company deleted successfully', 2000, 'success');
-                    this.companies = this.companies.filter(company => company.id !== id);
-                    this.isReviewOpen = false;
-                }
-            } catch (error) {
-                console.error(error);
             }
         },
 
@@ -239,6 +210,41 @@ export default {
             await alert.present();
         },
 
+        async updateCompanyStatus(id, status) {
+            try {
+                const url = "http://localhost:28765/admin/updatecompanystatus";
+                const response = await axios.post(url, { id, status }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                console.log(response);
+                if (response.data.type = "result" && response.data.result == "ok") {
+                    this.$refs.toastComponent.showToast('Company status updated successfully', 2000, 'success');
+                    const companyIndex = this.companies.findIndex(c => c.id === id);
+
+                    if (companyIndex !== -1) {
+                        this.companies[companyIndex].companyStatus = status;
+                    }
+
+                    this.isReviewOpen = false;
+                }
+            } catch (error) {
+                console.error('Error updating company status:', error);
+            }
+        },
+
+        async deleteCompany(id) {
+            try {
+                const url = "http://localhost:28765/deletecompany";
+
+                const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.type = "result" && response.data.result == "ok") {
+                    this.$refs.toastComponent.showToast('Company deleted successfully', 2000, 'success');
+                    this.companies = this.companies.filter(company => company.id !== id);
+                    this.isReviewOpen = false;
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        },
+
         editCompany(company) {
             this.editCompanyData = { ...company };
             this.isEditOpen = true;
@@ -246,7 +252,7 @@ export default {
 
         async saveCompanyChanges() {
             try {
-                const url = 'http://localhost:28765/updatecompany'
+                const url = 'http://localhost:28765/updatecompany';
                 const response = await axios.post(url, this.editCompanyData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === 'ok') {
                     this.$refs.toastComponent.showToast('Company updated successfully', 2000, 'success');
