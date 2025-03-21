@@ -3,14 +3,14 @@
         <ion-header>
             <NavBarComponent />
             <ion-toolbar>
-                <ion-title>Company Management</ion-title>
+                <ion-title>{{ $t('admin.company.title') }}</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content>
             <ion-segment v-model="selectedSegment">
-                <ion-segment-button value="verified">Verified</ion-segment-button>
-                <ion-segment-button value="unverified">Unverified</ion-segment-button>
-                <ion-segment-button value="disabled">Disabled</ion-segment-button>
+                <ion-segment-button value="verified">{{ $t('admin.company.verified') }}</ion-segment-button>
+                <ion-segment-button value="unverified">{{ $t('admin.company.unverified') }}</ion-segment-button>
+                <ion-segment-button value="disabled">{{ $t('admin.company.disabled') }}</ion-segment-button>
             </ion-segment>
 
             <ion-list>
@@ -27,9 +27,9 @@
         <ion-modal :is-open="isReviewOpen" @didDismiss="isReviewOpen = false">
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>Company Details</ion-title>
+                    <ion-title>{{ $t('admin.company.detailstitle') }}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button @click="isReviewOpen = false">Close</ion-button>
+                        <ion-button @click="isReviewOpen = false">{{ $t('admin.close') }}</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -67,16 +67,16 @@
 
                     <ion-buttons>
                         <ion-button v-if="selectedCompany.companyStatus === 0"
-                            @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
+                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.company.verify') }}</ion-button>
                         <ion-button v-if="selectedCompany.companyStatus === 1"
-                            @click="confirmAction('Unverify', selectedCompany.id, 0)">Unverify</ion-button>
+                            @click="confirmAction('Unverify', selectedCompany.id, 0)">{{ $t('admin.company.unverify') }}</ion-button>
                         <ion-button v-if="selectedCompany.companyStatus !== 2"
-                            @click="confirmAction('Disable', selectedCompany.id, 2)">Disable</ion-button>
+                            @click="confirmAction('Disable', selectedCompany.id, 2)">{{ $t('admin.company.disable') }}</ion-button>
                         <ion-button expand="block" v-if="selectedCompany.companyStatus === 2"
-                            @click="confirmAction('Verify', selectedCompany.id, 1)">Verify</ion-button>
-                        <ion-button @click="editCompany(selectedCompany)">Edit</ion-button>
+                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.verify') }}</ion-button>
+                        <ion-button @click="editCompany(selectedCompany)">{{ $t('admin.edit') }}</ion-button>
                         <ion-button color="danger"
-                            @click="confirmAction('Delete', selectedCompany.id, null, true)">Delete</ion-button>
+                            @click="confirmAction('Delete', selectedCompany.id, null, true)">{{ $t('admin.delete') }}</ion-button>
                     </ion-buttons>
                 </div>
             </ion-content>
@@ -85,9 +85,9 @@
         <ion-modal :is-open="isEditOpen" @didDismiss="isEditOpen = false">
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>Edit Company</ion-title>
+                    <ion-title>{{ $t('admin.edittitle') }}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button @click="isEditOpen = false">Close</ion-button>
+                        <ion-button @click="isEditOpen = false">{{ $t('admin.close') }}</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -122,7 +122,7 @@
                         <ion-input v-model="editCompanyData.web"></ion-input>
                     </ion-item>
                 </ion-list>
-                <ion-button expand="block" @click="saveCompanyChanges">Save Changes</ion-button>
+                <ion-button expand="block" @click="saveCompanyChanges">{{ $t('company.admin.save') }}</ion-button>
             </ion-content>
         </ion-modal>
 
@@ -195,16 +195,26 @@ export default {
         },
 
         async confirmAction(action, id, status = null, isDelete = false) {
+
+            const actionMessageKey = isDelete
+                ? 'admin.company.confirm_delete'
+                : `admin.company.confirm_${action.toLowerCase()}`;
+
+            const headerTranslation = this.$root.$t('admin.confirmAction');
+            const messageTranslation = this.$root.$t(actionMessageKey);
+            const cancel = this.$root.$t('admin.cancel')
+            const confirm = this.$root.$t('admin.confirm')
+
             const alert = await alertController.create({
-                header: 'Confirm Action',
-                message: `Are you sure you want to ${action.toLowerCase()} this company?`,
+                header: headerTranslation,
+                message: messageTranslation,
                 buttons: [
                     {
-                        text: 'Cancel',
+                        text: cancel ,
                         role: 'cancel',
                     },
                     {
-                        text: 'Confirm',
+                        text: confirm,
                         handler: () => {
                             if (isDelete) {
                                 this.deleteCompany(id);
@@ -215,7 +225,7 @@ export default {
                     },
                 ],
             });
-            await alert.present();
+            alert.present();
         },
 
         async updateCompanyStatus(id, status) {
@@ -224,7 +234,7 @@ export default {
                 const response = await axios.post(url, { id, status }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 console.log(response);
                 if (response.data.type = "result" && response.data.result == "ok") {
-                    this.$refs.toastComponent.showToast('Company status updated successfully', 2000, 'success');
+                    this.$refs.toastComponent.showToast(this.$t('company.updateSuccess'), 2000, 'success');
                     const companyIndex = this.companies.findIndex(c => c.id === id);
 
                     if (companyIndex !== -1) {
