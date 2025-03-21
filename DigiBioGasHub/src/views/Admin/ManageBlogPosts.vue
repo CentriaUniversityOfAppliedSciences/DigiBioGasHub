@@ -6,7 +6,7 @@
         <!-- Published Section -->
         <ion-row>
           <ion-col>
-            <h2>Published</h2>
+            <h2>{{ $t('admin.blogpost.published') }}</h2>
             <ion-row>
               <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in publishedPosts" :key="post.postID">
                 <ion-card class="blog-card">
@@ -16,9 +16,9 @@
                   </ion-card-header>
                   <ion-card-content>
                     <div class="button-group">
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">Edit</ion-button>
-                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">Unpublish</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
+                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{ $t('admin.blogpost.reviewEdit') }}</ion-button>
+                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">{{ $t('admin.blogpost.unpublish') }}</ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('admin.delete') }}</ion-button>
                     </div>
                   </ion-card-content>
                 </ion-card>
@@ -30,7 +30,7 @@
         <!-- Unpublished Section -->
         <ion-row>
           <ion-col>
-            <h2>Unpublished</h2>
+            <h2>{{ $t('admin.blogpost.unpublished') }}</h2>
             <ion-row>
               <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in unpublishedPosts"
                 :key="post.postID">
@@ -41,9 +41,9 @@
                   </ion-card-header>
                   <ion-card-content>
                     <div class="button-group">
-                      <ion-button @click="confirmPublish(post.postID)" expand="block">Publish</ion-button>
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">Edit</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
+                      <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish') }}</ion-button>
+                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{ $t('admin.blogpost.reviewEdit') }}</ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('admin.delete') }}</ion-button>
                     </div>
                   </ion-card-content>
                 </ion-card>
@@ -55,7 +55,7 @@
         <!-- Draft Section -->
         <ion-row>
           <ion-col>
-            <h2>Drafts</h2>
+            <h2>{{ $t('admin.blogpost.drafts') }}</h2>
             <ion-row>
               <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in draftPosts" :key="post.postID">
                 <ion-card class="blog-card">
@@ -65,10 +65,10 @@
                   </ion-card-header>
                   <ion-card-content>
                     <div class="button-group">
-                      <ion-button @click="confirmPublish(post.postID)" expand="block">Publish</ion-button>
-                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">Unpublish</ion-button>
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">Edit</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">Delete</ion-button>
+                      <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish') }}</ion-button>
+                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">{{ $t('admin.blogpost.unpublish') }}</ion-button>
+                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{ $t('admin.blogpost.reviewEdit') }}</ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('admin.delete') }}</ion-button>
                     </div>
                   </ion-card-content>
                 </ion-card>
@@ -79,17 +79,17 @@
       </ion-grid>
 
       <!-- Delete Confirmation Alert -->
-      <ion-alert :is-open="showDeleteAlert" header="Confirm Delete" message="Are you sure you want to delete this post?"
+      <ion-alert :is-open="showDeleteAlert" :header= "$t('admin.blogpost.confirmDelete')" :message="$t('admin.blogpost.cofirmDeleteMessage')"
         :buttons="[
           {
-            text: 'Cancel',
+            text: $t('admin.cancel'),
             role: 'cancel',
             handler: () => {
               this.showDeleteAlert = false;
             }
           },
           {
-            text: 'Delete',
+            text: $t('admin.delete'),
             handler: () => {
               deletePost(postIdToDelete);
               this.showDeleteAlert = false;
@@ -98,17 +98,17 @@
         ]"></ion-alert>
 
       <!-- Publish Confirmation Alert -->
-      <ion-alert :is-open="showPublishAlert" header="Confirm Publish" message="Are you sure you want to publish this post?"
+      <ion-alert :is-open="showPublishAlert" :header= "$t('admin.blogpost.confirmPublish')" :message="$t('admin.blogpost.confirmPublishMessage')"
          :buttons="[
           {
-            text: 'Cancel',
+            text: $t('admin.cancel'),
             role: 'cancel',
             handler: () => {
               this.showPublishAlert = false;
             }
           },
           {
-            text: 'Publish',
+            text: $t('admin.blogpost.publish'),
             handler: () => {
               publishPost(postIdToPublish);
               this.showPublishAlert = false;
@@ -117,17 +117,17 @@
         ]"></ion-alert>
 
       <!-- Unpublish Confirmation Alert -->
-      <ion-alert :is-open="showUnpublishAlert" header="Confirm Unpublish" message="Are you sure you want to unpublish this post?" 
+      <ion-alert :is-open="showUnpublishAlert" :header= "$t('admin.blogpost.confirmUnpublish')" :message="$t('admin.blogpost.confirmUnpublsihMessage')"
        :buttons="[
           {
-            text: 'Cancel',
+            text: $t('admin.cancel'),
             role: 'cancel',
             handler: () => {
               this.showUnpublishAlert = false;
             }
           },
           {
-            text: 'Unpublish',
+            text: $t('admin.blogpost.unpublish'),
             handler: () => {
               unpublishPost(postIdToUnpublish);
               this.showUnpublishAlert = false;
@@ -201,11 +201,12 @@ export default defineComponent({
           .then(response => {
             if (response.data.result === 'ok') {
               this.fetchPosts();
-              this.$refs.toastComponent.showToast('Post published successfully', 2000, 'success');
+              this.$refs.toastComponent.showToast(this.$t('admin.blogpost.publishSuccess'), 2000, 'success');
             }
           })
           .catch(error => {
             console.error('Error publishing post:', error);
+            this.$refs.toastComponent.showToast(this.$t('admin.blogpost.publishFail'), 2000, 'danger');
           });
       } catch (error) {
         console.error('Error publishing post:', error);
@@ -224,11 +225,12 @@ export default defineComponent({
           .then(response => {
             if (response.data.result === 'ok') {
               this.fetchPosts();
-              this.$refs.toastComponent.showToast('Post unpublished successfully', 2000, 'success');
+              this.$refs.toastComponent.showToast(this.$t('admin.blogpost.unpublishSuccess'), 2000, 'success');
             }
           })
           .catch(error => {
             console.error('Error unpublishing post:', error);
+            this.$refs.toastComponent.showToast(this.$t('admin.blogpost.unpublishFail'), 2000, 'danger');
           });
       } catch (error) {
         console.error('Error unpublishing post:', error);
@@ -250,11 +252,12 @@ export default defineComponent({
           .then(response => {
             if (response.data.result === 'ok') {
               this.fetchPosts();
-              this.$refs.toastComponent.showToast('Post deleted successfully', 2000, 'success');
+              this.$refs.toastComponent.showToast(this.$t('admin.blogpost.deleteSuccess'), 2000, 'success');
             }
           })
           .catch(error => {
             console.error('Error deleting post:', error);
+            this.$refs.toastComponent.showToast(this.$t('admin.blogpost.deleteFail'), 2000, 'danger');
           });
       } catch (error) {
         console.error('Error deleting post:', error);
@@ -273,6 +276,7 @@ export default defineComponent({
         }
       } catch (error) {
         console.error('Error fetching posts:', error);
+        this.$refs.toastComponent.showToast(this.$t('admin.blogpost.fetchingPostFailed'), 2000, 'danger');
       }
     }
   },
