@@ -197,8 +197,8 @@ export default {
         async confirmAction(action, id, status = null, isDelete = false) {
 
             const actionMessageKey = isDelete
-                ? 'admin.company.confirm_delete'
-                : `admin.company.confirm_${action.toLowerCase()}`;
+                ? 'admin.company.confirmDelete'
+                : `admin.company.confirm${action}`;
 
             const headerTranslation = this.$root.$t('admin.confirmAction');
             const messageTranslation = this.$root.$t(actionMessageKey);
@@ -245,6 +245,7 @@ export default {
                 }
             } catch (error) {
                 console.error('Error updating company status:', error);
+                this.$refs.toastComponent.showToast(this.$t('admin.company.updateFail'), 2000, 'danger');
             }
         },
 
@@ -260,6 +261,7 @@ export default {
                 }
             } catch (error) {
                 console.error(error);
+                this.$refs.toastComponent.showToast(this.$t('admin.company.deleteFail'), 2000, 'danger');
             }
         },
 
@@ -283,6 +285,8 @@ export default {
                 }
             } catch (error) {
                 console.error('Error updating company:', error);
+                this.$refs.toastComponent.showToast(this.$t('admin.company.updateFail'), 2000, 'danger');
+
             }
         },
 
