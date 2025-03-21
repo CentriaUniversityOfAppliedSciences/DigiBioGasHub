@@ -29,7 +29,7 @@
                 <ion-toolbar>
                     <ion-title>{{ $t('admin.company.detailstitle') }}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button @click="isReviewOpen = false">{{ $t('admin.close') }}</ion-button>
+                        <ion-button @click="isReviewOpen = false">{{ $t('general.close') }}</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -74,9 +74,9 @@
                             @click="confirmAction('Disable', selectedCompany.id, 2)">{{ $t('admin.company.disable') }}</ion-button>
                         <ion-button expand="block" v-if="selectedCompany.companyStatus === 2"
                             @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.verify') }}</ion-button>
-                        <ion-button @click="editCompany(selectedCompany)">{{ $t('admin.edit') }}</ion-button>
+                        <ion-button @click="editCompany(selectedCompany)">{{ $t('general.edit') }}</ion-button>
                         <ion-button color="danger"
-                            @click="confirmAction('Delete', selectedCompany.id, null, true)">{{ $t('admin.delete') }}</ion-button>
+                            @click="confirmAction('Delete', selectedCompany.id, null, true)">{{ $t('general.delete') }}</ion-button>
                     </ion-buttons>
                 </div>
             </ion-content>
@@ -87,7 +87,7 @@
                 <ion-toolbar>
                     <ion-title>{{ $t('admin.edittitle') }}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button @click="isEditOpen = false">{{ $t('admin.close') }}</ion-button>
+                        <ion-button @click="isEditOpen = false">{{ $t('general.close') }}</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -122,7 +122,7 @@
                         <ion-input v-model="editCompanyData.web"></ion-input>
                     </ion-item>
                 </ion-list>
-                <ion-button expand="block" @click="saveCompanyChanges">{{ $t('company.admin.save') }}</ion-button>
+                <ion-button expand="block" @click="saveCompanyChanges">{{ $t('general.save') }}</ion-button>
             </ion-content>
         </ion-modal>
 
@@ -202,8 +202,8 @@ export default {
 
             const headerTranslation = this.$root.$t('admin.confirmAction');
             const messageTranslation = this.$root.$t(actionMessageKey);
-            const cancel = this.$root.$t('admin.cancel')
-            const confirm = this.$root.$t('admin.confirm')
+            const cancel = this.$root.$t('general.cancel')
+            const confirm = this.$root.$t('general.confirm')
 
             const alert = await alertController.create({
                 header: headerTranslation,
@@ -245,7 +245,7 @@ export default {
                 }
             } catch (error) {
                 console.error('Error updating company status:', error);
-                this.$refs.toastComponent.showToast(this.$t('admin.company.updateFail'), 2000, 'danger');
+                this.$refs.toastComponent.showToast(this.$t('company.updateFail'), 2000, 'danger');
             }
         },
 
@@ -261,7 +261,7 @@ export default {
                 }
             } catch (error) {
                 console.error(error);
-                this.$refs.toastComponent.showToast(this.$t('admin.company.deleteFail'), 2000, 'danger');
+                this.$refs.toastComponent.showToast(this.$t('company.deleteCompanyFail'), 2000, 'danger');
             }
         },
 
@@ -285,7 +285,7 @@ export default {
                 }
             } catch (error) {
                 console.error('Error updating company:', error);
-                this.$refs.toastComponent.showToast(this.$t('admin.company.updateFail'), 2000, 'danger');
+                this.$refs.toastComponent.showToast(this.$t('company.updateFail'), 2000, 'danger');
 
             }
         },

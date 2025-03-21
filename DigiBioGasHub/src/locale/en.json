@@ -280,7 +280,6 @@
             "confirmDelete": "Are you sure you want to permanently delete this company? This action cannot be undone!",
             "verifyFail": "Unable to verify company!",
             "unverifyFail": "Unable to unverify company!",
-            "updateFail": "Unable to update company!",
             "disableFail": "Unable to disable company!"
         },
         "blogpost":{
@@ -303,16 +302,19 @@
             "deleteFail": "Unable to delete!",
             "fetchingPostFailed": "Cannot find blog posts!",
             "reviewEdit": "Review and Edit"
-        
         },
-        "delete":"delete",
-        "edit": "edit",
+        "users": {
+            "title": "Users",
+            "userlevel": "User Level",
+            "hubID": "hubID",
+            "actions": "Actions",
+            "fetchUsersFail": "Unable to get users!",
+            "fetchUserFail": "Unable to get user!",
+            "editTitle": "Edit User",
+            "pagination": "Results per page"
+        },
         "edittitle": "Edit Company",
-        "save": "Save changes",
-        "close":"close",
-        "confirmAction":"Confirm Action",
-        "confirm":"Confirm",
-        "cancel": "Cancel"
+        "confirmAction":"Confirm Action"
     }
 
 }
