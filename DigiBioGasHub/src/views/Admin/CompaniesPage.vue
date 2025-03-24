@@ -122,7 +122,7 @@
                         <ion-input v-model="editCompanyData.web"></ion-input>
                     </ion-item>
                 </ion-list>
-                <ion-button expand="block" @click="saveCompanyChanges">{{ $t('general.save') }}</ion-button>
+                <ion-button expand="block" @click="saveCompanyChanges" :disabled="!isChanged">{{ $t('general.save') }}</ion-button>
             </ion-content>
         </ion-modal>
 
@@ -171,7 +171,8 @@ export default {
             isReviewOpen: false,
             isEditOpen: false,
             selectedCompany: null,
-            editCompanyData: {}
+            editCompanyData: {},
+            originalCompanyData: {},
         };
     },
     computed: {
@@ -181,6 +182,10 @@ export default {
                 (this.selectedSegment === 'unverified' && c.companyStatus === 0) ||
                 (this.selectedSegment === 'disabled' && c.companyStatus === 2)
             );
+        },
+
+        isChanged() {
+            return JSON.stringify(this.editCompanyData) !== JSON.stringify(this.originalCompanyData);
         }
     },
 
@@ -266,6 +271,7 @@ export default {
         },
 
         editCompany(company) {
+            this.originalCompanyData = { ...company };
             this.editCompanyData = { ...company };
             this.isEditOpen = true;
         },
