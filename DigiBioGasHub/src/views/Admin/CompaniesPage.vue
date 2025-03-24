@@ -67,16 +67,20 @@
 
                     <ion-buttons>
                         <ion-button v-if="selectedCompany.companyStatus === 0"
-                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.company.verify') }}</ion-button>
+                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.company.verify')
+                            }}</ion-button>
                         <ion-button v-if="selectedCompany.companyStatus === 1"
-                            @click="confirmAction('Unverify', selectedCompany.id, 0)">{{ $t('admin.company.unverify') }}</ion-button>
+                            @click="confirmAction('Unverify', selectedCompany.id, 0)">{{ $t('admin.company.unverify')
+                            }}</ion-button>
                         <ion-button v-if="selectedCompany.companyStatus !== 2"
-                            @click="confirmAction('Disable', selectedCompany.id, 2)">{{ $t('admin.company.disable') }}</ion-button>
+                            @click="confirmAction('Disable', selectedCompany.id, 2)">{{ $t('admin.company.disable')
+                            }}</ion-button>
                         <ion-button expand="block" v-if="selectedCompany.companyStatus === 2"
-                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.verify') }}</ion-button>
+                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.verify')
+                            }}</ion-button>
                         <ion-button @click="editCompany(selectedCompany)">{{ $t('general.edit') }}</ion-button>
-                        <ion-button color="danger"
-                            @click="confirmAction('Delete', selectedCompany.id, null, true)">{{ $t('general.delete') }}</ion-button>
+                        <ion-button color="danger" @click="confirmAction('Delete', selectedCompany.id, null, true)">{{
+                            $t('general.delete') }}</ion-button>
                     </ion-buttons>
                 </div>
             </ion-content>
@@ -122,7 +126,8 @@
                         <ion-input v-model="editCompanyData.web"></ion-input>
                     </ion-item>
                 </ion-list>
-                <ion-button expand="block" @click="saveCompanyChanges" :disabled="!isChanged">{{ $t('general.save') }}</ion-button>
+                <ion-button expand="block" @click="saveCompanyChanges" :disabled="!isChanged">{{ $t('general.save')
+                    }}</ion-button>
             </ion-content>
         </ion-modal>
 
@@ -215,7 +220,7 @@ export default {
                 message: messageTranslation,
                 buttons: [
                     {
-                        text: cancel ,
+                        text: cancel,
                         role: 'cancel',
                     },
                     {
