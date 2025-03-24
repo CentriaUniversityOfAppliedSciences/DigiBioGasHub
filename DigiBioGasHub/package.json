@@ -17,8 +17,8 @@
     "@capacitor/haptics": "6.0.2",
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
-    "@ionic/vue": "^8.0.0",
-    "@ionic/vue-router": "^8.0.0",
+    "@ionic/vue": "8.5.0",
+    "@ionic/vue-router": "8.5.0",
     "@umoteam/editor": "^4.6.1",
     "axios": "^1.7.9",
     "ionicons": "^7.0.0",
@@ -28,14 +28,14 @@
     "ol-ext": "^4.0.24",
     "slugify": "^1.6.6",
     "vue": "^3.3.0",
-    "vue-i18n": "^10.0.5",
+    "vue-i18n": "11.1.2",
     "vue-router": "^4.2.0",
-    "vue3-openlayers": "^11.3.0"
+    "vue3-openlayers": "^0.1.33"
   },
   "devDependencies": {
-    "@capacitor/cli": "6.2.0",
-    "@vitejs/plugin-legacy": "^5.0.0",
-    "@vitejs/plugin-vue": "^4.0.0",
+    "@capacitor/cli": "7.1.0",
+    "@vitejs/plugin-legacy": "^6.0.2",
+    "@vitejs/plugin-vue": "^5.2.3",
     "@vue/eslint-config-typescript": "^12.0.0",
     "@vue/test-utils": "^2.3.0",
     "cypress": "^13.5.0",
@@ -44,8 +44,8 @@
     "jsdom": "^22.1.0",
     "terser": "^5.36.0",
     "typescript": "^5.1.6",
-    "vite": "^5.4.14",
-    "vitest": "^0.34.6",
+    "vite": "^6.2.2",
+    "vitest": "^3.0.9",
     "vue-tsc": "^2.0.22"
   },
   "description": "An Ionic project"

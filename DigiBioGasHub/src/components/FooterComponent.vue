@@ -7,6 +7,9 @@
                         <li class="menu-item"><a href="/terms-of-service">{{$t('general.TermsAndConditions') }}</a></li>
                     
                         <li class="menu-item"><a href="/privacy-policy">{{ $t('general.PrivacyPolicy') }}</a></li>
+
+                        <li class="menu-item"><a href="https://link.webropolsurveys.com/S/941E350F901601ED" target="_blank">Feedback</a></li>
+
                     </ul>
                 </ion-col>
                 <ion-col size="12" size-sm="3">
