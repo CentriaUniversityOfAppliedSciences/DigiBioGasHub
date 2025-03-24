@@ -144,8 +144,10 @@ import axios from 'axios';
 import ToastComponent from '../../components/ToastComponent.vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
+    name: 'CompaniesPage',
     components: {
         IonPage,
         IonHeader,
@@ -308,5 +310,5 @@ export default {
     mounted() {
         this.fetchCompanies();
     }
-};
+});
 </script>
