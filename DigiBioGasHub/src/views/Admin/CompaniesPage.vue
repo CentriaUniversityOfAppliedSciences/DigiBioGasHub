@@ -75,8 +75,8 @@
                         <ion-button v-if="selectedCompany.companyStatus !== 2"
                             @click="confirmAction('Disable', selectedCompany.id, 2)">{{ $t('admin.company.disable')
                             }}</ion-button>
-                        <ion-button expand="block" v-if="selectedCompany.companyStatus === 2"
-                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.verify')
+                        <ion-button v-if="selectedCompany.companyStatus === 2"
+                            @click="confirmAction('Verify', selectedCompany.id, 1)">{{ $t('admin.company.verify')
                             }}</ion-button>
                         <ion-button @click="editCompany(selectedCompany)">{{ $t('general.edit') }}</ion-button>
                         <ion-button color="danger" @click="confirmAction('Delete', selectedCompany.id, null, true)">{{
@@ -242,16 +242,14 @@ export default {
             try {
                 const url = "http://localhost:28765/admin/updatecompanystatus";
                 const response = await axios.post(url, { id, status }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-                console.log(response);
                 if (response.data.type = "result" && response.data.result == "ok") {
                     this.$refs.toastComponent.showToast(this.$t('company.updateSuccess'), 2000, 'success');
+                    this.isReviewOpen = false;
                     const companyIndex = this.companies.findIndex(c => c.id === id);
 
                     if (companyIndex !== -1) {
                         this.companies[companyIndex].companyStatus = status;
                     }
-
-                    this.isReviewOpen = false;
                 }
             } catch (error) {
                 console.error('Error updating company status:', error);
