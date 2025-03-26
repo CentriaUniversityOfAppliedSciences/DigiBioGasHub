@@ -22,7 +22,9 @@
             </ion-list>
             <ion-button expand="full" @click="login">{{ $t('general.loginButton') }}</ion-button>
             <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
+            <ion-button class="button-spacing" expand="full" @click="register">{{ $t('general.registerButton') }}</ion-button>
         </ion-content>
+       
     </ion-modal>
 </template>
 
@@ -85,7 +87,10 @@ export default defineComponent({
                 this.errorMessage = error;
             });
         },
-
+        register(){
+            this.modalController.dismiss();
+            window.location.href = '/register';
+        },
         
         validateEmail(email) {
             const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -109,6 +114,9 @@ ion-modal {
     --width: 300px;
     --height: 400px;
     --border-radius: 10px;
+}
+.button-spacing {
+    margin-top: 15px;
 }
 </style>
 

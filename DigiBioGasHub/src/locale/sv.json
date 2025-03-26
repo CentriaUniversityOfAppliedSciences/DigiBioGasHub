@@ -291,6 +291,11 @@
         "deleteAgreement": "Radera avtal",
         "products": "Produkter",
         "types": "Typer"
+    },
+    "filter":{
+        "hide":"Dölj",
+        "show":"Visa",
+        "width": "Växla bredd"
     }
 
 

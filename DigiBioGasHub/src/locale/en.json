@@ -340,6 +340,11 @@
         },
         "edittitle": "Edit Company",
         "confirmAction":"Confirm Action"
+    },
+    "filter":{
+        "hide":"Hide",
+        "show":"Show",
+        "width":"Toggle width"
     }
 
 }

@@ -16,8 +16,8 @@
             </div>
           </ion-col>
           <ion-col>
-            <img src="https://images.placeholders.dev/?width=600&height=400&text=picture here"
-              alt="Placeholder Image" />
+            <img src="@/assets/biokaasulaitos.jpeg"
+              alt="Placeholder Image" style="height:30vh" />
           </ion-col>
         </ion-row>
         <ion-row>

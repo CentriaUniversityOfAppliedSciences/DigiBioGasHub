@@ -230,7 +230,9 @@ export default defineComponent ({
             }
         },
         markTouched(){
-            this.refs.forEach(ref => {
+            console.log(this.$refs);
+            Object.values(this.$refs).forEach(ref => {
+                console.log(ref);
                 ref.$el.classList.add('ion-touched');
             });
         }

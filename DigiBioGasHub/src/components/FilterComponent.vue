@@ -1,24 +1,24 @@
 <template>
     <div class="filter-component">
         <ion-button @click="toggleVisibility">
-            {{ isCardVisible ? 'Hide Filters' : 'Show Filters' }}
+            {{ isCardVisible ?  $t('filter.hide')  :  $t('filter.show')  }}
         </ion-button>
         <ion-button @click="toggleWidth">
-            Toggle Width
+            {{ $t('filter.width') }}
         </ion-button>
 
         <ion-card v-if="isCardVisible" :class="{'wide-card': isWide, 'narrow-card': !isWide}">
             <ion-list>
-                <div v-for="category in filtersData" :key="category.label">
+                <div v-for="category in filtersData" :key="category.value">
                     
                     <ion-item :key="category.value">
                         <ion-checkbox
                             slot="start"
-                            v-model="selectedFilters[category.label]"
+                            v-model="selectedFilters[category.value]"
                             :value="category.value"
                             :key="category.value"
                         />
-                        <ion-label>{{ category.label }}</ion-label>
+                        <ion-label style="margin-left:10px">{{ category.label }}</ion-label>
                     </ion-item>
                 </div>
             </ion-list>
@@ -43,16 +43,16 @@ export default defineComponent({
         const isCardVisible = ref(true);
         const isWide = ref(true);
         props.filtersData.forEach(cat => {
-                selectedFilters.value[cat.label] = false;
+                selectedFilters.value[cat.value] = false;
         })
         
         watch(
             selectedFilters,
             () => {
                 let filtered = props.dataToFilter
-                
                     .filter(item => {
                         return Object.keys(selectedFilters.value).some(key => {
+                            item.category = item.category.toString();
                             if(selectedFilters.value[key] && item.category === key){
                                 return selectedFilters.value[key] && item.category === key
                             }
@@ -62,8 +62,6 @@ export default defineComponent({
                             
                         })
                     })
-                
-                
                 emit('filtered-data', filtered)
             },
             { deep: true }

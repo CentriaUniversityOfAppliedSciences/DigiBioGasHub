@@ -312,6 +312,11 @@
             "6":"Muu"
         }
 
+    },
+    "filter":{
+        "hide":"Piilota",
+        "show":"Näytä",
+        "width":"Muuta leveyttä"
     }
 
 }

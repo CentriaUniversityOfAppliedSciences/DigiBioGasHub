@@ -39,7 +39,6 @@ export default {
     },
     methods:{
         getMaterialTypeTranslation(type) {
-            console.log(type);
             return this.$t(`material.type.${type}`);
         },
         getUnitAmountTranslation(type) {
