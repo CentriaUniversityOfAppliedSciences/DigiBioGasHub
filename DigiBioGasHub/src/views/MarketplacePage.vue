@@ -1,7 +1,8 @@
 <template>
     <ion-page>
+        <ion-content>
         <NavBarComponent />
-        <div class="marketplace-page">
+        
             
             <ion-grid>
                 <ion-row class="ion-align-items-start">
@@ -11,7 +12,7 @@
                 </ion-col>
                 <ion-col>
                     <ion-row>
-                        <ion-col v-for="product in currentProducts" :key="product.id">
+                        <ion-col v-for="product in currentProducts" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
                             <ListingComponent :product="product" />
                         </ion-col>
                     </ion-row>
@@ -22,8 +23,10 @@
             
                 <AddOfferComponent />
             
-        </div>
-        <FooterComponent />
+       
+    <FooterComponent />
+    </ion-content>
+    
     </ion-page>
 </template>
 

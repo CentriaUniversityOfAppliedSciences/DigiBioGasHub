@@ -86,7 +86,7 @@ export default defineComponent ({
                 let decoded = this.decodeJWT(token);
                 if (decoded) {
                     if (decoded.userlevel >= 99) {
-                        this.inCompany = true;
+                        this.Admin = true;
                     }
                 }
             }

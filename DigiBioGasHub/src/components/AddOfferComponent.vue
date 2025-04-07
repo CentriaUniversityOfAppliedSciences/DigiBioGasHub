@@ -62,13 +62,13 @@
                     </ion-select>
                 </ion-item>
                 <ion-item>
-                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" v-model="startDate" >
+                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" v-model="startDate" @ionChange="updateTimeZoneStart">
                         <span slot="title">{{ $t('product.productDetails.offerValidFrom') }}</span>
                         <span slot="time-label">{{ $t('product.time') }}</span>
                     </ion-datetime>
                 </ion-item>
                 <ion-item>
-                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" v-model="endDate" >
+                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" v-model="endDate" @ionChange="updateTimeZoneEnd">
                         <span slot="title">{{ $t('product.endTime') }}</span>
                         <span slot="time-label">{{ $t('product.time') }}</span>
                     </ion-datetime>
@@ -122,6 +122,7 @@ export default defineComponent({
             price: null,
             productImage: null,
             image64: '',
+            imageName: '',
             type: null,
             quantity: null,
             unit: '',
@@ -136,6 +137,31 @@ export default defineComponent({
         };
     },
     methods: {
+        updateTimeZoneStart(event) {
+            console.log("startDate:", event.target.value);
+        const date = new Date(event.target.value);
+        const timezoneOffset = -date.getTimezoneOffset(); // Get the timezone offset in minutes
+        const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+        const offsetMinutes = Math.abs(timezoneOffset) % 60;
+        const offsetSign = timezoneOffset >= 0 ? '+' : '-';
+        const timezoneString = `${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
+        //this.startDate = `${date.toISOString().split('Z')[0]}${timezoneString}`;
+        this.startDate = event.target.value+timezoneString;
+        console.log("startDate with timezone:", this.startDate);
+    },
+    updateTimeZoneEnd(event) {
+        console.log("endDate:", event.target.value);
+        const date = new Date(event.target.value);
+        const timezoneOffset = -date.getTimezoneOffset(); // Get the timezone offset in minutes
+        const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
+        const offsetMinutes = Math.abs(timezoneOffset) % 60;
+        const offsetSign = timezoneOffset >= 0 ? '+' : '-';
+        const timezoneString = `${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
+        //this.endDate = `${date.toISOString().split('Z')[0]}${timezoneString}`;
+        this.endDate = event.target.value+timezoneString;
+        console.log("endDate:", event.target.value+timezoneString);
+        //console.log("endDate with timezone:", this.endDate);
+    },
         materialSelected(event) {
             const selectedMaterial = this.materials.find(mater => mater.id === event.target.value);
             if (selectedMaterial) {
@@ -152,7 +178,7 @@ export default defineComponent({
                 endDate: this.endDate,  
             });
             var url = "http://localhost:28765/createoffer";
-            axios.post(url,{"type":this.type, "materialID":this.material,"companyID":localStorage.getItem("current_company"),"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            axios.post(url,{"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":localStorage.getItem("current_company"),"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.materials = response.data.message;
@@ -179,6 +205,7 @@ export default defineComponent({
                 rawImg = reader.result;
                 console.log('Image:', rawImg);
                 this.image64 = rawImg;
+                this.imageName = file.name;
             };
             this.image64 = reader.readAsDataURL(file);
             

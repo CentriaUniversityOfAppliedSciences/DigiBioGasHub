@@ -39,7 +39,8 @@
         "resetPasswordFail": "Misslyckades att skicka återställningslänk",
         "resetPasswordFailMessage": "Användarnamnet hittades inte. Kontrollera användarnamnet och försök igen.",
         "forgotPassword": "Glömt lösenordet?",
-        "edit": "Redigera"
+        "edit": "Redigera",
+        "delete":"Radera"
     
 
     },
@@ -242,7 +243,8 @@
             "3":"flytande gödsel",
             "4":"komprimerad biogas",
             "5":"flytande biogas",
-            "6":"råmaterial"
+            "6":"råmaterial",
+            "7":"restprodukter"
         }
     },
     "unit":{

@@ -39,7 +39,8 @@
         "resetPasswordFail": "Failed to send reset link",
         "resetPasswordFailMessage": "Username not found. Check the username and try again.",
         "forgotPassword": "Forgot your password?",
-        "edit": "Edit"
+        "edit": "Edit",
+        "delete":" Delete"
     
     },
     "general":{
@@ -239,7 +240,8 @@
                 "3":"dung liquid",
                 "4":"compressed biogas",
                 "5":"liquid biogas",
-                "6":"feedstock"
+                "6":"feedstock",
+                "7":"digestate"
             }
         },
         "unit":{

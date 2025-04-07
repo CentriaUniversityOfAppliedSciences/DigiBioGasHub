@@ -16,9 +16,9 @@
         <ion-content>
             <agreement-component />
         </ion-content>
-        <ion-modal trigger="addCompany">
-            <AddCompanyComponent />
-        </ion-modal>
+        
+        <AddCompanyComponent />
+        
         <footer-component />
     </ion-page>
 </template>
