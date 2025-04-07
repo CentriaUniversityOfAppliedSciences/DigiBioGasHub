@@ -16,6 +16,8 @@ import ManageBlogPosts from '../views/Admin/ManageBlogPosts.vue';
 import EditBlogPostPage from '../views/Admin/EditBlogPostPage.vue';
 import UsersPage from '../views/Admin/UsersPage.vue';
 import CompaniesPage from '../views/Admin/CompaniesPage.vue';
+import ChatRoomView from '../views/ChatRoomView.vue';
+import ChatComponent from '../components/ChatComponent.vue';
 
 export function jwtDecode(token) {
   try {
@@ -36,6 +38,20 @@ function checkAdmin(to, from, next) {
       } else {
         next('/home')
       }
+}
+
+function checkUser(to, from, next) {
+  let token = localStorage.getItem('token')
+  if (token) {
+    if (jwtDecode(token).userlevel >= 1) {
+    next()
+    }
+    else {
+      next('/home')
+    }
+  } else {
+    next('/home')
+  }
 }
 
 const routes = [
@@ -154,10 +170,22 @@ const routes = [
     path: '/knowledge-base',
     name: 'Knowledge Base',
     component: KnowledgeBasePage
-  }
+  },
+
+  {
+    path: '/chat',
+    name: 'ChatRoomView',
+    component: ChatRoomView,
+    beforeEnter:[checkUser]
+  },
+  {
+    path: "/chat/:roomId/:roomTitle",
+    name: "Chat",
+    component: ChatComponent,
+    props: true,
+    beforeEnter:[checkUser]
+  },
 ]
-
-
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
