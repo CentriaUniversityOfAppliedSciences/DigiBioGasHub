@@ -16,7 +16,7 @@
                 <div v-for="message in messages" :key="message.timestamp" class="message">
                     <div class="avatar">{{ message.username.charAt(0).toUpperCase() }}</div>
                     <div class="message-content">
-                        <b>{{ message.username }}</b>
+                        <b>{{ message.name }}</b>
                         <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                         <span v-if="message.isEdited" class="edited-marker">(edited)</span>
                         <div v-if="editingMessageId === message._id">
@@ -25,9 +25,10 @@
                         </div>
                         <div v-else>
                             <div>{{ message.message }}</div>
-                            <div v-if="isOwnMessage(message)" class="message-actions">
-                                <button @click="startEdit(message)">Edit</button>
-                                <button @click="confirmDelete(message)">Delete</button>
+                            <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
+                                <button v-if="isOwnMessage(message)" @click="startEdit(message)">Edit</button>
+                                <button v-if="isOwnMessage(message) || isAdmin()"
+                                    @click="confirmDelete(message)">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -101,6 +102,7 @@ export default {
             editedMessage: "",
             showDeleteAlert: false,
             messageToDelete: null,
+            decodedToken: null,
         };
     },
     async mounted() {
@@ -138,9 +140,14 @@ export default {
             const index = this.messages.findIndex((msg) => msg._id === updatedMessage._id);
             if (index !== -1) {
                 this.messages[index].message = updatedMessage.message;
-                this.messages[index].isEdited = true;  
+                this.messages[index].isEdited = true;
             }
         });
+
+        const token = localStorage.getItem("token");
+        if (token) {
+            this.decodedToken = jwtDecode(token);
+        }
     },
     methods: {
         formatTimestamp(timestamp) {
@@ -179,7 +186,8 @@ export default {
             const messageData = {
                 roomId: this.roomId,
                 roomName: this.roomTitle,
-                username: jwtDecode(token).name,
+                username: this.decodedToken.username,
+                name: this.decodedToken.name,
                 message: this.newMessage,
             };
 
@@ -192,15 +200,22 @@ export default {
             });
         },
         isOwnMessage(message) {
-            const token = localStorage.getItem("token");
-            const username = jwtDecode(token).name;
-            return message.username === username;
+            console.log("message:", message);
+            return message.username === this.decodedToken.username;
+        },
+        isAdmin(message) {
+            return this.decodedToken.userlevel >= 22;
         },
         startEdit(message) {
-            this.editingMessageId = message._id;
-            console.log("Editing message:", message);
-            this.editedMessage = message.message;
-            console.log("Edited message:", this.editedMessage);
+
+            if (message.username === this.decodedToken.username) {
+                this.editingMessageId = message._id;
+                console.log("Editing message:", message);
+                this.editedMessage = message.message;
+                console.log("Edited message:", this.editedMessage);
+            } else {
+                console.error("Unauthorized: You can only edit your own messages.");
+            }
         },
         cancelEdit() {
             this.editingMessageId = null;
@@ -285,6 +300,17 @@ export default {
     max-width: 70%;
 }
 
+.message-actions {
+    display: flex;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+button {
+    background: none;
+    color: gainsboro;
+}
+
 .message-content b {
     color: #7289da;
 }
@@ -297,13 +323,15 @@ export default {
 
 #messageInputContainer {
     display: flex;
-    align-items: center;
     padding: 10px;
     background-color: #2f3136;
     border-top: 1px solid #202225;
     position: sticky;
     bottom: 0;
+    z-index: 10;
 }
+
+
 
 #message {
     flex: 1;
