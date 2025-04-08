@@ -297,7 +297,11 @@
     "filter":{
         "hide":"Dölj",
         "show":"Visa",
-        "width": "Växla bredd"
+        "width": "Växla bredd",
+        "farm":"Gård",
+        "offer":"Erbjudande",
+        "plant":"Biogasanläggning",
+        "company":"Företag"
     }
 
 

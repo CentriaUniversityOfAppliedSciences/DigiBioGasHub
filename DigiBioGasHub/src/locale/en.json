@@ -346,7 +346,11 @@
     "filter":{
         "hide":"Hide",
         "show":"Show",
-        "width":"Toggle width"
+        "width":"Toggle width",
+        "farm":"Farm",
+        "offer":"Offer",
+        "plant":"Biogas Plant",
+        "company":"Company"
     }
 
 }

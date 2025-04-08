@@ -21,7 +21,7 @@
            
             </ion-grid>
             
-                <AddOfferComponent />
+                <AddOfferComponent @getOffers="getOffers"/>
             
        
     <FooterComponent />
@@ -71,6 +71,9 @@ export default defineComponent ({
                     
                 }
             });
+        },
+        getOffers(){
+            this.getProducts();
         },
         refreshFilters(){
             this.filtersData = [];

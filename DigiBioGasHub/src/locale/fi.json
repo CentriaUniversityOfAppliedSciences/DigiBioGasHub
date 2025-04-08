@@ -385,7 +385,11 @@
     "filter":{
         "hide":"Piilota",
         "show":"Näytä",
-        "width":"Muuta leveyttä"
+        "width":"Muuta leveyttä",
+        "farm":"Maatila",
+        "offer":"Tarjous",
+        "plant":"Biokaasulaitos",
+        "company":"Yritys"
     }
 
 }
