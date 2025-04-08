@@ -17,8 +17,19 @@
                     <div class="avatar">{{ message.username.charAt(0).toUpperCase() }}</div>
                     <div class="message-content">
                         <b>{{ message.username }}</b>
-                        <span class="timestamp">{{ message.timestamp }}</span>
-                        <div>{{ message.message }}</div>
+                        <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+                        <span v-if="message.isEdited" class="edited-marker">(edited)</span>
+                        <div v-if="editingMessageId === message._id">
+                            <input v-model="editedMessage" @keyup.enter="saveEdit(message)" />
+                            <button @click="cancelEdit">Cancel</button>
+                        </div>
+                        <div v-else>
+                            <div>{{ message.message }}</div>
+                            <div v-if="isOwnMessage(message)" class="message-actions">
+                                <button @click="startEdit(message)">Edit</button>
+                                <button @click="deleteMessage(message)">Delete</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -66,6 +77,8 @@ export default {
             messages: [],
             newMessage: "",
             socket: null,
+            editingMessageId: null,
+            editedMessage: "",
         };
     },
     async mounted() {
@@ -94,8 +107,38 @@ export default {
         });
 
         this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle });
+
+        this.socket.on("messageDeleted", (messageId) => {
+            this.messages = this.messages.filter((msg) => msg._id !== messageId);
+        });
+
+        this.socket.on("messageEdited", (updatedMessage) => {
+            const index = this.messages.findIndex((msg) => msg._id === updatedMessage._id);
+            if (index !== -1) {
+                this.messages[index].message = updatedMessage.message;
+                this.messages[index].isEdited = true;  
+            }
+        });
     },
     methods: {
+        formatTimestamp(timestamp) {
+            const now = new Date();
+            const messageDate = new Date(timestamp);
+
+            if (now.toDateString() === messageDate.toDateString()) {
+                return messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+            }
+
+            const yesterday = new Date();
+            yesterday.setDate(now.getDate() - 1);
+            if (yesterday.toDateString() === messageDate.toDateString()) {
+                return `Yesterday at ${messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true })}`;
+            }
+
+            return messageDate.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' }) +
+                ' at ' +
+                messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+        },
         leaveRoom() {
             if (this.socket) {
                 console.log("Leaving room:", this.roomId, this.roomTitle);
@@ -125,6 +168,39 @@ export default {
             this.$nextTick(() => {
                 this.scrollToBottom();
             });
+        },
+        isOwnMessage(message) {
+            const token = localStorage.getItem("token");
+            const username = jwtDecode(token).name;
+            return message.username === username;
+        },
+        startEdit(message) {
+            this.editingMessageId = message._id;
+            console.log("Editing message:", message);
+            this.editedMessage = message.message;
+            console.log("Edited message:", this.editedMessage);
+        },
+        cancelEdit() {
+            this.editingMessageId = null;
+            this.editedMessage = "";
+        },
+        saveEdit(message) {
+            if (!this.editedMessage.trim()) return;
+
+            const updatedMessage = {
+                ...message,
+                message: this.editedMessage
+            };
+
+            this.socket.emit("editMessage", updatedMessage);
+            this.editingMessageId = null;
+            this.editedMessage = "";
+        },
+        deleteMessage(message) {
+            this.socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
+            console.log("Deleting message:", message);
+            this.messages = this.messages.filter((msg) => msg._id !== message._id);
+            console.log("Message deleted:", message._id);
         },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;
@@ -211,6 +287,13 @@ export default {
     margin-right: 10px;
     background-color: #40444b;
     color: #ffffff;
+}
+
+.edited-marker {
+    font-size: 0.8em;
+    color: #b9bbbe;
+    margin-left: 5px;
+    font-style: italic;
 }
 
 #message:focus {
