@@ -27,7 +27,7 @@
                             <div>{{ message.message }}</div>
                             <div v-if="isOwnMessage(message)" class="message-actions">
                                 <button @click="startEdit(message)">Edit</button>
-                                <button @click="deleteMessage(message)">Delete</button>
+                                <button @click="confirmDelete(message)">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -40,6 +40,24 @@
                 <button id="sendBtn" @click="sendMessage">Send</button>
             </div>
         </div>
+
+        <ion-alert :is-open="showDeleteAlert" header="Confirm delete" message="Are you sure you want to delete this message?" :buttons="[
+            {
+                text: 'cancel',
+                role: 'cancel',
+                handler: () => {
+                    this.showDeleteAlert = false;
+                }
+            },
+            {
+                text: 'delete',
+                handler: () => {
+                    this.deleteMessage(this.messageToDelete);
+                    this.showDeleteAlert = false;
+                }
+            }
+        ]"></ion-alert>
+
     </ion-content>
 </template>
 
@@ -53,6 +71,7 @@ import {
     IonButton,
     IonItem,
     IonInput,
+    IonAlert,
 } from "@ionic/vue";
 import axios from "axios";
 import io from "socket.io-client";
@@ -69,6 +88,7 @@ export default {
         IonButton,
         IonItem,
         IonInput,
+        IonAlert
     },
     data() {
         return {
@@ -79,6 +99,8 @@ export default {
             socket: null,
             editingMessageId: null,
             editedMessage: "",
+            showDeleteAlert: false,
+            messageToDelete: null,
         };
     },
     async mounted() {
@@ -195,6 +217,10 @@ export default {
             this.socket.emit("editMessage", updatedMessage);
             this.editingMessageId = null;
             this.editedMessage = "";
+        },
+        confirmDelete(message) {
+            this.showDeleteAlert = true;
+            this.messageToDelete = message;
         },
         deleteMessage(message) {
             this.socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
