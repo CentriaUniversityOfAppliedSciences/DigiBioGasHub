@@ -328,7 +328,8 @@
             "unpublishFail": "Unable to unpublish!",
             "deleteFail": "Unable to delete!",
             "fetchingPostFailed": "Cannot find blog posts!",
-            "reviewEdit": "Review and Edit"
+            "reviewEdit": "Review and Edit",
+            "addPost": "Add blog post"
         },
         "users": {
             "title": "Users",

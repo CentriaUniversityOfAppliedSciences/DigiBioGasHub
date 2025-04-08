@@ -3,6 +3,11 @@
     <NavBarComponent />
     <ion-content>
       <ion-grid>
+        <ion-row>
+          <ion-col>
+            <ion-button @click="addPost">{{ $t('admin.blogpost.addPost') }}</ion-button>
+          </ion-col>
+        </ion-row>
         <!-- Published Section -->
         <ion-row>
           <ion-col>
@@ -138,6 +143,7 @@
       <ToastComponent ref="toastComponent" />
 
     </ion-content>
+    
     <FooterComponent />
   </ion-page>
 </template>
@@ -193,7 +199,9 @@ export default defineComponent({
       this.postIdToPublish = postId;
       this.showPublishAlert = true;
     },
-
+    addPost() {
+      window.location.href = '/admin/add-blog-post';
+    },
     publishPost(postId) {
       try {
         const url = `http://localhost:28765/publishblogpost`;
