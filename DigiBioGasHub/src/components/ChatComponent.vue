@@ -132,7 +132,8 @@ export default {
 
         this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle });
 
-        this.socket.on("messageDeleted", (messageId) => {
+        this.socket.on("messageDeleted", (messageData) => {
+            const messageId = messageData.id; 
             this.messages = this.messages.filter((msg) => msg._id !== messageId);
         });
 
@@ -239,9 +240,6 @@ export default {
         },
         deleteMessage(message) {
             this.socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
-            console.log("Deleting message:", message);
-            this.messages = this.messages.filter((msg) => msg._id !== message._id);
-            console.log("Message deleted:", message._id);
         },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;
