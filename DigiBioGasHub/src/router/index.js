@@ -173,7 +173,7 @@ const routes = [
   },
 
   {
-    path: '/chat',
+    path: '/rooms',
     name: 'ChatRoomView',
     component: ChatRoomView,
     beforeEnter:[checkUser]

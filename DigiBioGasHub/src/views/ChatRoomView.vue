@@ -1,10 +1,5 @@
 <template>
     <ion-page>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Chat Rooms</ion-title>
-        </ion-toolbar>
-      </ion-header>
       <ion-content>
         <ChatRoomComponent />
       </ion-content>

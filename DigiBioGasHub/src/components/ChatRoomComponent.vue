@@ -1,36 +1,53 @@
 <template>
-    <ion-content>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Chat Rooms</ion-title>
-        </ion-toolbar>
-      </ion-header>
-  
-      <ion-grid>
-        <ion-row>
-          <ion-col
-            size="12"
-            size-md="6"
-            size-lg="4"
-            v-for="room in rooms"
-            :key="room._id"
-          >
-            <ion-card>
-              <ion-card-header>
-                <ion-card-title>{{ room.name }}</ion-card-title>
-              </ion-card-header>
-              <ion-card-content>
-                <p>{{ room.description }}</p>
-                <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
-                  Join
-                </ion-button>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-content>
-  </template>
+  <ion-content>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Chat Rooms</ion-title>
+        <ion-button v-if="isAdmin" slot="end" @click="showModal = true">
+          Create Room
+        </ion-button>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" size-md="6" size-lg="4" v-for="room in rooms" :key="room._id">
+          <ion-card class="ion-margin">
+            <ion-card-content>
+              <ion-img :src="room.image" alt="Room Image"></ion-img>
+              <ion-card-title>{{ room.name }}</ion-card-title>
+              <p>{{ room.description }}</p>
+              <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
+                Join
+              </ion-button>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-modal :is-open="showModal" @did-dismiss="showModal = false">
+      <ion-content class="ion-padding">
+        <ion-header>
+          <ion-toolbar>
+            <ion-title>Create a New Room</ion-title>
+          </ion-toolbar>
+        </ion-header>
+        <ion-item>
+          <ion-label position="stacked">Room Name</ion-label>
+          <ion-input v-model="newRoom.name" placeholder="Enter name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Description</ion-label>
+          <ion-textarea v-model="newRoom.description" placeholder="Enter description"></ion-textarea>
+        </ion-item>
+        <ion-button expand="block" @click="createRoom">Create</ion-button>
+      </ion-content>
+    </ion-modal>
+
+
+  </ion-content>
+</template>
   
   <script>
   import {
@@ -46,8 +63,15 @@
     IonCardTitle,
     IonCardContent,
     IonButton,
+    IonModal,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonTextarea,
+    IonImg,
   } from "@ionic/vue";
   import axios from "axios";
+import { jwtDecode } from "../router";
   
   export default {
     name: "ChatRoomComponent",
@@ -64,24 +88,58 @@
       IonCardTitle,
       IonCardContent,
       IonButton,
+      IonModal,
+      IonItem,
+      IonLabel,
+      IonInput,
+      IonTextarea,
+      IonImg,
     },
     data() {
       return {
         rooms: [],
+        isAdmin: false,
+        showModal: false,
+        newRoom: {
+          name: "",
+          description: "",
+        }
       };
     },
-    async created() {
+    async mounted() {
+
       try {
+        const token = localStorage.getItem("token");
+        if(token){
+          this.isAdmin = jwtDecode(token).userlevel >= 22;
+        }
+
         const response = await axios.get("http://localhost:3005/rooms");
         this.rooms = response.data;
       } catch (error) {
         console.error("Failed to fetch rooms:", error);
       }
     },
+
     methods: {
       joinRoom(roomId, roomTitle) {
         window.location.href = `/chat/${roomId}/${roomTitle}`;
       },
+
+      async createRoom() {
+        try {
+          const response = await axios.post("http://localhost:3005/rooms", {
+            name: this.newRoom.name,
+            description: this.newRoom.description
+          });
+
+          this.rooms.push(response.data); 
+          this.showModal = false; 
+          this.newRoom = { name: '', description: '' }; 
+        } catch (error) {
+          console.error("Failed to create room:", error);
+        }
+      }
     },
   };
   </script>
