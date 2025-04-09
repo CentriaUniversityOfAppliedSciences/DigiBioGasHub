@@ -99,7 +99,8 @@
         "company": "Yritys",
         "TermsAndConditions": "Käyttöehdot",
         "PrivacyPolicy": "Tietosuojakäytäntö",
-        "industry": "Toimiala"
+        "industry": "Toimiala",
+        "read_more": "Lue lisää"
         
 
     },
@@ -336,6 +337,7 @@
             "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!"
         },
         "blogpost":{
+            "blogs": "Julkaisut",
             "published":"Julkaistu",
             "unpublished": "Ei julkaistu",
             "drafts": "Luonnokset",

@@ -4,7 +4,7 @@
             <ion-row>
                 <ion-col size="12" size-sm="3">
                     <ul>
-                        <li class="menu-item"><a href="/terms-of-service">{{$t('general.TermsAndConditions') }}</a></li>
+                        <li class="menu-item"><a href="/terms-of-service">{{ $t('general.TermsAndConditions') }}</a></li>
                     
                         <li class="menu-item"><a href="/privacy-policy">{{ $t('general.PrivacyPolicy') }}</a></li>
 

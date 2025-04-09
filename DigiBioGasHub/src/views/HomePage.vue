@@ -33,9 +33,9 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-      <footer-component />
+      
     </ion-content>
-    
+    <FooterComponent />
   </ion-page>
 </template>
 

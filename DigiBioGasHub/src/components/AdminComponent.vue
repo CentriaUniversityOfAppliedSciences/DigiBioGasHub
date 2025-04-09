@@ -3,7 +3,7 @@
             <ion-select placeholder="Select an option" @ionChange="handleSelectChange">
                 <ion-select-option value="materials">{{ $t('admin.materials') }}</ion-select-option>
                 <ion-select-option value="users">{{ $t('admin.manage_users') }}</ion-select-option>
-                <ion-select-option value="blog">{{ $t('admin.blog') }}</ion-select-option>
+                <ion-select-option value="blog">{{ $t('admin.blogpost.blogs') }}</ion-select-option>
                 <ion-select-option value="settings">{{ $t('admin.settings') }}</ion-select-option>
                 <ion-select-option value="reports">{{ $t('admin.reports') }}</ion-select-option>
             </ion-select>

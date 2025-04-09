@@ -94,8 +94,9 @@
         "firstName": "First name",
         "lastName": "Last name",
         "company": "Company",
-        "termsAndConditions": "Terms and Conditions",
-        "privacyPolicy": "Privacy Policy"
+        "TermsAndConditions": "Terms and Conditions",
+        "PrivacyPolicy": "Privacy Policy",
+        "read_more": "Read more"
     },
     "footer":{
         "KP": "src/assets/kp-eng.jpg",
@@ -310,6 +311,7 @@
             "disableFail": "Unable to disable company!"
         },
         "blogpost":{
+            "blogs": "Blog posts",
             "published":"Published",
             "unpublished": "Unpublished",
             "drafts": "Drafts",

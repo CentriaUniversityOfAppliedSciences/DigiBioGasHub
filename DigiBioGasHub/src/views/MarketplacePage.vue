@@ -24,9 +24,9 @@
                 <AddOfferComponent @getOffers="getOffers"/>
             
        
-    <FooterComponent />
-    </ion-content>
     
+    </ion-content>
+    <FooterComponent />
     </ion-page>
 </template>
 
