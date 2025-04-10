@@ -8,7 +8,7 @@
             <img class="blog-card-img" :src="article.picture" alt="article picture"/>
             <p class="blog-card-abstract">{{ article.abstract }}</p>
             <ion-item>
-                <ion-button @click="openArticle(article.link)">{{ $t('blog.openArticle') }}</ion-button>
+                <ion-button @click="openArticle(article.link)">{{ $t('general.read_more') }}</ion-button>
             </ion-item>
         </ion-card-content>
     </ion-card>

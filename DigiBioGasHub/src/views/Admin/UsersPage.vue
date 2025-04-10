@@ -4,18 +4,18 @@
         <IonContent>
             <IonHeader>
                 <IonToolbar>
-                    <IonTitle class="margin-style">Users</IonTitle>
+                    <IonTitle class="margin-style">{{ $t('admin.users.title') }}</IonTitle>
                 </IonToolbar>
             </IonHeader>
             <IonGrid class="margin-style">
                 <IonRow>
-                    <IonCol><strong>UserName</strong></IonCol>
-                    <IonCol><strong>Name</strong></IonCol>
-                    <IonCol><strong>Email</strong></IonCol>
-                    <IonCol><strong>Phone</strong></IonCol>
-                    <IonCol><strong>UserLevel</strong></IonCol>
-                    <IonCol><strong>HubID</strong></IonCol>
-                    <IonCol><strong>Actions</strong></IonCol>
+                    <IonCol><strong>{{ $t('general.username') }}</strong></IonCol>
+                    <IonCol><strong>{{ $t('general.name') }}</strong></IonCol>
+                    <IonCol><strong>{{ $t('general.email') }}</strong></IonCol>
+                    <IonCol><strong>{{ $t('general.phone') }}</strong></IonCol>
+                    <IonCol><strong>{{ $t('admin.users.userlevel') }}</strong></IonCol>
+                    <IonCol><strong>{{ $t('admin.users.hubID') }}</strong></IonCol>
+                    <IonCol><strong>{{ $t('admin.users.actions') }}</strong></IonCol>
                 </IonRow>
                 <IonRow v-for="user in users" :key="user.id">
                     <IonCol>{{ user.username }}</IonCol>
@@ -25,8 +25,8 @@
                     <IonCol>{{ user.userlevel }}</IonCol>
                     <IonCol>{{ user.hubID }}</IonCol>
                     <IonCol>
-                        <IonButton @click="editUser(user.id)">Edit</IonButton>
-                        <IonButton color="danger" @click="confirmDelete(user.id)">Delete</IonButton>
+                        <IonButton @click="editUser(user.id)">{{ $t('general.edit') }}</IonButton>
+                        <IonButton color="danger" @click="confirmDelete(user.id)">{{ $t('general.delete') }}</IonButton>
                     </IonCol>
                 </IonRow>
             </IonGrid>
@@ -34,7 +34,7 @@
             <div class="pagination">
 
                 <IonItem>
-                    <IonLabel>Results per page:</IonLabel>
+                    <IonLabel>{{ $t('admin.users.pagination') }}:</IonLabel>
                     <IonSelect v-model="limit">
                         <IonSelectOption v-for="option in [5, 25, 50, 75, 100]" :key="option" :value="option">
                             {{ option }}
@@ -42,58 +42,59 @@
                     </IonSelect>
                 </IonItem>
 
-                <IonButton v-for="pageNumber in totalPages" :key="pageNumber" @click="changePage(pageNumber)" :class="{ 'selected': pageNumber === page }">
+                <IonButton v-for="pageNumber in totalPages" :key="pageNumber" @click="changePage(pageNumber)"
+                    :class="{ 'selected': pageNumber === page }">
                     {{ pageNumber }}
                 </IonButton>
             </div>
 
             <IonModal :is-open="isModalOpen" @didDismiss="closeModal">
                 <div class="modal-content">
-                    <h2>Edit User</h2>
+                    <h2>{{ $t('admin.users.editTitle') }}</h2>
                     <form @submit.prevent="saveUser">
                         <IonItem>
-                            <IonLabel position="floating">Username</IonLabel>
+                            <IonLabel position="floating">{{ $t('general.username') }}</IonLabel>
                             <IonInput type="text" v-model="editUserData.username" required></IonInput>
                         </IonItem>
                         <IonItem>
-                            <IonLabel position="floating">Name</IonLabel>
+                            <IonLabel position="floating">{{ $t('general.name') }}</IonLabel>
                             <IonInput type="text" v-model="editUserData.name" required></IonInput>
                         </IonItem>
                         <IonItem>
-                            <IonLabel position="floating">Email</IonLabel>
+                            <IonLabel position="floating">{{ $t('general.email') }}</IonLabel>
                             <IonInput type="email" v-model="editUserData.email" required></IonInput>
                         </IonItem>
                         <IonItem>
-                            <IonLabel position="floating">Phone</IonLabel>
+                            <IonLabel position="floating">{{ $t('general.phone') }}</IonLabel>
                             <IonInput type="text" v-model="editUserData.phone" required></IonInput>
                         </IonItem>
                         <IonItem>
-                            <IonLabel position="floating">User Level</IonLabel>
+                            <IonLabel position="floating">{{ $t('admin.users.userlevel') }}</IonLabel>
                             <IonInput type="text" v-model="editUserData.userlevel" required></IonInput>
                         </IonItem>
                         <IonItem>
-                            <IonLabel position="floating">Hub ID</IonLabel>
+                            <IonLabel position="floating">{{ $t('admin.users.hubID') }}</IonLabel>
                             <IonInput type="text" v-model="editUserData.hubID" required></IonInput>
                         </IonItem>
-                        <IonButton type="submit">Save</IonButton>
-                        <IonButton color="light" @click="closeModal">Cancel</IonButton>
+                        <IonButton type="submit">{{ $t('general.save') }}</IonButton>
+                        <IonButton color="light" @click="closeModal">{{ $t('general.cancel') }}</IonButton>
                     </form>
                 </div>
             </IonModal>
 
             <ToastComponent ref="toastComponent" />
 
-            <ion-alert :is-open="showDeleteAlert" header="Confirm Delete"
-                message="Are you sure you want to delete this account? This action is irreversible." :buttons="[
+            <ion-alert :is-open="showDeleteAlert" :header="$t('account.deleteAccount')"
+                :message="$t('account.deleteAccountConfirm')" :buttons="[
                     {
-                        text: 'Cancel',
+                        text: $t('general.cancel'),
                         role: 'cancel',
                         handler: () => {
                             this.showDeleteAlert = false;
                         }
                     },
                     {
-                        text: 'Delete',
+                        text: $t('general.delete'),
                         handler: () => {
                             deleteUser(userIdToDelete);
                             this.showDeleteAlert = false;
@@ -173,6 +174,8 @@ export default {
                 this.totalUsers = response.data.total;
             } catch (error) {
                 console.error(error);
+                this.$refs.toastComponent.showToast(this.$t('admin.users.fetchUsersFail'), 2000, 'danger');
+
             }
         },
 
@@ -192,6 +195,7 @@ export default {
                 this.isModalOpen = true;
             } catch (error) {
                 console.error(error);
+                this.$refs.toastComponent.showToast(this.$t('admin.users.fetchUserFail'), 2000, 'danger');
             }
         },
 
@@ -205,7 +209,7 @@ export default {
 
                 const response = await axios.post(url, this.editUserData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {
-                    this.$refs.toastComponent.showToast('User updated successfully', 2000, 'success');
+                    this.$refs.toastComponent.showToast(this.$t('account.updateSuccess'), 2000, 'success');
 
                     const index = this.users.findIndex(user => user.id === this.editUserData.id);
                     if (index !== -1) {
@@ -214,6 +218,7 @@ export default {
                 }
             } catch (error) {
                 console.error(error);
+                this.$refs.toastComponent.showToast(this.$t('account.updateFailMessage'), 2000, 'danger');
             }
             this.closeModal();
         },
@@ -229,11 +234,12 @@ export default {
 
                 const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {
-                    this.$refs.toastComponent.showToast('User deleted successfully', 2000, 'success');
+                    this.$refs.toastComponent.showToast(this.$t('account.deleteAccountSuccess'), 2000, 'success');
                     this.users = this.users.filter(user => user.id !== id);
                 }
             } catch (error) {
                 console.error(error);
+                this.$refs.toastComponent.showToast(this.$t('account.deleteAccountFail'), 2000, 'danger');
             }
         }
     },

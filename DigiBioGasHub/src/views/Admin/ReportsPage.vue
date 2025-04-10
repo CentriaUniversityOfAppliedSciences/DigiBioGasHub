@@ -16,9 +16,8 @@ import {
     IonCol
 } from '@ionic/vue'
 import NavBarComponent from '../../components/NavBarComponent.vue';
-
 export default defineComponent({
-    name: 'SettingsPage',
+    name: 'ReportsPage',
     components: {
         IonPage,
         IonHeader,

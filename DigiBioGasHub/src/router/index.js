@@ -15,6 +15,10 @@ import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
 import ManageBlogPosts from '../views/Admin/ManageBlogPosts.vue';
 import EditBlogPostPage from '../views/Admin/EditBlogPostPage.vue';
 import UsersPage from '../views/Admin/UsersPage.vue';
+import CompaniesPage from '../views/Admin/CompaniesPage.vue';
+import MaterialsPage from '../views/Admin/MaterialsPage.vue';
+import SettingsPage from '../views/Admin/SettingsPage.vue';
+import ReportsPage from '../views/Admin/ReportsPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -83,6 +87,12 @@ const routes = [
     beforeEnter: [checkAdmin] 
   },
   {
+    path: '/admin/manage-companies',
+    name: 'CompaniesPage',
+    component: CompaniesPage,
+    beforeEnter: [checkAdmin] 
+  },
+  {
     path: '/blog/:postID/:title',
     name: 'Blog',
     component: BlogPage
@@ -147,6 +157,24 @@ const routes = [
     path: '/knowledge-base',
     name: 'Knowledge Base',
     component: KnowledgeBasePage
+  },
+  {
+    path: '/admin/materials',
+    name: 'MaterialsPage',
+    component: MaterialsPage,
+    beforeEnter: [checkAdmin]
+  },
+  {
+    path: '/admin/settings',
+    name: 'SettingsPage',
+    component: SettingsPage,
+    beforeEnter: [checkAdmin]
+  },
+  {
+    path: '/admin/reports',
+    name: 'ReportsPage',
+    component: ReportsPage,
+    beforeEnter: [checkAdmin]
   }
 ]
 

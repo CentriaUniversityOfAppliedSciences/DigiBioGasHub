@@ -1,6 +1,7 @@
 <template>
     <ion-card>
         <ion-card-header>
+            <ion-img :src="product.Files[0].data" alt="Material Image" style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
             <ion-card-title>{{ product.Material.name }}</ion-card-title>
             <ion-card-subtitle> {{ getMaterialTypeTranslation(product.Material.type) }}</ion-card-subtitle>
             
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg } from '@ionic/vue';
 export default {
     name: 'ListingComponent',
     components: {
@@ -33,7 +34,8 @@ export default {
         IonCardContent,
         IonItem,
         IonLabel,
-        IonButton
+        IonButton,
+        IonImg
     },
     props: {
         product: {
@@ -43,7 +45,6 @@ export default {
     },
     methods:{
         getMaterialTypeTranslation(type) {
-            console.log(type);
             return this.$t(`material.type.${type}`);
         },
         getUnitAmountTranslation(type) {

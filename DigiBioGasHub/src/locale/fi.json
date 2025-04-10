@@ -40,7 +40,10 @@
         "resetPasswordFailMessage": "Käyttäjätunnusta ei löytynyt. Tarkista käyttäjätunnus ja yritä uudelleen.",
         "forgotPassword": "Unohditko salasanasi?",
         "edit": "Muokkaa",
-        "company": "Yritys"
+        "company": "Yritys",
+        "delete":"Poista",
+        "are_you_sure":"Oletko varma?",
+        "yes":"Kyllä"
         
     },
     "general":{
@@ -96,7 +99,8 @@
         "company": "Yritys",
         "TermsAndConditions": "Käyttöehdot",
         "PrivacyPolicy": "Tietosuojakäytäntö",
-        "industry": "Toimiala"
+        "industry": "Toimiala",
+        "read_more": "Lue lisää"
         
 
     },
@@ -244,13 +248,14 @@
     },
     "material":{
         "type":{
-            "0":"tuntematon",
-            "1":"olki",
-            "2":"kiinteä lanta",
-            "3":"nestemäinen lanta",
-            "4":"paineistettu biokaasu",
-            "5":"nestemäinen biokaasu",
-            "6":"syöte"
+            "0":"Tuntematon",
+            "1":"Olki",
+            "2":"Kiinteä lanta",
+            "3":"Nestemäinen lanta",
+            "4":"Paineistettu biokaasu",
+            "5":"Nestemäinen biokaasu",
+            "6":"Syöte",
+            "7":"Mädätysjäännös"
         }
     },
     "unit":{
@@ -312,6 +317,82 @@
             "6":"Muu"
         }
 
+    },
+    "admin": {
+        "company": {
+            "title": "Yrityksen hallinta",
+            "detailstitle": "Yrityksen tiedot",
+            "verified": "Vahvistettu",
+            "unverified": "Vahvistamaton",
+            "disabled": "Poistettu käytöstä",
+            "verify": "Vahvista",
+            "unverify": "Poista vahvistus",
+            "disable": "Poista käytöstä",
+            "confirmVerify": "Haluatko varmasti vahvistaa tämän yrityksen?",
+            "confirmUnverify": "Haluatko varmasti poistaa vahvistuksen tältä yritykseltä?",
+            "confirmDisable": "Haluatko varmasti poistaa tämän yrityksen käytöstä?",
+            "confirmDelete": "Haluatko varmasti poistaa tämän yrityksen pysyvästi? Tätä toimintoa ei voi peruuttaa!",
+            "verifyFail": "Yrityksen vahvistaminen epäonnistui!",
+            "unverifyFail": "Yrityksen vahvistuksen poistaminen epäonnistui!",
+            "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!"
+        },
+        "blogpost":{
+            "blogs": "Julkaisut",
+            "published":"Julkaistu",
+            "unpublished": "Ei julkaistu",
+            "drafts": "Luonnokset",
+            "publish": "julkaise",
+            "unpublish": "poista julkaisu",
+            "confirmDelete": "Vahvista poisto",
+            "confirmPublish": "Vahvista julkaisu",
+            "confirmUnpublish": "Vahvista julkaisun poisto",
+            "confirmPublishMessage": "Haluatko varmasti julkaista tämän artikkelin?",
+            "confirmUnpublsihMessage": "Haluatko varmasti poistaa tämän artikkelin julkaisun?",
+            "cofirmDeleteMessage": "Haluatko varmasti poistaa tämän artikkelin pysyvästi? Tätä toimintoa ei voi peruuttaa!",
+            "publishSuccess":"Artikkeli julkaistu onnistuneesti!",
+            "unpublishSuccess": "Artikkelin julkaisu poistettu onnistuneesti!",
+            "deleteSuccess": "Artikkeli poistettu onnistuneesti!",
+            "publishFail": "Julkaisu epäonnistui!",
+            "unpublishFail": "Julkaisun poisto epäonnistui!",
+            "deleteFail": "Poisto epäonnistui!",
+            "fetchingPostFailed": "Artikkeleita ei löydy!",
+            "reviewEdit": "Tarkista ja muokkaa",
+            "addPost": "Lisää artikkeli"
+        },
+        "users": {
+            "title": "Käyttäjät",
+            "userlevel": "Käyttäjätaso",
+            "hubID": "Hub ID",
+            "actions": "Toiminnot",
+            "fetchUsersFail": "Käyttäjien haku epäonnistui!",
+            "fetchUserFail": "Käyttäjän haku epäonnistui!",
+            "editTitle": "Muokkaa käyttäjää",
+            "pagination": "Tuloksia per sivu"
+        },
+        "material":{
+            "name": "Materiaalin nimi",
+            "type": "Materiaalin tyyppi",
+            "description": "Kuvaus",
+            "quality": "Laatu",
+            "locality":"Kieli",
+            "addMaterial": "Lisää materiaali"
+
+        },
+        "edittitle": "Muokkaa yritystä",
+        "confirmAction": "Vahvista toiminto",
+        "materials": "Materiaalit",
+        "manage_users": "Hallitse käyttäjiä",
+        "settings": "Asetukset",
+        "reports": "Raportit"
+    },
+    "filter":{
+        "hide":"Piilota",
+        "show":"Näytä",
+        "width":"Muuta leveyttä",
+        "farm":"Maatila",
+        "offer":"Tarjous",
+        "plant":"Biokaasulaitos",
+        "company":"Yritys"
     }
 
 }

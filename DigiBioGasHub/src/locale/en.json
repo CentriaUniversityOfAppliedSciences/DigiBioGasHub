@@ -39,7 +39,8 @@
         "resetPasswordFail": "Failed to send reset link",
         "resetPasswordFailMessage": "Username not found. Check the username and try again.",
         "forgotPassword": "Forgot your password?",
-        "edit": "Edit"
+        "edit": "Edit",
+        "delete":" Delete"
     
     },
     "general":{
@@ -93,8 +94,9 @@
         "firstName": "First name",
         "lastName": "Last name",
         "company": "Company",
-        "termsAndConditions": "Terms and Conditions",
-        "privacyPolicy": "Privacy Policy"
+        "TermsAndConditions": "Terms and Conditions",
+        "PrivacyPolicy": "Privacy Policy",
+        "read_more": "Read more"
     },
     "footer":{
         "KP": "src/assets/kp-eng.jpg",
@@ -239,7 +241,8 @@
                 "3":"dung liquid",
                 "4":"compressed biogas",
                 "5":"liquid biogas",
-                "6":"feedstock"
+                "6":"feedstock",
+                "7":"digestate"
             }
         },
         "unit":{
@@ -288,6 +291,69 @@
         "deleteAgreement": "Delete agreement",
         "products": "Products",
         "types": "Types"
+    },
+    "admin": {
+        "company": {
+            "title": "Company Management",
+            "detailstitle": "Company Details",
+            "verified":"Verified",
+            "unverified":"Unverified",
+            "disabled":"Disabled",
+            "verify": "verify",
+            "unverify": "unverify",
+            "disable":"disable",
+            "confirmVerify": "Are you sure you want to verify this company?",
+            "confirmUnverify": "Are you sure you want to unverify this company?",
+            "confirmDisable": "Are you sure you want to disable this company?",
+            "confirmDelete": "Are you sure you want to permanently delete this company? This action cannot be undone!",
+            "verifyFail": "Unable to verify company!",
+            "unverifyFail": "Unable to unverify company!",
+            "disableFail": "Unable to disable company!"
+        },
+        "blogpost":{
+            "blogs": "Blog posts",
+            "published":"Published",
+            "unpublished": "Unpublished",
+            "drafts": "Drafts",
+            "publish": "publish",
+            "unpublish": "unpublish",
+            "confirmDelete": "Confirm Delete",
+            "confirmPublish": "Confirm Publish",
+            "confirmUnpublish": "Confirm Unpublish",
+            "confirmPublishMessage": "Are you sure you want to publish this post?",
+            "confirmUnpublsihMessage": "Are you sure you want to unpublish this post?",
+            "cofirmDeleteMessage": "Are you sure you want to permanently delete this post? This action cannot be undone!",
+            "publishSuccess":"Post published successfully!",
+            "unpublishSuccess": "Post unpublished successfully!",
+            "deleteSuccess": "Post deleted successfully!",
+            "publishFail": "Unable to publish!",
+            "unpublishFail": "Unable to unpublish!",
+            "deleteFail": "Unable to delete!",
+            "fetchingPostFailed": "Cannot find blog posts!",
+            "reviewEdit": "Review and Edit",
+            "addPost": "Add blog post"
+        },
+        "users": {
+            "title": "Users",
+            "userlevel": "User Level",
+            "hubID": "hubID",
+            "actions": "Actions",
+            "fetchUsersFail": "Unable to get users!",
+            "fetchUserFail": "Unable to get user!",
+            "editTitle": "Edit User",
+            "pagination": "Results per page"
+        },
+        "edittitle": "Edit Company",
+        "confirmAction":"Confirm Action"
+    },
+    "filter":{
+        "hide":"Hide",
+        "show":"Show",
+        "width":"Toggle width",
+        "farm":"Farm",
+        "offer":"Offer",
+        "plant":"Biogas Plant",
+        "company":"Company"
     }
 
 }

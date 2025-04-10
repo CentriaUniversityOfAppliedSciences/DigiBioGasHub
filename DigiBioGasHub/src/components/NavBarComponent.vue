@@ -2,6 +2,14 @@
     <nav class="navbar">
         <div class="navbar-left">
             <img :src="$t('menu.logoPath')" alt="Funder Logo" class="logo">
+            <button class="feedback-button"
+                onclick="window.open('https://link.webropolsurveys.com/S/941E350F901601ED', '_blank')">
+                <span>Give Feedback</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
         </div>
         <div class="navbar-center">
             <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo">
@@ -78,7 +86,7 @@ export default defineComponent ({
                 let decoded = this.decodeJWT(token);
                 if (decoded) {
                     if (decoded.userlevel >= 99) {
-                        this.inCompany = true;
+                        this.Admin = true;
                     }
                 }
             }
@@ -116,6 +124,29 @@ export default defineComponent ({
     justify-content: center;
     align-items: center;
 }
+
+.feedback-button {
+    background-color: green;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .feedback-button span {
+    transition: text-decoration 0.3s ease;
+  }
+
+  .feedback-button:hover span {
+    text-decoration: underline;
+  }
 
 .navbar-left {
     justify-content: flex-start;

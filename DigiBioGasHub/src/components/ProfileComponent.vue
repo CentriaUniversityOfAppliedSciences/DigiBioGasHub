@@ -30,7 +30,8 @@
                 <ion-card-content>
                     <ion-list v-if="offers.length > 0">
                         <ion-item v-for="offer in offers" :key="offer.id">
-                            <ion-label>{{ offer.name }}</ion-label>
+                            <ion-label>{{ offer.description }}</ion-label>
+                            <ion-label>{{ new Date(offer.startDate).toLocaleDateString() }} - {{ new Date(offer.endDate).toLocaleDateString() }}</ion-label>
                         </ion-item>
                     </ion-list>
                     <ion-label v-else>{{ $t('account.noOffers') }}</ion-label>
@@ -58,14 +59,12 @@
             <ion-header>
                 <ion-toolbar>
                     <ion-title>{{ $t('company.addCompany') }}</ion-title>
-
-                        <ion-button slot="end" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
-
+                    <ion-button slot="end" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
                 </ion-toolbar>
-                </ion-header>
-                <ion-content>
-                    <AddCompanyComponent />
-                </ion-content>
+            </ion-header>
+            <ion-content>
+                <AddCompanyComponent />
+            </ion-content>
         </ion-modal>
         <ion-modal trigger="changePassword">
             <ion-header>

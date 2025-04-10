@@ -1,7 +1,7 @@
 <template>
-    <IonPage style="width:100%;height:100%;">
-        <IonContent style="width:100%;height:100%;">
-                    <ol-map ref="regionMap" :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="width: 100%;height: 100%;">
+    <IonPage style="height: 100%; width: 100%;">
+        <IonContent style="height: 100%; width: 100%;">
+                    <ol-map ref="regionMap" :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height: 100%; width: 100%;">
                         <ol-view :center=center :zoom="8"  />
                         <ol-tile-layer>
                             <ol-source-osm />
@@ -34,8 +34,7 @@ export default defineComponent( {
     name: 'MapComponent',
     components: { IonPage, IonContent, IonGrid, IonRow, IonCol },
     props: {
-        propA: [Object],
-        probB: [Object]
+        propA: [Object]
     },
     setup() {
         const mapElement = ref(null)
@@ -52,15 +51,6 @@ export default defineComponent( {
             markers: this.propA,
             stations: this.probB,
             hoverOverlay: null,
-            stationStyle: new Style({
-                image: new Icon({
-                    anchor: [0.5, 0.5],
-                    anchorXUnits: 'fraction',
-                    anchorYUnits: 'fraction',
-                    src: 'src/assets/station.svg',
-
-                })
-            }),
             plantStyle: new Style({
                 image: new Icon({
                     anchor: [0.5, 0.5],
@@ -73,38 +63,14 @@ export default defineComponent( {
             }),
             vectorSource: null,
             vectorLayer: null,
-            stationSource: null, 
-            stationLayer: null,
 
         }
     },
     methods:{
-        addStations(){
-            this.plantStyle.getImage().setScale([
-                parseFloat(0.25),
-                parseFloat(0.25),
-            ]);
-            this.stationSource.clear();
-            var features = this.stations.map((m) => {
-                const feature = new Feature({
-                    geometry: new Point([m.longitude, m.latitude]),
-                    name: m.name,
-                    type: "station",
-                    location: m.street + ", " + m.city + ", " + m.postalCode,
-                    info: "Tiedot peräisin Gasum.com sivuston rajapinnasta"
-                })
-               
-                feature.setStyle(this.stationStyle);
-                return feature;
-            });
-            this.stationSource.addFeatures(features); 
-        },
+        
         addMarkers(){
              
-            this.stationStyle.getImage().setScale([
-                parseFloat(0.25),
-                parseFloat(0.25),
-            ]);
+            
             this.plantStyle.getImage().setScale([
                 parseFloat(0.25),
                 parseFloat(0.25),
@@ -146,31 +112,28 @@ export default defineComponent( {
         
         this.vectorSource= new VectorSource({ });
         this.vectorLayer= new VectorLayer({ source: this.vectorSource });
-        this.stationSource=  new VectorSource({ });
-        this.stationLayer= new VectorLayer({ source: this.stationSource });
         this.map.addLayer(this.vectorLayer);
-        this.map.addLayer(this.stationLayer);
         this.addMarkers();
-        this.addStations();
         // create overlay
-    const container = document.createElement('div')
+        const container = document.createElement('div')
 
-    container.style.backgroundColor = '#fff'
-    container.style.padding = '4px'
-    container.style.border = '1px solid #333'
-    this.hoverOverlay = new Overlay({ element: container, offset: [10, 0] })
-    this.map.addOverlay(this.hoverOverlay)
+        container.style.backgroundColor = '#fff'
+        container.style.padding = '4px'
+        container.style.border = '1px solid #333'
+        this.hoverOverlay = new Overlay({ element: container, offset: [10, 0] })
+        this.map.addOverlay(this.hoverOverlay)
 
-    // handle pointermove
-    this.map.on('pointermove', (evt) => {
-      const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
-      if (feature) {
-        container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
-        this.hoverOverlay.setPosition(evt.coordinate)
-      } else {
-        this.hoverOverlay.setPosition(undefined)
-      }
-    })
+        // handle pointermove
+        this.map.on('pointermove', (evt) => {
+        const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
+        if (feature) {
+            container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
+            this.hoverOverlay.setPosition(evt.coordinate)
+        } else {
+            this.hoverOverlay.setPosition(undefined)
+        }
+        })
+        
     },
     watch: {
         propA: {
@@ -178,23 +141,9 @@ export default defineComponent( {
                 if(newVal !== oldVal) {
                     this.markers = newVal
                     if (this.map != undefined && this.map != null){
-                        
                         this.addMarkers();
                     }
                 }
-                
-            },
-            immediate: true,
-            flush: 'post'
-        },
-        probB: {
-            handler(newVal) {
-                this.stations = newVal
-                if (this.map != undefined && this.map != null){
-                    this.addStations();
-                }
-                
-                
             },
             immediate: true,
             flush: 'post'

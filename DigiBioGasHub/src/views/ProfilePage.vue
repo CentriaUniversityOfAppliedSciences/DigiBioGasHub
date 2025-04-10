@@ -1,10 +1,12 @@
 <template>
     <ion-page>
+        <ion-content>
         <NavBarComponent />
         <ion-content>
             <ProfileComponent :user="myUser" :offers="myOffers" :company="myCompanies"/>
         </ion-content>
         <FooterComponent />
+    </ion-content>
     </ion-page>
 </template>
 <script>
@@ -50,6 +52,11 @@ export default defineComponent ({
                 this.myCompanies = response.data.message;
             });
         },
+        getOffers(){
+            axios.post('http://localhost:28765/getuseroffers', {id: this.getUserID()}).then(response => {
+                this.myOffers = response.data.message;
+            });
+        },
         getUserID(){
             let token = localStorage.getItem('token');
             let decoded = JSON.parse(atob(token.split('.')[1]));
@@ -59,6 +66,7 @@ export default defineComponent ({
     mounted(){
         this.getMyUser();
         this.getMyCompanies();
+        this.getOffers();
     }   
 })
 </script>

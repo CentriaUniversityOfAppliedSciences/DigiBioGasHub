@@ -16,12 +16,12 @@
             </div>
           </ion-col>
           <ion-col>
-            <img src="https://images.placeholders.dev/?width=600&height=400&text=picture here"
-              alt="Placeholder Image" />
+            <img src="@/assets/biokaasulaitos.jpeg"
+              alt="Placeholder Image" style="height:30vh" />
           </ion-col>
         </ion-row>
         <ion-row>
-          <ion-col v-for="product in products" :key="product.id">
+          <ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
             <ListingComponent :product="product" />
           </ion-col>
           <ion-col>
@@ -33,14 +33,14 @@
           </ion-col>
         </ion-row>
       </ion-grid>
-
+      
     </ion-content>
-    <footer-component />
+    <FooterComponent />
   </ion-page>
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow, IonFooter } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
@@ -51,7 +51,7 @@ import slugify from 'slugify';
 
 export default defineComponent({
   name: 'HomePage',
-  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent },
+  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent, IonFooter },
   data() {
     return {
       products: [

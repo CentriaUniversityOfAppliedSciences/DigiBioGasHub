@@ -10,10 +10,14 @@ import '@ionic/vue/css/core.css';
 import '@ionic/vue/css/normalize.css';
 import '@ionic/vue/css/structure.css';
 import '@ionic/vue/css/typography.css';
+
 import fi from './locale/fi.json';
 import en from './locale/en.json';
 import sv from './locale/sv.json';
 import OpenLayersMap from 'vue3-openlayers';
+const options = {
+  debug: true,
+};
 
 /* Optional CSS utils that can be commented out */
 import '@ionic/vue/css/padding.css';
@@ -22,6 +26,7 @@ import '@ionic/vue/css/text-alignment.css';
 import '@ionic/vue/css/text-transformation.css';
 import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
+import "vue3-openlayers/dist/vue3-openlayers.css";
 
 /**
  * Ionic Dark Mode
@@ -58,7 +63,7 @@ const app = createApp(App)
 
   .use(i18n)
   .use(router)
-  .use(OpenLayersMap);
+  .use(OpenLayersMap,options);
 
 router.isReady().then(() => {
   app.mount('#app');

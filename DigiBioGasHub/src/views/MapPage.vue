@@ -6,10 +6,10 @@
             <IonRow style="height: 100%;">
                 <IonCol size="auto">
                     <FilterComponent :filtersData=fData :dataToFilter=originalData @filtered-data="updateData"/>
-                    <FilterComponent :filtersData=sData :dataToFilter=oStationData @filtered-data="updateStationData"/>
+                    
                 </IonCol>
                 <IonCol >
-                    <MapComponent :propA="markerData" :probB="stationData" />
+                    <MapComponent :propA="markerData" />
 
                 </IonCol>
             </IonRow>
@@ -43,11 +43,8 @@ export default defineComponent({
     data() {
         return {
             markerData: [],
-            stationData: [],
             originalData: [],
-            oStationData: [],
             fData: [],
-            sData: [],
             location: [],
             type: [],
             
@@ -55,42 +52,33 @@ export default defineComponent({
     },
     methods:{
         fillFilters(){
-            this.fData = [ {label: 'Farm', value: 'Farm'}, {label: 'Offer', value: 'Offer'}, {label: 'Plant', value: 'Plant'}];
-            this.sData = [ {label: 'Piilota', value: 'Station'} ];
+            this.fData = [ {label: this.$t('filter.farm'), value: 'Farm'}, {label: this.$t('filter.offer'), value: 'Offer'}, {label: this.$t('filter.plant'), value: 'Plant'}, { label: this.$t('filter.company'), value: 'Company' } ];
         },
         resetFilters(){
             this.markerData = this.originalData;
-            this.stationData = this.oStationData;
         },
         getMarkers(){
             // Fetch markers from the server
             this.markerData = [
-                {coords:[22.846,62.792],color:'red', name: 'Test 1', location: 'Seinäjoki', type: 'Farm', info: 'Testing functionality', category: 'Farm'},
-                {coords:[22.846,62.992],color:'green', name: 'Test 2', location: 'Seinäjoki', type: 'Offer', info: 'Testing functionality', category: 'Offer'},
-                {coords:[25.336759,63.741336],color:'orange', name: 'Haapajärven ammattiopisto biokaasulaitos', location: 'Haapajärvi', type: 'Plant', info: 'https://www.youtube.com/watch?v=TM48FjCIvZ8',address:"Erkkiläntie 1, 85800 Haapajärvi", category: 'Plant'},
-                {coords:[21.763391742,63.133012353],color:'orange', name: 'Ab Stormossen Oy', location: 'Kokkola', type: 'Plant', info: 'http://www.stormossen.fi/Etusivu',address:"Stormossenintie 56, 66530 Koivulahti", category: 'Plant'},
+                {coords:[22.846,62.792],color:'red', name: 'Test 1', location: 'Seinäjoki', type: 'Farm', info: 'Testing functionality', category: 'Farm',id:1},
+                //{coords:[22.846,62.992],color:'green', name: 'Test 2', location: 'Seinäjoki', type: 'Offer', info: 'Testing functionality', category: 'Offer'},
+                {coords:[25.336759,63.741336],color:'orange', name: 'Haapajärven ammattiopisto biokaasulaitos', location: 'Haapajärvi', type: 'Plant', info: 'https://www.youtube.com/watch?v=TM48FjCIvZ8',address:"Erkkiläntie 1, 85800 Haapajärvi", category: 'Plant', id:1},
+                {coords:[21.763391742,63.133012353],color:'orange', name: 'Ab Stormossen Oy', location: 'Kokkola', type: 'Plant', info: 'http://www.stormossen.fi/Etusivu',address:"Stormossenintie 56, 66530 Koivulahti", category: 'Plant', id:2},
+                {coords:[22.607776, 63.420134], color:'orange', name: 'Jepuan Biokaasu Oy', location: 'Jepua', type: 'Plant', info: 'http://www.jeppobiogas.fi/kotisivu/',address:"Läntinen Jepuantie 288, 66850 JEPUA", category: 'Plant', id:3},
+                {coords:[23.067012, 63.868811], color:'orange', name: 'Pohjanmaan Biokaasu Oy', location: 'Kokkola', type: 'Plant', info: 'https://www.ekorosk.fi/fi/yritykset/tietoa/pohjanmaan-biokaasu/',address:"Hopeakivenlahdentie 50 B, 67900 KOKKOLA", category: 'Plant', id:4},
+                
                 
             ];
             this.originalData = this.markerData;
             
         },
-        getStations(){
-            var url = "http://localhost:28765/stations";
-            axios.post(url,{withCredentials: false}).then((response) => {
-                if (response.data.type="result" && response.data.result.length > 0){
-                    this.stationData = response.data.result;
-                    this.oStationData = response.data.result;
-                    
-                }
-            });
-        },
         filterLocationData(location){
-        if(!location){
-            return this.originalData;
-        }
-        this.markerData = this.markerData.filter((m) => {
-           return m.location === location
-        })
+            if(!location){
+                return this.originalData;
+            }
+            this.markerData = this.markerData.filter((m) => {
+                return m.location === location
+            })
         },
         filterTypeData(type){
             if (!type){
@@ -109,22 +97,42 @@ export default defineComponent({
             return [...new Set(this.markerData.map(marker => marker.type))]
         },  
         updateData(data){
-            console.log(data);
             this.markerData = data;
 
         },
-        updateStationData(data){
-            console.log(data);
-            this.stationData = data;
+        getOffers(){
+            var url = "http://localhost:28765/getoffers";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    const newMarkers = response.data.message.map((off) => {
+                        if (off.Locations.length > 0) {
+                            return {
+                                coords: [off.Locations[0].longitude, off.Locations[0].latitude],
+                                location: off.Company.city,
+                                name: off.description,
+                                color: 'green',
+                                category: 'Offer',
+                                type: 'Offer',
+                                info: off.description
+                            };
+                        }
+                        return null;
+                    }).filter(marker => marker !== null);
+                    this.markerData = [...this.markerData, ...newMarkers]; // Reassign the array
+                    this.originalData = [...this.markerData]; // Update the original data as well
+                }
+            });
         }
     },
     mounted(){
         
         this.getMarkers();
-        this.getStations();
+        this.getOffers();
         this.fillFilters();
         this.location = this.getUniqueLocations();
         this.type = this.getUniqueTypes();
+        
+        this.resetFilters();
     }
     
 });

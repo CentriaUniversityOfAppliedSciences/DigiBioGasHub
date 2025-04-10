@@ -1,7 +1,8 @@
 <template>
     <ion-page>
+        <ion-content>
         <NavBarComponent />
-        <div class="marketplace-page">
+        
             
             <ion-grid>
                 <ion-row class="ion-align-items-start">
@@ -11,7 +12,7 @@
                 </ion-col>
                 <ion-col>
                     <ion-row>
-                        <ion-col v-for="product in currentProducts" :key="product.id">
+                        <ion-col v-for="product in currentProducts" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
                             <ListingComponent :product="product" />
                         </ion-col>
                     </ion-row>
@@ -20,10 +21,12 @@
            
             </ion-grid>
             
-                <AddOfferComponent />
+                <AddOfferComponent @getOffers="getOffers"/>
             
-        </div>
-        <FooterComponent />
+       
+    
+    </ion-content>
+    <FooterComponent />
     </ion-page>
 </template>
 
@@ -49,15 +52,7 @@ export default defineComponent ({
                 
             ],
             currentProducts: [],
-            filtersData: [
-                
-                        { label: 'Category 1', value: '1' },
-                        { label: 'Category 2', value: '2' },
-                        { label: 'Category 3', value: '3' },
-                        { label: 'Category 4', value: '4' },
-                        { label: 'Category 5', value: '5' },
-                        { label: 'Category 6', value: '6' }
-            ]
+            filtersData: []
         }
     },
     methods: {
@@ -77,13 +72,27 @@ export default defineComponent ({
                 }
             });
         },
-        addOffer(){
-
-        }
+        getOffers(){
+            this.getProducts();
+        },
+        refreshFilters(){
+            this.filtersData = [];
+            const materialTypes = this.$i18n.messages[this.$i18n.locale].material.type;
+            if (typeof materialTypes === 'object' && !Array.isArray(materialTypes)) {
+                Object.entries(materialTypes).forEach(([key, value]) => {
+                    if (!this.filtersData.find(f => f.value === key)) {
+                        this.filtersData.push({ label: value, value: key });
+                    }
+                });
+            } else {
+                console.error('Invalid material.type format in i18n configuration');
+            }
+        },
     },
     mounted() {
         this.currentProducts = this.products;
         this.getProducts();
+        this.refreshFilters();
     }
 
 })
