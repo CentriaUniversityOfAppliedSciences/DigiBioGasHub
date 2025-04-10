@@ -14,12 +14,15 @@
             <ion-item>
                 <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.amount }} {{  getUnitAmountTranslation(product.unit) }}</ion-label>
             </ion-item>
+            <ion-item>
+                <ion-button expand="full" @click="openDetails(product.id)">{{ $t('product.openLink') }}</ion-button>
+            </ion-item>
         </ion-card-content>
     </ion-card>
 </template>
 
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton } from '@ionic/vue';
 export default {
     name: 'ListingComponent',
     components: {
@@ -29,7 +32,8 @@ export default {
         IonCardSubtitle,
         IonCardContent,
         IonItem,
-        IonLabel
+        IonLabel,
+        IonButton
     },
     props: {
         product: {
@@ -44,6 +48,9 @@ export default {
         },
         getUnitAmountTranslation(type) {
             return this.$t(`unit.amount.${type}`);
+        },
+        openDetails(id) {
+            this.$router.push({ name: 'Product Offer', params: { id: id } });
         }
     }
 }

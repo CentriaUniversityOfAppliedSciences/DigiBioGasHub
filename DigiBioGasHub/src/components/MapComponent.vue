@@ -143,6 +143,7 @@ export default defineComponent( {
     },
     mounted(){
         this.map = this.$refs.regionMap.map;
+        
         this.vectorSource= new VectorSource({ });
         this.vectorLayer= new VectorLayer({ source: this.vectorSource });
         this.stationSource=  new VectorSource({ });

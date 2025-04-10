@@ -1,13 +1,13 @@
 <template>
             <ion-card>
-                <ion-img :src="offers.image"></ion-img>
+                <ion-img :src="offer.image"></ion-img>
                 <ion-card-header>
-                    <ion-card-title>{{ offers.details }}</ion-card-title>
-                    <ion-card-subtitle>{{ offers.type }} - {{ offers.category }}</ion-card-subtitle>
+                    <ion-card-title>{{ offer.description }}</ion-card-title>
+                    <ion-card-subtitle>{{ offer.type }} - {{ offer.category }}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
-                    <p>Logistics: {{ offers.logistics }}</p>
-                    <p>Amount: {{ offers.amount }}</p>
+                    <p>Logistics: {{ offer.cargoType }}</p>
+                    <p>Amount: {{ offer.amount }}</p>
                 </ion-card-content>
             </ion-card>
 </template>
@@ -34,14 +34,30 @@ export default defineComponent({
         IonImg
     },
     props:{
-        offer: Object
+        offer: {
+            type: Object,
+            required: true,
+            default: () => {
+                return {
+                    image: '',
+                    description: '',
+                    type: '',
+                    category: '',
+                    cargoType: '1',
+                    amount: '300'
+                }
+            }
+        }
     },
     data() {
         return {
-            offers: this.offer
+            
                 
             
         }
+    },
+    mounted(){
+        console.log(this.offer)
     }
 });
 </script>

@@ -62,13 +62,13 @@
                     </ion-select>
                 </ion-item>
                 <ion-item>
-                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" v-model="startDate" >
+                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h23" v-model="startDate" >
                         <span slot="title">{{ $t('product.productDetails.offerValidFrom') }}</span>
                         <span slot="time-label">{{ $t('product.time') }}</span>
                     </ion-datetime>
                 </ion-item>
                 <ion-item>
-                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h24" v-model="endDate" >
+                    <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h23" v-model="endDate" >
                         <span slot="title">{{ $t('product.endTime') }}</span>
                         <span slot="time-label">{{ $t('product.time') }}</span>
                     </ion-datetime>
@@ -152,7 +152,7 @@ export default defineComponent({
                 endDate: this.endDate,  
             });
             var url = "http://localhost:28765/createoffer";
-            axios.post(url,{"type":this.type, "materialID":this.material,"companyID":localStorage.getItem("current_company"),"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            axios.post(url,{"type":this.type, "materialID":this.material,"name":this.selectedMaterialName,"companyID":localStorage.getItem("current_company"),"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity,"availableAmount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description, "status":1, "creator": this.getUserID()},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.materials = response.data.message;
@@ -192,7 +192,12 @@ export default defineComponent({
             } else if(this.$i18n.locale === 'sv'){
                 return 'sv-SE';
             }
-        }
+        },
+        getUserID(){
+            let token = localStorage.getItem('token');
+            let decoded = JSON.parse(atob(token.split('.')[1]));
+            return decoded.id;
+        },
     },
     mounted(){
         this.getMaterials();
