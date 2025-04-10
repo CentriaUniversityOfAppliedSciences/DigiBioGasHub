@@ -20,7 +20,8 @@
                         <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                         <span v-if="message.isEdited" class="edited-marker">(edited)</span>
                         <div v-if="editingMessageId === message._id">
-                            <input v-model="editedMessage" @keyup.enter="saveEdit(message)" />
+                            <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
+                                placeholder="Edit your message..." style="max-width: 70%;"></textarea>
                             <button @click="cancelEdit">Cancel</button>
                         </div>
                         <div v-else>
