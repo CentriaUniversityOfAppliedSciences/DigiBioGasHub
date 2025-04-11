@@ -1,10 +1,12 @@
 <template>
+  <IonPage>
+  <NavBarComponent />
   <ion-content>
     <ion-header>
       <ion-toolbar>
-        <ion-title>Chat Rooms</ion-title>
+        <ion-title>{{ $t('chat.chatRooms') }}</ion-title>
         <ion-button v-if="isAdmin" slot="end" @click="showModal = true">
-          Create Room
+          {{ $t('chat.admin.createRoom') }}
         </ion-button>
       </ion-toolbar>
     </ion-header>
@@ -18,7 +20,7 @@
               <ion-card-title>{{ room.name }}</ion-card-title>
               <p>{{ room.description }}</p>
               <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
-                Join
+                {{ $t('chat.join') }}
               </ion-button>
             </ion-card-content>
           </ion-card>
@@ -30,23 +32,24 @@
       <ion-content class="ion-padding">
         <ion-header>
           <ion-toolbar>
-            <ion-title>Create a New Room</ion-title>
+            <ion-title>{{ $t('chat.admin.createRoomTitle') }}</ion-title>
           </ion-toolbar>
         </ion-header>
         <ion-item>
-          <ion-label position="stacked">Room Name</ion-label>
-          <ion-input v-model="newRoom.name" placeholder="Enter name"></ion-input>
+          <ion-label position="stacked">{{ $t('chat.admin.roomName') }}</ion-label>
+          <ion-input v-model="newRoom.name" :placeholder="$t('chat.placeholders.enterRoomName')"></ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Description</ion-label>
-          <ion-textarea v-model="newRoom.description" placeholder="Enter description"></ion-textarea>
+          <ion-label position="stacked">{{ $t('chat.admin.roomDescription') }}</ion-label>
+          <ion-textarea v-model="newRoom.description" :placeholder="$t('chat.placeholders.enterRoomDescription')"></ion-textarea>
         </ion-item>
-        <ion-button expand="block" @click="createRoom">Create</ion-button>
+        <ion-button expand="block" @click="createRoom">{{ $t('chat.admin.create') }}</ion-button>
       </ion-content>
     </ion-modal>
 
 
   </ion-content>
+</IonPage>
 </template>
   
   <script>
@@ -69,14 +72,18 @@
     IonInput,
     IonTextarea,
     IonImg,
+    IonPage,
   } from "@ionic/vue";
   import axios from "axios";
 import { jwtDecode } from "../router";
+import NavBarComponent from "./NavBarComponent.vue";
   
   export default {
     name: "ChatRoomComponent",
     components: {
+      IonPage,
       IonContent,
+      NavBarComponent,
       IonHeader,
       IonToolbar,
       IonTitle,

@@ -1,35 +1,37 @@
 <template>
+    <IonPage>
+        <NavBarComponent />
     <ion-content>
         <ion-header>
             <ion-toolbar>
-                <ion-title>Chat Room: {{ roomTitle }}</ion-title>
+                <ion-title>{{ $t('chat.chatRoom') }}: {{ roomTitle }}</ion-title>
                 <ion-buttons slot="end">
-                    <ion-button @click="leaveRoom">Leave</ion-button>
+                    <ion-button @click="leaveRoom">{{ $t('chat.leave') }}</ion-button>
                 </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <div id="chatContainer">
             <div id="chatBox" ref="messagesContainer">
                 <div v-if="messages.length === 0" class="message">
-                    No messages yet. Be the first to send a message!
+                    {{ $t('chat.noMessages') }}
                 </div>
                 <div v-for="message in messages" :key="message.timestamp" class="message">
                     <div class="avatar">{{ message.username.charAt(0).toUpperCase() }}</div>
                     <div class="message-content">
                         <b>{{ message.name }}</b>
                         <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
-                        <span v-if="message.isEdited" class="edited-marker">(edited)</span>
+                        <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                         <div v-if="editingMessageId === message._id">
                             <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                placeholder="Edit your message..." style="max-width: 70%;"></textarea>
-                            <button @click="cancelEdit">Cancel</button>
+                                 style="max-width: 70%;"></textarea>
+                            <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                         </div>
                         <div v-else>
                             <div>{{ message.message }}</div>
                             <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
-                                <button v-if="isOwnMessage(message)" @click="startEdit(message)">Edit</button>
+                                <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{ $t('general.edit') }}</button>
                                 <button v-if="isOwnMessage(message) || isAdmin()"
-                                    @click="confirmDelete(message)">Delete</button>
+                                    @click="confirmDelete(message)">{{ $t('general.delete') }}</button>
                             </div>
                         </div>
                     </div>
@@ -37,22 +39,22 @@
             </div>
 
             <div id="messageInputContainer">
-                <input id="message" v-model="newMessage" placeholder="Type your message..."
+                <input id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
                     @keyup.enter="sendMessage" />
-                <button id="sendBtn" @click="sendMessage">Send</button>
+                <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
             </div>
         </div>
 
-        <ion-alert :is-open="showDeleteAlert" header="Confirm delete" message="Are you sure you want to delete this message?" :buttons="[
+        <ion-alert :is-open="showDeleteAlert" :header= "$t('chat.confirmDelete')" :message="$t('chat.deleteMessage')" :buttons="[
             {
-                text: 'cancel',
+                text: $t('general.cancel'),
                 role: 'cancel',
                 handler: () => {
                     this.showDeleteAlert = false;
                 }
             },
             {
-                text: 'delete',
+                text: $t('general.delete'),
                 handler: () => {
                     this.deleteMessage(this.messageToDelete);
                     this.showDeleteAlert = false;
@@ -61,10 +63,12 @@
         ]"></ion-alert>
 
     </ion-content>
+</IonPage>
 </template>
 
 <script>
 import {
+    IonPage,
     IonContent,
     IonHeader,
     IonToolbar,
@@ -73,15 +77,18 @@ import {
     IonButton,
     IonItem,
     IonInput,
-    IonAlert,
+    IonAlert
 } from "@ionic/vue";
 import axios from "axios";
 import io from "socket.io-client";
 import { jwtDecode } from "../router";
+import NavBarComponent from "./NavBarComponent.vue";
 
 export default {
     name: "ChatComponent",
     components: {
+        IonPage,
+        NavBarComponent,
         IonContent,
         IonHeader,
         IonToolbar,
