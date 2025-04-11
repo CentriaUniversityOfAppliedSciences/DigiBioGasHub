@@ -352,7 +352,9 @@
             "createRoomTitle": "Create a new room",
             "roomName": "Room name",
             "roomDescription": "Room description",
-            "create": "Create"
+            "create": "Create",
+            "roomCreated": "Room created successfully",
+            "roomCreationFailed": "Room creation failed"
         },
         "placeholders": {
             "enterRoomName": "Enter room name",

@@ -28,11 +28,16 @@
       </ion-row>
     </ion-grid>
 
-    <ion-modal :is-open="showModal" @did-dismiss="showModal = false">
+    <ion-modal :is-open="showModal" @didDismiss="showModal = false">
       <ion-content class="ion-padding">
         <ion-header>
           <ion-toolbar>
             <ion-title>{{ $t('chat.admin.createRoomTitle') }}</ion-title>
+            <ion-buttons slot="end">
+              <ion-button @click="showModal = false">
+              <ion-icon name="close-outline"></ion-icon>
+              </ion-button>
+            </ion-buttons>
           </ion-toolbar>
         </ion-header>
         <ion-item>
@@ -47,7 +52,7 @@
       </ion-content>
     </ion-modal>
 
-
+    <ToastComponent ref="toastComponent" />
   </ion-content>
 </IonPage>
 </template>
@@ -73,10 +78,12 @@
     IonTextarea,
     IonImg,
     IonPage,
+    IonButtons,
   } from "@ionic/vue";
   import axios from "axios";
 import { jwtDecode } from "../router";
 import NavBarComponent from "./NavBarComponent.vue";
+import ToastComponent from "./ToastComponent.vue";
   
   export default {
     name: "ChatRoomComponent",
@@ -94,6 +101,7 @@ import NavBarComponent from "./NavBarComponent.vue";
       IonCardHeader,
       IonCardTitle,
       IonCardContent,
+      IonButtons,
       IonButton,
       IonModal,
       IonItem,
@@ -101,6 +109,7 @@ import NavBarComponent from "./NavBarComponent.vue";
       IonInput,
       IonTextarea,
       IonImg,
+      ToastComponent
     },
     data() {
       return {
@@ -139,12 +148,15 @@ import NavBarComponent from "./NavBarComponent.vue";
             name: this.newRoom.name,
             description: this.newRoom.description
           });
-
-          this.rooms.push(response.data); 
-          this.showModal = false; 
-          this.newRoom = { name: '', description: '' }; 
+          if (response.status === 201) {
+            this.rooms.push(response.data);
+            this.showModal = false;
+            this.newRoom = { name: '', description: '' };
+            this.$refs.toastComponent.showToast(this.$t('chat.admin.roomCreated'), 2000, 'success');
+          } 
         } catch (error) {
           console.error("Failed to create room:", error);
+          this.$refs.toastComponent.showToast(this.$t('chat.admin.roomCreationFailed'), 2000, 'danger');
         }
       }
     },
