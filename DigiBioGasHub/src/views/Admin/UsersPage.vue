@@ -168,7 +168,7 @@ export default {
     methods: {
         async fetchUsers() {
             try {
-                const url = "http://localhost:28765/getlimitedusers";
+                const url = "http://localhost:28765/admin/getlimitedusers";
                 const response = await axios.post(url, { page: this.page - 1, limit: this.limit }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 this.users = response.data.message;
                 this.totalUsers = response.data.total;
