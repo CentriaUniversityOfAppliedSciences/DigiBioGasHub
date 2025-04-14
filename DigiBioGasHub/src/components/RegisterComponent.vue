@@ -206,11 +206,13 @@ export default defineComponent ({
         },
         validateEmail(ev) {
             if (ev.target.value.match(/^(?=.{1,254}$)(?=.{1,64}@)[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-zA-Z0-9!#$%&'*+/=?^_`{|}~-]+)*@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/)) {
-                this.$refs.email.$el.classList.remove('ion-valid');
-                this.$refs.email.$el.classList.add('ion-invalid');
-            } else {
+                console.log("invalid")
                 this.$refs.email.$el.classList.add('ion-valid');
                 this.$refs.email.$el.classList.remove('ion-invalid');
+            } else {
+                console.log("valid")
+                this.$refs.email.$el.classList.remove('ion-valid');
+                this.$refs.email.$el.classList.add('ion-invalid');
             }
         },
         validatePassword(ev) {

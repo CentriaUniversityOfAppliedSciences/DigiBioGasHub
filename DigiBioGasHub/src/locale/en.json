@@ -39,7 +39,8 @@
         "resetPasswordFail": "Failed to send reset link",
         "resetPasswordFailMessage": "Username not found. Check the username and try again.",
         "forgotPassword": "Forgot your password?",
-        "edit": "Edit"
+        "edit": "Edit",
+        "delete":" Delete"
     
     },
     "general":{
@@ -93,8 +94,9 @@
         "firstName": "First name",
         "lastName": "Last name",
         "company": "Company",
-        "termsAndConditions": "Terms and Conditions",
-        "privacyPolicy": "Privacy Policy"
+        "TermsAndConditions": "Terms and Conditions",
+        "PrivacyPolicy": "Privacy Policy",
+        "read_more": "Read more"
     },
     "footer":{
         "KP": "src/assets/kp-eng.jpg",
@@ -239,7 +241,8 @@
                 "3":"dung liquid",
                 "4":"compressed biogas",
                 "5":"liquid biogas",
-                "6":"feedstock"
+                "6":"feedstock",
+                "7":"digestate"
             }
         },
         "unit":{
@@ -308,6 +311,7 @@
             "disableFail": "Unable to disable company!"
         },
         "blogpost":{
+            "blogs": "Blog posts",
             "published":"Published",
             "unpublished": "Unpublished",
             "drafts": "Drafts",
@@ -326,7 +330,8 @@
             "unpublishFail": "Unable to unpublish!",
             "deleteFail": "Unable to delete!",
             "fetchingPostFailed": "Cannot find blog posts!",
-            "reviewEdit": "Review and Edit"
+            "reviewEdit": "Review and Edit",
+            "addPost": "Add blog post"
         },
         "users": {
             "title": "Users",
@@ -344,7 +349,12 @@
     "filter":{
         "hide":"Hide",
         "show":"Show",
-        "width":"Toggle width"
+
+        "width":"Toggle width",
+        "farm":"Farm",
+        "offer":"Offer",
+        "plant":"Biogas Plant",
+        "company":"Company"
     },
     "chat": {
         "admin": {

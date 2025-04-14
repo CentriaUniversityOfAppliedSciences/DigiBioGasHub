@@ -62,4 +62,5 @@ API_KEY=""
 ## Missing a feature or found a bug?
 Please submit it as an issue to this repository with as much explanation about the bug or feature as possible.
 
-## License
+## License: MIT
+See LICENSE.md for more information.

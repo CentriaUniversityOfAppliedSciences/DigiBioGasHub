@@ -1,6 +1,7 @@
 <template>
     <ion-card>
         <ion-card-header>
+            <ion-img :src="product.Files[0].data" alt="Material Image" style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
             <ion-card-title>{{ product.Material.name }}</ion-card-title>
             <ion-card-subtitle> {{ getMaterialTypeTranslation(product.Material.type) }}</ion-card-subtitle>
             
@@ -14,12 +15,15 @@
             <ion-item>
                 <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.amount }} {{  getUnitAmountTranslation(product.unit) }}</ion-label>
             </ion-item>
+            <ion-item>
+                <ion-button expand="full" @click="openDetails(product.id)">{{ $t('product.openLink') }}</ion-button>
+            </ion-item>
         </ion-card-content>
     </ion-card>
 </template>
 
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg } from '@ionic/vue';
 export default {
     name: 'ListingComponent',
     components: {
@@ -29,7 +33,9 @@ export default {
         IonCardSubtitle,
         IonCardContent,
         IonItem,
-        IonLabel
+        IonLabel,
+        IonButton,
+        IonImg
     },
     props: {
         product: {
@@ -43,6 +49,9 @@ export default {
         },
         getUnitAmountTranslation(type) {
             return this.$t(`unit.amount.${type}`);
+        },
+        openDetails(id) {
+            this.$router.push({ name: 'Product Offer', params: { id: id } });
         }
     }
 }

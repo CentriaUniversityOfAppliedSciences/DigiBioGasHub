@@ -4,7 +4,7 @@
             <ion-row>
                 <ion-col size="12" size-sm="3">
                     <ul>
-                        <li class="menu-item"><a href="/terms-of-service">{{$t('general.TermsAndConditions') }}</a></li>
+                        <li class="menu-item"><a href="/terms-of-service">{{ $t('general.TermsAndConditions') }}</a></li>
                     
                         <li class="menu-item"><a href="/privacy-policy">{{ $t('general.PrivacyPolicy') }}</a></li>
 
@@ -14,12 +14,12 @@
                 </ion-col>
                 <ion-col size="12" size-sm="3">
                     <ion-item class="logo">
-                        <img :src="$t('footer.EP')" :alt="$t('footer.EP-logo')" class="logo">
+                        <img :src="$t('footer.KP')" :alt="$t('footer.KP-logo')" class="logo">
                     </ion-item>
                 </ion-col size="12" size-sm="3">
                 <ion-col>
                     <ion-item class="logo">
-                        <img :src="$t('footer.KP')" :alt="$t('footer.KP-logo')" class="logo">
+                        <img :src="$t('footer.EP')" :alt="$t('footer.EP-logo')" class="logo">
                     </ion-item>
                 </ion-col>
 
@@ -78,6 +78,7 @@ export default {
 ion-footer {
     background-color: #333;
     color: #fff;
+    margin-top: auto;
 }
 .menu-item a {
     color: #fff;

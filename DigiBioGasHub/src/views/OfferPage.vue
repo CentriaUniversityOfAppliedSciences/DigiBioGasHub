@@ -2,7 +2,7 @@
     <ion-page>
         <NavBarComponent />
         <ion-content>
-            <OfferComponent :offer="offer"/>
+            <OfferComponent :offer="offers"/>
         </ion-content>
         <FooterComponent />
     </ion-page>
@@ -14,24 +14,36 @@ import FooterComponent from '../components/FooterComponent.vue'
 import {IonPage, IonContent} from '@ionic/vue'
 import OfferComponent from '../components/OfferComponent.vue';
 import axios from 'axios';
-
+import {useRoute} from 'vue-router';
 
 export default defineComponent ({
     name: 'OfferPage',
     components: { NavBarComponent, FooterComponent, IonPage, IonContent, OfferComponent},
     setup() {
-        const productId = this.$route.params.id;
-        let offer = {};
-        axios.post('http://localhost:28765/getoffersbyid',{id: productId}).then(response => {
-            if(response.headers.status === 200){
-                offer = response.data.results;
-            }
-            else{
-                this.$router.push('/');
-            }
-        });
-        return { offer
+        const route = useRoute();
+        const productId = route.params.id;
+        
+        return { productId
         }
+    },
+    data(){
+        return{
+            offers: {}
+        }
+        
+    },
+    methods: {
+        getOffer(){
+            axios.post('http://localhost:28765/getoffersbyid',{id: this.productId}).then(response => {
+
+            this.offers = response.data.message;
+
+        });
+        }
+    },
+    mounted(){
+        this.getOffer();
+        console.log("Offerpage",this.offers);
     }
 })
 </script>

@@ -92,29 +92,10 @@ export default defineComponent({
 });
 </script>
 
-<i18n>
-{
-    "en": {
-        "logisticQuotation": {
-            "title": "Logistic Quotation",
-            "pickupAddress": "Pickup Address",
-            "deliveryAddress": "Delivery Address",
-            "pickupDate": "Pickup Date",
-            "deliveryDate": "Delivery Date",
-            "recurring": "Recurring",
-            "weekly": "Weekly",
-            "biweekly": "Biweekly",
-            "monthly": "Monthly",
-            "userInput": "User Input",
-            "endDate": "End Date",
-            "submit": "Submit"
-        }
-    }
-}
-</i18n>
+
 
 <style scoped>
 ion-card {
     margin: 20px;
 }
-</style></ion-card-header></ion-card>
+</style>

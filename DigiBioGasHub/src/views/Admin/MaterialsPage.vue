@@ -1,20 +1,24 @@
 <template>
 
     <ion-page>
-        <NavBarComponent />
         <ion-content>
-        <MaterialsComponent :materials="myMaterials"/>
-        </ion-content>
-        <FooterComponent />
+        <NavBarComponent />
+        
+        <MaterialsComponent :materials="myMaterials" @getMaterials="getMaterials"/>
+      
+        
+    </ion-content>
+    <FooterComponent />
     </ion-page>
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import NavBarComponent from '../components/NavBarComponent.vue';
-import FooterComponent from '../components/FooterComponent.vue';
-import MaterialsComponent from '../components/MaterialsComponent.vue';
+import NavBarComponent from '../../components/NavBarComponent.vue';
+import FooterComponent from '../../components/FooterComponent.vue';
+import MaterialsComponent from '../../components/MaterialsComponent.vue';
 import {IonPage, IonContent} from '@ionic/vue';
+import axios from 'axios';
 
 export default defineComponent({
     name: 'MaterialsPage',
@@ -25,13 +29,22 @@ export default defineComponent({
     },
     data(){
         return {
-
+            myMaterials: []
         }
     },
     methods:{
+        getMaterials(){
+            var url = "http://localhost:28765/admin/getmaterials";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    this.myMaterials = response.data.message;
+                    
+                }
+            });
+        }
     },
     mounted(){
-
+        this.getMaterials();
     }
         
     
