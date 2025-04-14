@@ -40,8 +40,8 @@
         "resetPasswordFailMessage": "Username not found. Check the username and try again.",
         "forgotPassword": "Forgot your password?",
         "edit": "Edit",
-        "delete":" Delete"
-    
+        "delete":" Delete",
+        "giveFeedback": "Give feedback"
     },
     "general":{
         "loading": "Loading...",
@@ -96,7 +96,8 @@
         "company": "Company",
         "TermsAndConditions": "Terms and Conditions",
         "PrivacyPolicy": "Privacy Policy",
-        "read_more": "Read more"
+        "read_more": "Read more",
+        "feeedback": "Feedback"
     },
     "footer":{
         "KP": "src/assets/kp-eng.jpg",

@@ -4,7 +4,7 @@
             <img :src="$t('menu.logoPath')" alt="Funder Logo" class="logo">
             <button class="feedback-button"
                 onclick="window.open('https://link.webropolsurveys.com/S/941E350F901601ED', '_blank')">
-                <span>Give Feedback</span>
+                <span>{{$t('menu.giveFeedback')}}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
