@@ -395,10 +395,6 @@ export default defineComponent({
             "fontSize": 16,
             "fontWeight": "normal",
             "text": ""
-          },
-          "nodesComputedOption": {
-            "types": [],
-            "nodesComputed": {}
           }
         },
         "document": {
