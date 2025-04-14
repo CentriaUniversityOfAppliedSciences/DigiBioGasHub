@@ -19,7 +19,7 @@
     "@capacitor/status-bar": "7.0.1",
     "@ionic/vue": "8.5.3",
     "@ionic/vue-router": "8.5.3",
-    "@umoteam/editor": "5.0.0",
+    "@umoteam/editor": "^5.0.0",
     "axios": "^1.8.4",
     "ionicons": "^7.4.0",
     "mammoth": "^1.9.0",

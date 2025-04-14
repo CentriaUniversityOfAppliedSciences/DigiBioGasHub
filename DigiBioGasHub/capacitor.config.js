@@ -1,9 +1,10 @@
 
 
 const config = {
-  appId: 'io.ionic.starter',
+  appId: 'com.digibiogashub.app',
   appName: 'DigiBioGasHub',
-  webDir: 'dist'
+  webDir: 'dist',
+  bundledWebRuntime: false,
 };
 
 export default config;
