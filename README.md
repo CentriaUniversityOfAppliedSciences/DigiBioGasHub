@@ -16,9 +16,10 @@ PostgreSQL
 ```
 
 ## Project structure
-Project is split into 3 parts + docs
+Project is split into 4 parts + docs
 - This repository is for the front end. THIS IS REQUIRED
 - [Backend](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend) THIS IS REQUIRED
+- [ChatServer](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHubs-Chat-Server) THIS IS REQUIRED
 - [Docker for PostgreSQL](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-database) OPTIONAL
 
 ## Features
@@ -29,6 +30,9 @@ Project is split into 3 parts + docs
 - User and company system
 - I18N localization
 - Filters
+- Chat
+- Map view
+- Admin functionalities
 ### Not yet implemented
 - Subscriptions
 - Agreements
@@ -60,7 +64,7 @@ API_KEY=""
 
 # Contribution Guidelines
 ## Missing a feature or found a bug?
-Please submit it as an issue to this repository with as much explanation about the bug or feature as possible.
+Please submit it as an issue to this repository with as much explanation about the bug or feature as possible. In case of a security
 
 ## License: MIT
-See LICENSE.md for more information.
+See LICENSE for more information.
