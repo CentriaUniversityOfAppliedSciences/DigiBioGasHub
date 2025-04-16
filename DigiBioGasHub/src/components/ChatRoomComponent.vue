@@ -22,7 +22,10 @@
                 <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
                   {{ $t('chat.join') }}
                 </ion-button>
-                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId)">
+                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room)" class="ion-margin">
+                  {{ $t('chat.admin.updateRoom') }}
+                </ion-button>
+                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId)" class="ion-margin">
                   {{ $t('chat.admin.deleteRoom') }}
                 </ion-button>
               </ion-card-content>
@@ -56,14 +59,37 @@
         </ion-content>
       </ion-modal>
 
+      <ion-modal :is-open="showUpdateModal" @didDismiss="showUpdateModal = false">
+        <ion-content class="ion-padding">
+          <ion-header>
+            <ion-toolbar>
+              <ion-title>{{ $t('chat.admin.updateRoomTitle') }}</ion-title>
+              <ion-buttons slot="end">
+                <ion-button @click="showUpdateModal = false">
+                  <ion-icon name="close-outline"></ion-icon>
+                </ion-button>
+              </ion-buttons>
+            </ion-toolbar>
+          </ion-header>
+          <ion-item>
+            <ion-label position="stacked">{{ $t('chat.admin.roomName') }}</ion-label>
+            <ion-input v-model="editRoom.name" :placeholder="$t('chat.placeholders.enterRoomName')"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="stacked">{{ $t('chat.admin.roomDescription') }}</ion-label>
+            <ion-textarea v-model="editRoom.description"
+              :placeholder="$t('chat.placeholders.enterRoomDescription')"></ion-textarea>
+          </ion-item>
+          <ion-button expand="block" @click="updateRoom(roomId)">{{ $t('chat.admin.saveChanges') }}</ion-button>
+        </ion-content>
+      </ion-modal>
+
+
       <ToastComponent ref="toastComponent" />
     </ion-content>
 
-    <ion-alert
-      :is-open="showDeleteAlert"
-      :header="$t('chat.admin.deleteRoom')"
-      :message="$t('chat.admin.deleteRoomConfirmation')"
-      :buttons="[
+    <ion-alert :is-open="showDeleteAlert" :header="$t('chat.admin.deleteRoom')"
+      :message="$t('chat.admin.deleteRoomConfirmation')" :buttons="[
         {
           text: $t('general.cancel'),
           role: 'cancel',
@@ -78,8 +104,7 @@
             showDeleteAlert = false;
           }
         }
-        ]"
-    ></ion-alert>
+        ]"></ion-alert>
   </IonPage>
 </template>
 
@@ -106,6 +131,7 @@ import {
   IonPage,
   IonButtons,
   IonAlert,
+  IonIcon,
 } from "@ionic/vue";
 import axios from "axios";
 import { jwtDecode } from "../router";
@@ -137,6 +163,7 @@ export default {
     IonInput,
     IonTextarea,
     IonImg,
+    IonIcon,
     ToastComponent
   },
   data() {
@@ -144,10 +171,15 @@ export default {
       rooms: [],
       isAdmin: false,
       showModal: false,
+      showUpdateModal: false,
       showDeleteAlert: false,
       newRoom: {
         name: "",
         description: "",
+      },
+      editRoom: {
+        name: "",
+        description: ""
       }
     };
   },
@@ -188,6 +220,35 @@ export default {
         this.$refs.toastComponent.showToast(this.$t('chat.admin.roomCreationFailed'), 2000, 'danger');
       }
     },
+
+    openUpdateModal(room) {
+      this.editRoom = { name: room.name, description: room.description };
+      this.roomId = room.roomId;
+      this.showUpdateModal = true;
+    },
+
+    // update room name and description
+    async updateRoom(roomId) {
+      try {
+        const response = await axios.put(`http://localhost:3005/room/${roomId}`, {
+          name: this.editRoom.name,
+          description: this.editRoom.description
+        });
+        if (response.status === 200) {
+          const index = this.rooms.findIndex(r => r.roomId === roomId);
+          if (index !== -1) {
+            this.rooms[index].name = this.editRoom.name;
+            this.rooms[index].description = this.editRoom.description;
+          }
+          this.showUpdateModal = false;
+          this.$refs.toastComponent.showToast(this.$t('chat.admin.roomUpdated'), 2000, 'success');
+        }
+      } catch (error) {
+        console.error("Failed to update room:", error);
+        this.$refs.toastComponent.showToast(this.$t('chat.admin.roomUpdateFailed'), 2000, 'danger');
+      }
+    },
+
 
     confirmDelete(roomId) {
       this.showDeleteAlert = true;

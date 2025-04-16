@@ -369,7 +369,12 @@
             "roomDescription": "Room description",
             "create": "Create",
             "roomCreated": "Room created successfully",
-            "roomCreationFailed": "Room creation failed"
+            "roomCreationFailed": "Room creation failed",
+            "updateRoom": "UPDATE",
+            "updateRoomTitle": "Update room",
+            "saveChanges": "Save changes",
+            "roomUpdated": "Room updated successfully",
+            "roomUpdateFailed": "Room update failed"
         },
         "placeholders": {
             "enterRoomName": "Enter room name",
