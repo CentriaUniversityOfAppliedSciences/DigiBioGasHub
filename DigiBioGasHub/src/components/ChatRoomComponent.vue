@@ -22,6 +22,9 @@
                 <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
                   {{ $t('chat.join') }}
                 </ion-button>
+                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId)">
+                  {{ $t('chat.admin.deleteRoom') }}
+                </ion-button>
               </ion-card-content>
             </ion-card>
           </ion-col>
@@ -55,6 +58,28 @@
 
       <ToastComponent ref="toastComponent" />
     </ion-content>
+
+    <ion-alert
+      :is-open="showDeleteAlert"
+      :header="$t('chat.admin.deleteRoom')"
+      :message="$t('chat.admin.deleteRoomConfirmation')"
+      :buttons="[
+        {
+          text: $t('general.cancel'),
+          role: 'cancel',
+          handler: () => {
+            showDeleteAlert = false;
+          }
+        },
+        {
+          text: $t('general.delete'),
+          handler: () => {
+            deleteRoom(roomId);
+            showDeleteAlert = false;
+          }
+        }
+        ]"
+    ></ion-alert>
   </IonPage>
 </template>
 
@@ -80,6 +105,7 @@ import {
   IonImg,
   IonPage,
   IonButtons,
+  IonAlert,
 } from "@ionic/vue";
 import axios from "axios";
 import { jwtDecode } from "../router";
@@ -105,6 +131,7 @@ export default {
     IonButtons,
     IonButton,
     IonModal,
+    IonAlert,
     IonItem,
     IonLabel,
     IonInput,
@@ -117,6 +144,7 @@ export default {
       rooms: [],
       isAdmin: false,
       showModal: false,
+      showDeleteAlert: false,
       newRoom: {
         name: "",
         description: "",
@@ -159,8 +187,27 @@ export default {
         console.error("Failed to create room:", error);
         this.$refs.toastComponent.showToast(this.$t('chat.admin.roomCreationFailed'), 2000, 'danger');
       }
+    },
+
+    confirmDelete(roomId) {
+      this.showDeleteAlert = true;
+      this.roomId = roomId;
+    },
+
+    async deleteRoom(roomId) {
+      try {
+        console.log("Deleting room with ID:", roomId);
+        const response = await axios.delete(`http://localhost:3005/room/${roomId}`);
+        if (response.status === 200) {
+          this.rooms = this.rooms.filter(room => room.roomId !== roomId);
+          this.$refs.toastComponent.showToast(this.$t('chat.admin.roomDeleted'), 2000, 'success');
+        }
+      } catch (error) {
+        console.error("Failed to delete room:", error);
+        this.$refs.toastComponent.showToast(this.$t('chat.admin.roomDeletionFailed'), 2000, 'danger');
+      }
     }
-  },
+  }
 };
 </script>
 

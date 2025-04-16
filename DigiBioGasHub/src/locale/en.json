@@ -360,6 +360,10 @@
     "chat": {
         "admin": {
             "createRoom": "CREATE ROOM",
+            "deleteRoom": "DELETE ROOM",
+            "deleteRoomConfirmation": "Are you sure you want to delete this room? This deletes all the the messages in the room. This action cannot be undone.",
+            "roomDeleted": "Room deleted successfully",
+            "roomDeletionFailed": "Room deletion failed",
             "createRoomTitle": "Create a new room",
             "roomName": "Room name",
             "roomDescription": "Room description",
