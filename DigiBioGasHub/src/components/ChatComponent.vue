@@ -84,6 +84,7 @@ import {
 import axios from "axios";
 import io from "socket.io-client";
 import { jwtDecode } from "../router";
+import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
 
 export default {
@@ -193,16 +194,14 @@ export default {
         sendMessage() {
             if (!this.newMessage.trim()) return;
 
-            const token = localStorage.getItem("token");
+            const name = Buffer.from(this.decodedToken.name, 'latin1').toString("utf-8");
             const messageData = {
                 roomId: this.roomId,
                 roomName: this.roomTitle,
                 username: this.decodedToken.username,
-                name: this.decodedToken.name,
+                name: name,
                 message: this.newMessage,
             };
-
-            console.log("Sending message:", messageData);
 
             this.socket.emit("sendMessage", messageData);
             this.newMessage = "";
