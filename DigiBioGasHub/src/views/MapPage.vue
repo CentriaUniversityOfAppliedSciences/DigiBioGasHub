@@ -14,8 +14,9 @@
                 </IonCol>
             </IonRow>
         </IonGrid>
-        </IonContent>
         <FooterComponent />
+        </IonContent>
+        
     </IonPage>
 </template>
 

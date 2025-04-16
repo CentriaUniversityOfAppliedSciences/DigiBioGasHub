@@ -208,6 +208,12 @@
             "demand": "Kysyntä",
             "auction": "Huutokauppa"
         },
+        "typenum":{
+            "0": "Palvelu",
+            "1": "Tarjous",
+            "2": "Kysyntä",
+            "3": "Huutokauppa"
+        },
         "desc": "Kuvaus",
         "price": {
             "offer": "Tarjoushinta",
