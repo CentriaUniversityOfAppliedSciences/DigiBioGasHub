@@ -80,7 +80,7 @@
             <ion-textarea v-model="editRoom.description"
               :placeholder="$t('chat.placeholders.enterRoomDescription')"></ion-textarea>
           </ion-item>
-          <ion-button expand="block" @click="updateRoom(roomId)">{{ $t('chat.admin.saveChanges') }}</ion-button>
+          <ion-button expand="block" @click="updateRoom(roomId)" :disabled="!isRoomModified">{{ $t('chat.admin.saveChanges') }}</ion-button>
         </ion-content>
       </ion-modal>
 
@@ -137,6 +137,7 @@ import axios from "axios";
 import { jwtDecode } from "../router";
 import NavBarComponent from "./NavBarComponent.vue";
 import ToastComponent from "./ToastComponent.vue";
+import { disable } from "ol/rotationconstraint";
 
 export default {
   name: "ChatRoomComponent",
@@ -180,9 +181,23 @@ export default {
       editRoom: {
         name: "",
         description: ""
-      }
+      },
+      originalRoom: {
+        name: "",
+        description: ""
+      },
     };
   },
+
+  computed: {
+    isRoomModified() {
+      return (
+        this.editRoom.name !== this.originalRoom.name ||
+        this.editRoom.description !== this.originalRoom.description
+      );
+    },
+  },
+
   async mounted() {
 
     try {
@@ -223,6 +238,7 @@ export default {
 
     openUpdateModal(room) {
       this.editRoom = { name: room.name, description: room.description };
+      this.originalRoom = { name: room.name, description: room.description };
       this.roomId = room.roomId;
       this.showUpdateModal = true;
     },
