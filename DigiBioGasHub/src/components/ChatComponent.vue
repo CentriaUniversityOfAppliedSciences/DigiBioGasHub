@@ -82,7 +82,7 @@ import {
     IonAlert
 } from "@ionic/vue";
 import axios from "axios";
-import io from "socket.io-client";
+import socket from "../socket";
 import { jwtDecode } from "../router";
 import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
@@ -108,7 +108,6 @@ export default {
             roomTitle: "",
             messages: [],
             newMessage: "",
-            socket: null,
             editingMessageId: null,
             editedMessage: "",
             showDeleteAlert: false,
@@ -133,22 +132,21 @@ export default {
             console.error("Failed to fetch chat messages:", error);
         }
 
-        this.socket = io("http://localhost:3005");
-        this.socket.on("receiveMessage", (message) => {
+        socket.on("receiveMessage", (message) => {
             this.messages.push(message);
             this.$nextTick(() => {
                 this.scrollToBottom();
             });
         });
 
-        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle });
+        socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle });
 
-        this.socket.on("messageDeleted", (messageData) => {
+        socket.on("messageDeleted", (messageData) => {
             const messageId = messageData.id;
             this.messages = this.messages.filter((msg) => msg._id !== messageId);
         });
 
-        this.socket.on("messageEdited", (updatedMessage) => {
+        socket.on("messageEdited", (updatedMessage) => {
             const index = this.messages.findIndex((msg) => msg._id === updatedMessage._id);
             if (index !== -1) {
                 this.messages[index].message = updatedMessage.message;
@@ -181,13 +179,13 @@ export default {
                 messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
         },
         leaveRoom() {
-            if (this.socket) {
+            if (socket) {
                 console.log("Leaving room:", this.roomId, this.roomTitle);
-                this.socket.emit("leaveRoom", {
+                socket.emit("leaveRoom", {
                     roomId: this.roomId,
                     roomName: this.roomTitle,
                 });
-                this.socket.disconnect();
+                socket.disconnect();
             }
             this.$router.push({ name: "ChatRooms" });
         },
@@ -203,7 +201,7 @@ export default {
                 message: this.newMessage,
             };
 
-            this.socket.emit("sendMessage", messageData);
+            socket.emit("sendMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
                 this.scrollToBottom();
@@ -239,7 +237,7 @@ export default {
                 message: this.editedMessage
             };
 
-            this.socket.emit("editMessage", updatedMessage);
+            socket.emit("editMessage", updatedMessage);
             this.editingMessageId = null;
             this.editedMessage = "";
         },
@@ -248,7 +246,7 @@ export default {
             this.messageToDelete = message;
         },
         deleteMessage(message) {
-            this.socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
+            socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
         },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;

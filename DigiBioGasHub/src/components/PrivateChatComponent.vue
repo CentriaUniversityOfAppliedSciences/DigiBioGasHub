@@ -78,7 +78,7 @@ import {
     IonAlert
 } from "@ionic/vue";
 import axios from "axios";
-import io from "socket.io-client";
+import socket from "../socket";
 import { jwtDecode } from "../router";
 import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
@@ -104,7 +104,6 @@ export default {
             recipientName: "",
             messages: [],
             newMessage: "",
-            socket: null,
             decodedToken: null,
             editingMessageId: null,
             editedMessage: "",
@@ -144,12 +143,9 @@ export default {
                 console.error("Failed to fetch private chat messages:", error);
             }
 
-            if (!this.socket) {
-                this.socket = io("http://localhost:3005");
-                this.setupSocketListeners();
-            }
-
-            this.socket.emit("joinPrivateChat", {
+            this.setupSocketListeners();
+           
+            socket.emit("joinPrivateChat", {
                 senderId,
                 recipientId: this.recipientId,
             });
@@ -157,14 +153,14 @@ export default {
             console.log(`Joined private chat room: ${privateRoomId}`);
         },
         setupSocketListeners() {
-            this.socket.on("receivePrivateMessage", (message) => {
+            socket.on("receivePrivateMessage", (message) => {
                 this.messages.push(message);
                 this.$nextTick(() => {
                     this.scrollToBottom();
                 });
             });
 
-            this.socket.on("privateMessageEdited", (updatedMessage) => {
+            socket.on("privateMessageEdited", (updatedMessage) => {
                 const index = this.messages.findIndex((msg) => msg._id === updatedMessage.id);
                 if (index !== -1) {
                     this.messages[index].message = updatedMessage.message;
@@ -172,7 +168,7 @@ export default {
                 }
             });
 
-            this.socket.on("privateMessageDeleted", (messageData) => {
+            socket.on("privateMessageDeleted", (messageData) => {
                 const messageId = messageData.id;
                 this.messages = this.messages.filter((msg) => msg._id !== messageId);
             });
@@ -196,9 +192,9 @@ export default {
                 messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
         },
         leaveChat() {
-            if (this.socket) {
+            if (socket) {
                 console.log("Leaving private chat with:", this.recipientId, this.recipientName);
-                this.socket.disconnect();
+                socket.disconnect();
             }
             this.$router.push({ name: "ChatRooms" });
         },
@@ -219,7 +215,7 @@ export default {
                 privateRoomId,
             };
 
-            this.socket.emit("sendPrivateMessage", messageData);
+            socket.emit("sendPrivateMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
                 this.scrollToBottom();
@@ -242,7 +238,7 @@ export default {
                 message: this.editedMessage,
             };
 
-            this.socket.emit("editPrivateMessage", updatedMessage);
+            socket.emit("editPrivateMessage", updatedMessage);
             this.cancelEdit();
         },
         confirmDelete(message) {
@@ -255,7 +251,7 @@ export default {
                 privateRoomId: this.privateRoomId,
             };
 
-            this.socket.emit("deletePrivateMessage", messageData);
+            socket.emit("deletePrivateMessage", messageData);
         },
         isOwnMessage(message) {
             return message.senderUsername === this.decodedToken.username;
