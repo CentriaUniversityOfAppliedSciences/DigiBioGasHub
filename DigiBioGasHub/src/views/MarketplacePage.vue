@@ -13,7 +13,7 @@
                 <ion-col>
                     <ion-row>
                         <ion-col v-for="product in currentProducts" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
-                            <ListingComponent :product="product" />
+                            <ListingComponent v-if="product" :product="product" />
                         </ion-col>
                     </ion-row>
                 </ion-col>  
@@ -61,14 +61,15 @@ export default defineComponent ({
             this.currentProducts = data;
         },
         getProducts(){
-            
+            console.log(Date.now());
             var url = "http://localhost:28765/getoffers";
             axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                console.log(response);
+                //console.log(response);
+                console.log(Date.now());
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.products = response.data.message;
                     this.currentProducts = response.data.message;
-                    
+                    console.log(Date.now());
                 }
             });
         },

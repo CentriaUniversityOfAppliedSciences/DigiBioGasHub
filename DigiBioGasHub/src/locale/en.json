@@ -41,7 +41,8 @@
         "forgotPassword": "Forgot your password?",
         "edit": "Edit",
         "delete":" Delete",
-        "giveFeedback": "Give feedback"
+        "giveFeedback": "Give feedback",
+        "chat": "Chat"
     },
     "general":{
         "loading": "Loading...",
@@ -97,7 +98,7 @@
         "TermsAndConditions": "Terms and Conditions",
         "PrivacyPolicy": "Privacy Policy",
         "read_more": "Read more",
-        "feeedback": "Feedback"
+        "feedback": "Feedback"
     },
     "footer":{
         "KP": "src/assets/kp-eng.jpg",
@@ -225,7 +226,8 @@
             "chooseVisibility": "Choose visibility",
             "public": "Public",
             "private": "Private"
-        }
+        },
+        "openlink": "Tiedot"
     },
             "title": "Logistic Quotation",
             "pickupAddress": "Pickup Address",
