@@ -21,6 +21,8 @@ import ChatComponent from '../components/ChatComponent.vue';
 import MaterialsPage from '../views/Admin/MaterialsPage.vue';
 import SettingsPage from '../views/Admin/SettingsPage.vue';
 import ReportsPage from '../views/Admin/ReportsPage.vue';
+import ChatUserList from '../components/ChatUserList.vue';
+import PrivateChatComponent from '../components/PrivateChatComponent.vue';
 
 export function jwtDecode(token) {
   try {
@@ -205,6 +207,17 @@ const routes = [
     props: true,
     beforeEnter:[checkUser]
   },
+  {
+    path: "/privateChat",
+    name: "ChatUserList",
+    component: ChatUserList,
+},
+{
+    path: "/privateChat/:recipientId/:recipientName",
+    name: "PrivateChat",
+    component: PrivateChatComponent,
+    props: true,
+},
 ]
 
 const router = createRouter({
