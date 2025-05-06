@@ -97,7 +97,10 @@ export default defineComponent({
 
             const senderId = this.decodedToken.id;
 
-            socket.emit("register", senderId);
+            socket.on("connect", () => {
+                socket.emit("register", senderId);
+            });
+            
             socket.on("privateNotification", (notification) => {
                 this.notifications.unshift(notification);
                 if (this.notifications.length > 50) {
