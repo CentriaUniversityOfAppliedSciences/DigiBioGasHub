@@ -5,9 +5,6 @@
             <ion-header>
                 <ion-toolbar>
                     <ion-title>{{ $t('chat.privateChatWith') }}: {{ recipientName }}</ion-title>
-                    <ion-buttons slot="end">
-                        <ion-button @click="leaveChat">{{ $t('chat.leave') }}</ion-button>
-                    </ion-buttons>
                 </ion-toolbar>
             </ion-header>
             <div id="chatContainer">
@@ -190,13 +187,6 @@ export default {
             return messageDate.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' }) +
                 ' at ' +
                 messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
-        },
-        leaveChat() {
-            if (socket) {
-                console.log("Leaving private chat with:", this.recipientId, this.recipientName);
-                socket.disconnect();
-            }
-            this.$router.push({ name: "ChatRooms" });
         },
         sendMessage() {
             if (!this.newMessage.trim()) return;
