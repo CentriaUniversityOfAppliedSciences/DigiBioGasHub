@@ -99,6 +99,7 @@ export default {
             privateRoomId: null,
             recipientId: null,
             recipientName: "",
+            recipientUsername: "",
             messages: [],
             newMessage: "",
             decodedToken: null,
@@ -119,8 +120,7 @@ export default {
         async initializeChat() {
             this.recipientId = this.$route.params.recipientId;
             this.recipientName = this.$route.params.recipientName;
-
-            console.log("Starting private chat with:", this.recipientId, this.recipientName);
+            this.recipientUsername = history.state?.recipientUsername || '';
 
             const token = localStorage.getItem("token");
             this.decodedToken = jwtDecode(token);
@@ -199,6 +199,7 @@ export default {
                 senderId,
                 recipientId: this.recipientId,
                 recipientName: this.recipientName,
+                recipientUsername: this.recipientUsername,
                 senderUsername: this.decodedToken.username,
                 senderName,
                 message: this.newMessage,
