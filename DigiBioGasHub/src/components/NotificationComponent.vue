@@ -88,6 +88,11 @@ export default defineComponent({
         },
         connectSocket() {
             const token = localStorage.getItem("token");
+
+            if (!token) {
+                console.warn("User is not logged in!!");
+                return;
+            }
             this.decodedToken = jwtDecode(token);
 
             const senderId = this.decodedToken.id;
