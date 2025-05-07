@@ -158,6 +158,11 @@ export default {
             console.log(`Joined private chat room: ${privateRoomId}`);
         },
         setupSocketListeners() {
+
+            socket.off("receivePrivateMessage");
+            socket.off("privateMessageEdited");
+            socket.off("privateMessageDeleted");
+
             socket.on("receivePrivateMessage", (message) => {
                 this.messages.push(message);
 
