@@ -1,5 +1,6 @@
 <template>
     <ion-page>
+        <NavBarComponent/>
         <ion-header>
             <ion-toolbar>
                 <ion-title>Chat Users</ion-title>
@@ -12,12 +13,15 @@
                 </ion-item>
             </ion-list>
         </ion-content>
+        <FooterComponent/>
     </ion-page>
 </template>
 
 <script>
 import axios from "axios";
 import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem } from "@ionic/vue";
+import FooterComponent from "./FooterComponent.vue";
+import NavBarComponent from "./NavBarComponent.vue";
 
 export default {
     name: "ChatUserList",
@@ -29,6 +33,8 @@ export default {
         IonContent,
         IonList,
         IonItem,
+        NavBarComponent,
+        FooterComponent
     },
     data() {
         return {
