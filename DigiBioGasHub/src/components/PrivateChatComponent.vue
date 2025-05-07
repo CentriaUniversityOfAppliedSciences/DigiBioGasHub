@@ -147,11 +147,24 @@ export default {
                 recipientId: this.recipientId,
             });
 
+            const unreadMessageIds = this.messages
+                .filter(msg => msg.recipientId === this.decodedToken.id && !msg.read)
+                .map(msg => msg._id);
+
+            if (unreadMessageIds.length > 0) {
+                socket.emit("markMessagesAsRead", { messageIds: unreadMessageIds });
+            }
+
             console.log(`Joined private chat room: ${privateRoomId}`);
         },
         setupSocketListeners() {
             socket.on("receivePrivateMessage", (message) => {
                 this.messages.push(message);
+
+                if (message.recipientId === this.decodedToken.id && !message.read) {
+                    socket.emit("markMessagesAsRead", { messageIds: [message._id] });
+                }
+
                 this.$nextTick(() => {
                     this.scrollToBottom();
                 });
