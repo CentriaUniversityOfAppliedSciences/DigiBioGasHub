@@ -12,7 +12,7 @@
                     <div v-if="messages.length === 0" class="message">
                         {{ $t('chat.noMessages') }}
                     </div>
-                    <div v-for="message in messages" :key="message.timestamp" class="message">
+                    <div v-for="message in messages" :key="message._id" class="message">
                         <div class="avatar">{{ message.senderName.charAt(0).toUpperCase() }}</div>
                         <div class="message-content">
                             <b>{{ message.senderName }}</b>
@@ -106,12 +106,25 @@ export default {
             editingMessageId: null,
             editedMessage: "",
             showDeleteAlert: false,
-            messageToDelete: null
-           
+            messageToDelete: null,
+            limit:50,
+            skip:0,
+            allLoaded:false,
+            loadingMore:false    
         };
     },
     async mounted() {
         this.initializeChat();
+        const container = this.$refs.messagesContainer;
+        if (container) {
+            container.addEventListener("scroll", this.handleScroll);
+        }
+    },
+    beforeUnmount() {
+        const container = this.$refs.messagesContainer;
+        if (container) {
+            container.removeEventListener("scroll", this.handleScroll);
+        }
     },
     watch: {
         $route: "initializeChat",
@@ -129,16 +142,7 @@ export default {
             const privateRoomId = [senderId, this.recipientId].sort().join("_");
             this.privateRoomId = privateRoomId;
 
-            try {
-                const response = await axios.get(`http://localhost:3005/privateChat/${privateRoomId}`);
-                this.messages = response.data;
-
-                this.$nextTick(() => {
-                    this.scrollToBottom();
-                });
-            } catch (error) {
-                console.error("Failed to fetch private chat messages:", error);
-            }
+            await this.loadMessages(true); 
 
             this.setupSocketListeners();
            
@@ -157,6 +161,44 @@ export default {
 
             console.log(`Joined private chat room: ${privateRoomId}`);
         },
+
+        async loadMessages(initial=false){
+            if(this.loadingMore || this.allLoaded) return;
+
+            this.loadingMore=true;
+
+            try {
+                const response = await axios.post(`http://localhost:3005/privateChat/${this.privateRoomId}`, {
+                    skip: this.skip,
+                    limit: this.limit
+                });
+
+                const newMessages = response.data;
+
+                if(newMessages.length < this.limit){
+                    this.allLoaded=true;
+                }
+
+                this.messages = [...newMessages, ...this.messages];
+
+                this.skip += newMessages.length;
+                this.$nextTick(() => {
+                    if(initial){
+                        this.scrollToBottom();
+                    } else {
+                        const container = this.$refs.messagesContainer;
+                        if (container) {
+                            container.scrollTop = container.scrollHeight / 2;
+                        }
+                    }
+                });
+            } catch(error) {
+                console.error("Failed to load more messages:", error);
+            } finally {
+                this.loadingMore=false;
+            }
+        },
+
         setupSocketListeners() {
 
             socket.off("receivePrivateMessage");
@@ -271,6 +313,12 @@ export default {
                 container.scrollTop = container.scrollHeight;
             }
         },
+        handleScroll() {
+        const container = this.$refs.messagesContainer;
+        if (container && container.scrollTop <= 50) {
+            this.loadMessages();
+        }
+    },
     },
 };
 </script>
