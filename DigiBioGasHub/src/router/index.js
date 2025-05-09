@@ -211,12 +211,14 @@ const routes = [
     path: "/privateChat",
     name: "ChatUserList",
     component: ChatUserList,
+    beforeEnter:[checkUser]
 },
 {
     path: "/privateChat/:recipientId/:recipientName",
     name: "PrivateChat",
     component: PrivateChatComponent,
     props: true,
+    beforeEnter:[checkUser]
 },
 ]
 
