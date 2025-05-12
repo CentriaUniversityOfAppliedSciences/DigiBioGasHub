@@ -16,14 +16,14 @@
                         {{ $t('chat.noMessages') }}
                     </div>
                     <div v-for="message in messages" :key="message.timestamp" class="message">
-                        <div class="avatar">{{ message.username.charAt(0).toUpperCase() }}</div>
+                        <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
                         <div class="message-content">
                             <b>{{ message.name }}</b>
                             <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div v-if="editingMessageId === message._id">
                                 <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                    style="max-width: 70%;"></textarea>
+                                   class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
                             <div v-else>
@@ -196,7 +196,7 @@ export default {
             const messageData = {
                 roomId: this.roomId,
                 roomName: this.roomTitle,
-                username: this.decodedToken.username,
+                userId: this.decodedToken.id,
                 name: name,
                 message: this.newMessage,
             };
@@ -209,14 +209,14 @@ export default {
         },
         isOwnMessage(message) {
             console.log("message:", message);
-            return message.username === this.decodedToken.username;
+            return message.userId === this.decodedToken.id;
         },
         isAdmin(message) {
             return this.decodedToken.userlevel >= 22;
         },
         startEdit(message) {
 
-            if (message.username === this.decodedToken.username) {
+            if (message.userId === this.decodedToken.id) {
                 this.editingMessageId = message._id;
                 console.log("Editing message:", message);
                 this.editedMessage = message.message;
@@ -346,6 +346,19 @@ button {
     margin-right: 10px;
     background-color: #40444b;
     color: #ffffff;
+}
+
+.edit-textarea {
+  background-color: white;
+  color: black;
+  max-width: 70%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .edit-textarea {
+    background-color: #40444b;
+    color: white;
+  }
 }
 
 .edited-marker {
