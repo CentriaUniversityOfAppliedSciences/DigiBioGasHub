@@ -99,7 +99,6 @@ export default {
             privateRoomId: null,
             recipientId: null,
             recipientName: "",
-            recipientUsername: "",
             messages: [],
             newMessage: "",
             decodedToken: null,
@@ -133,7 +132,6 @@ export default {
         async initializeChat() {
             this.recipientId = this.$route.params.recipientId;
             this.recipientName = this.$route.params.recipientName;
-            this.recipientUsername = history.state?.recipientUsername || '';
 
             const token = localStorage.getItem("token");
             this.decodedToken = jwtDecode(token);
@@ -259,12 +257,13 @@ export default {
                 senderId,
                 recipientId: this.recipientId,
                 recipientName: this.recipientName,
-                recipientUsername: this.recipientUsername,
                 senderUsername: this.decodedToken.username,
                 senderName,
                 message: this.newMessage,
                 privateRoomId,
             };
+
+            console.log("Sending message:", messageData);
 
             socket.emit("sendPrivateMessage", messageData);
             this.newMessage = "";
@@ -305,7 +304,7 @@ export default {
             socket.emit("deletePrivateMessage", messageData);
         },
         isOwnMessage(message) {
-            return message.senderUsername === this.decodedToken.username;
+            return message.senderId === this.decodedToken.id;
         },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;

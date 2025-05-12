@@ -8,7 +8,7 @@
         </ion-header>
         <ion-content>
             <ion-list>
-                <ion-item v-for="user in users" :key="user.id" button @click="navigateToChat(user.id, user.name, user.username)">
+                <ion-item v-for="user in users" :key="user.id" button @click="navigateToChat(user.id, user.name)">
                     {{ user.name }}
                 </ion-item>
             </ion-list>
@@ -50,11 +50,10 @@ export default {
                 console.error("Error fetching users:", error);
             }
         },
-        navigateToChat(recipientId, recipientName, recipientUsername) {
+        navigateToChat(recipientId, recipientName) {
             this.$router.push({
                 name: "PrivateChat",
-                params: { recipientId, recipientName },
-                state: { recipientUsername },
+                params: { recipientId, recipientName }
             });
         },
     },
