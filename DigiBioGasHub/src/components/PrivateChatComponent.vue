@@ -20,7 +20,7 @@
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div v-if="editingMessageId === message._id">
                                 <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                    style="max-width: 70%;"></textarea>
+                                class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
                             <div v-else>
@@ -410,6 +410,19 @@ button {
     margin-right: 10px;
     background-color: #40444b;
     color: #ffffff;
+}
+
+.edit-textarea {
+  background-color: white;
+  color: black;
+  max-width: 70%;
+}
+
+@media (prefers-color-scheme: dark) {
+  .edit-textarea {
+    background-color: #40444b;
+    color: white;
+  }
 }
 
 .edited-marker {
