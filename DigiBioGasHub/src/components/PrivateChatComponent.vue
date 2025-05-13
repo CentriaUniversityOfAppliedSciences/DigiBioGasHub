@@ -447,7 +447,7 @@ button {
     border-radius: 10px;
     border: 1px solid #7289da;  
     padding: 8px;
-    width: 100%;
+    max-width: 100%;
 }
 
 #messageInputContainer {
