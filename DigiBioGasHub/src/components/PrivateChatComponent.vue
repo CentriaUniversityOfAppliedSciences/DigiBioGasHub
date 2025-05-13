@@ -12,22 +12,27 @@
                     <div v-if="messages.length === 0" class="message">
                         {{ $t('chat.noMessages') }}
                     </div>
-                    <div v-for="message in messages" :key="message._id" class="message">
+                    <div v-for="message in messages" :key="message._id"
+                        :class="isOwnMessage(message) ? 'own-message' : 'received-message'">
                         <div class="avatar">{{ message.senderName.charAt(0).toUpperCase() }}</div>
-                        <div class="message-content">
-                            <b>{{ message.senderName }}</b>
-                            <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
-                            <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
-                            <div v-if="editingMessageId === message._id">
-                                <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                class="edit-textarea"></textarea>
-                                <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
+                        <div class="message-bubble">
+                            <div class="sender-time">
+                                <b class="sender-items">{{ message.senderName }}</b>
+                                <span class="sender-items">{{ formatTimestamp(message.timestamp) }}</span>
                             </div>
-                            <div v-else>
-                                <div>{{ message.message }}</div>
-                                <div v-if="isOwnMessage(message)" class="message-actions">
-                                    <button @click="startEdit(message)">{{ $t('general.edit') }}</button>
-                                    <button @click="confirmDelete(message)">{{ $t('general.delete') }}</button>
+                            <div class="message-content">
+                                <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                                <div v-if="editingMessageId === message._id">
+                                    <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
+                                        class="edit-textarea"></textarea>
+                                    <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
+                                </div>
+                                <div v-else>
+                                    <div>{{ message.message }}</div>
+                                    <div v-if="isOwnMessage(message)" class="message-actions">
+                                        <button @click="startEdit(message)">{{ $t('general.edit') }}</button>
+                                        <button @click="confirmDelete(message)">{{ $t('general.delete') }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -327,80 +332,133 @@ export default {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    background-color: #2f3136;
 }
 
 #chatBox {
     flex: 1;
-    padding: 10px;
-    padding-bottom: 60px;
+    padding: 16px;
     overflow-y: auto;
-    background-color: #2f3136;
-    border-top: 1px solid #202225;
-    border-bottom: 1px solid #202225;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.message {
+.own-message {
+    align-self: flex-end;
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
+    flex-direction: row-reverse;
+    max-width: 80%;
+    margin-bottom: 0.8rem;
+}
+
+.received-message {
+    align-self: flex-start;
+    display: flex;
+    max-width: 80%;
+    margin-bottom: 0.8rem;
+}
+
+.message-bubble {
+    display: flex;
+    flex-direction: column;
+    max-width: 100%;
+}
+
+.message-bubble .sender-time {
+    display: flex;
+    justify-content: flex-start; 
+    font-size: 0.85rem;
+    color: #b9bbbe;
+    margin-bottom: 4px;
+    gap: 8px;
+}
+
+.own-message .sender-time {
+    justify-content: flex-end;
 }
 
 .avatar {
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     background-color: #7289da;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em;
-    color: #ffffff;
+    color: white;
     font-weight: bold;
+    font-size: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 8px;
+    flex-shrink: 0;
 }
 
 .message-content {
+    padding: 10px 14px;
+    border-radius: 18px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+    word-break: break-word;
+    position: relative;
+}
+
+.own-message .message-content {
+    background-color: #5865f2;
+    color: white;
+    border-bottom-right-radius: 4px;
+}
+
+.received-message .message-content {
     background-color: #40444b;
-    padding: 10px;
-    border-radius: 8px;
-    color: #ffffff;
-    max-width: 70%;
+    color: white;
+    border-bottom-left-radius: 4px;
+}
+
+.sender-items{
+    font-weight: bold;
+    color: #b9bbbe;
+    font-size: 0.9rem;
+}
+.edited-marker {
+    font-size: 0.75rem;
+    color: #b9bbbe;
+    margin-top: 4px;
+    align-self: flex-end;
 }
 
 .message-actions {
     display: flex;
-    gap: 5px;
-    margin-top: 5px;
+    gap: 6px;
+    margin-top: 0.7rem;
+    align-self: flex-end;
 }
 
 button {
     background: none;
-    color: gainsboro;
+    color: gainsboro; 
+    border: none;
+    cursor: pointer;
+    font-size: 0.8rem;
 }
 
-.message-content b {
-    color: #7289da;
-}
-
-.timestamp {
-    font-size: 0.8em;
-    color: #b9bbbe;
-    margin-left: 5px;
+.edit-textarea {
+    background-color: #40444b; 
+    color: white;
+    border-radius: 10px;
+    border: 1px solid #7289da;  
+    padding: 8px;
+    width: 100%;
 }
 
 #messageInputContainer {
     display: flex;
     padding: 10px;
-    background-color: #2f3136;
+    background-color: #2f3136; 
     border-top: 1px solid #202225;
     position: sticky;
     bottom: 0;
     z-index: 10;
 }
-
-
 
 #message {
     flex: 1;
@@ -410,26 +468,6 @@ button {
     margin-right: 10px;
     background-color: #40444b;
     color: #ffffff;
-}
-
-.edit-textarea {
-  background-color: white;
-  color: black;
-  max-width: 70%;
-}
-
-@media (prefers-color-scheme: dark) {
-  .edit-textarea {
-    background-color: #40444b;
-    color: white;
-  }
-}
-
-.edited-marker {
-    font-size: 0.8em;
-    color: #b9bbbe;
-    margin-left: 5px;
-    font-style: italic;
 }
 
 #message:focus {
