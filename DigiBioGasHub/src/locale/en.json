@@ -391,6 +391,8 @@
         },
         "chatRooms": "Chat Rooms",
         "chatRoom": "Chat Room",
+        "chatUsers": "Chat Users",
+        "notifications": "Notifications",
         "join": "JOIN",
         "leave": "LEAVE",
         "send": "Send",

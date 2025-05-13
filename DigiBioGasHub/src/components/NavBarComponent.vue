@@ -15,6 +15,10 @@
             <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo">
         </div>
         <div class="navbar-right">
+
+            <ion-buttons slot="end">
+                <NotificationComponent />
+            </ion-buttons>
             <ul class="menu">
                 <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
                 <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
@@ -39,9 +43,11 @@ import AdminComponent from './AdminComponent.vue';
 import LocaleComponent from './LocaleComponent.vue';
 import LoginComponent from './LoginComponent.vue';
 import LogoutComponent from './LogoutComponent.vue';
+import NotificationComponent from './NotificationComponent.vue';
+import { IonButtons } from '@ionic/vue';
 export default defineComponent ({
     name: 'NavBarComponent',
-    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent },
+    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent, NotificationComponent, IonButtons },
     setup() {
         return {};
     },
