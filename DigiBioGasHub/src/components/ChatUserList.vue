@@ -3,7 +3,7 @@
         <NavBarComponent/>
         <ion-header>
             <ion-toolbar>
-                <ion-title>Chat Users</ion-title>
+                <ion-title>{{ $t('chat.chatUsers') }}</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content>

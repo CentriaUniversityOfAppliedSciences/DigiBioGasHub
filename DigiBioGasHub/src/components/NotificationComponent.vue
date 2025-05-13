@@ -10,9 +10,9 @@
         <ion-modal :is-open="isModalOpen" @didDismiss="closeNotifications">
             <ion-header>
                 <ion-toolbar>
-                    <ion-title>Notifications</ion-title>
+                    <ion-title>{{ $t('chat.notifications') }}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button @click="closeNotifications">Close</ion-button>
+                        <ion-button @click="closeNotifications">{{ $t('general.close') }}</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
