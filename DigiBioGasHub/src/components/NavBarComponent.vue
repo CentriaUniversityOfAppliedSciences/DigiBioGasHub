@@ -43,10 +43,10 @@ import LocaleComponent from './LocaleComponent.vue';
 import LoginComponent from './LoginComponent.vue';
 import LogoutComponent from './LogoutComponent.vue';
 import NotificationComponent from './NotificationComponent.vue';
-import { IonButton, IonButtons, IonIcon } from '@ionic/vue';
+import { IonButtons } from '@ionic/vue';
 export default defineComponent ({
     name: 'NavBarComponent',
-    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent, NotificationComponent, IonButtons, IonButton, IonIcon},
+    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent, NotificationComponent, IonButtons },
     setup() {
         return {};
     },
