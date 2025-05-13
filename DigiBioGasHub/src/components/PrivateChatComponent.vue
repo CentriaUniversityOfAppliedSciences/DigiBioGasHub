@@ -28,7 +28,7 @@
                                     <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                                 </div>
                                 <div v-else>
-                                    <div>{{ message.message }}</div>
+                                    <div style="white-space:pre-wrap;">{{ message.message }}</div>
                                     <div v-if="isOwnMessage(message)" class="message-actions">
                                         <button @click="startEdit(message)">{{ $t('general.edit') }}</button>
                                         <button @click="confirmDelete(message)">{{ $t('general.delete') }}</button>
@@ -40,8 +40,12 @@
                 </div>
 
                 <div id="messageInputContainer">
-                    <input id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
-                        @keyup.enter="sendMessage" />
+                    <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
+                        rows="1" style="overflow:hidden; resize:none; height:auto"
+                        @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
+                            $event.target.style.height = 'auto';
+                        $event.target.style.height = $event.target.scrollHeight + 'px';
+                        " ref="messageInput"></textarea>
                     <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
                 </div>
             </div>
@@ -268,11 +272,13 @@ export default {
                 privateRoomId,
             };
 
-            console.log("Sending message:", messageData);
-
             socket.emit("sendPrivateMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
+                const textarea = this.$refs.messageInput;
+                if (textarea) {
+                    textarea.style.height = 'auto';
+                }
                 this.scrollToBottom();
             });
         },
@@ -405,13 +411,13 @@ export default {
 .own-message .message-content {
     background-color: #5865f2;
     color: white;
-    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
 }
 
 .received-message .message-content {
     background-color: #40444b;
     color: white;
-    border-bottom-left-radius: 4px;
+    border-top-left-radius: 4px;
 }
 
 .sender-items{
