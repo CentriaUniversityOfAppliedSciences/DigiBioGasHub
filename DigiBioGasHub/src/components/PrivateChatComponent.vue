@@ -116,7 +116,7 @@ export default {
             showDeleteAlert: false,
             messageToDelete: null,
             limit:50,
-            skip:0,
+            before: null,   
             socket:null,
             allLoaded:false,
             loadingMore:false    
@@ -179,7 +179,7 @@ export default {
 
             try {
                 const response = await axios.post(`http://localhost:3005/privateChat/${this.privateRoomId}`, {
-                    skip: this.skip,
+                    before: this.before,
                     limit: this.limit
                 });
 
@@ -189,9 +189,10 @@ export default {
                     this.allLoaded=true;
                 }
 
-                this.messages = [...newMessages, ...this.messages];
-
-                this.skip += newMessages.length;
+                if (newMessages.length > 0) {
+                    this.before = newMessages[0].timestamp;
+                    this.messages.unshift(...newMessages);
+                }
                 this.$nextTick(() => {
                     if(initial){
                         this.scrollToBottom();
