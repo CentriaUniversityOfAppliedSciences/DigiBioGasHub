@@ -23,11 +23,11 @@
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div v-if="editingMessageId === message._id">
                                 <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                   class="edit-textarea"></textarea>
+                                    class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
                             <div v-else>
-                                <div>{{ message.message }}</div>
+                                <div style="white-space:pre-wrap;">{{ message.message }}</div>
                                 <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
                                     <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{
                                         $t('general.edit') }}</button>
@@ -40,8 +40,12 @@
                 </div>
 
                 <div id="messageInputContainer">
-                    <input id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
-                        @keyup.enter="sendMessage" />
+                    <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
+                        rows="1" style="overflow:hidden; resize:none; height:auto"
+                        @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
+                            $event.target.style.height = 'auto';
+                        $event.target.style.height = $event.target.scrollHeight + 'px';
+                        " ref="messageInput"></textarea>
                     <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
                 </div>
             </div>
@@ -82,7 +86,7 @@ import {
     IonAlert
 } from "@ionic/vue";
 import axios from "axios";
-import socket from "../socket";
+import getSocket from "../socket";
 import { jwtDecode } from "../router";
 import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
@@ -113,40 +117,46 @@ export default {
             showDeleteAlert: false,
             messageToDelete: null,
             decodedToken: null,
+            socket: null,
+            loadingOlderMessages: false,
+            hasMoreMessages:true
         };
     },
     async mounted() {
+
+        this.socket = getSocket();
         this.roomId = this.$route.params.roomId;
         this.roomTitle = this.$route.params.roomTitle;
 
         console.log("Joining room:", this.roomId, this.roomTitle);
 
         try {
-            const response = await axios.get(`http://localhost:3005/chat/${this.roomId}`);
+            const response = await axios.post(`http://localhost:3005/chat/${this.roomId}`, {limit: 50});
             this.messages = response.data;
 
             this.$nextTick(() => {
                 this.scrollToBottom();
+                this.$refs.messagesContainer.addEventListener("scroll", this.handleScroll);
             });
         } catch (error) {
             console.error("Failed to fetch chat messages:", error);
         }
 
-        socket.on("receiveMessage", (message) => {
+        this.socket.on("receiveMessage", (message) => {
             this.messages.push(message);
             this.$nextTick(() => {
                 this.scrollToBottom();
             });
         });
 
-        socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle });
+        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle });
 
-        socket.on("messageDeleted", (messageData) => {
+        this.socket.on("messageDeleted", (messageData) => {
             const messageId = messageData.id;
             this.messages = this.messages.filter((msg) => msg._id !== messageId);
         });
 
-        socket.on("messageEdited", (updatedMessage) => {
+        this.socket.on("messageEdited", (updatedMessage) => {
             const index = this.messages.findIndex((msg) => msg._id === updatedMessage._id);
             if (index !== -1) {
                 this.messages[index].message = updatedMessage.message;
@@ -159,7 +169,46 @@ export default {
             this.decodedToken = jwtDecode(token);
         }
     },
+    beforeUnmount() {
+        const container = this.$refs.messagesContainer;
+        if (container) {
+            container.removeEventListener("scroll", this.handleScroll);
+        }
+
+        if (this.socket) {
+            this.socket.off("receiveMessage");
+            this.socket.off("messageDeleted");
+            this.socket.off("messageEdited");
+            this.socket.emit("leaveRoom", {
+                roomId: this.roomId,
+                roomName: this.roomTitle,
+            });
+            this.socket.disconnect();
+        }
+    },
+
     methods: {
+
+        async loadOlderMessages (){
+
+            if(this.loadingOlderMessages || !this.hasMoreMessages) return;
+            this.loadingOlderMessages = true;
+            const oldestTimestamp = this.messages[0].timestamp;
+            try {
+                const response = await axios.post(`http://localhost:3005/chat/${this.roomId}`, {limit: 50, oldestTimestamp});
+                const newMessages = response.data;
+                if (newMessages.length === 0) {
+                    this.hasMoreMessages = false;
+                } else {
+                    this.messages.unshift(...newMessages);
+                }
+            } catch (error) {
+                console.error("Failed to fetch older chat messages:", error);
+            } finally {
+                this.loadingOlderMessages = false;
+            }
+        },
+
         formatTimestamp(timestamp) {
             const now = new Date();
             const messageDate = new Date(timestamp);
@@ -179,13 +228,13 @@ export default {
                 messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
         },
         leaveRoom() {
-            if (socket) {
+            if (this.socket) {
                 console.log("Leaving room:", this.roomId, this.roomTitle);
-                socket.emit("leaveRoom", {
+                this.socket.emit("leaveRoom", {
                     roomId: this.roomId,
                     roomName: this.roomTitle,
                 });
-                socket.disconnect();
+                this.socket.disconnect();
             }
             this.$router.push({ name: "ChatRooms" });
         },
@@ -201,9 +250,13 @@ export default {
                 message: this.newMessage,
             };
 
-            socket.emit("sendMessage", messageData);
+            this.socket.emit("sendMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
+                const textarea = this.$refs.messageInput;
+                if (textarea) {
+                    textarea.style.height = 'auto';
+                }
                 this.scrollToBottom();
             });
         },
@@ -237,7 +290,7 @@ export default {
                 message: this.editedMessage
             };
 
-            socket.emit("editMessage", updatedMessage);
+            this.socket.emit("editMessage", updatedMessage);
             this.editingMessageId = null;
             this.editedMessage = "";
         },
@@ -246,7 +299,7 @@ export default {
             this.messageToDelete = message;
         },
         deleteMessage(message) {
-            socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
+            this.socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
         },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;
@@ -254,6 +307,13 @@ export default {
                 container.scrollTop = container.scrollHeight;
             }
         },
+        handleScroll() {
+            const container = this.$refs.messagesContainer;
+            if (container && container.scrollTop < 50) {
+                this.loadOlderMessages();
+            }
+        }
+
     },
 };
 </script>
