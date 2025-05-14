@@ -1,15 +1,25 @@
 <template>
             <ion-card>
-                <ion-img :src="offer.image"></ion-img>
+                <ion-img style="width: 300px;" :src=getImageSource(offer)></ion-img>
                 <ion-card-header>
-                    <ion-card-title>{{ offer.description }}</ion-card-title>
-                    <ion-card-subtitle>{{ offer.type }} - {{ offer.category }}</ion-card-subtitle>
+                    <ion-card-title>{{ offer.description }} </ion-card-title>
+                    <ion-card-subtitle>{{ getOfferTypeTranslation(offer.type) }} - {{ offer.category }}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
                     <p>Logistics: {{ offer.cargoType }}</p>
-                    <p>Amount: {{ offer.amount }}</p>
+                    <p>Amount: {{ offer.availableAmount }}</p>
                 </ion-card-content>
+                <ion-button id="buyOffer">Osta</ion-button>
             </ion-card>
+            <ion-modal id="buyOfferModal" trigger="buyOffer">
+                <ion-header>
+                <ion-toolbar>
+                    <ion-title>Osta</ion-title>
+                    <ion-button id="closeModal" slot="end" @click="modalController.dismiss()">{{ $t('menu.close') }}</ion-button>
+                </ion-toolbar>
+                <OfferBuyComponent :offer="offer" />
+            </ion-header>
+            </ion-modal>
 </template>
 
 <script>
@@ -19,9 +29,15 @@ import {
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
-    IonImg
+    IonImg,
+    IonButton,
+    IonModal,
+    IonHeader,
+    IonToolbar,
+    IonTitle
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
+import OfferBuyComponent from './OfferBuyComponent.vue'
 
 export default defineComponent({
     name: 'OfferComponent',
@@ -31,22 +47,19 @@ export default defineComponent({
         IonCardTitle,
         IonCardSubtitle,
         IonCardContent,
-        IonImg
+        IonImg,
+        IonButton,
+        IonModal,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        OfferBuyComponent
     },
     props:{
         offer: {
             type: Object,
             required: true,
-            default: () => {
-                return {
-                    image: '',
-                    description: '',
-                    type: '',
-                    category: '',
-                    cargoType: '1',
-                    amount: '300'
-                }
-            }
+            
         }
     },
     data() {
@@ -57,8 +70,33 @@ export default defineComponent({
         }
     },
     mounted(){
-        console.log(this.offer)
-    }
+    },
+    methods: {
+        getOfferTypeTranslation(type) {
+            return this.$t(`product.typenum.${type}`);
+        },  
+        getMaterialTypeTranslation(material) {
+            if (material != null && material.Material != null) {
+                var mat = material.Material;
+                var type = mat.type;
+                return this.$t(`material.type.${type}`);
+            }
+            else{
+                return "";
+            }
+        },
+        getImageSource(o){
+            if (o != null) {
+                
+                return o.fileLink;
+            }
+            else{
+                return "";
+            }
+        },
+        
+    },
+    
 });
 </script>
 

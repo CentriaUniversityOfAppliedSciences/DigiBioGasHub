@@ -1,7 +1,7 @@
 <template>
     <ion-card>
         <ion-card-header>
-            <ion-img :src="product.Files[0].data" alt="Material Image" style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
+            <ion-img :src="product.fileLink" alt="Material Image" style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
             <ion-card-title>{{ product.Material.name }}</ion-card-title>
             <ion-card-subtitle> {{ getMaterialTypeTranslation(product.Material.type) }}</ion-card-subtitle>
             
@@ -13,10 +13,10 @@
                 <ion-label>{{ $t('product.productDetails.price') }}: {{ product.price }} €</ion-label>
             </ion-item>
             <ion-item>
-                <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.amount }} {{  getUnitAmountTranslation(product.unit) }}</ion-label>
+                <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.availableAmount }} {{  getUnitAmountTranslation(product.unit) }}</ion-label>
             </ion-item>
             <ion-item>
-                <ion-button expand="full" @click="openDetails(product.id)">{{ $t('product.openLink') }}</ion-button>
+                <ion-button expand="full" @click="openDetails(product.id)">{{ $t('product.openlink') }}</ion-button>
             </ion-item>
         </ion-card-content>
     </ion-card>

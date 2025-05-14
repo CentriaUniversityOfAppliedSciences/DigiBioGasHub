@@ -4,7 +4,7 @@
             <img :src="$t('menu.logoPath')" alt="Funder Logo" class="logo">
             <button class="feedback-button"
                 onclick="window.open('https://link.webropolsurveys.com/S/941E350F901601ED', '_blank')">
-                <span>Give Feedback</span>
+                <span>{{$t('menu.giveFeedback')}}</span>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2" stroke-linecap="round"
                         stroke-linejoin="round" />
@@ -15,12 +15,17 @@
             <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo">
         </div>
         <div class="navbar-right">
+
+            <ion-buttons slot="end">
+                <NotificationComponent />
+            </ion-buttons>
             <ul class="menu">
                 <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
                 <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
                 <li class="menu-item"><a href="/map">{{ $t('menu.map') }}</a></li>
                 <li class="menu-item" v-if="inCompany"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
+                <li class="menu-item"><a href="/rooms">{{ $t('menu.chat') }}</a></li>
                 <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li>
                 <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
@@ -38,9 +43,11 @@ import AdminComponent from './AdminComponent.vue';
 import LocaleComponent from './LocaleComponent.vue';
 import LoginComponent from './LoginComponent.vue';
 import LogoutComponent from './LogoutComponent.vue';
+import NotificationComponent from './NotificationComponent.vue';
+import { IonButtons } from '@ionic/vue';
 export default defineComponent ({
     name: 'NavBarComponent',
-    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent },
+    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent, NotificationComponent, IonButtons },
     setup() {
         return {};
     },

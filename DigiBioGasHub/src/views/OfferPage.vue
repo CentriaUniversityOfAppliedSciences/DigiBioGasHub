@@ -36,15 +36,13 @@ export default defineComponent ({
     methods: {
         getOffer(){
             axios.post('http://localhost:28765/getoffersbyid',{id: this.productId}).then(response => {
-
-            this.offers = response.data.message;
-
-        });
+                this.offers = response.data.message;
+                console.log("offers",this.offers);
+            });
         }
     },
     mounted(){
         this.getOffer();
-        console.log("Offerpage",this.offers);
     }
 })
 </script>

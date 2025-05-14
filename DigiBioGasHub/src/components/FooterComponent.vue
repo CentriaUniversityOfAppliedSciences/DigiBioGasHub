@@ -8,7 +8,7 @@
                     
                         <li class="menu-item"><a href="/privacy-policy">{{ $t('general.PrivacyPolicy') }}</a></li>
 
-                        <li class="menu-item"><a href="https://link.webropolsurveys.com/S/941E350F901601ED" target="_blank">Feedback</a></li>
+                        <li class="menu-item"><a href="https://link.webropolsurveys.com/S/941E350F901601ED" target="_blank">{{ $t('general.feedback') }}</a></li>
 
                     </ul>
                 </ion-col>

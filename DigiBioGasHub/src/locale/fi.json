@@ -43,7 +43,9 @@
         "company": "Yritys",
         "delete":"Poista",
         "are_you_sure":"Oletko varma?",
-        "yes":"Kyllä"
+        "yes":"Kyllä",
+        "giveFeedback": "Anna palautetta",
+        "chat":"Keskustelu"
         
     },
     "general":{
@@ -100,7 +102,8 @@
         "TermsAndConditions": "Käyttöehdot",
         "PrivacyPolicy": "Tietosuojakäytäntö",
         "industry": "Toimiala",
-        "read_more": "Lue lisää"
+        "read_more": "Lue lisää",
+        "feedback": "Palaute"
         
 
     },
@@ -208,6 +211,12 @@
             "demand": "Kysyntä",
             "auction": "Huutokauppa"
         },
+        "typenum":{
+            "0": "Palvelu",
+            "1": "Tarjous",
+            "2": "Kysyntä",
+            "3": "Huutokauppa"
+        },
         "desc": "Kuvaus",
         "price": {
             "offer": "Tarjoushinta",
@@ -230,6 +239,10 @@
             "chooseVisibility": "Valitse näkyvyys",
             "public": "Julkinen",
             "private": "Yksityinen"
+        },
+        "openlink": "Tiedot",
+        "error":{
+            "product_buy_over_amount": "Määrä ylittää tarjotun määrän"
         }
     },
     "logisticQuotation": {
@@ -393,6 +406,41 @@
         "offer":"Tarjous",
         "plant":"Biokaasulaitos",
         "company":"Yritys"
+    },
+    "chat": {
+        "admin": {
+            "createRoom": "LUO HUONE",
+            "deleteRoom": "POISTA HUONE",
+            "deleteRoomConfirmation": "Haluatko varmasti poistaa tämän huoneen? Tämä poistaa kaikki huoneen viestit. Tätä toimintoa ei voi peruuttaa.",
+            "roomDeleted": "Huone poistettu onnistuneesti",
+            "roomDeletionFailed": "Huoneen poisto epäonnistui",
+            "createRoomTitle": "Luo uusi huone",
+            "roomName": "Huoneen nimi",
+            "roomDescription": "Huoneen kuvaus",
+            "create": "Luo",
+            "roomCreated": "Huone luotu onnistuneesti",
+            "roomCreationFailed": "Huoneen luonti epäonnistui",
+            "updateRoom": "PÄIVITÄ",
+            "updateRoomTitle": "Päivitä huone",
+            "saveChanges": "Tallenna muutokset",
+            "roomUpdated": "Huone päivitetty onnistuneesti",
+            "roomUpdateFailed": "Huoneen päivitys epäonnistui"
+        },
+        "placeholders": {
+            "enterRoomName": "Anna huoneen nimi",
+            "enterRoomDescription": "Anna huoneen kuvaus",
+            "enterMessage": "Kirjoita viestisi"
+        },
+        "chatRooms": "Keskusteluhuoneet",
+        "chatRoom": "Keskusteluhuone",
+        "join": "LIITY",
+        "leave": "POISTU",
+        "send": "Lähetä",
+        "placeholder": "Kirjoita viestisi...",
+        "noMessages": "Ei viestejä vielä. Ole ensimmäinen, joka lähettää viestin!",
+        "edited": "Muokattu",
+        "confirmDelete": "Vahvista poisto",
+        "deleteMessage": "Haluatko varmasti poistaa tämän viestin?"
     }
 
 }

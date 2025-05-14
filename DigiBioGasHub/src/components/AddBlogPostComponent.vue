@@ -568,7 +568,7 @@ export default defineComponent({
       try {
         console.log('Saving blog post...');
 
-        let url = isUpdate ? `http://localhost:28765/updateBlogPost` : "http://localhost:28765/createblogpost";
+        let url = isUpdate ? `http://localhost:28765/admin/updateBlogPost` : "http://localhost:28765/admin/createblogpost";
 
         const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 

@@ -40,8 +40,9 @@
         "resetPasswordFailMessage": "Username not found. Check the username and try again.",
         "forgotPassword": "Forgot your password?",
         "edit": "Edit",
-        "delete":" Delete"
-    
+        "delete":" Delete",
+        "giveFeedback": "Give feedback",
+        "chat": "Chat"
     },
     "general":{
         "loading": "Loading...",
@@ -96,7 +97,8 @@
         "company": "Company",
         "TermsAndConditions": "Terms and Conditions",
         "PrivacyPolicy": "Privacy Policy",
-        "read_more": "Read more"
+        "read_more": "Read more",
+        "feedback": "Feedback"
     },
     "footer":{
         "KP": "src/assets/kp-eng.jpg",
@@ -196,6 +198,12 @@
             "demand": "Demand",
             "auction": "Auction"
         },
+        "typenum": {
+            "0": "Service",
+            "1": "Offer",
+            "2": "Demand",
+            "3": "Auction"
+        },
         "desc": "Description",
         "price": {
             "offer": "Offer",
@@ -218,7 +226,8 @@
             "chooseVisibility": "Choose visibility",
             "public": "Public",
             "private": "Private"
-        }
+        },
+        "openlink": "Tiedot"
     },
             "title": "Logistic Quotation",
             "pickupAddress": "Pickup Address",
@@ -359,12 +368,21 @@
     "chat": {
         "admin": {
             "createRoom": "CREATE ROOM",
+            "deleteRoom": "DELETE ROOM",
+            "deleteRoomConfirmation": "Are you sure you want to delete this room? This deletes all the the messages in the room. This action cannot be undone.",
+            "roomDeleted": "Room deleted successfully",
+            "roomDeletionFailed": "Room deletion failed",
             "createRoomTitle": "Create a new room",
             "roomName": "Room name",
             "roomDescription": "Room description",
             "create": "Create",
             "roomCreated": "Room created successfully",
-            "roomCreationFailed": "Room creation failed"
+            "roomCreationFailed": "Room creation failed",
+            "updateRoom": "UPDATE",
+            "updateRoomTitle": "Update room",
+            "saveChanges": "Save changes",
+            "roomUpdated": "Room updated successfully",
+            "roomUpdateFailed": "Room update failed"
         },
         "placeholders": {
             "enterRoomName": "Enter room name",
@@ -373,6 +391,8 @@
         },
         "chatRooms": "Chat Rooms",
         "chatRoom": "Chat Room",
+        "chatUsers": "Chat Users",
+        "notifications": "Notifications",
         "join": "JOIN",
         "leave": "LEAVE",
         "send": "Send",
