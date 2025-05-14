@@ -12,14 +12,14 @@
                     </ion-col>
                 </ion-row>
             </ion-grid>
-        </ion-content>
-        <ion-content>
+        
             <agreement-component />
+            <footer-component />
         </ion-content>
         
-        <AddCompanyComponent />
         
-        <footer-component />
+        
+        
     </ion-page>
 </template>
 

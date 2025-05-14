@@ -64,7 +64,7 @@ API_KEY=""
 
 # Contribution Guidelines
 ## Missing a feature or found a bug?
-Please submit it as an issue to this repository with as much explanation about the bug or feature as possible. In case of a security
+Please submit it as an issue to this repository with as much explanation about the bug or feature as possible. In case of a security, do not create a new issue, send email about it to jyri.makela@centria.fi.
 
 ## License: MIT
 See LICENSE for more information.

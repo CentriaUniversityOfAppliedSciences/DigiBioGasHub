@@ -1,10 +1,11 @@
 <template>
     <ion-page>
-        <ion-content>
         <NavBarComponent />
         <ion-content>
+        
+        
             <ProfileComponent :user="myUser" :offers="myOffers" :company="myCompanies"/>
-        </ion-content>
+        
         <FooterComponent />
     </ion-content>
     </ion-page>

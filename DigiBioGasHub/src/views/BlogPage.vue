@@ -3,8 +3,9 @@
         <NavBarComponent />
         <ion-content>
             <BlogPostComponent :content="content" />
+            <FooterComponent />
         </ion-content>
-        <FooterComponent />
+        
     </ion-page>
 </template>
 <script>
