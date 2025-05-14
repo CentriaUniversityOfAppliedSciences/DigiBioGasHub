@@ -23,11 +23,11 @@
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div v-if="editingMessageId === message._id">
                                 <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                   class="edit-textarea"></textarea>
+                                    class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
                             <div v-else>
-                                <div>{{ message.message }}</div>
+                                <div style="white-space:pre-wrap;">{{ message.message }}</div>
                                 <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
                                     <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{
                                         $t('general.edit') }}</button>
@@ -40,8 +40,12 @@
                 </div>
 
                 <div id="messageInputContainer">
-                    <input id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
-                        @keyup.enter="sendMessage" />
+                    <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
+                        rows="1" style="overflow:hidden; resize:none; height:auto"
+                        @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
+                            $event.target.style.height = 'auto';
+                        $event.target.style.height = $event.target.scrollHeight + 'px';
+                        " ref="messageInput"></textarea>
                     <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
                 </div>
             </div>
@@ -204,6 +208,10 @@ export default {
             socket.emit("sendMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
+                const textarea = this.$refs.messageInput;
+                if (textarea) {
+                    textarea.style.height = 'auto';
+                }
                 this.scrollToBottom();
             });
         },
