@@ -57,9 +57,8 @@ const i18n = createI18n({
   locale: 'fi',
   messages,
 });
-let api_add = import.meta.env.VITE_BACKEND_ADDRESS; 
-console.log('api_add', api_add);
-console.log(import.meta.env);
+let api_add = import.meta.env.VITE_BACKEND_ADDRESS;
+let chat_server_add = import.meta.env.VITE_CHATSERVER; 
 const app = createApp(App)
   .use(IonicVue)
 
@@ -69,6 +68,9 @@ const app = createApp(App)
 
   app.config.globalProperties.$api_add = api_add;
   app.provide('$api_add', api_add);
+
+  app.config.globalProperties.$chat_server_add = chat_server_add;
+  app.provide('$chat_server_add', chat_server_add);
 
 router.isReady().then(() => {
   app.mount('#app');

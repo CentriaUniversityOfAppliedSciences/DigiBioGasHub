@@ -178,7 +178,7 @@ export default {
             this.loadingMore=true;
 
             try {
-                const response = await axios.post(`http://localhost:3005/privateChat/${this.privateRoomId}`, {
+                const response = await axios.post(this.$chat_server_add + `/privateChat/${this.privateRoomId}`, {
                     before: this.before,
                     limit: this.limit
                 });

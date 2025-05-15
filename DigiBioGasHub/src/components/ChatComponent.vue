@@ -131,7 +131,7 @@ export default {
         console.log("Joining room:", this.roomId, this.roomTitle);
 
         try {
-            const response = await axios.post(`http://localhost:3005/chat/${this.roomId}`, {limit: 50});
+            const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50});
             this.messages = response.data;
 
             this.$nextTick(() => {
@@ -195,7 +195,7 @@ export default {
             this.loadingOlderMessages = true;
             const oldestTimestamp = this.messages[0].timestamp;
             try {
-                const response = await axios.post(`http://localhost:3005/chat/${this.roomId}`, {limit: 50, oldestTimestamp});
+                const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50, oldestTimestamp});
                 const newMessages = response.data;
                 if (newMessages.length === 0) {
                     this.hasMoreMessages = false;
@@ -236,9 +236,10 @@ export default {
                 });
                 this.socket.disconnect();
             }
-            this.$router.push({ name: "ChatRooms" });
+            this.$router.push({ name: "ChatRoomView" });
         },
         sendMessage() {
+            console.log("Sending message");
             if (!this.newMessage.trim()) return;
 
             const name = Buffer.from(this.decodedToken.name, 'latin1').toString("utf-8");
@@ -249,7 +250,8 @@ export default {
                 name: name,
                 message: this.newMessage,
             };
-
+            console.log("socket:", this.socket);
+            console.log("messageData:", messageData);
             this.socket.emit("sendMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
