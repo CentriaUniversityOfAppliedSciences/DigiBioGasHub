@@ -1,26 +1,44 @@
 <template>
-    <ion-list>
-      <ion-item
-        v-for="user in users" :key="user.id" button @click="navigateToChat(user.id, user.name)" style="margin-bottom: 1rem;">
-        <ion-label class="ion-text-wrap">
-          <h2>{{ user.name }}</h2>
-          <p style="font-size: 1.3rem; padding: 0.5rem 0;" v-if="user.latestMessage">{{ user.latestMessage }} <small style="margin-left: 10px;" v-if="user.timestamp">{{ formatTime(user.timestamp) }}</small></p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-  </template>
+    <ion-page>
+        <NavBarComponent />
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>{{ $t('chat.chatUsers') }}</ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <ion-item v-for="user in users" :key="user.id" button @click="navigateToChat(user.id, user.name)" style="margin-bottom: 1rem;">
+                    <ion-label class="ion-text-wrap">
+                        <h2>{{ user.name }}</h2>
+                        <p style="font-size: 1.1rem; padding: 0.3rem 0;" v-if="user.latestMessage">{{ user.latestMessage }} <small style="margin-left: 10px;" v-if="user.timestamp">{{ formatTime(user.timestamp) }}</small></p>
+                    </ion-label>
+                </ion-item>
+            </ion-list>
+        </ion-content>
+        <FooterComponent />
+    </ion-page>
+</template>
 
 <script>
 import axios from "axios";
 import { jwtDecode } from "../router";
-import {  IonList, IonItem, IonLabel } from "@ionic/vue";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem } from "@ionic/vue";
+import FooterComponent from "./FooterComponent.vue";
+import NavBarComponent from "./NavBarComponent.vue";
 
 export default {
     name: "ChatUserList",
     components: {
+        IonPage,
+        IonHeader,
+        IonToolbar,
+        IonTitle,
+        IonContent,
         IonList,
         IonItem,
-        IonLabel    
+        NavBarComponent,
+        FooterComponent
     },
     data() {
         return {
