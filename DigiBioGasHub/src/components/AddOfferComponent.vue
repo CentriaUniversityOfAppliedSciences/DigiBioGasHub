@@ -13,6 +13,11 @@
             <ion-content>
                 <ion-card-content>
                 <ion-item>
+                    <ion-select required v-model="companyID" :label="$t('menu.company')" :placeholder="$t('product.chooseCompany')">
+                        <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.id">{{ comp.name }}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <ion-item>
                     <img :src="image64"/>
                     <ion-input :label="$t('product.image')" labelPlacement="floating" type="file" @IonChange="processImg"></ion-input>
                 </ion-item>
@@ -109,6 +114,7 @@ import VectorLayer from 'ol/layer/Vector';
 import VectorSource from 'ol/source/Vector';
 import Feature from 'ol/Feature';
 import Point from 'ol/geom/Point';
+import { colorPalette } from 'ionicons/icons';
 export default defineComponent({
     name: 'AddOfferComponent',
     components: {
@@ -152,6 +158,8 @@ export default defineComponent({
             imageName: '',
             type: null,
             quantity: null,
+            companies: [],
+            companyID: null,
             unit: '',
             logisticType: null,
             visibility: 1,
@@ -183,6 +191,17 @@ export default defineComponent({
         this.startDate = event.target.value+timezoneString;
         console.log("startDate with timezone:", this.startDate);
     },
+    getUserCompanies(){
+        if (localStorage.getItem('token') != null) {
+            var url = this.$api_add + "/getusercompanies";
+            axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    this.companies = response.data.message;
+                    localStorage.setItem('current_company', response.data.message[0].id);
+                }
+            });
+        }
+    },
     updateTimeZoneEnd(event) {
         console.log("endDate:", event.target.value);
         const date = new Date(event.target.value);
@@ -205,8 +224,8 @@ export default defineComponent({
         addProduct() {
             // Logic to add the product
             
-            var url = "http://localhost:28765/createoffer";
-            axios.post(url,{"location":this.selectedLocation,"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":localStorage.getItem("current_company"),"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            var url = this.$api_add + "/createoffer";
+            axios.post(url,{"location":this.selectedLocation,"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 console.log(response.data);
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
                     //this.materials = response.data.message;
@@ -217,7 +236,8 @@ export default defineComponent({
             });
         },
         getMaterials(){
-            var url = "http://localhost:28765/getmaterials";
+            console.log(this.$api_add);
+            var url = this.$api_add + "/getmaterials";
             axios.post(url,{"locality":this.$i18n.locale},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
@@ -292,6 +312,7 @@ export default defineComponent({
             name: 'markerLayer'
         });
         this.getMaterials();
+        this.getUserCompanies();
     }
 });
 </script>

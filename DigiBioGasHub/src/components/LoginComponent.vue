@@ -68,7 +68,7 @@ export default defineComponent({
                 this.ToastComponent.methods.showToast(this.$t('account.loginPasswordFail'), 2000, 'danger');
                 return;
             }
-            axios.post('http://localhost:28765/login', {
+            axios.post(this.$api_add + '/login', {
                 username: this.username,
                 password: this.password
             }).then(response => {

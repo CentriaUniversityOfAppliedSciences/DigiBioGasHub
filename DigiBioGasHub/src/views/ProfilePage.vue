@@ -40,7 +40,7 @@ export default defineComponent ({
     },
     methods:{
         getMyUser(){
-            axios.post('http://localhost:28765/getuser', {id: this.getUserID()}).then(response => {
+            axios.post(this.$api_add + '/getuser', {id: this.getUserID()}).then(response => {
                 
                     this.myUser = response.data.message;
                 
@@ -49,12 +49,12 @@ export default defineComponent ({
             console.log(this.myUser);
         },
         getMyCompanies(){
-            axios.post('http://localhost:28765/getusercompanies', {id: this.getUserID()}).then(response => {
+            axios.post(this.$api_add + '/getusercompanies', {id: this.getUserID()}).then(response => {
                 this.myCompanies = response.data.message;
             });
         },
         getOffers(){
-            axios.post('http://localhost:28765/getuseroffers', {id: this.getUserID()}).then(response => {
+            axios.post(this.$api_add + '/getuseroffers', {id: this.getUserID()}).then(response => {
                 this.myOffers = response.data.message;
             });
         },

@@ -49,11 +49,13 @@ export default {
     methods: {
         async fetchUsers() {
             try {
+
                 const response = await axios.post("http://localhost:3005/userlists" , {
                     currentUserId: this.decodedToken.id,
                 });
                 console.log("Users fetched:", response.data);
                 this.users = response.data;
+
             } catch (error) {
                 console.error("Error fetching users:", error);
             }

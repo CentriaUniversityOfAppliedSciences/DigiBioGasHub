@@ -95,7 +95,7 @@ export default defineComponent({
                 return;
             }
             else{
-                var url = "http://localhost:28765/buyoffer";
+                var url = this.$api_add + "/buyoffer";
                 axios.post(url, this.buy, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                     console.log(response);
                     if (response.data.type="result" && response.data.result == "ok"){

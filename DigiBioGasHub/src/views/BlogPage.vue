@@ -28,7 +28,7 @@ export default defineComponent({
 
         async function fetchBlogPost() {
             try {
-                var url = "http://localhost:28765/getblogpost";
+                var url = this.$api_add + "/getblogpost";
                 const response = await axios.post(url, { "postID": postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 content.value = response.data.message.content;
             } catch (error) {

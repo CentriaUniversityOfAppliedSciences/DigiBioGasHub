@@ -66,7 +66,7 @@ export default defineComponent({
   methods: {
     getProducts() {
 
-      var url = "http://localhost:28765/getoffers";
+      var url = this.$api_add + "/getoffers";
       axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
         if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
           this.products = response.data.message;
@@ -77,7 +77,7 @@ export default defineComponent({
     },
     getCompanies() {
       if (localStorage.getItem('token') != null) {
-        var url = "http://localhost:28765/getusercompanies";
+        var url = this.$api_add + "/getusercompanies";
         axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
           if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
 
@@ -88,7 +88,7 @@ export default defineComponent({
     },
 
     getArticles() {
-      var url = "http://localhost:28765/getlatest4blogposts";
+      var url = this.$api_add + "/getlatest4blogposts";
       axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
         console.log(response);
         if (response.data.result === 'ok' && Array.isArray(response.data.message) && response.data.message.length > 0) {
@@ -153,5 +153,8 @@ export default defineComponent({
 .blog-card {
   text-align: center;
 
+}
+ion-grid {
+  min-height: 75vh;;
 }
 </style>

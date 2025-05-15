@@ -586,7 +586,7 @@ export default defineComponent({
 
                 console.log('Saving post...');
 
-                let url = "http://localhost:28765/admin/updateBlogPost";
+                let url = this.$api_add + "/admin/updateBlogPost";
 
                 const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 

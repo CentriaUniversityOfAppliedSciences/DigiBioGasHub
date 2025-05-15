@@ -158,7 +158,7 @@ export default defineComponent({
             this.EditUser = !this.EditUser;
         },
         saveUser() {
-            axios.post('http://localhost:28765/updateuser', {
+            axios.post(this.$api_add + '/updateuser', {
                 name: this.user.name,
                 email: this.user.email,
                 phone: this.user.phone,
@@ -173,7 +173,7 @@ export default defineComponent({
             });
         },
         deleteUser() {
-            axios.post('http://localhost:28765/deleteuser',{id: this.getUserID()}).then(response =>{
+            axios.post(this.$api_add + '/deleteuser',{id: this.getUserID()}).then(response =>{
                 if (response.data.result === 'ok') {
                     this.ToastComponent.methods.showToast(this.$t('account.deleteSuccess'), 2000, 'success');
                     localStorage.removeItem('token');
@@ -191,7 +191,7 @@ export default defineComponent({
             return decoded.id;
         },
         changePassword(){
-            axios.post('http://localhost:28765/changepassword', {
+            axios.post(this.$api_add + '/changepassword', {
                 id: this.getUserID(),
                 currPassword: this.currPassword,
                 newPassword: this.newPassword,
