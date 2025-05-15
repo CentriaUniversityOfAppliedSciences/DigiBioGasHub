@@ -8,7 +8,7 @@
                 <ion-row class="ion-align-items-start">
                 <ion-col size="2">
                     <FilterComponent :filtersData="filtersData" :dataToFilter="products" @filtered-data="updateData" />
-                    <ion-button id="addOffer">Add offer</ion-button>
+                    <ion-button id="addOffer">{{ $t('offers.addOffer') }}</ion-button>
                 </ion-col>
                 <ion-col>
                     <ion-row>
@@ -62,7 +62,7 @@ export default defineComponent ({
         },
         getProducts(){
             console.log(Date.now());
-            var url = "http://localhost:28765/getoffers";
+            var url = this.$api_add + "/getoffers";
             axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 //console.log(response);
                 console.log(Date.now());
@@ -111,5 +111,6 @@ ion-grid {
     --ion-grid-width-md: 384px;
     --ion-grid-width-lg: 480px;
     --ion-grid-width-xl: 570px;
+    min-height: 75vh;
   }
 </style>

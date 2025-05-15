@@ -37,7 +37,7 @@ export default defineComponent ({
     methods: {
         async fetchArticles() {
             try {
-                var url = "http://localhost:28765/getallpublishedblogposts";
+                var url = this.$api_add + "/getallpublishedblogposts";
                 const response = await axios.post(url, {}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 console.log(response);
                 if (response.data.result === 'ok' && Array.isArray(response.data.message)) {

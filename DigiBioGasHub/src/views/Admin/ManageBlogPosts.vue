@@ -204,7 +204,7 @@ export default defineComponent({
     },
     publishPost(postId) {
       try {
-        const url = `http://localhost:28765/admin/publishblogpost`;
+        const url = this.$api_add + `/admin/publishblogpost`;
         axios.post(url, { "postID": postId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false })
           .then(response => {
             if (response.data.result === 'ok') {
@@ -228,7 +228,7 @@ export default defineComponent({
 
     unpublishPost(postId) {
       try {
-        const url = `http://localhost:28765/admin/unpublishblogpost`;
+        const url = this.$api_add + `/admin/unpublishblogpost`;
         axios.post(url, { "postID": postId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false })
           .then(response => {
             if (response.data.result === 'ok') {
@@ -255,7 +255,7 @@ export default defineComponent({
       console.log('Deleting post:', postId);
 
       try {
-        const url = `http://localhost:28765/admin/deleteblogpost`;
+        const url = this.$api_add + `/admin/deleteblogpost`;
         axios.post(url, { "postID": postId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false })
           .then(response => {
             if (response.data.result === 'ok') {
@@ -274,7 +274,7 @@ export default defineComponent({
 
     async fetchPosts() {
       try {
-        const url = "http://localhost:28765/admin/getallblogposts";
+        const url = this.$api_add + "/admin/getallblogposts";
         const response = await axios.post(url, {}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
         if (response.data.result === 'ok' && Array.isArray(response.data.message)) {
           const posts = response.data.message;

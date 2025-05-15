@@ -57,13 +57,18 @@ const i18n = createI18n({
   locale: 'fi',
   messages,
 });
-
+let api_add = import.meta.env.VITE_BACKEND_ADDRESS; 
+console.log('api_add', api_add);
+console.log(import.meta.env);
 const app = createApp(App)
   .use(IonicVue)
 
   .use(i18n)
   .use(router)
   .use(OpenLayersMap,options);
+
+  app.config.globalProperties.$api_add = api_add;
+  app.provide('$api_add', api_add);
 
 router.isReady().then(() => {
   app.mount('#app');

@@ -199,7 +199,7 @@ export default defineComponent({
     methods: {
         async fetchCompanies() {
             try {
-                const response = await axios.post("http://localhost:28765/admin/getallcompanies");
+                const response = await axios.post(this.$api_add + "/admin/getallcompanies");
                 this.companies = response.data.message;
             } catch (error) {
                 console.error('Error fetching companies:', error);
@@ -242,7 +242,7 @@ export default defineComponent({
 
         async updateCompanyStatus(id, status) {
             try {
-                const url = "http://localhost:28765/admin/updatecompanystatus";
+                const url = this.$api_add + "/admin/updatecompanystatus";
                 const response = await axios.post(url, { id, status }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.type = "result" && response.data.result == "ok") {
                     this.$refs.toastComponent.showToast(this.$t('company.updateSuccess'), 2000, 'success');
@@ -261,7 +261,7 @@ export default defineComponent({
 
         async deleteCompany(id) {
             try {
-                const url = "http://localhost:28765/deletecompany";
+                const url = this.$api_add + "/deletecompany";
 
                 const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.type = "result" && response.data.result == "ok") {
@@ -283,7 +283,7 @@ export default defineComponent({
 
         async saveCompanyChanges() {
             try {
-                const url = "http://localhost:28765/updatecompany";
+                const url = this.$api_add + "/updatecompany";
                 const response = await axios.post(url, this.editCompanyData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === 'ok') {
                     this.$refs.toastComponent.showToast(this.$t('company.updateSuccess'), 2000, 'success');

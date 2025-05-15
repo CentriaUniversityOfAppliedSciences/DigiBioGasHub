@@ -3,10 +3,10 @@
                 <ion-img style="width: 300px;" :src=getImageSource(offer)></ion-img>
                 <ion-card-header>
                     <ion-card-title>{{ offer.description }} </ion-card-title>
-                    <ion-card-subtitle>{{ getOfferTypeTranslation(offer.type) }} - {{ offer.category }}</ion-card-subtitle>
+                    <ion-card-subtitle>{{ getOfferTypeTranslation(offer.type) }} - {{ getOfferCategoryTranslation(offer.category) }}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
-                    <p>Logistics: {{ offer.cargoType }}</p>
+                    <p>{{ $t('product.logistic.type') }}: {{ offer.cargoType }}</p>
                     <p>Amount: {{ offer.availableAmount }}</p>
                 </ion-card-content>
                 <ion-button id="buyOffer">Osta</ion-button>
@@ -84,6 +84,9 @@ export default defineComponent({
             else{
                 return "";
             }
+        },
+        getOfferCategoryTranslation(category) {
+            return this.$t(`material.type.${category}`);
         },
         getImageSource(o){
             if (o != null) {

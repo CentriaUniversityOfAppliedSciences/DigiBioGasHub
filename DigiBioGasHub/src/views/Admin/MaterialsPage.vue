@@ -34,7 +34,7 @@ export default defineComponent({
     },
     methods:{
         getMaterials(){
-            var url = "http://localhost:28765/admin/getmaterials";
+            var url = this.$api_add + "/admin/getmaterials";
             axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.myMaterials = response.data.message;

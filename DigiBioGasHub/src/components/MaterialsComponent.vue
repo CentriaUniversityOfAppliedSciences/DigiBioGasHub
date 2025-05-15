@@ -74,7 +74,7 @@ export default defineComponent({
             await alert.present();
         },
         sendDelete(id){
-                axios.post('http://localhost:28765/admin/deletematerial',{ "id" : id }, { headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false} )
+                axios.post(this.$api_add + '/admin/deletematerial',{ "id" : id }, { headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false} )
                 .then(response => {
                     this.$emit('getMaterials');
                 })

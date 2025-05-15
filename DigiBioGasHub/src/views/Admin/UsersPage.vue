@@ -168,7 +168,7 @@ export default {
     methods: {
         async fetchUsers() {
             try {
-                const url = "http://localhost:28765/admin/getlimitedusers";
+                const url = this.$api_add + "/admin/getlimitedusers";
                 const response = await axios.post(url, { page: this.page - 1, limit: this.limit }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 this.users = response.data.message;
                 this.totalUsers = response.data.total;
@@ -189,7 +189,7 @@ export default {
 
         async editUser(userId) {
             try {
-                const url = `http://localhost:28765/getuser`;
+                const url = this.$api_add + `/getuser`;
                 const response = await axios.post(url, { id: userId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 this.editUserData = response.data.message;
                 this.isModalOpen = true;
@@ -205,7 +205,7 @@ export default {
 
         async saveUser() {
             try {
-                const url = `http://localhost:28765/admin/updateuser`;
+                const url = this.$api_add + `/admin/updateuser`;
 
                 const response = await axios.post(url, this.editUserData, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {
@@ -230,7 +230,7 @@ export default {
 
         async deleteUser(id) {
             try {
-                const url = `http://localhost:28765/deleteuser`
+                const url = this.$api_add + `/deleteuser`
 
                 const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {

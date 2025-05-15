@@ -60,6 +60,7 @@ Add .env file to the root of the project and type the following inside:
 ```
 API_PATH="your api"
 API_KEY=""
+VITE_BACKEND_ADDRESS=https://address_to_backend:zzzz
 ```
 
 # Contribution Guidelines

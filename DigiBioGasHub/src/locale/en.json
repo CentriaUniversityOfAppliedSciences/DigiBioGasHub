@@ -190,6 +190,7 @@
         "image": "Image",
         "material": "Material",
         "chooseMaterial": "Choose material",
+        "chooseCompany": "Choose company",
         "name": "Product name",
         "offerTypes": "Offer types",
         "chooseType": "Choose type",

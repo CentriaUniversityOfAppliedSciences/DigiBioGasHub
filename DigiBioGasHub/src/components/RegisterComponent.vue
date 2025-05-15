@@ -134,7 +134,7 @@ export default defineComponent ({
     methods: {
         register() {
             // Handle registration logic here
-            axios.post('http://localhost:28765/register', {
+            axios.post(this.$api_add + '/register', {
                 name: this.firstName + ' ' + this.lastName,
                 phone: this.phoneNumber,
                 username: this.email,

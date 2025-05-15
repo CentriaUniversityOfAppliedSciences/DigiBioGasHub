@@ -203,6 +203,7 @@
         "image": "Kuva",
         "material": "Materiaali",
         "chooseMaterial": "Valitse materiaali",
+        "chooseCompany": "Valitse yritys",
         "name": "Tuotenimi",
         "offerTypes": "Tarjoustyypit",
         "chooseType": "Valitse tyyppi",
@@ -230,6 +231,11 @@
             "includedInPrice": "Sisältyy hintaan",
             "freeToPickup": "Ilmaista noutaa",
             "agreedupon": "Sovitaan"
+        },
+        "logisticType": {
+            "0": "Nouto",
+            "1": "Toimitus",
+            "2": "Molemmat"
         },
         "endTime": "Päättymisaika",
         "time": "Aika",

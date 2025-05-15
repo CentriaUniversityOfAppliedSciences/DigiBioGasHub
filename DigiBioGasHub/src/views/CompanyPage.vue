@@ -70,7 +70,7 @@ export default defineComponent({
     },
     methods: {
         getCompanies() {
-            var url = "http://localhost:28765/getusercompanies";
+            var url = this.$api_add + "/getusercompanies";
             axios.post(url,{"userID": this.getUserID() },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 
                 if (response.data.type="result"){

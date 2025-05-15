@@ -102,7 +102,7 @@ export default defineComponent({
 
         },
         getOffers(){
-            var url = "http://localhost:28765/getoffers";
+            var url = this.$api_add + "/getoffers";
             axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     const newMarkers = response.data.message.map((off) => {
