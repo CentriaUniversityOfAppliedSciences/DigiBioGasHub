@@ -392,6 +392,8 @@
         "chatRooms": "Chat Rooms",
         "chatRoom": "Chat Room",
         "chatUsers": "Chat Users",
+        "groupChat": "Group Chat",
+        "privateChat": "Private Chat",
         "notifications": "Notifications",
         "join": "JOIN",
         "leave": "LEAVE",

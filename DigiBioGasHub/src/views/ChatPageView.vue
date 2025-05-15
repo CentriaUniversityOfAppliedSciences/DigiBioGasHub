@@ -8,14 +8,14 @@
           <ion-col size="auto" class="ion-text-center">
             <div @click="selectedChat = 'group'" class="chat-option" :class="{ selected: selectedChat === 'group' }">
               <ion-icon name="people-outline" class="chat-icon"></ion-icon>
-              <div class="chat-label">Group Chat</div>
+              <div class="chat-label">{{ $t('chat.groupChat') }}</div>
             </div>
           </ion-col>
 
           <ion-col size="auto" class="ion-text-center">
             <div @click="goToPrivateChat" class="chat-option" :class="{ selected: false }" >
               <ion-icon name="person-outline" class="chat-icon"></ion-icon>
-              <div class="chat-label">Private Chat</div>
+              <div class="chat-label">{{ $t('chat.privateChat') }}</div>
             </div>
           </ion-col>
         </ion-row>
