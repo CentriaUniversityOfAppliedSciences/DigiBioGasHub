@@ -16,13 +16,13 @@ import ManageBlogPosts from '../views/Admin/ManageBlogPosts.vue';
 import EditBlogPostPage from '../views/Admin/EditBlogPostPage.vue';
 import UsersPage from '../views/Admin/UsersPage.vue';
 import CompaniesPage from '../views/Admin/CompaniesPage.vue';
-import ChatRoomView from '../views/ChatRoomView.vue';
 import ChatComponent from '../components/ChatComponent.vue';
 import MaterialsPage from '../views/Admin/MaterialsPage.vue';
 import SettingsPage from '../views/Admin/SettingsPage.vue';
 import ReportsPage from '../views/Admin/ReportsPage.vue';
 import ChatUserList from '../components/ChatUserList.vue';
 import PrivateChatComponent from '../components/PrivateChatComponent.vue';
+import ChatPageView from '../views/ChatPageView.vue';
 
 export function jwtDecode(token) {
   try {
@@ -195,9 +195,9 @@ const routes = [
     beforeEnter: [checkAdmin]
   },
   {
-    path: '/rooms',
-    name: 'ChatRoomView',
-    component: ChatRoomView,
+    path: '/chat',
+    name: 'ChatPageView',
+    component: ChatPageView,
     beforeEnter:[checkUser]
   },
   {
