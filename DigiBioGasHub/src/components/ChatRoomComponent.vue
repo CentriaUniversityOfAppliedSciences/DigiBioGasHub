@@ -1,7 +1,4 @@
 <template>
-  <IonPage>
-    <NavBarComponent />
-    <ion-content>
       <ion-header>
         <ion-toolbar>
           <ion-title>{{ $t('chat.chatRooms') }}</ion-title>
@@ -86,7 +83,6 @@
 
 
       <ToastComponent ref="toastComponent" />
-    </ion-content>
 
     <ion-alert :is-open="showDeleteAlert" :header="$t('chat.admin.deleteRoom')"
       :message="$t('chat.admin.deleteRoomConfirmation')" :buttons="[
@@ -105,7 +101,6 @@
           }
         }
         ]"></ion-alert>
-  </IonPage>
 </template>
 
 <script>
@@ -128,23 +123,18 @@ import {
   IonInput,
   IonTextarea,
   IonImg,
-  IonPage,
   IonButtons,
   IonAlert,
   IonIcon,
 } from "@ionic/vue";
 import axios from "axios";
 import { jwtDecode } from "../router";
-import NavBarComponent from "./NavBarComponent.vue";
 import ToastComponent from "./ToastComponent.vue";
-import { disable } from "ol/rotationconstraint";
 
 export default {
   name: "ChatRoomComponent",
   components: {
-    IonPage,
     IonContent,
-    NavBarComponent,
     IonHeader,
     IonToolbar,
     IonTitle,
