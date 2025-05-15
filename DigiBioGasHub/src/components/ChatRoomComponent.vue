@@ -206,7 +206,7 @@ export default {
         this.isAdmin = jwtDecode(token).userlevel >= 22;
       }
 
-      const response = await axios.get("http://localhost:3005/rooms");
+      const response = await axios.get(this.$chat_server_add + "/rooms");
       this.rooms = response.data;
     } catch (error) {
       console.error("Failed to fetch rooms:", error);
@@ -220,7 +220,7 @@ export default {
 
     async createRoom() {
       try {
-        const response = await axios.post("http://localhost:3005/rooms", {
+        const response = await axios.post(this.$chat_server_add + "/rooms", {
           name: this.newRoom.name,
           description: this.newRoom.description
         });
@@ -246,7 +246,7 @@ export default {
     // update room name and description
     async updateRoom(roomId) {
       try {
-        const response = await axios.put(`http://localhost:3005/room/${roomId}`, {
+        const response = await axios.put(this.$chat_server_add + `/room/${roomId}`, {
           name: this.editRoom.name,
           description: this.editRoom.description
         });
@@ -274,7 +274,7 @@ export default {
     async deleteRoom(roomId) {
       try {
         console.log("Deleting room with ID:", roomId);
-        const response = await axios.delete(`http://localhost:3005/room/${roomId}`);
+        const response = await axios.delete(this.$chat_server_add + `/room/${roomId}`);
         if (response.status === 200) {
           this.rooms = this.rooms.filter(room => room.roomId !== roomId);
           this.$refs.toastComponent.showToast(this.$t('chat.admin.roomDeleted'), 2000, 'success');
