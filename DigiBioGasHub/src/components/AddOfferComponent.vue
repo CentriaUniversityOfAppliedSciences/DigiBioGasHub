@@ -205,7 +205,7 @@ export default defineComponent({
         addProduct() {
             // Logic to add the product
             
-            var url = "http://localhost:28765/createoffer";
+            var url = this.$api_add + "/createoffer";
             axios.post(url,{"location":this.selectedLocation,"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":localStorage.getItem("current_company"),"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 console.log(response.data);
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
@@ -217,7 +217,8 @@ export default defineComponent({
             });
         },
         getMaterials(){
-            var url = "http://localhost:28765/getmaterials";
+            console.log(this.$api_add);
+            var url = this.$api_add + "/getmaterials";
             axios.post(url,{"locality":this.$i18n.locale},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){

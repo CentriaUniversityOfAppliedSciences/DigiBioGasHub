@@ -34,7 +34,7 @@ export default defineComponent ({
     },
     methods: {
         getOffer(){
-            axios.post('http://localhost:28765/getoffersbyid',{id: this.productId}).then(response => {
+            axios.post(this.$api_add + '/getoffersbyid',{id: this.productId}).then(response => {
                 this.offers = response.data.message;
                 console.log("offers",this.offers);
             });

@@ -231,6 +231,11 @@
             "freeToPickup": "Ilmaista noutaa",
             "agreedupon": "Sovitaan"
         },
+        "logisticType": {
+            "0": "Nouto",
+            "1": "Toimitus",
+            "2": "Molemmat"
+        },
         "endTime": "Päättymisaika",
         "time": "Aika",
         "submit": "Lähetä",

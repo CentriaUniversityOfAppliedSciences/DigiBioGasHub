@@ -45,7 +45,7 @@ export default defineComponent({
             console.log('Fetching post:', postID);
 
             try {
-                var url = "http://localhost:28765/getblogpost";
+                var url = this.$api_add + "/getblogpost";
                 const response = await axios.post(url, { "postID": postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.status === 404 || !response.data.message) {
                     this.postNotFound = true;

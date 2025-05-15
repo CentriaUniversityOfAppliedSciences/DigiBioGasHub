@@ -44,7 +44,7 @@ export default {
     methods: {
         async fetchUsers() {
             try {
-                const response = await axios.post("http://localhost:28765/getAllUsers");
+                const response = await axios.post(this.$api_add + "/getAllUsers");
                 this.users = response.data.message;
             } catch (error) {
                 console.error("Error fetching users:", error);

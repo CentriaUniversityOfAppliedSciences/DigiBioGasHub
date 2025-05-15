@@ -89,7 +89,7 @@ export default defineComponent({
     },
     methods: {
         addMaterial() {
-            axios.post('http://localhost:28765/admin/addmaterial', {
+            axios.post(this.$api_add + '/admin/addmaterial', {
                 name: this.name,
                 description: this.description,
                 type: this.type,
