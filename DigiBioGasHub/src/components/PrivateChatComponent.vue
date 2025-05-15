@@ -84,7 +84,7 @@ import {
     IonAlert
 } from "@ionic/vue";
 import axios from "axios";
-import socket from "../socket";
+import getsocket from "../socket";
 import { jwtDecode } from "../router";
 import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
@@ -116,7 +116,8 @@ export default {
             showDeleteAlert: false,
             messageToDelete: null,
             limit:50,
-            skip:0,
+            before: null,   
+            socket:null,
             allLoaded:false,
             loadingMore:false    
         };
@@ -139,6 +140,8 @@ export default {
     },
     methods: {
         async initializeChat() {
+
+            this.socket = getsocket();
             this.recipientId = this.$route.params.recipientId;
             this.recipientName = this.$route.params.recipientName;
 
@@ -151,9 +154,9 @@ export default {
 
             await this.loadMessages(true); 
 
-            this.setupSocketListeners();
+            this.setupsocketListeners();
            
-            socket.emit("joinPrivateChat", {
+            this.socket.emit("joinPrivateChat", {
                 senderId,
                 recipientId: this.recipientId,
             });
@@ -163,7 +166,7 @@ export default {
                 .map(msg => msg._id);
 
             if (unreadMessageIds.length > 0) {
-                socket.emit("markMessagesAsRead", { messageIds: unreadMessageIds });
+                this.socket.emit("markMessagesAsRead", { messageIds: unreadMessageIds });
             }
 
             console.log(`Joined private chat room: ${privateRoomId}`);
@@ -176,7 +179,7 @@ export default {
 
             try {
                 const response = await axios.post(`http://localhost:3005/privateChat/${this.privateRoomId}`, {
-                    skip: this.skip,
+                    before: this.before,
                     limit: this.limit
                 });
 
@@ -186,9 +189,10 @@ export default {
                     this.allLoaded=true;
                 }
 
-                this.messages = [...newMessages, ...this.messages];
-
-                this.skip += newMessages.length;
+                if (newMessages.length > 0) {
+                    this.before = newMessages[0].timestamp;
+                    this.messages.unshift(...newMessages);
+                }
                 this.$nextTick(() => {
                     if(initial){
                         this.scrollToBottom();
@@ -206,17 +210,17 @@ export default {
             }
         },
 
-        setupSocketListeners() {
+        setupsocketListeners() {
 
-            socket.off("receivePrivateMessage");
-            socket.off("privateMessageEdited");
-            socket.off("privateMessageDeleted");
+            this.socket.off("receivePrivateMessage");
+            this.socket.off("privateMessageEdited");
+            this.socket.off("privateMessageDeleted");
 
-            socket.on("receivePrivateMessage", (message) => {
+            this.socket.on("receivePrivateMessage", (message) => {
                 this.messages.push(message);
 
                 if (message.recipientId === this.decodedToken.id && !message.read) {
-                    socket.emit("markMessagesAsRead", { messageIds: [message._id] });
+                    this.socket.emit("markMessagesAsRead", { messageIds: [message._id] });
                 }
 
                 this.$nextTick(() => {
@@ -224,7 +228,7 @@ export default {
                 });
             });
 
-            socket.on("privateMessageEdited", (updatedMessage) => {
+            this.socket.on("privateMessageEdited", (updatedMessage) => {
                 const index = this.messages.findIndex((msg) => msg._id === updatedMessage.id);
                 if (index !== -1) {
                     this.messages[index].message = updatedMessage.message;
@@ -232,7 +236,7 @@ export default {
                 }
             });
 
-            socket.on("privateMessageDeleted", (messageData) => {
+            this.socket.on("privateMessageDeleted", (messageData) => {
                 const messageId = messageData.id;
                 this.messages = this.messages.filter((msg) => msg._id !== messageId);
             });
@@ -272,7 +276,7 @@ export default {
                 privateRoomId,
             };
 
-            socket.emit("sendPrivateMessage", messageData);
+            this.socket.emit("sendPrivateMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
                 const textarea = this.$refs.messageInput;
@@ -299,7 +303,7 @@ export default {
                 message: this.editedMessage,
             };
 
-            socket.emit("editPrivateMessage", updatedMessage);
+            this.socket.emit("editPrivateMessage", updatedMessage);
             this.cancelEdit();
         },
         confirmDelete(message) {
@@ -312,7 +316,7 @@ export default {
                 privateRoomId: this.privateRoomId,
             };
 
-            socket.emit("deletePrivateMessage", messageData);
+            this.socket.emit("deletePrivateMessage", messageData);
         },
         isOwnMessage(message) {
             return message.senderId === this.decodedToken.id;

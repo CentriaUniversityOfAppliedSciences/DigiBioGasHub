@@ -5,8 +5,9 @@
             <ion-button id="addOffer">{{ $t('productPage.offerButton') }}
             </ion-button>
             <OfferComponent />
+            <FooterComponent />
         </ion-content>
-        <FooterComponent />
+        
         <ion-modal id="addOfferModal" trigger="addOffer">
             <ion-header>
                 <ion-toolbar>

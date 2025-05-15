@@ -35,7 +35,7 @@
 
 <script>
 import { defineComponent } from "vue";
-import socket from "../socket";
+import getSocket from "../socket";
 import { jwtDecode } from "../router";
 import {
     IonButton,
@@ -97,11 +97,11 @@ export default defineComponent({
 
             const senderId = this.decodedToken.id;
 
-            socket.on("connect", () => {
-                socket.emit("register", senderId);
+            this.socket.on("connect", () => {
+               this.socket.emit("register", senderId);
             });
             
-            socket.on("privateNotification", (notification) => {
+            this.socket.on("privateNotification", (notification) => {
                 this.notifications.unshift(notification);
                 if (this.notifications.length > 50) {
                     this.notifications = this.notifications.slice(0, 50);
@@ -121,6 +121,7 @@ export default defineComponent({
     },
     mounted() {
         console.log("NotificationComponent mounted");
+        this.socket = getSocket();
         this.connectSocket();
     },
 });

@@ -3,8 +3,9 @@
         <NavBarComponent />
         <ion-content>
             <OfferComponent :offer="offers"/>
+            <FooterComponent />
         </ion-content>
-        <FooterComponent />
+        
     </ion-page>
 </template>
 <script>
