@@ -203,6 +203,7 @@
         "image": "Kuva",
         "material": "Materiaali",
         "chooseMaterial": "Valitse materiaali",
+        "chooseCompany": "Valitse yritys",
         "name": "Tuotenimi",
         "offerTypes": "Tarjoustyypit",
         "chooseType": "Valitse tyyppi",
