@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <NavBarComponent />
-    <ion-content class="ion-padding">
+    <ion-content class="ion-padding main-content">
 
       <ion-grid>
         <ion-row class="ion-justify-content-center" style="gap: 3rem; margin-bottom: 1rem;">
@@ -95,5 +95,8 @@ export default defineComponent({
 .chat-option.selected .chat-icon,
 .chat-option.selected .chat-label {
   color: #1877f2;
+}
+.main-content {
+  min-height: 75vh;
 }
 </style>

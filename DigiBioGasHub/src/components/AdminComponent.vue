@@ -33,17 +33,13 @@ export default defineComponent({
                 this.$router.push('/admin/materials');
             } else if (selectedValue === "users") {
                 this.$router.push('/admin/manage-users');
-                console.log('Users')
             } else if (selectedValue === "settings") {
                 this.$router.push('/admin/settings');
-                console.log('Settings')
             } else if (selectedValue === "reports") {
                 this.$router.push('/admin/reports');
-                console.log('Reports')
             }
             else if (selectedValue === "blog") {
                 this.$router.push('/admin/manage-blog-post');
-                console.log('Blog')
             }
         }
     }

@@ -83,7 +83,6 @@ export default defineComponent({
                     body: JSON.stringify(this.form)
                 });
                 const data = await response.json();
-                console.log(data);
             } catch (error) {
                 console.error('Error submitting form:', error);
             }

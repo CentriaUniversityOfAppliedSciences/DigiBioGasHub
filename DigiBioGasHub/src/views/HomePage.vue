@@ -7,7 +7,7 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-grid>
+      <ion-grid class="main-grid">
         <ion-row>
           <ion-col>
             <div id="container">
@@ -90,7 +90,6 @@ export default defineComponent({
     getArticles() {
       var url = this.$api_add + "/getlatest4blogposts";
       axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
-        console.log(response);
         if (response.data.result === 'ok' && Array.isArray(response.data.message) && response.data.message.length > 0) {
           this.articles = response.data.message.map(post => ({
             title: post.title,
@@ -154,7 +153,7 @@ export default defineComponent({
   text-align: center;
 
 }
-ion-grid {
-  min-height: 75vh;;
+.main-grid {
+  min-height: 75vh;
 }
 </style>

@@ -2,7 +2,7 @@
     <IonPage>
         <NavBarComponent />
         <IonContent>
-            <IonGrid style="height:100%;">
+            <IonGrid style="height:80%;">
             <IonRow style="height: 100%;">
                 <IonCol size="auto">
                     <FilterComponent :filtersData=fData :dataToFilter=originalData @filtered-data="updateData"/>

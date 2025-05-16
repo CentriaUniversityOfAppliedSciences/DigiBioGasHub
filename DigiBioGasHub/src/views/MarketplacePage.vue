@@ -4,7 +4,7 @@
         <NavBarComponent />
         
             
-            <ion-grid>
+            <ion-grid class="main-grid">
                 <ion-row class="ion-align-items-start">
                 <ion-col size="2">
                     <FilterComponent :filtersData="filtersData" :dataToFilter="products" @filtered-data="updateData" />
@@ -57,19 +57,14 @@ export default defineComponent ({
     },
     methods: {
         updateData(data){
-            console.log('Filtered data:', data);
             this.currentProducts = data;
         },
         getProducts(){
-            console.log(Date.now());
             var url = this.$api_add + "/getoffers";
             axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                //console.log(response);
-                console.log(Date.now());
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.products = response.data.message;
                     this.currentProducts = response.data.message;
-                    console.log(Date.now());
                 }
             });
         },
@@ -111,6 +106,8 @@ ion-grid {
     --ion-grid-width-md: 384px;
     --ion-grid-width-lg: 480px;
     --ion-grid-width-xl: 570px;
+  }
+  .main-grid{
     min-height: 75vh;
   }
 </style>

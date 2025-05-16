@@ -58,9 +58,15 @@ ionic build --prod
 ## ENV file
 Add .env file to the root of the project and type the following inside:
 ```
-API_PATH="your api"
-API_KEY=""
-VITE_BACKEND_ADDRESS=https://address_to_backend:zzzz
+VITE_BACKEND_ADDRESS=https://address_to_server/api
+VITE_CHATSERVER=https://address_to_server/chatserver
+VITE_CHATSOCKET=https://address_to_server
+```
+
+## Building for production
+```
+export NODE_OPTIONS=--max_old_space_size=8192
+ionic build --prod
 ```
 
 # Contribution Guidelines

@@ -239,7 +239,6 @@ export default {
             this.$router.push({ name: "ChatRoomView" });
         },
         sendMessage() {
-            console.log("Sending message");
             if (!this.newMessage.trim()) return;
 
             const name = Buffer.from(this.decodedToken.name, 'latin1').toString("utf-8");
@@ -250,8 +249,6 @@ export default {
                 name: name,
                 message: this.newMessage,
             };
-            console.log("socket:", this.socket);
-            console.log("messageData:", messageData);
             this.socket.emit("sendMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {
@@ -263,7 +260,6 @@ export default {
             });
         },
         isOwnMessage(message) {
-            console.log("message:", message);
             return message.userId === this.decodedToken.id;
         },
         isAdmin(message) {
@@ -273,9 +269,7 @@ export default {
 
             if (message.userId === this.decodedToken.id) {
                 this.editingMessageId = message._id;
-                console.log("Editing message:", message);
                 this.editedMessage = message.message;
-                console.log("Edited message:", this.editedMessage);
             } else {
                 console.error("Unauthorized: You can only edit your own messages.");
             }

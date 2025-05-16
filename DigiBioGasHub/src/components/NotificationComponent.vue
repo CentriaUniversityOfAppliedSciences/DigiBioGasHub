@@ -120,7 +120,6 @@ export default defineComponent({
         },
     },
     mounted() {
-        console.log("NotificationComponent mounted");
         this.socket = getSocket();
         this.connectSocket();
     },

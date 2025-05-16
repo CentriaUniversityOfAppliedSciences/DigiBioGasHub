@@ -5,16 +5,21 @@
             <ion-button id="addCompany">Add company</ion-button>
         
         <ion-content >
-            <ion-grid>
+            <ion-grid class="main-grid">
                 <ion-row v-for="comp in companies">
                     <ion-col>
                         <CompanyComponent :company="comp" />
                     </ion-col>
                 </ion-row>
+                <ion-row>
+                    <ion-col size="12">
+                        <agreement-component />
+                    </ion-col>
+                </ion-row>
             </ion-grid>
         
-            <agreement-component />
-            <footer-component />
+            
+            <FooterComponent />
         </ion-content>
         
         
@@ -95,4 +100,7 @@ export default defineComponent({
 
 <style scoped>
 /* Optional styling */
+.main-grid {
+    min-height: 75vh;
+}
 </style>
