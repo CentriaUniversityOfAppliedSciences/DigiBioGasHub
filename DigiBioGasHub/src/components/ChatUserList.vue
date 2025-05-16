@@ -50,8 +50,7 @@ export default {
         async fetchUsers() {
             try {
 
-               // const response = await axios.post(this.$chat_server_add + "/userlists" , {
-                const response = await axios.post("http://localhost:3005/userlists" , {
+               const response = await axios.post(this.$chat_server_add + "/userlists" , {
                     currentUserId: this.decodedToken.id,
                 });
                 this.users = response.data;
