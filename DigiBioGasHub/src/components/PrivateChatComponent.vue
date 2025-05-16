@@ -119,7 +119,8 @@ export default {
             before: null,   
             socket:null,
             allLoaded:false,
-            loadingMore:false    
+            loadingMore:false,
+            valiRecipientId: false   
         };
     },
     async mounted() {
@@ -155,10 +156,13 @@ export default {
             await this.loadMessages(true); 
 
             this.setupsocketListeners();
-           
-            this.socket.emit("joinPrivateChat", {
-                senderId,
-                recipientId: this.recipientId,
+
+            this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, (response) => {
+                if (response.status === "success") {
+                    this.valiRecipientId = true;
+                } else {
+                    console.error("Failed to join private chat room:", response.message);
+                }
             });
 
             const unreadMessageIds = this.messages
@@ -168,8 +172,6 @@ export default {
             if (unreadMessageIds.length > 0) {
                 this.socket.emit("markMessagesAsRead", { messageIds: unreadMessageIds });
             }
-
-            console.log(`Joined private chat room: ${privateRoomId}`);
         },
 
         async loadMessages(initial=false){
@@ -260,6 +262,11 @@ export default {
                 messageDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
         },
         sendMessage() {
+
+            if(!this.valiRecipientId){
+                console.error("Invalid receiver id");
+                return;
+            }
             if (!this.newMessage.trim()) return;
 
             const senderId = this.decodedToken.id;

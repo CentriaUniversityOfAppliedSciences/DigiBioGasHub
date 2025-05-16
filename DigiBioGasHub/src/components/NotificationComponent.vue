@@ -51,6 +51,7 @@ import {
 } from "@ionic/vue";
 import { notificationsOutline } from "ionicons/icons";
 import { addIcons } from "ionicons";
+import axios from "axios";
 
 addIcons({
     "notifications-outline": notificationsOutline,
@@ -80,6 +81,7 @@ export default defineComponent({
     },
     methods: {
         openNotifications() {
+            this.fetchNotifications();
             this.isModalOpen = true;
             this.notificationCount = 0;
         },
@@ -109,6 +111,25 @@ export default defineComponent({
                 this.notificationCount++;
             });
         },
+        async fetchNotifications() {
+            try {
+                
+                const token = localStorage.getItem("token");
+                if (!token) {
+                    console.warn("User not authenticated");
+                    return;
+                }
+
+                const decoded = jwtDecode(token);
+                const userId = decoded.id;
+
+                const { data } = await axios.post("http://localhost:3005/notifications", { userId });
+                this.notifications = data || [];
+            } catch (error) {
+                console.error("Error fetching notifications:", error);
+            }
+        },
+
         generateLink(notification) {
             return `/privatechat/${notification.senderId}/${encodeURIComponent(
                 notification.senderName

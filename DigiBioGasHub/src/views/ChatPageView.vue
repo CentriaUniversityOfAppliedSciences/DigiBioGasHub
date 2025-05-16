@@ -59,6 +59,11 @@ export default defineComponent({
     FooterComponent,
     NavBarComponent
   },
+  data() {
+    return {
+      selectedChat: 'group',
+    }
+  },
   methods: {
     goToPrivateChat() {
       this.$router.push("/privatechat");

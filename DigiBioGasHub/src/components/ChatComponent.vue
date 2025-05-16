@@ -119,7 +119,8 @@ export default {
             decodedToken: null,
             socket: null,
             loadingOlderMessages: false,
-            hasMoreMessages:true
+            hasMoreMessages:true,
+            validRoomId: false
         };
     },
     async mounted() {
@@ -127,8 +128,6 @@ export default {
         this.socket = getSocket();
         this.roomId = this.$route.params.roomId;
         this.roomTitle = this.$route.params.roomTitle;
-
-        console.log("Joining room:", this.roomId, this.roomTitle);
 
         try {
             const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50});
@@ -148,9 +147,14 @@ export default {
                 this.scrollToBottom();
             });
         });
-
-        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle });
-
+        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle }, (response) => {
+            if (response.status === "success") {
+                this.validRoomId = true;
+                console.log("Joined room successfully");
+            } else {
+                console.error("Failed to join room:", response.message);
+            }
+        });
         this.socket.on("messageDeleted", (messageData) => {
             const messageId = messageData.id;
             this.messages = this.messages.filter((msg) => msg._id !== messageId);
@@ -229,7 +233,6 @@ export default {
         },
         leaveRoom() {
             if (this.socket) {
-                console.log("Leaving room:", this.roomId, this.roomTitle);
                 this.socket.emit("leaveRoom", {
                     roomId: this.roomId,
                     roomName: this.roomTitle,
@@ -238,6 +241,7 @@ export default {
             }
             this.$router.push({ name: "ChatRoomView" });
         },
+
         sendMessage() {
             if (!this.newMessage.trim()) return;
 
