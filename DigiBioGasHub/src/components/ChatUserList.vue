@@ -1,12 +1,10 @@
 <template>
     <ion-page>
         <NavBarComponent />
-        <ion-header>
+        <ion-content>
             <ion-toolbar>
                 <ion-title>{{ $t('chat.chatUsers') }}</ion-title>
             </ion-toolbar>
-        </ion-header>
-        <ion-content>
             <ion-list>
                 <ion-item v-for="user in users" :key="user.id" button @click="navigateToChat(user.id, user.name)" style="margin-bottom: 1rem;">
                     <ion-label class="ion-text-wrap">
@@ -50,6 +48,7 @@ export default {
         async fetchUsers() {
             try {
 
+               // const response = await axios.post(this.$chat_server_add + "/userlists" , {
                 const response = await axios.post("http://localhost:3005/userlists" , {
                     currentUserId: this.decodedToken.id,
                 });

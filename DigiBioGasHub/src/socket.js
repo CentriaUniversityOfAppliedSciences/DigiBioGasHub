@@ -4,7 +4,6 @@ let socket;
 
 export default function getSocket() {
     if (!socket) {
-        console.log("Connecting to socket...");
         socket = io(chat_socket_add + "");
     }
     return socket;
