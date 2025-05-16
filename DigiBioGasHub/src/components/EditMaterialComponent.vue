@@ -92,7 +92,6 @@ export default defineComponent({
     },
     methods:{
         editMaterial(){
-            console.log('Edit material:', this.materialRef);
             var url = this.$api_add + "/admin/editmaterial";
             axios.post(url, this.materialRef, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.type="result" && response.data.result == "ok"){

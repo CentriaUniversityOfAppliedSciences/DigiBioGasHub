@@ -1,13 +1,10 @@
 <template>
     <ion-page>
         <NavBarComponent />
-        <ion-content>
-        
-        
+        <ion-content class="main-content">
             <ProfileComponent :user="myUser" :offers="myOffers" :company="myCompanies"/>
-        
-        <FooterComponent />
-    </ion-content>
+        </ion-content>
+    <FooterComponent />
     </ion-page>
 </template>
 <script>
@@ -46,7 +43,6 @@ export default defineComponent ({
                 
                 
             });
-            console.log(this.myUser);
         },
         getMyCompanies(){
             axios.post(this.$api_add + '/getusercompanies', {id: this.getUserID()}).then(response => {
@@ -71,3 +67,8 @@ export default defineComponent ({
     }   
 })
 </script>
+<style scoped>
+.main-content {
+    min-height: 75vh;
+}
+</style>

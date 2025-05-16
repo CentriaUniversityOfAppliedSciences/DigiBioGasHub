@@ -1,11 +1,11 @@
 <template>
     <ion-page>
         <NavBarComponent />
-        <ion-content>
+        <ion-content class="main-content">
             <OfferComponent :offer="offers"/>
-            <FooterComponent />
+            
         </ion-content>
-        
+        <FooterComponent />
     </ion-page>
 </template>
 <script>
@@ -37,7 +37,6 @@ export default defineComponent ({
         getOffer(){
             axios.post(this.$api_add + '/getoffersbyid',{id: this.productId}).then(response => {
                 this.offers = response.data.message;
-                console.log("offers",this.offers);
             });
         }
     },
@@ -46,3 +45,8 @@ export default defineComponent ({
     }
 })
 </script>
+<style scoped>
+.main-content {
+    min-height: 75vh;
+}
+</style>

@@ -79,7 +79,6 @@ export default defineComponent({
                     this.modalController.dismiss();
                     window.location.href = '/home';
                 } else {
-                    console.log('error')
                     this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
                 }
             }).catch(error => {

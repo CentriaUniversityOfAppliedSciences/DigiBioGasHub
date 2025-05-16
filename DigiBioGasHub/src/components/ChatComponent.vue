@@ -243,12 +243,6 @@ export default {
         },
 
         sendMessage() {
-
-            if(!this.validRoomId) {
-                console.error("Invalid room ID");
-                return;
-            }
-
             if (!this.newMessage.trim()) return;
 
             const name = Buffer.from(this.decodedToken.name, 'latin1').toString("utf-8");
@@ -259,7 +253,6 @@ export default {
                 name: name,
                 message: this.newMessage,
             };
-
             this.socket.emit("sendMessage", messageData);
             this.newMessage = "";
             this.$nextTick(() => {

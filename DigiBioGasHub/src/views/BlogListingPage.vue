@@ -2,15 +2,15 @@
        <ion-page>
         <NavBarComponent />
         <ion-content>
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" size-sm="6" size-md="3" v-for="article in articles" :key="article.title">
-        <BlogListingComponent class="blog-card" :article="article" />
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-  <FooterComponent />
-</ion-content>
+            <ion-grid class="main-grid">
+                <ion-row>
+                <ion-col size="12" size-sm="6" size-md="3" v-for="article in articles" :key="article.title">
+                    <BlogListingComponent class="blog-card" :article="article" />
+                </ion-col>
+                </ion-row>
+            </ion-grid>
+           <FooterComponent /> 
+        </ion-content>
         
     </ion-page>
 </template>
@@ -39,7 +39,6 @@ export default defineComponent ({
             try {
                 var url = this.$api_add + "/getallpublishedblogposts";
                 const response = await axios.post(url, {}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-                console.log(response);
                 if (response.data.result === 'ok' && Array.isArray(response.data.message)) {
                     this.articles = response.data.message.map(post => ({
                         title: post.title,
@@ -67,5 +66,7 @@ export default defineComponent ({
     text-align: center;
     
 }
-
+.main-grid {
+    min-height: 75vh;
+}
 </style>

@@ -5,6 +5,8 @@
             <ion-toolbar>
                 <ion-title>{{ $t('chat.chatUsers') }}</ion-title>
             </ion-toolbar>
+        </ion-content>
+        <ion-content class="main-content">
             <ion-list>
                 <ion-item v-for="user in users" :key="user.id" button @click="navigateToChat(user.id, user.name)" style="margin-bottom: 1rem;">
                     <ion-label class="ion-text-wrap">
@@ -52,7 +54,6 @@ export default {
                 const response = await axios.post("http://localhost:3005/userlists" , {
                     currentUserId: this.decodedToken.id,
                 });
-                console.log("Users fetched:", response.data);
                 this.users = response.data;
 
             } catch (error) {
@@ -87,5 +88,8 @@ export default {
 ion-item {
     --padding-start: 16px;
     --inner-padding-end: 16px;
+}
+.main-content {
+    min-height: 75vh;
 }
 </style>

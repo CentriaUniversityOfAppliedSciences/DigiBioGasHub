@@ -41,16 +41,11 @@
                     <ion-textarea :label="$t('product.desc')" labelPlacement="floating" v-model="description"></ion-textarea>
                 </ion-item>
                 <ion-item >
-                    <ion-input required :label="$t('product.price.offer')" labelPlacement="floating" type="number" v-model="price"></ion-input>
+                    <ion-input required :label="$t('product.price.offer')" labelPlacement="floating" type="number" v-model="price" min="0"></ion-input>
                 </ion-item>
-                <ion-item v-if="type === 'demand'">
-                    <ion-input required :label="$t('product.price.demand')" labelPlacement="floating" type="number" v-model="price"></ion-input>
-                </ion-item>
-                <ion-item v-if="type === 'auction'">
-                    <ion-input required :label="$t('product.price.auction')" labelPlacement="floating" type="number" v-model="price"></ion-input>
-                </ion-item>
+                
                 <ion-item>
-                    <ion-input :label="$t('product.quantity')" labelPlacement="floating" type="number" v-model="quantity"></ion-input>
+                    <ion-input :label="$t('product.quantity')" labelPlacement="floating" type="number" v-model="quantity" min="0"></ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-select v-model="unit" :label="$t('product.unit')">
@@ -152,21 +147,21 @@ export default defineComponent({
             center: [22.9999, 62.9999],
             productName: '',
             description: '',
-            price: null,
+            price: 0,
             productImage: null,
             image64: '',
             imageName: '',
-            type: null,
-            quantity: null,
+            type: "1",
+            quantity: 0,
             companies: [],
             companyID: null,
-            unit: '',
-            logisticType: null,
-            visibility: 1,
+            unit: '1',
+            logisticType: "2",
+            visibility: "1",
             materials: [],
             material:"",
-            startDate:null,
-            endDate:null,
+            startDate:new Date().toISOString(),
+            endDate:new Date().toISOString(),
             selectedMaterialId: null,
             selectedMaterialName: '',
             markerStyle: new Style({
@@ -180,16 +175,13 @@ export default defineComponent({
     },
     methods: {
         updateTimeZoneStart(event) {
-            console.log("startDate:", event.target.value);
         const date = new Date(event.target.value);
         const timezoneOffset = -date.getTimezoneOffset(); // Get the timezone offset in minutes
         const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
         const offsetMinutes = Math.abs(timezoneOffset) % 60;
         const offsetSign = timezoneOffset >= 0 ? '+' : '-';
         const timezoneString = `${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
-        //this.startDate = `${date.toISOString().split('Z')[0]}${timezoneString}`;
         this.startDate = event.target.value+timezoneString;
-        console.log("startDate with timezone:", this.startDate);
     },
     getUserCompanies(){
         if (localStorage.getItem('token') != null) {
@@ -203,17 +195,13 @@ export default defineComponent({
         }
     },
     updateTimeZoneEnd(event) {
-        console.log("endDate:", event.target.value);
         const date = new Date(event.target.value);
         const timezoneOffset = -date.getTimezoneOffset(); // Get the timezone offset in minutes
         const offsetHours = Math.floor(Math.abs(timezoneOffset) / 60);
         const offsetMinutes = Math.abs(timezoneOffset) % 60;
         const offsetSign = timezoneOffset >= 0 ? '+' : '-';
         const timezoneString = `${offsetSign}${String(offsetHours).padStart(2, '0')}:${String(offsetMinutes).padStart(2, '0')}`;
-        //this.endDate = `${date.toISOString().split('Z')[0]}${timezoneString}`;
         this.endDate = event.target.value+timezoneString;
-        console.log("endDate:", event.target.value+timezoneString);
-        //console.log("endDate with timezone:", this.endDate);
     },
         materialSelected(event) {
             const selectedMaterial = this.materials.find(mater => mater.id === event.target.value);
@@ -226,17 +214,13 @@ export default defineComponent({
             
             var url = this.$api_add + "/createoffer";
             axios.post(url,{"location":this.selectedLocation,"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                console.log(response.data);
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
-                    //this.materials = response.data.message;
-                    console.log("should dismiss modal");
                     this.modalController.dismiss();
                     this.$emit('getOffers');
                 }
             });
         },
         getMaterials(){
-            console.log(this.$api_add);
             var url = this.$api_add + "/getmaterials";
             axios.post(url,{"locality":this.$i18n.locale},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                
@@ -253,7 +237,6 @@ export default defineComponent({
             
             reader.onloadend = () => {
                 rawImg = reader.result;
-                console.log('Image:', rawImg);
                 this.image64 = rawImg;
                 this.imageName = file.name;
             };
@@ -278,12 +261,9 @@ export default defineComponent({
                this.map.on('singleclick', (event) =>{
                     if (!this.map.getLayers().getArray().includes(this.markerLayer)) {
                         this.map.addLayer(this.markerLayer);
-                    }
-                    console.log(this.markerSource.getFeatures());   
+                    }  
                     this.markerSource.clear();
-                    console.log(this.markerSource.getFeatures());
 
-                    
                     const coordinate = event.coordinate; // Get the clicked coordinate
                     if (coordinate){
                         this.selectedLocation = {
@@ -295,7 +275,6 @@ export default defineComponent({
                         });
                         marker.setStyle(this.markerStyle);
                         this.markerSource.addFeature(marker);
-                        console.log('Selected Location (transformed):', this.selectedLocation);
                     }
                     
                });

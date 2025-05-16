@@ -562,17 +562,10 @@ export default defineComponent({
         async onSave() {
 
             const content = this.$refs.editorRef.getContent();
-            console.log('Content:', content);
-
             const parser = new DOMParser();
             const doc = parser.parseFromString(content, 'text/html');
-
             const title = this.extractTitle(doc) || 'Default Title';
-            console.log('Title:', title);
-
             const image = this.extractImage(doc) || this.imageBase64;
-            console.log('Image:', image);
-
             const token = localStorage.getItem('token');
             if (!token) {
                 console.error('No token found');
@@ -585,13 +578,8 @@ export default defineComponent({
             try {
 
                 console.log('Saving post...');
-
                 let url = this.$api_add + "/admin/updateBlogPost";
-
                 const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-
-                console.log(response);
-
                 if (response.data.type == "result" && response.data.result == "ok") {
                     console.log('Blog post saved successfully ---');
                     this.isDirty = false;

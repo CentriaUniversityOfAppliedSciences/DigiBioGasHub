@@ -26,7 +26,7 @@
                 <li class="menu-item" v-if="inCompany"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li class="menu-item"><a href="/chat">{{ $t('menu.chat') }}</a></li>
-                <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li>
+                <!-- <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li> -->
                 <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><LogoutComponent /></li>

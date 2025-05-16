@@ -42,8 +42,6 @@ export default defineComponent({
     },
     methods: {
         async fetchPost(postID) {
-            console.log('Fetching post:', postID);
-
             try {
                 var url = this.$api_add + "/getblogpost";
                 const response = await axios.post(url, { "postID": postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
@@ -51,13 +49,8 @@ export default defineComponent({
                     this.postNotFound = true;
                     return;
                 }
-                console.log(response);
                 this.content = response.data.message.content;
-                console.log(this.content);
                 this.postID = response.data.message.postID;
-                console.log(this.postID);
-
-
             } catch (error) {
                 console.error('Error fetching post:', error);
                 this.postNotFound = true;

@@ -97,7 +97,6 @@ export default defineComponent({
             else{
                 var url = this.$api_add + "/buyoffer";
                 axios.post(url, this.buy, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                    console.log(response);
                     if (response.data.type="result" && response.data.result == "ok"){
                         this.$router.push({ name: 'Marketplace' });
                         modalController.dismiss();

@@ -76,7 +76,7 @@ export default defineComponent({
             this.rating = rating
         },
         submitFeedback() {
-            console.log(this.rating, this.feedback)
+            //console.log(this.rating, this.feedback)
         }
     }
 })
