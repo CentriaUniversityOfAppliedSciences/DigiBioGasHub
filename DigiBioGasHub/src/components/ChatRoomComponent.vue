@@ -24,10 +24,10 @@
                 <ion-button expand="block" color="success" @click="goToRoom(room.roomId, room.name)">
                   {{ $t('chat.enter') }}
                 </ion-button>
-                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room)" class="ion-margin-top ion-margin-end">
+                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room, 'joined')" class="ion-margin-top ion-margin-end">
                   {{ $t('chat.admin.updateRoom') }}
                 </ion-button>
-                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId)" class="ion-margin-top ion-margin-end" >
+                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId, 'joined')" class="ion-margin-top ion-margin-end" >
                   {{ $t('chat.admin.deleteRoom') }}
                 </ion-button>
               </ion-card-content>
@@ -51,10 +51,10 @@
                 <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
                   {{ $t('chat.join') }}
                 </ion-button>
-                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room)" class="ion-margin-top ion-margin-end">
+                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room, 'unjoined')" class="ion-margin-top ion-margin-end">
                   {{ $t('chat.admin.updateRoom') }}
                 </ion-button>
-                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId)" class="ion-margin-top ion-margin-end" >
+                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId, 'unjoined')" class="ion-margin-top ion-margin-end" >
                   {{ $t('chat.admin.deleteRoom') }}
                 </ion-button>
               </ion-card-content>
@@ -202,6 +202,7 @@ export default {
     return {
       joinedRooms: [],
       unjoinedRooms: [],
+      currentRoomList: "",
       isAdmin: false,
       decodedToken: null,
       showModal: false,
@@ -274,7 +275,7 @@ export default {
           description: this.newRoom.description
         });
         if (response.status === 201) {
-          this.rooms.push(response.data);
+          this.unjoinedRooms.push(response.data);
           this.showModal = false;
           this.newRoom = { name: '', description: '' };
           this.$refs.toastComponent.showToast(this.$t('chat.admin.roomCreated'), 2000, 'success');
@@ -285,10 +286,11 @@ export default {
       }
     },
 
-    openUpdateModal(room) {
+    openUpdateModal(room, listType) {
       this.editRoom = { name: room.name, description: room.description };
       this.originalRoom = { name: room.name, description: room.description };
       this.roomId = room.roomId;
+      this.currentRoomList = listType;
       this.showUpdateModal = true;
     },
 
@@ -300,10 +302,11 @@ export default {
           description: this.editRoom.description
         });
         if (response.status === 200) {
-          const index = this.rooms.findIndex(r => r.roomId === roomId);
+          const list = this.currentRoomList === "joined" ? this.joinedRooms : this.unjoinedRooms;
+          const index = list.findIndex(r => r.roomId === roomId);
           if (index !== -1) {
-            this.rooms[index].name = this.editRoom.name;
-            this.rooms[index].description = this.editRoom.description;
+            list[index].name = this.editRoom.name;
+            list[index].description = this.editRoom.description;
           }
           this.showUpdateModal = false;
           this.$refs.toastComponent.showToast(this.$t('chat.admin.roomUpdated'), 2000, 'success');
@@ -315,9 +318,10 @@ export default {
     },
 
 
-    confirmDelete(roomId) {
+    confirmDelete(roomId, listType) {
       this.showDeleteAlert = true;
       this.roomId = roomId;
+      this.currentRoomList = listType;
     },
 
     async deleteRoom(roomId) {
@@ -325,7 +329,11 @@ export default {
         console.log("Deleting room with ID:", roomId);
         const response = await axios.delete(this.$chat_server_add + `/room/${roomId}`);
         if (response.status === 200) {
-          this.rooms = this.rooms.filter(room => room.roomId !== roomId);
+          if (this.currentRoomList === "joined") {
+            this.joinedRooms = this.joinedRooms.filter(room => room.roomId !== roomId);
+          } else {
+            this.unjoinedRooms = this.unjoinedRooms.filter(room => room.roomId !== roomId);
+          }
           this.$refs.toastComponent.showToast(this.$t('chat.admin.roomDeleted'), 2000, 'success');
         }
       } catch (error) {
