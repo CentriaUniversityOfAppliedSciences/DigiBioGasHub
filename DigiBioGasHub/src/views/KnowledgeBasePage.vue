@@ -1,10 +1,10 @@
 <template>
     <ion-page>
-        <nav-bar-component />
+        <NavBarComponent />
         <ion-content>
             <KnowledgeBaseComponent />
         </ion-content>
-        <footer-component />
+        <FooterComponent />
     </ion-page>
 </template>
 <script>

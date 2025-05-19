@@ -1,6 +1,6 @@
 <template>
     <ion-page>
-        <nav-bar-component />
+        <NavBarComponent />
         
             <ion-button id="addCompany">Add company</ion-button>
         
@@ -8,14 +8,16 @@
             <ion-grid class="main-grid">
                 <ion-row v-for="comp in companies">
                     <ion-col>
-                        <CompanyComponent :company="comp" />
+                        <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted"  />
                     </ion-col>
                 </ion-row>
+                <!--
                 <ion-row>
                     <ion-col size="12">
                         <agreement-component />
                     </ion-col>
                 </ion-row>
+                -->
             </ion-grid>
         
             
@@ -89,6 +91,9 @@ export default defineComponent({
             let token = localStorage.getItem('token');
             let decoded = JSON.parse(atob(token.split('.')[1]));
             return decoded.id;
+        },
+        handleCompDeleted(){
+            this.getCompanies();
         },
         
     },

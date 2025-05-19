@@ -39,6 +39,7 @@
                     <ion-button :disabled="isInCompany" id="addOffer">{{ $t('offers.addOffer') }}</ion-button>
                 </ion-card-content>
             </ion-card>
+            <!--
             <ion-card class="profile-card">
                 <ion-card-header>
                     <ion-card-title>{{ $t('menu.company')}}</ion-card-title>
@@ -51,11 +52,11 @@
                     </ion-list>
                     <ion-button id="addCompany">{{ $t('company.addCompany') }}</ion-button>
                 </ion-card-content>
-            </ion-card>
+            </ion-card>-->
         </ion-content>
     
         <AddOfferComponent trigger="addOffer" />
-        <ion-modal trigger="addCompany">
+        <!--<ion-modal trigger="addCompany">
             <ion-header>
                 <ion-toolbar>
                     <ion-title>{{ $t('company.addCompany') }}</ion-title>
@@ -65,7 +66,7 @@
             <ion-content>
                 <AddCompanyComponent />
             </ion-content>
-        </ion-modal>
+        </ion-modal>-->
         <ion-modal trigger="changePassword">
             <ion-header>
                 <ion-toolbar>

@@ -1,5 +1,12 @@
 <template>
-
+    <ion-modal trigger="addCompany">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title>{{ $t('company.addCompany') }}</ion-title>
+                    <ion-button slot="end" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content>
             <ion-card>
                 <ion-card-content>
                         <ion-list>
@@ -42,17 +49,18 @@
                             </ion-item>
                             <ion-item>
                                 <ion-icon :icon="icons.website" slot="start" />
-                                <ion-input  v-model="company.web">{{ $t('general.website') }}</ion-input>
+                                <ion-input  v-model="company.web">{{ $t('company.website') }}</ion-input>
                             </ion-item>
                         </ion-list>
                     </ion-card-content>
                 <ion-button expand="full" @click="addCompany">{{ $t('product.submit') }}</ion-button>
             </ion-card>
-
+        </ion-content>
+    </ion-modal>
 </template>
 
 <script>
-import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime, IonCard, IonContent, IonIcon, IonList, IonCardContent, modalController, IonModal } from '@ionic/vue';
+import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime, IonCard, IonContent, IonIcon, IonList, IonCardContent, modalController, IonModal, IonHeader, IonToolbar, IonTitle } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import { locationOutline, callOutline, mailOutline, globeOutline } from 'ionicons/icons';
@@ -69,7 +77,7 @@ export default defineComponent({
         IonDatetime,
         IonCard,
         IonContent,
-        IonIcon, IonList, IonCardContent, IonModal
+        IonIcon, IonList, IonCardContent, IonModal, IonHeader, IonToolbar, IonTitle
     },
     setup() {
         const icons = {
@@ -98,6 +106,7 @@ export default defineComponent({
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.materials = response.data.message;
                     this.modalController.dismiss();
+                    
                 }
             });
         },

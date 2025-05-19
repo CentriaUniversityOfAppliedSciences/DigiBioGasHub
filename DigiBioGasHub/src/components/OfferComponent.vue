@@ -7,7 +7,7 @@
                 </ion-card-header>
                 <ion-card-content>
                     <p>{{ $t('product.logistic.type') }}: {{ offer.cargoType }}</p>
-                    <p>Amount: {{ offer.availableAmount }}</p>
+                    <p>{{ $t('product.productDetails.amount') }}: {{ offer.availableAmount }}</p>
                 </ion-card-content>
                 <ion-button id="buyOffer">Osta</ion-button>
             </ion-card>
