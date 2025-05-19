@@ -129,6 +129,11 @@ export default {
         this.roomId = this.$route.params.roomId;
         this.roomTitle = this.$route.params.roomTitle;
 
+        const token = localStorage.getItem("token");
+        if (token) {
+            this.decodedToken = jwtDecode(token);
+        }
+
         try {
             const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50});
             this.messages = response.data;
@@ -147,7 +152,7 @@ export default {
                 this.scrollToBottom();
             });
         });
-        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle }, (response) => {
+        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle, userId: this.decodedToken.id  }, (response) => {
             if (response.status === "success") {
                 this.validRoomId = true;
                 console.log("Joined room successfully");
@@ -167,11 +172,6 @@ export default {
                 this.messages[index].isEdited = true;
             }
         });
-
-        const token = localStorage.getItem("token");
-        if (token) {
-            this.decodedToken = jwtDecode(token);
-        }
     },
     beforeUnmount() {
         const container = this.$refs.messagesContainer;
