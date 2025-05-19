@@ -6,7 +6,7 @@
                 <ion-toolbar>
                     <ion-title>{{ $t('chat.chatRoom') }}: {{ roomTitle }}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button @click="leaveRoom">{{ $t('chat.leave') }}</ion-button>
+                        <ion-button @click="showLeaveAlert = true">{{ $t('chat.leave') }}</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -50,20 +50,38 @@
                 </div>
             </div>
 
+            <ion-alert :is-open="showLeaveAlert" :header="$t('chat.confirmLeave')"
+                :message="$t('chat.leaveRoomConfirmation')" :buttons="[
+                    {
+                        text: $t('general.cancel'),
+                        role: 'cancel',
+                        handler: () => {
+                            showLeaveAlert = false;
+                        }
+                    },
+                    {
+                        text: $t('chat.leave'),
+                        handler: () => {
+                            leaveRoom();
+                            showLeaveAlert = false;
+                        }
+                    }
+                ]"></ion-alert>
+
             <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')" :message="$t('chat.deleteMessage')"
                 :buttons="[
                     {
                         text: $t('general.cancel'),
                         role: 'cancel',
                         handler: () => {
-                            this.showDeleteAlert = false;
+                           showDeleteAlert = false;
                         }
                     },
                     {
                         text: $t('general.delete'),
                         handler: () => {
                             this.deleteMessage(this.messageToDelete);
-                            this.showDeleteAlert = false;
+                            showDeleteAlert = false;
                         }
                     }
                 ]"></ion-alert>
@@ -114,6 +132,7 @@ export default {
             newMessage: "",
             editingMessageId: null,
             editedMessage: "",
+            showLeaveAlert: false,
             showDeleteAlert: false,
             messageToDelete: null,
             decodedToken: null,
@@ -183,10 +202,6 @@ export default {
             this.socket.off("receiveMessage");
             this.socket.off("messageDeleted");
             this.socket.off("messageEdited");
-            this.socket.emit("leaveRoom", {
-                roomId: this.roomId,
-                roomName: this.roomTitle,
-            });
             this.socket.disconnect();
         }
     },
@@ -236,10 +251,11 @@ export default {
                 this.socket.emit("leaveRoom", {
                     roomId: this.roomId,
                     roomName: this.roomTitle,
+                    userId: this.decodedToken.id
                 });
                 this.socket.disconnect();
             }
-            this.$router.push({ name: "ChatRoomView" });
+            this.$router.push({ name: "ChatPageView" });
         },
 
         sendMessage() {

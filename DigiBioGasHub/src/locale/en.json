@@ -397,6 +397,8 @@
         "joinedRooms": "My Rooms",
         "enter": "Chat",
         "exploreRooms": "Explore Rooms",
+        "confirmLeave": "Leave Room!",
+        "leaveRoomConfirmation": "Are you sure you want to leave this room?",
         "privateChat": "Private Chat",
         "notifications": "Notifications",
         "join": "JOIN",
