@@ -1,57 +1,62 @@
 <template>
-    <IonPage>
-        <NavBarComponent />
-        <ion-content>
-            <ion-header>
-                <ion-toolbar>
-                    <ion-title>{{ $t('chat.chatRoom') }}: {{ roomTitle }}</ion-title>
-                    <ion-buttons slot="end">
-                        <ion-button @click="showLeaveAlert = true">{{ $t('chat.leave') }}</ion-button>
-                    </ion-buttons>
-                </ion-toolbar>
-            </ion-header>
-            <div id="chatContainer">
-                <div id="chatBox" ref="messagesContainer">
-                    <div v-if="messages.length === 0" class="message">
-                        {{ $t('chat.noMessages') }}
-                    </div>
-                    <div v-for="message in messages" :key="message.timestamp" class="message">
-                        <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
-                        <div class="message-content">
-                            <b>{{ message.name }}</b>
-                            <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
-                            <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
-                            <div v-if="editingMessageId === message._id">
-                                <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                    class="edit-textarea"></textarea>
-                                <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
-                            </div>
-                            <div v-else>
-                                <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                                <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
-                                    <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{
-                                        $t('general.edit') }}</button>
-                                    <button v-if="isOwnMessage(message) || isAdmin()" @click="confirmDelete(message)">{{
-                                        $t('general.delete') }}</button>
+    <div>
+        <div v-if="hasError">
+            <p>Invalid URL</p>
+        </div>
+        <IonPage v-else>
+            <NavBarComponent />
+            <ion-content>
+                <ion-header>
+                    <ion-toolbar>
+                        <ion-title>{{ $t('chat.chatRoom') }}: {{ roomTitle }}</ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button @click="showLeaveAlert = true">{{ $t('chat.leave') }}</ion-button>
+                        </ion-buttons>
+                    </ion-toolbar>
+                </ion-header>
+                <div id="chatContainer">
+                    <div id="chatBox" ref="messagesContainer">
+                        <div v-if="messages.length === 0" class="message">
+                            {{ $t('chat.noMessages') }}
+                        </div>
+                        <div v-for="message in messages" :key="message.timestamp" class="message">
+                            <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
+                            <div class="message-content">
+                                <b>{{ message.name }}</b>
+                                <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+                                <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                                <div v-if="editingMessageId === message._id">
+                                    <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
+                                        class="edit-textarea"></textarea>
+                                    <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
+                                </div>
+                                <div v-else>
+                                    <div style="white-space:pre-wrap;">{{ message.message }}</div>
+                                    <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
+                                        <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{
+                                            $t('general.edit') }}</button>
+                                        <button v-if="isOwnMessage(message) || isAdmin()"
+                                            @click="confirmDelete(message)">{{
+                                            $t('general.delete') }}</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div id="messageInputContainer">
-                    <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
-                        rows="1" style="overflow:hidden; resize:none; height:auto"
-                        @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
+                    <div id="messageInputContainer">
+                        <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
+                            rows="1" style="overflow:hidden; resize:none; height:auto"
+                            @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
                             $event.target.style.height = 'auto';
                         $event.target.style.height = $event.target.scrollHeight + 'px';
                         " ref="messageInput"></textarea>
-                    <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
+                        <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
+                    </div>
                 </div>
-            </div>
 
-            <ion-alert :is-open="showLeaveAlert" :header="$t('chat.confirmLeave')"
-                :message="$t('chat.leaveRoomConfirmation')" :buttons="[
+                <ion-alert :is-open="showLeaveAlert" :header="$t('chat.confirmLeave')"
+                    :message="$t('chat.leaveRoomConfirmation')" :buttons="[
                     {
                         text: $t('general.cancel'),
                         role: 'cancel',
@@ -68,8 +73,8 @@
                     }
                 ]"></ion-alert>
 
-            <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')" :message="$t('chat.deleteMessage')"
-                :buttons="[
+                <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')"
+                    :message="$t('chat.deleteMessage')" :buttons="[
                     {
                         text: $t('general.cancel'),
                         role: 'cancel',
@@ -86,8 +91,9 @@
                     }
                 ]"></ion-alert>
 
-        </ion-content>
-    </IonPage>
+            </ion-content>
+        </IonPage>
+    </div>
 </template>
 
 <script>
@@ -139,7 +145,7 @@ export default {
             socket: null,
             loadingOlderMessages: false,
             hasMoreMessages:true,
-            validRoomId: false
+            hasError: false,
         };
     },
     async mounted() {
@@ -152,6 +158,15 @@ export default {
         if (token) {
             this.decodedToken = jwtDecode(token);
         }
+
+        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle, userId: this.decodedToken.id  }, (response) => {
+            if (response.status === "success") {
+                console.log("Joined room successfully");
+            } else {
+                this.hasError = true;
+                console.error("Failed to join room:", response.message);
+            }
+        });
 
         try {
             const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50});
@@ -171,14 +186,7 @@ export default {
                 this.scrollToBottom();
             });
         });
-        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle, userId: this.decodedToken.id  }, (response) => {
-            if (response.status === "success") {
-                this.validRoomId = true;
-                console.log("Joined room successfully");
-            } else {
-                console.error("Failed to join room:", response.message);
-            }
-        });
+
         this.socket.on("messageDeleted", (messageData) => {
             const messageId = messageData.id;
             this.messages = this.messages.filter((msg) => msg._id !== messageId);
