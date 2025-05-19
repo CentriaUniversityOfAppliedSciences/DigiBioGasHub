@@ -1,5 +1,5 @@
 <template>
-    <IonPage>
+    <IonPage v-if="!hasError">
         <NavBarComponent />
         <ion-content>
             <ion-header>
@@ -69,6 +69,13 @@
                 ]"></ion-alert>
         </ion-content>
     </IonPage>
+    <IonPage v-else>
+        <ion-content>
+            <div>
+                {{ $t('chat.errorMessage') }}
+            </div>
+        </ion-content>
+    </IonPage>
 </template>
 
 <script>
@@ -120,7 +127,7 @@ export default {
             socket:null,
             allLoaded:false,
             loadingMore:false,
-            valiRecipientId: false   
+            hasError: false   
         };
     },
     async mounted() {
@@ -159,8 +166,9 @@ export default {
 
             this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, (response) => {
                 if (response.status === "success") {
-                    this.valiRecipientId = true;
+                    console.log("Joined private chat room successfully");
                 } else {
+                    this.hasError = true;
                     console.error("Failed to join private chat room:", response.message);
                 }
             });
@@ -263,10 +271,6 @@ export default {
         },
         sendMessage() {
 
-            if(!this.valiRecipientId){
-                console.error("Invalid receiver id");
-                return;
-            }
             if (!this.newMessage.trim()) return;
 
             const senderId = this.decodedToken.id;

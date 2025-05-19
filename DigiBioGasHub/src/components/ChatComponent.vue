@@ -1,12 +1,12 @@
 <template>
-    <IonPage>
+    <IonPage v-if="!hasError">
         <NavBarComponent />
         <ion-content>
             <ion-header>
                 <ion-toolbar>
                     <ion-title>{{ $t('chat.chatRoom') }}: {{ roomTitle }}</ion-title>
                     <ion-buttons slot="end">
-                        <ion-button @click="leaveRoom">{{ $t('chat.leave') }}</ion-button>
+                        <ion-button @click="showLeaveAlert = true">{{ $t('chat.leave') }}</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -50,24 +50,49 @@
                 </div>
             </div>
 
+            <ion-alert :is-open="showLeaveAlert" :header="$t('chat.confirmLeave')"
+                :message="$t('chat.leaveRoomConfirmation')" :buttons="[
+                    {
+                        text: $t('general.cancel'),
+                        role: 'cancel',
+                        handler: () => {
+                            showLeaveAlert = false;
+                        }
+                    },
+                    {
+                        text: $t('chat.leave'),
+                        handler: () => {
+                            leaveRoom();
+                            showLeaveAlert = false;
+                        }
+                    }
+                ]"></ion-alert>
+
             <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')" :message="$t('chat.deleteMessage')"
                 :buttons="[
                     {
                         text: $t('general.cancel'),
                         role: 'cancel',
                         handler: () => {
-                            this.showDeleteAlert = false;
+                            showDeleteAlert = false;
                         }
                     },
                     {
                         text: $t('general.delete'),
                         handler: () => {
                             this.deleteMessage(this.messageToDelete);
-                            this.showDeleteAlert = false;
+                            showDeleteAlert = false;
                         }
                     }
                 ]"></ion-alert>
 
+        </ion-content>
+    </IonPage>
+    <IonPage v-else>
+        <ion-content>
+            <div>
+                {{ $t('chat.errorMessage') }}
+            </div>
         </ion-content>
     </IonPage>
 </template>
@@ -114,13 +139,14 @@ export default {
             newMessage: "",
             editingMessageId: null,
             editedMessage: "",
+            showLeaveAlert: false,
             showDeleteAlert: false,
             messageToDelete: null,
             decodedToken: null,
             socket: null,
             loadingOlderMessages: false,
             hasMoreMessages:true,
-            validRoomId: false
+            hasError: false,
         };
     },
     async mounted() {
@@ -128,6 +154,20 @@ export default {
         this.socket = getSocket();
         this.roomId = this.$route.params.roomId;
         this.roomTitle = this.$route.params.roomTitle;
+
+        const token = localStorage.getItem("token");
+        if (token) {
+            this.decodedToken = jwtDecode(token);
+        }
+
+        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle, userId: this.decodedToken.id  }, (response) => {
+            if (response.status === "success") {
+                console.log("Joined room successfully");
+            } else {
+                this.hasError = true;
+                console.error("Failed to join room:", response.message);
+            }
+        });
 
         try {
             const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50});
@@ -147,14 +187,7 @@ export default {
                 this.scrollToBottom();
             });
         });
-        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle }, (response) => {
-            if (response.status === "success") {
-                this.validRoomId = true;
-                console.log("Joined room successfully");
-            } else {
-                console.error("Failed to join room:", response.message);
-            }
-        });
+
         this.socket.on("messageDeleted", (messageData) => {
             const messageId = messageData.id;
             this.messages = this.messages.filter((msg) => msg._id !== messageId);
@@ -167,11 +200,6 @@ export default {
                 this.messages[index].isEdited = true;
             }
         });
-
-        const token = localStorage.getItem("token");
-        if (token) {
-            this.decodedToken = jwtDecode(token);
-        }
     },
     beforeUnmount() {
         const container = this.$refs.messagesContainer;
@@ -183,10 +211,6 @@ export default {
             this.socket.off("receiveMessage");
             this.socket.off("messageDeleted");
             this.socket.off("messageEdited");
-            this.socket.emit("leaveRoom", {
-                roomId: this.roomId,
-                roomName: this.roomTitle,
-            });
             this.socket.disconnect();
         }
     },
@@ -236,10 +260,11 @@ export default {
                 this.socket.emit("leaveRoom", {
                     roomId: this.roomId,
                     roomName: this.roomTitle,
+                    userId: this.decodedToken.id
                 });
                 this.socket.disconnect();
             }
-            this.$router.push({ name: "ChatRoomView" });
+            this.$router.push({ name: "ChatPageView" });
         },
 
         sendMessage() {
