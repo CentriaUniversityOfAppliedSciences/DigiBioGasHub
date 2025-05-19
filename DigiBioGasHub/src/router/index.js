@@ -204,7 +204,6 @@ const routes = [
     path: "/chat/:roomId/:roomTitle",
     name: "Chat",
     component: ChatComponent,
-    props: true,
     beforeEnter:[checkUser]
   },
   {
@@ -217,7 +216,6 @@ const routes = [
     path: "/privateChat/:recipientId/:recipientName",
     name: "PrivateChat",
     component: PrivateChatComponent,
-    props: true,
     beforeEnter:[checkUser]
 },
 ]

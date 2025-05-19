@@ -262,10 +262,10 @@ export default {
       }
     },
     goToRoom(roomId, roomName) {
-      this.$router.push(`/chat/${roomId}/${roomName}`);
+      window.location.href = `/chat/${roomId}/${roomName}`
     },
     joinRoom(roomId, roomTitle) {
-      this.$router.push(`/chat/${roomId}/${roomTitle}`);
+      window.location.href = `/chat/${roomId}/${roomTitle}`;
     },
 
     async createRoom() {

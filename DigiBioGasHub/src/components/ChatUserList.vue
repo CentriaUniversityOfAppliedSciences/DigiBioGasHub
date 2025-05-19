@@ -60,10 +60,7 @@ export default {
             }
         },
         navigateToChat(recipientId, recipientName) {
-            this.$router.push({
-                name: "PrivateChat",
-                params: { recipientId, recipientName }
-            });
+            window.location.href = `/privatechat/${recipientId}/${recipientName}`;
         },
         formatTime(timestamp) {
             const date = new Date(timestamp);
