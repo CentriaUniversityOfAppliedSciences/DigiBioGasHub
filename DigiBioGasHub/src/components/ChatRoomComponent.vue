@@ -8,21 +8,26 @@
         </ion-toolbar>
       </ion-header>
 
+  <ion-content class="ion-padding">
+
+    <!-- Joined Rooms Section -->
+    <div v-if="joinedRooms.length">
+      <h2>{{ $t('chat.joinedRooms') }}</h2>
       <ion-grid>
         <ion-row>
-          <ion-col size="10" size-md="6" size-lg="4" v-for="room in rooms" :key="room._id">
-            <ion-card class="ion-margin">
+          <ion-col size="10" size-md="6" size-lg="4" v-for="room in joinedRooms" :key="room._id">
+            <ion-card class="room-card joined-room ion-margin">
               <ion-card-content>
-                <ion-icon name="chatbubbles-sharp" style="width: 50px; height: 50px;"></ion-icon>
+                <ion-icon name="chatbubbles-sharp" class="room-icon"></ion-icon>
                 <ion-card-title>{{ room.name }}</ion-card-title>
                 <p>{{ room.description }}</p>
-                <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
-                  {{ $t('chat.join') }}
+                <ion-button expand="block" color="success" @click="goToRoom(room.roomId, room.name)">
+                  {{ $t('chat.enter') }}
                 </ion-button>
-                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room)" class="ion-margin">
+                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room, 'joined')" class="ion-margin-top ion-margin-end">
                   {{ $t('chat.admin.updateRoom') }}
                 </ion-button>
-                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId)" class="ion-margin">
+                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId, 'joined')" class="ion-margin-top ion-margin-end" >
                   {{ $t('chat.admin.deleteRoom') }}
                 </ion-button>
               </ion-card-content>
@@ -30,6 +35,35 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+    </div>
+
+    <!-- Explore Rooms Section -->
+    <div v-if="unjoinedRooms.length">
+      <h2>{{ $t('chat.exploreRooms') }}</h2>
+      <ion-grid>
+        <ion-row>
+          <ion-col size="10" size-md="6" size-lg="4" v-for="room in unjoinedRooms" :key="room._id">
+            <ion-card class="room-card unjoined-room ion-margin">
+              <ion-card-content>
+                <ion-icon name="chatbubbles-outline" class="room-icon"></ion-icon>
+                <ion-card-title>{{ room.name }}</ion-card-title>
+                <p>{{ room.description }}</p>
+                <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
+                  {{ $t('chat.join') }}
+                </ion-button>
+                <ion-button v-if="isAdmin" color="primary" @click="openUpdateModal(room, 'unjoined')" class="ion-margin-top ion-margin-end">
+                  {{ $t('chat.admin.updateRoom') }}
+                </ion-button>
+                <ion-button v-if="isAdmin" color="danger" @click="confirmDelete(room.roomId, 'unjoined')" class="ion-margin-top ion-margin-end" >
+                  {{ $t('chat.admin.deleteRoom') }}
+                </ion-button>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+  </ion-content>
 
       <ion-modal :is-open="showModal" @didDismiss="showModal = false">
         <ion-content class="ion-padding">
@@ -130,11 +164,12 @@ import {
 import axios from "axios";
 import { jwtDecode } from "../router";
 import ToastComponent from "./ToastComponent.vue";
-import { chatbubblesSharp } from "ionicons/icons";
+import { chatbubbleOutline, chatbubblesSharp } from "ionicons/icons";
 import { addIcons } from "ionicons";
 
 addIcons({
-    "chatbubbles-sharp": chatbubblesSharp
+    "chatbubbles-sharp": chatbubblesSharp,
+    "chatbubbles-outline": chatbubbleOutline,
 });
 
 export default {
@@ -165,8 +200,11 @@ export default {
   },
   data() {
     return {
-      rooms: [],
+      joinedRooms: [],
+      unjoinedRooms: [],
+      currentRoomList: "",
       isAdmin: false,
+      decodedToken: null,
       showModal: false,
       showUpdateModal: false,
       showDeleteAlert: false,
@@ -199,17 +237,33 @@ export default {
     try {
       const token = localStorage.getItem("token");
       if (token) {
-        this.isAdmin = jwtDecode(token).userlevel >= 22;
+        this.decodedToken = jwtDecode(token);
+        this.isAdmin = this.decodedToken.userlevel >= 22;
       }
-
-      const response = await axios.get(this.$chat_server_add + "/rooms");
-      this.rooms = response.data;
     } catch (error) {
       console.error("Failed to fetch rooms:", error);
     }
+    this.fetchUserRooms();
   },
 
   methods: {
+
+    async fetchUserRooms() {
+      try {
+        const response = await axios.post(this.$chat_server_add + "/getrooms", {
+          userId: this.decodedToken.id,
+        });
+
+        this.joinedRooms = response.data.joinedRooms;
+        this.unjoinedRooms = response.data.unjoinedRooms;
+      } catch (error) {
+        console.error("Failed to fetch rooms:", error);
+        this.$refs.toastComponent.showToast("Failed to load rooms", 2000, 'danger');
+      }
+    },
+    goToRoom(roomId, roomName) {
+      window.location.href = `/chat/${roomId}/${roomName}`
+    },
     joinRoom(roomId, roomTitle) {
       window.location.href = `/chat/${roomId}/${roomTitle}`;
     },
@@ -221,7 +275,7 @@ export default {
           description: this.newRoom.description
         });
         if (response.status === 201) {
-          this.rooms.push(response.data);
+          this.unjoinedRooms.push(response.data);
           this.showModal = false;
           this.newRoom = { name: '', description: '' };
           this.$refs.toastComponent.showToast(this.$t('chat.admin.roomCreated'), 2000, 'success');
@@ -232,10 +286,11 @@ export default {
       }
     },
 
-    openUpdateModal(room) {
+    openUpdateModal(room, listType) {
       this.editRoom = { name: room.name, description: room.description };
       this.originalRoom = { name: room.name, description: room.description };
       this.roomId = room.roomId;
+      this.currentRoomList = listType;
       this.showUpdateModal = true;
     },
 
@@ -247,10 +302,11 @@ export default {
           description: this.editRoom.description
         });
         if (response.status === 200) {
-          const index = this.rooms.findIndex(r => r.roomId === roomId);
+          const list = this.currentRoomList === "joined" ? this.joinedRooms : this.unjoinedRooms;
+          const index = list.findIndex(r => r.roomId === roomId);
           if (index !== -1) {
-            this.rooms[index].name = this.editRoom.name;
-            this.rooms[index].description = this.editRoom.description;
+            list[index].name = this.editRoom.name;
+            list[index].description = this.editRoom.description;
           }
           this.showUpdateModal = false;
           this.$refs.toastComponent.showToast(this.$t('chat.admin.roomUpdated'), 2000, 'success');
@@ -262,9 +318,10 @@ export default {
     },
 
 
-    confirmDelete(roomId) {
+    confirmDelete(roomId, listType) {
       this.showDeleteAlert = true;
       this.roomId = roomId;
+      this.currentRoomList = listType;
     },
 
     async deleteRoom(roomId) {
@@ -272,7 +329,11 @@ export default {
         console.log("Deleting room with ID:", roomId);
         const response = await axios.delete(this.$chat_server_add + `/room/${roomId}`);
         if (response.status === 200) {
-          this.rooms = this.rooms.filter(room => room.roomId !== roomId);
+          if (this.currentRoomList === "joined") {
+            this.joinedRooms = this.joinedRooms.filter(room => room.roomId !== roomId);
+          } else {
+            this.unjoinedRooms = this.unjoinedRooms.filter(room => room.roomId !== roomId);
+          }
           this.$refs.toastComponent.showToast(this.$t('chat.admin.roomDeleted'), 2000, 'success');
         }
       } catch (error) {
@@ -284,4 +345,30 @@ export default {
 };
 </script>
 
-<style scoped></style>
+
+<style scoped>
+
+.room-card {
+  transition: transform 0.2s ease;
+}
+
+.room-card:hover {
+  transform: translateY(-4px);
+}
+
+.room-icon {
+  width: 40px;
+  height: 40px;
+  color: var(--ion-color-medium);
+  margin-bottom: 10px;
+}
+
+.joined-room .room-icon {
+  color: var(--ion-color-success);
+}
+
+.unjoined-room .room-icon {
+  color: var(--ion-color-primary);
+}
+
+</style>

@@ -123,7 +123,7 @@ export default defineComponent({
                 const decoded = jwtDecode(token);
                 const userId = decoded.id;
 
-                const { data } = await axios.post("http://localhost:3005/notifications", { userId });
+                const { data } = await axios.post(this.$chat_server_add + '/notifications', { userId });
                 this.notifications = data || [];
             } catch (error) {
                 console.error("Error fetching notifications:", error);
