@@ -10,10 +10,10 @@
 
       <ion-grid>
         <ion-row>
-          <ion-col size="12" size-md="6" size-lg="4" v-for="room in rooms" :key="room._id">
+          <ion-col size="10" size-md="6" size-lg="4" v-for="room in rooms" :key="room._id">
             <ion-card class="ion-margin">
               <ion-card-content>
-                <ion-img :src="room.image" alt="Room Image"></ion-img>
+                <ion-icon name="chatbubbles-sharp" style="width: 50px; height: 50px;"></ion-icon>
                 <ion-card-title>{{ room.name }}</ion-card-title>
                 <p>{{ room.description }}</p>
                 <ion-button expand="block" @click="joinRoom(room.roomId, room.name)">
@@ -130,6 +130,12 @@ import {
 import axios from "axios";
 import { jwtDecode } from "../router";
 import ToastComponent from "./ToastComponent.vue";
+import { chatbubblesSharp } from "ionicons/icons";
+import { addIcons } from "ionicons";
+
+addIcons({
+    "chatbubbles-sharp": chatbubblesSharp
+});
 
 export default {
   name: "ChatRoomComponent",
