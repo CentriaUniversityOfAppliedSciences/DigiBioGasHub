@@ -141,7 +141,7 @@ const routes = [
     beforeEnter: (to, from, next) => {
       let token = localStorage.getItem('token')
       if (token) {
-        if (jwtDecode(token).userlevel >= 20) {
+        if (jwtDecode(token).userlevel >= 1) {
         next()
         }
         else {
