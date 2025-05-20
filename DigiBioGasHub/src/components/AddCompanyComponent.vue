@@ -1,9 +1,9 @@
 <template>
-    <ion-modal trigger="addCompany">
+    <ion-modal :is-open="visible" @didDismiss="onDismiss">
             <ion-header>
                 <ion-toolbar>
                     <ion-title>{{ $t('company.addCompany') }}</ion-title>
-                    <ion-button slot="end" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
+                    <ion-button slot="end" @click="closeModal()">{{ $t('general.close') }}</ion-button>
                 </ion-toolbar>
             </ion-header>
             <ion-content>
@@ -99,16 +99,26 @@ export default defineComponent({
             userID: null
         };
     },
+    props: {
+        visible: Boolean
+    },
+    emits: ['update:visible'],
     methods: {
         addCompany(){
             var url = this.$api_add + "/createcompany";
             axios.post(url,{ "userID": this.userID, "name": this.company.name, "address": this.company.address, "city": this.company.city, "zipcode": this.company.zipcode, "phone": this.company.phone, "email":this.company.email, "companyType": this.company.companyType, "web":this.company.web },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
-                    this.materials = response.data.message;
-                    this.modalController.dismiss();
-                    
+                if (response.data.type==="result" && response.data.result ==="ok" && response.data.message.length > 0){
+                    console.log("If codition passed........!")
+                    this.materials = response.data.message; 
                 }
+                this.$emit('update:visible', false);
             });
+        },
+        onDismiss() {
+            this.$emit('update:visible', false);
+        },
+        closeModal() {
+            this.$emit('update:visible', false);
         },
         getLocale(){
             

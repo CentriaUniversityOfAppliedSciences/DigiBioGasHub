@@ -2,7 +2,7 @@
     <ion-page>
         <NavBarComponent />
         
-        <ion-button id="addCompany">Add company</ion-button>
+        <ion-button @click="showAddCompany = true">Add company</ion-button>
         
         <ion-content >
             <ion-grid class="main-grid">
@@ -22,7 +22,7 @@
         
             
             <FooterComponent />
-             <AddCompanyComponent />
+             <AddCompanyComponent v-model:visible="showAddCompany" />
         </ion-content>
        
         
@@ -73,7 +73,8 @@ export default defineComponent({
     },
     data() {
         return {
-            companies: []
+            companies: [],
+            showAddCompany: false
         }
     },
     methods: {
