@@ -1,10 +1,19 @@
 <template>
     <ion-page>
         <NavBarComponent />
-        
-        <ion-button @click="showAddCompany = true">Add company</ion-button>
-        
-        <ion-content >
+        <ion-toolbar>
+            <ion-row style="align-items: center; justify-content: space-between; padding: 16px;">
+                <ion-col size="auto">
+                    <h2>Companies</h2>
+                </ion-col>
+                <ion-col size="auto">
+                    <ion-button @click="showAddCompany = true">Add company</ion-button>
+                </ion-col>
+            </ion-row>
+        </ion-toolbar>
+
+        <ion-content>
+
             <ion-grid class="main-grid">
                 <ion-row v-for="comp in companies">
                     <ion-col>
@@ -109,5 +118,27 @@ export default defineComponent({
 /* Optional styling */
 .main-grid {
     min-height: 75vh;
+    display: grid;
+    gap: 16px;
+    margin: 1rem;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 480px) {
+    .main-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 768px) {
+    .main-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .main-grid {
+        grid-template-columns: repeat(5, 1fr);
+    }
 }
 </style>
