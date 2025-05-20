@@ -9,8 +9,7 @@
     </ion-page>
 </template>
 <script>
-import { defineComponent, ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { defineComponent } from 'vue'
 import NavBarComponent from '../components/NavBarComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import BlogPostComponent from '../components/BlogPostComponent.vue'
@@ -18,30 +17,27 @@ import { IonPage, IonContent } from '@ionic/vue'
 import axios from 'axios'
 
 export default defineComponent({
-    name: 'ToSPage',
+    name: 'BlogPage',
     components: { NavBarComponent, FooterComponent, IonPage, IonContent, BlogPostComponent },
-    setup() {
-
-        const content = ref('')
-        const route = useRoute()
-        const postID = route.params.postID
-
-        async function fetchBlogPost() {
+    data() {
+        return {
+            content: '',
+            postID: this.$route.params.postID
+        }
+    },
+    methods: {
+        async fetchBlogPost() {
             try {
-                var url = this.$api_add + "/getblogpost";
-                const response = await axios.post(url, { "postID": postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-                content.value = response.data.message.content;
+                const url = this.$api_add + "/getblogpost";
+                const response = await axios.post(url, { "postID": this.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                this.content = response.data.message.content;
             } catch (error) {
-                console.error(error)
+                console.error(error);
             }
         }
-        onMounted(() => {
-            fetchBlogPost()
-        })
-
-        return {
-            content
-        }
+    },
+    mounted() {
+        this.fetchBlogPost();
     }
 })
 </script>
