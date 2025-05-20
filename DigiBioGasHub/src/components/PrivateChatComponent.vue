@@ -95,8 +95,9 @@ import getsocket from "../socket";
 import { jwtDecode } from "../router";
 import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
     name: "PrivateChatComponent",
     components: {
         IonPage,
@@ -345,7 +346,7 @@ export default {
         }
     },
     },
-};
+});
 </script>
 
 <style scoped>

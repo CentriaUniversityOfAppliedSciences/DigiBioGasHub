@@ -166,13 +166,14 @@ import { jwtDecode } from "../router";
 import ToastComponent from "./ToastComponent.vue";
 import { chatbubbleOutline, chatbubblesSharp } from "ionicons/icons";
 import { addIcons } from "ionicons";
+import { defineComponent } from "vue";
 
 addIcons({
     "chatbubbles-sharp": chatbubblesSharp,
     "chatbubbles-outline": chatbubbleOutline,
 });
 
-export default {
+export default defineComponent({ 
   name: "ChatRoomComponent",
   components: {
     IonContent,
@@ -342,7 +343,7 @@ export default {
       }
     }
   }
-};
+});
 </script>
 
 

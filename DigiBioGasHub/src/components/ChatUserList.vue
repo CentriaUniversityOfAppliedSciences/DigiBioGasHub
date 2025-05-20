@@ -23,11 +23,12 @@
 <script>
 import axios from "axios";
 import { jwtDecode } from "../router";
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem } from "@ionic/vue";
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel } from "@ionic/vue";
 import FooterComponent from "./FooterComponent.vue";
 import NavBarComponent from "./NavBarComponent.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
     name: "ChatUserList",
     components: {
         IonPage,
@@ -37,6 +38,7 @@ export default {
         IonContent,
         IonList,
         IonItem,
+        IonLabel,
         NavBarComponent,
         FooterComponent
     },
@@ -77,7 +79,7 @@ export default {
 
         this.fetchUsers();
     },
-};
+});
 </script>
 
 <style scoped>
