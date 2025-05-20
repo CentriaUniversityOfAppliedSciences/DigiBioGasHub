@@ -4,6 +4,7 @@
                 <ion-select-option value="materials">{{ $t('admin.materials') }}</ion-select-option>
                 <ion-select-option value="users">{{ $t('admin.manage_users') }}</ion-select-option>
                 <ion-select-option value="blog">{{ $t('admin.blogpost.blogs') }}</ion-select-option>
+                <ion-select-option value="companies">{{ $t('admin.company.manageCompanies') }}</ion-select-option>
                 <ion-select-option value="settings">{{ $t('admin.settings') }}</ion-select-option>
                 <ion-select-option value="reports">{{ $t('admin.reports') }}</ion-select-option>
             </ion-select>
@@ -40,6 +41,9 @@ export default defineComponent({
             }
             else if (selectedValue === "blog") {
                 this.$router.push('/admin/manage-blog-post');
+            }
+            else if (selectedValue === "companies") {
+                this.$router.push('/admin/manage-companies');
             }
         }
     }

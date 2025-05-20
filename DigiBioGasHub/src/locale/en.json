@@ -304,6 +304,7 @@
     },
     "admin": {
         "company": {
+            "manageCompanies": "Companies",
             "title": "Company Management",
             "detailstitle": "Company Details",
             "verified":"Verified",
