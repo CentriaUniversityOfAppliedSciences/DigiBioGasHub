@@ -1,5 +1,5 @@
 <template>
-   
+   <ion-footer>
         <ion-grid class="dark-footer" >
             <ion-row>
                 <ion-col size="12" size-sm="3">
@@ -52,12 +52,12 @@
             </ion-row>
             
         </ion-grid>
-       
+   </ion-footer>
 
 </template>
 
 <script>
-import { IonGrid, IonRow, IonCol, IonItem } from '@ionic/vue';
+import { IonGrid, IonRow, IonCol, IonItem, IonFooter } from '@ionic/vue';
 
 export default {
     name: 'FooterComponent',
@@ -67,6 +67,7 @@ export default {
         IonRow,
         IonCol,
         IonItem,
+        IonFooter
         
 
         
@@ -78,10 +79,9 @@ export default {
 .dark-footer {
   background-color: #333333;
   color: #fff;
-  
   bottom: 0;
-
   width: 100%;
+  padding: 2rem;
 }
 .menu-item a {
     color: #fff;
