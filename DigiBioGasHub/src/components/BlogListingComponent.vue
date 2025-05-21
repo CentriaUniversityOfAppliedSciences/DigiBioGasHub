@@ -1,17 +1,15 @@
 <template>
-       <ion-card class="blog-card">
-        <ion-card-header>
-            <ion-card-title class="blog-card-title">{{ article.title }}</ion-card-title>
-            <ion-card-subtitle class="blog-card-date">{{ article.date }}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content class="blog-card-content">
-            <img class="blog-card-img" :src="article.picture" alt="article picture"/>
-            <p class="blog-card-abstract">{{ article.abstract }}</p>
-            <ion-item>
-                <ion-button @click="openArticle(article.link)">{{ $t('general.read_more') }}</ion-button>
-            </ion-item>
-        </ion-card-content>
-    </ion-card>
+  <ion-card class="blog-card">
+    <ion-card-content class="blog-card-content">
+      <img class="blog-card-img" :src="article.picture" alt="article picture" />
+      <ion-card-title class="blog-card-title">{{ article.title }}</ion-card-title>
+      <ion-card-subtitle class="blog-card-date">{{ article.date }}</ion-card-subtitle>
+      <p class="blog-card-abstract">{{ article.abstract }}</p>
+      <ion-item>
+        <ion-button @click="openArticle(article.link)">{{ $t('general.read_more') }}</ion-button>
+      </ion-item>
+    </ion-card-content>
+  </ion-card>
 </template>
 
 <script>
@@ -48,12 +46,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-ion-card {
-    margin: 20px;
-}
-
 .blog-card {
   border-radius: 8px;
+  height: 100%;
+  width: 100%;      
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: transform 0.3s, box-shadow 0.3s;

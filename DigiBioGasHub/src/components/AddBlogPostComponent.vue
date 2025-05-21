@@ -8,6 +8,7 @@
 import { defineComponent, ref } from 'vue';
 import { UmoEditor } from '@umoteam/editor';
 import axios from 'axios';
+import defaultImage from '../assets/DBH-logo-cc.png';
 import { jwtDecode } from '../router/index';
 
 export default defineComponent({
@@ -548,7 +549,22 @@ export default defineComponent({
       const parser = new DOMParser();
       const doc = parser.parseFromString(content, 'text/html');
       const title = this.extractTitle(doc) || 'Default Title';
-      const image = this.extractImage(doc) || this.imageBase64;
+      console.log("defaultImage", defaultImage);
+
+      let image = this.extractImage(doc) || this.imageBase64;
+
+      if (!image) {
+        try {
+          const response = await fetch(defaultImage);
+          const defaultImageBlob = await response.blob();
+          const processed = await this.processImg(defaultImageBlob);
+          image = processed.url; 
+        } catch (e) {
+          console.error('Failed to fetch or process default image', e);
+          image = null;
+        }
+      }
+
       const token = localStorage.getItem('token');
       if (!token) {
         console.error('No token found');
