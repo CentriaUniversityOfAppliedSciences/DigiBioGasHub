@@ -1,12 +1,12 @@
 <template>
     <IonPage>
         <NavBarComponent />
-        <ion-content>
+        <ion-content :fullscreen="true">
             <div v-if="loading">loading....</div>
             <div v-if="postNotFound">Blog post not found</div>
             <EditBlogPostComponent v-show="!loading && !postNotFound" :content="content" :postID="postID" />
+            <FooterComponent />
         </ion-content>
-        <FooterComponent />
     </IonPage>
 </template>
 

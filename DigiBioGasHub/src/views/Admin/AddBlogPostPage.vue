@@ -1,10 +1,10 @@
 <template>
     <IonPage>
         <NavBarComponent />
-        <ion-content>
+        <ion-content :fullscreen="true">
             <AddBlogPostComponent />
+            <FooterComponent />
         </ion-content>
-        <FooterComponent />
     </IonPage>
 </template>
 <script>
