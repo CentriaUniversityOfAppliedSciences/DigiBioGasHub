@@ -123,6 +123,7 @@ export default defineComponent ({
     padding: 10px 20px;
     background-color: #333;
     color: #fff;
+    z-index: 1000;
 }
 
 .navbar-left, .navbar-center, .navbar-right {

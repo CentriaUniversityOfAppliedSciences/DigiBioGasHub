@@ -6,7 +6,7 @@
                 <ion-title>{{ $t('admin.company.title') }}</ion-title>
             </ion-toolbar>
         </ion-header>
-        <ion-content>
+        <ion-content :fullscreen="true">
             <ion-segment v-model="selectedSegment">
                 <ion-segment-button value="verified">{{ $t('admin.company.verified') }}</ion-segment-button>
                 <ion-segment-button value="unverified">{{ $t('admin.company.unverified') }}</ion-segment-button>
@@ -21,9 +21,9 @@
                         <p>{{ company.city }}</p>
                     </ion-label>
                 </ion-item>
-            </ion-list>
+            </ion-list> 
         </ion-content>
-
+        
         <ion-modal :is-open="isReviewOpen" @didDismiss="isReviewOpen = false">
             <ion-header>
                 <ion-toolbar>
@@ -132,9 +132,7 @@
         </ion-modal>
 
         <ToastComponent ref="toastComponent" />
-
         <FooterComponent />
-
     </ion-page>
 </template>
 

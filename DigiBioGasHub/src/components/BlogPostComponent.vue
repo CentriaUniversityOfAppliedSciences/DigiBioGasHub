@@ -28,7 +28,7 @@ export default defineComponent({
 <style scoped>
 .ion-padding {
     padding: 20px;
-    margin: auto;
+    margin-left:3rem;
     max-width: 80%;
 }
 </style>

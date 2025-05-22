@@ -4,7 +4,7 @@
         <ion-content>
             <ion-grid class="main-grid">
                 <ion-row>
-                <ion-col size="12" size-sm="6" size-md="3" v-for="article in articles" :key="article.title">
+                <ion-col size="12" size-sm="3" size-md="3" size-lg="3" v-for="article in articles" :key="article.title">
                     <BlogListingComponent class="blog-card" :article="article" />
                 </ion-col>
                 </ion-row>
@@ -63,9 +63,13 @@ export default defineComponent ({
 </script>
 <style scoped>
 .blog-card {
-    text-align: center;
-    
+    text-align: center;   
 }
+
+ion-col {
+  padding: 10px;
+}
+
 .main-grid {
     min-height: 75vh;
 }

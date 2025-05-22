@@ -1,11 +1,15 @@
 <template>
     <ion-page>
         <NavBarComponent />
-        <ion-content>
-            <BlogPostComponent :content="content" />
-            <FooterComponent />
+        <ion-content :fullscreen="true">
+            <div class="page-wrapper">
+                <div v-if="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
+                <BlogPostComponent v-else :content="content" />
+                <FooterComponent />
+            </div>
         </ion-content>
-        
     </ion-page>
 </template>
 <script>
@@ -22,6 +26,7 @@ export default defineComponent({
     data() {
         return {
             content: '',
+            errorMessage: '',
             postID: this.$route.params.postID
         }
     },
@@ -32,7 +37,13 @@ export default defineComponent({
                 const response = await axios.post(url, { "postID": this.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 this.content = response.data.message.content;
             } catch (error) {
-                console.error(error);
+                if (error.response && error.response.status === 404) {
+                    this.errorMessage = error.response.data.message || 'Blog post not found';
+                    this.content = '';
+                } else {
+                    this.errorMessage = 'An unexpected error occurred.';
+                    console.error(error);
+                }
             }
         }
     },
@@ -41,3 +52,16 @@ export default defineComponent({
     }
 })
 </script>
+
+<style scoped>
+.page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.page-wrapper > *:last-child {
+  margin-top: auto;
+}
+
+</style>

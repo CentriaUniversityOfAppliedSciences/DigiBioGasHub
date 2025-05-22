@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <NavBarComponent />
-    <ion-content>
+    <ion-content :fullscreen="true">
       <ion-grid>
         <ion-row>
           <ion-col>
@@ -141,10 +141,11 @@
         ]"></ion-alert>
 
       <ToastComponent ref="toastComponent" />
+      <FooterComponent />
 
     </ion-content>
     
-    <FooterComponent />
+  
   </ion-page>
 </template>
 
