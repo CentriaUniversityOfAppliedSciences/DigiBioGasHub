@@ -23,6 +23,8 @@ import ReportsPage from '../views/Admin/ReportsPage.vue';
 import ChatUserList from '../components/ChatUserList.vue';
 import PrivateChatComponent from '../components/PrivateChatComponent.vue';
 import ChatPageView from '../views/ChatPageView.vue';
+import CompanyOffersPage from '../views/Company/OffersPage.vue';
+import EditOfferPage from '../views/Company/EditOfferPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -126,6 +128,24 @@ const routes = [
     component: OfferPage
   },
   {
+    path: '/offers/edit/:id',
+    name: 'CompanyEditOffer',
+    component: EditOfferPage,
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    }
+  },
+  {
     path: '/products',
     name: 'Marketplace',
     component: ProductPage
@@ -152,6 +172,24 @@ const routes = [
       }
     },
     component: CompanyPage
+  },
+  {
+    path: '/companyoffers:/:id',
+    name: 'CompanyOffers',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: CompanyOffersPage
   },
   {
     path: '/profile',

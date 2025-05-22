@@ -57,6 +57,7 @@
                     <ion-button @click="toggleCompanyEdit" color="warning" >{{$t('menu.edit')}}</ion-button>
                     <ion-button @click="confirmDelete(company.id)" id="deleteCompany" color="danger" >{{$t('menu.delete')}}</ion-button>
                     <ion-button @click="saveCompany" color="success" >{{$t('menu.save')}}</ion-button>
+                    <ion-button @click="goToOffers(company.id)" color="primary" >{{$t('company.offers')}}</ion-button>
                 </ion-card-content>
             </ion-card>
         
@@ -216,6 +217,11 @@ export default defineComponent({
         getCompanyTypeTranslation(type) {
              
             return this.$t(`company.type.${type}`);
+        },
+        goToOffers(companyID) {
+            this.$router.push('/companyoffers/'+companyID, {
+                
+            });
         },
     }
 });

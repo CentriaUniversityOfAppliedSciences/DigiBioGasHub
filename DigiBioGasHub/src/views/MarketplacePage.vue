@@ -13,7 +13,7 @@
                 <ion-col>
                     <ion-row>
                         <ion-col v-for="product in currentProducts" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
-                            <ListingComponent v-if="product" :product="product" />
+                            <ListingComponent v-if="product" :product="product" :isMarketplace="true" />
                         </ion-col>
                     </ion-row>
                 </ion-col>  

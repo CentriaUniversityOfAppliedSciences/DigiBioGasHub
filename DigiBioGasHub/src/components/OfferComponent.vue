@@ -9,12 +9,12 @@
                     <p>{{ $t('product.logistic.type') }}: {{ offer.cargoType }}</p>
                     <p>{{ $t('product.productDetails.amount') }}: {{ offer.availableAmount }}</p>
                 </ion-card-content>
-                <ion-button id="buyOffer">Osta</ion-button>
+                <ion-button id="buyOffer">{{ $t('product.buy') }}</ion-button>
             </ion-card>
             <ion-modal id="buyOfferModal" trigger="buyOffer">
                 <ion-header>
                 <ion-toolbar>
-                    <ion-title>Osta</ion-title>
+                    <ion-title>{{ $t('product.buy') }}</ion-title>
                     <ion-button id="closeModal" slot="end" @click="modalController.dismiss()">{{ $t('menu.close') }}</ion-button>
                 </ion-toolbar>
                 <OfferBuyComponent :offer="offer" />

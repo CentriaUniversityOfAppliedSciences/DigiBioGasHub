@@ -1,7 +1,7 @@
 <template>
     <ion-card>
         <ion-card-header>
-            <ion-img :src="product.fileLink" alt="Material Image" style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
+            <ion-img :src="checkFileLink()" alt="Material Image" style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
             <ion-card-title>{{ product.Material.name }}</ion-card-title>
             <ion-card-subtitle> {{ getMaterialTypeTranslation(product.Material.type) }}</ion-card-subtitle>
             
@@ -16,14 +16,17 @@
                 <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.availableAmount }} {{  getUnitAmountTranslation(product.unit) }}</ion-label>
             </ion-item>
             <ion-item>
-                <ion-button expand="full" @click="openDetails(product.id)">{{ $t('product.openlink') }}</ion-button>
+                <ion-button v-if="isMarketplace" expand="full" @click="openDetails(product.id)">{{ $t('product.openlink') }}</ion-button>
+                <ion-button v-if="isCompanyParent" expand="full" @click="openEdit(product.id)">{{ $t('menu.edit') }}</ion-button>
+                <ion-button v-if="isCompanyParent" expand="full" color="danger" @click="deleteOffer(product.id)">{{ $t('menu.delete') }}</ion-button>
             </ion-item>
         </ion-card-content>
     </ion-card>
 </template>
 
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg, IonAlert, alertController } from '@ionic/vue';
+import axios from 'axios';
 export default {
     name: 'ListingComponent',
     components: {
@@ -35,15 +38,43 @@ export default {
         IonItem,
         IonLabel,
         IonButton,
-        IonImg
+        IonImg,
+        IonAlert,
+        alertController
     },
     props: {
         product: {
             type: Object,
             required: true
+        },
+        isMarketplace:{
+            type: Boolean,
+            default: false
+        },
+        isCompanyParent:{
+            type: Boolean,
+            default: false
         }
     },
+    setup() {
+        return {
+            alertController
+        }
+    },
+    mounted() {
+        
+    },
     methods:{
+        checkFileLink(){
+            if (this.product.fileLink == null || this.product.fileLink == undefined || this.product.fileLink == "") {
+                
+                console.log(this.$t('material.placeholder.'+this.product.Material.type));
+                return this.$t('material.placeholder.'+this.product.Material.type);
+            } else {
+                console.log(this.product.fileLink);
+                return this.product.fileLink;
+            }
+        },
         getMaterialTypeTranslation(type) {
             return this.$t(`material.type.${type}`);
         },
@@ -52,6 +83,36 @@ export default {
         },
         openDetails(id) {
             this.$router.push({ name: 'Product Offer', params: { id: id } });
+        },
+        openEdit(id) {
+            this.$router.push({ name: 'CompanyEditOffer', params: { id: id } });
+        },
+        async deleteOffer(id) {
+            const alert = await this.alertController.create({
+            header: this.$t('menu.delete'),
+            message: this.$t('menu.are_you_sure'),
+            buttons: [
+                {
+                text: this.$t('menu.cancel'),
+                role: 'cancel'
+                },
+                {
+                text: this.$t('menu.yes'),
+                handler: () => {
+                    // Place your delete logic here
+                    console.log(`Deleting offer with id: ${id}`);
+                    var url = this.$api_add + "/deleteoffer";
+                    axios.post(url,{"id":id},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                        console.log(response);
+                        if (response.data.type="result" && response.data.result == "ok"){
+                            this.$router.push('/company/', {});
+                        }
+                    });
+                }
+                }
+            ]
+            });
+            await alert.present();
         }
     }
 }

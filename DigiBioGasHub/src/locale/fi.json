@@ -207,6 +207,7 @@
         "name": "Tuotenimi",
         "offerTypes": "Tarjoustyypit",
         "chooseType": "Valitse tyyppi",
+        "buy": "Osta",
         "type": {
             "offer": "Tarjous",
             "demand": "Kysyntä",
@@ -275,6 +276,16 @@
             "5":"Nestemäinen biokaasu",
             "6":"Syöte",
             "7":"Mädätysjäännös"
+        },
+        "placeholder":{
+            "0": "/placeholders/unknown.png",
+            "1": "/placeholders/straw.jpeg",
+            "2": "/placeholders/solid-manure.jpeg",
+            "3": "/placeholders/liquid-manure.jpeg",
+            "4": "/placeholders/biogas.jpeg",
+            "5": "/placeholders/liquid-biogas.jpeg",
+            "6": "/placeholders/feed.jpeg",
+            "7": "/placeholders/digestate.jpeg"
         }
     },
     "unit":{
@@ -439,7 +450,12 @@
         },
         "chatRooms": "Keskusteluhuoneet",
         "chatRoom": "Keskusteluhuone",
+        "chatUsers": "Käyttäjät",
         "groupChat": "Ryhmäkeskustelu",
+        "joinedRooms": "Liittyneet huoneet",
+        "enter": "Liity",
+        "exploreRooms": "Tutki huoneita",
+        "confirmLeave": "Haluatko varmasti poistua tästä huoneesta?",
         "privateChat": "Yksityinen keskustelu",
         "join": "LIITY",
         "leave": "POISTU",
@@ -448,7 +464,8 @@
         "noMessages": "Ei viestejä vielä. Ole ensimmäinen, joka lähettää viestin!",
         "edited": "Muokattu",
         "confirmDelete": "Vahvista poisto",
-        "deleteMessage": "Haluatko varmasti poistaa tämän viestin?"
+        "deleteMessage": "Haluatko varmasti poistaa tämän viestin?",
+        "errorMessage": "Osoitetta ei löytynyt"
     }
 
 }

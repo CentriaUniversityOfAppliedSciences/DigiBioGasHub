@@ -194,6 +194,7 @@
         "name": "Product name",
         "offerTypes": "Offer types",
         "chooseType": "Choose type",
+        "buy": "Buy",
         "type": {
             "offer": "Offer",
             "demand": "Demand",
@@ -253,7 +254,17 @@
                 "5":"liquid biogas",
                 "6":"feedstock",
                 "7":"digestate"
-            }
+            },
+        "placeholder":{
+            "0": "/placeholders/unknown.png",
+            "1": "/placeholders/straw.jpeg",
+            "2": "/placeholders/solid-manure.jpeg",
+            "3": "/placeholders/liquid-manure.jpeg",
+            "4": "/placeholders/biogas.jpeg",
+            "5": "/placeholders/liquid-biogas.jpeg",
+            "6": "/placeholders/feed.jpeg",
+            "7": "/placeholders/digestate.jpeg"
+        }
         },
         "unit":{
             "amount":{
