@@ -229,7 +229,9 @@
             "public": "Public",
             "private": "Private"
         },
-        "openlink": "Tiedot"
+        "openlink": "Tiedot",
+        "successMessage": "Offer created successfully",
+        "errorMessage": "Failed to create offer! Check the information and try again."
     },
             "title": "Logistic Quotation",
             "pickupAddress": "Pickup Address",
