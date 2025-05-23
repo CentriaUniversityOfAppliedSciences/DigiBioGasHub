@@ -40,6 +40,15 @@
                 <ion-item>
                     <ion-textarea :label="$t('product.desc')" labelPlacement="floating" v-model="description"></ion-textarea>
                 </ion-item>
+                <ion-item>
+                    <ion-input required v-model="address" :label="$t('general.address')" labelPlacement="floating"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input required v-model="zipcode" :label="$t('general.postalCode')" labelPlacement="floating"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-input required v-model="city" :label="$t('general.city')" labelPlacement="floating"> </ion-input>
+                </ion-item>
                 <ion-item >
                     <ion-input required :label="$t('product.price.offer')" labelPlacement="floating" type="number" v-model="price" min="0"></ion-input>
                 </ion-item>
@@ -79,14 +88,6 @@
                         <ion-select-option value="2">{{ $t('product.visibility.private') }}</ion-select-option>
                     </ion-select>
                 </ion-item>
-                <ion-item>
-                    <ol-map ref="regionMap" :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height: 200px; width: 200px;" >
-                        <ol-view :center=center :zoom="8"  />
-                        <ol-tile-layer>
-                            <ol-source-osm />
-                        </ol-tile-layer>
-                    </ol-map>
-                </ion-item>
                 <ion-button expand="full" @click="addProduct">{{ $t('product.submit') }}</ion-button>
             </ion-card-content>
             </ion-content>
@@ -98,17 +99,7 @@
 import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime, IonCard, IonContent, IonTitle, IonToolbar, IonButtons, IonHeader, modalController,IonCardContent, IonModal } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
-import { useGeographic } from 'ol/proj'
 
-import Style from 'ol/style/Style';
-import Circle from 'ol/style/Circle';
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import Feature from 'ol/Feature';
-import Point from 'ol/geom/Point';
-import { colorPalette } from 'ionicons/icons';
 export default defineComponent({
     name: 'AddOfferComponent',
     components: {
@@ -131,19 +122,12 @@ export default defineComponent({
     },
     emits: ['getOffers'],
     setup() {
-        const mapElement = ref(null)
-        useGeographic();
         return {
-            modalController, mapElement
+            modalController
         };
     },
     data() {
         return {
-            map:null,
-            markerLayer: null,
-            markerSource: null,
-            selectedLocation:{lat:null, lng:null},
-            center: [22.9999, 62.9999],
             productName: '',
             description: '',
             price: 0,
@@ -163,13 +147,9 @@ export default defineComponent({
             endDate:new Date().toISOString(),
             selectedMaterialId: null,
             selectedMaterialName: '',
-            markerStyle: new Style({
-                            image: new Circle({
-                                radius: 8,
-                                fill: new Fill({ color: 'green' }),
-                                stroke: new Stroke({ color: '#fff', width: 2 })
-                            })
-                        })
+            address: '',
+            zipcode:'',
+            city:'',
         };
     },
     methods: {
@@ -212,7 +192,7 @@ export default defineComponent({
             // Logic to add the product
             
             var url = this.$api_add + "/createoffer";
-            axios.post(url,{"location":this.selectedLocation,"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            axios.post(url,{"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description, "address": this.address, "city": this.city, "zipcode":this.zipcode},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
                     this.modalController.dismiss();
                     this.$emit('getOffers');
@@ -251,44 +231,9 @@ export default defineComponent({
             } else if(this.$i18n.locale === 'sv'){
                 return 'sv-SE';
             }
-        },
-        onAddOffer(){
-            this.map = this.$refs.regionMap.map;
-
-            if (this.map) {
-                
-               this.map.on('singleclick', (event) =>{
-                    if (!this.map.getLayers().getArray().includes(this.markerLayer)) {
-                        this.map.addLayer(this.markerLayer);
-                    }  
-                    this.markerSource.clear();
-
-                    const coordinate = event.coordinate; // Get the clicked coordinate
-                    if (coordinate){
-                        this.selectedLocation = {
-                            lat: coordinate[1],
-                            lng: coordinate[0]
-                        };
-                        const marker = new Feature({
-                            geometry: new Point(coordinate),
-                        });
-                        marker.setStyle(this.markerStyle);
-                        this.markerSource.addFeature(marker);
-                    }
-                    
-               });
-            } else {
-                console.error('Map reference is not available');
-            }
-            
         }
     },
     mounted(){
-        this.markerSource = new VectorSource();
-        this.markerLayer = new VectorLayer({
-            source: this.markerSource,
-            name: 'markerLayer'
-        });
         this.getMaterials();
         this.getUserCompanies();
     }
