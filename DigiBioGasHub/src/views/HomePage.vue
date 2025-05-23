@@ -22,7 +22,7 @@
         <h2 style="margin: 20px ;">Latest Offers</h2>
         <ion-row>
           <ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
-            <ListingComponent :product="product" />
+            <ListingComponent :product="product" :isMarketplace="true" />
           </ion-col>
         </ion-row>
         <h2 style="margin: 20px ;">Latest Articles</h2>
