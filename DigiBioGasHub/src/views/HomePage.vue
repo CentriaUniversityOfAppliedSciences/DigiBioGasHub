@@ -16,26 +16,25 @@
             </div>
           </ion-col>
           <ion-col>
-            <img src="@/assets/biokaasulaitos.jpeg"
-              alt="Placeholder Image" style="height:30vh" />
+            <img src="@/assets/biokaasulaitos.jpeg" alt="Placeholder Image" style="height:30vh" />
           </ion-col>
         </ion-row>
+        <h2 style="margin: 20px ;">Latest Offers</h2>
         <ion-row>
           <ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
-            <ListingComponent :product="product" />
+            <ListingComponent :product="product" :isMarketplace="true" />
           </ion-col>
-          <ion-col>
-            <ion-row>
-              <ion-col style="padding: 10px;"  size="12" size-sm="12" size-md="6" v-for="article in articles" :key="article.title">
-                <BlogListingComponent class="blog-card" :article="article" />
-              </ion-col>
-            </ion-row>
+        </ion-row>
+        <h2 style="margin: 20px ;">Latest Articles</h2>
+        <ion-row>
+          <ion-col style="padding: 10px;" size="12" size-sm="12" size-md="6" v-for="article in articles"
+            :key="article.title">
+            <BlogListingComponent class="blog-card" :article="article" />
           </ion-col>
         </ion-row>
       </ion-grid>
       <FooterComponent />
     </ion-content>
-    
   </ion-page>
 </template>
 

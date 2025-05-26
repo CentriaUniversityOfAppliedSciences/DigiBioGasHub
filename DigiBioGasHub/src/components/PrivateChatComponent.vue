@@ -4,6 +4,11 @@
         <ion-content>
             <ion-header>
                 <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-button @click="$router.go(-1)" style="margin-left: 10px;">
+                            <ion-icon name="arrow-back"></ion-icon>
+                        </ion-button>
+                    </ion-buttons>
                     <ion-title>{{ $t('chat.privateChatWith') }}: {{ recipientName }}</ion-title>
                 </ion-toolbar>
             </ion-header>
@@ -88,7 +93,8 @@ import {
     IonButtons,
     IonButton,
     IonInput,
-    IonAlert
+    IonAlert,
+    IonIcon
 } from "@ionic/vue";
 import axios from "axios";
 import getsocket from "../socket";
@@ -96,6 +102,13 @@ import { jwtDecode } from "../router";
 import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
 import { defineComponent } from "vue";
+import { addIcons } from "ionicons";
+import { arrowBack } from "ionicons/icons";
+
+addIcons({
+    "arrow-back": arrowBack,
+});
+
 
 export default defineComponent({
     name: "PrivateChatComponent",
@@ -107,6 +120,7 @@ export default defineComponent({
         IonToolbar,
         IonTitle,
         IonButtons,
+        IonIcon,
         IonButton,
         IonInput,
         IonAlert

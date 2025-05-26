@@ -1,6 +1,6 @@
 <template>
     
-            <ion-modal trigger="addOffer" @willPresent="onAddOffer">
+            <ion-modal trigger="addOffer">
             <ion-header>
                 <ion-toolbar>
                     
@@ -15,6 +15,7 @@
                 <ion-item>
                     <ion-select required v-model="companyID" :label="$t('menu.company')" :placeholder="$t('product.chooseCompany')">
                         <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.id">{{ comp.name }}</ion-select-option>
+                        <p v-if="hasError('companyID')" class="error">{{ errors.companyID }}</p>
                     </ion-select>
                 </ion-item>
                 <ion-item>
@@ -24,11 +25,13 @@
                 <ion-item>
                     <ion-select required v-model="material" :label="$t('product.material')" :placeholder="$t('product.chooseMaterial')" @ionChange="materialSelected">
                         <ion-select-option  v-for="mater in materials" :key="mater.name" :value="mater.id">{{ mater.name }}</ion-select-option>
+                        <p v-if="hasError('material')" class="error">{{ errors.material }}</p>
                         
                     </ion-select>
                 </ion-item>
                 <ion-item>
                     <ion-input required :label="$t('product.name')" labelPlacement="floating" v-model="selectedMaterialName" :disabled="true"></ion-input>
+                    <p v-if="hasError('selectedMaterialName')" class="error">{{ errors.selectedMaterialName }}</p>
                 </ion-item>
                 <ion-item>
                     <ion-select required v-model="type" labelPlacement="floating" :label="$t('product.offerTypes')" :placeholder="$t('product.chooseType')">
@@ -39,19 +42,35 @@
                 </ion-item>
                 <ion-item>
                     <ion-textarea :label="$t('product.desc')" labelPlacement="floating" v-model="description"></ion-textarea>
+                    <p v-if="hasError('description')" class="error">{{ errors.description }}</p>
+                </ion-item>
+                <ion-item>
+                    <ion-input required v-model="address" :label="$t('general.address')" labelPlacement="floating"></ion-input>
+                    <p v-if="hasError('address')" class="error">{{ errors.address }}</p>
+                </ion-item>
+                <ion-item>
+                    <ion-input required v-model="zipcode" :label="$t('general.postalCode')" labelPlacement="floating"></ion-input>
+                    <p v-if="hasError('zipcode')" class="error">{{ errors.zipcode }}</p>
+                </ion-item>
+                <ion-item>
+                    <ion-input required v-model="city" :label="$t('general.city')" labelPlacement="floating"> </ion-input>
+                    <p v-if="hasError('city')" class="error">{{ errors.city }}</p>
                 </ion-item>
                 <ion-item >
                     <ion-input required :label="$t('product.price.offer')" labelPlacement="floating" type="number" v-model="price" min="0"></ion-input>
+                    <p v-if="hasError('price')" class="error">{{ errors.price }}</p>
                 </ion-item>
                 
                 <ion-item>
                     <ion-input :label="$t('product.quantity')" labelPlacement="floating" type="number" v-model="quantity" min="0"></ion-input>
+                    <p v-if="hasError('quantity')" class="error">{{ errors.quantity }}</p>
                 </ion-item>
                 <ion-item>
                     <ion-select v-model="unit" :label="$t('product.unit')">
                         <ion-select-option value="1">{{ $t('unit.amount.1') }}</ion-select-option>
                         <ion-select-option value="2">{{ $t('unit.amount.2') }}</ion-select-option>
                     </ion-select>
+                    <p v-if="hasError('unit')" class="error">{{ errors.unit }}</p>
                 </ion-item>
                 <ion-item>
                     <ion-select v-model="logisticType" :label="$t('product.logistic.type')">
@@ -60,37 +79,34 @@
                         <ion-select-option value="3">{{ $t('product.logistic.agreedupon') }}</ion-select-option>
                         
                     </ion-select>
+                    <p v-if="hasError('logisticType')" class="error">{{ errors.logisticType }}</p>
                 </ion-item>
                 <ion-item>
                     <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h23" v-model="startDate" >
                         <span slot="title">{{ $t('product.productDetails.offerValidFrom') }}</span>
                         <span slot="time-label">{{ $t('product.time') }}</span>
                     </ion-datetime>
+                    <p v-if="hasError('startDate')" class="error">{{ errors.startDate }}</p>
                 </ion-item>
                 <ion-item>
                     <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h23" v-model="endDate" >
                         <span slot="title">{{ $t('product.endTime') }}</span>
                         <span slot="time-label">{{ $t('product.time') }}</span>
                     </ion-datetime>
+                    <p v-if="hasError('endDate')" class="error">{{ errors.endDate }}</p>
                 </ion-item>
                 <ion-item>
                     <ion-select required v-model="visibility" :label="$t('product.visibility.info')" :placeholder="$t('product.visibility.chooseVisibility')">
                         <ion-select-option value="1">{{ $t('product.visibility.public') }}</ion-select-option>
                         <ion-select-option value="2">{{ $t('product.visibility.private') }}</ion-select-option>
                     </ion-select>
-                </ion-item>
-                <ion-item>
-                    <ol-map ref="regionMap" :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height: 200px; width: 200px;" >
-                        <ol-view :center=center :zoom="8"  />
-                        <ol-tile-layer>
-                            <ol-source-osm />
-                        </ol-tile-layer>
-                    </ol-map>
+                    <p v-if="hasError('visibility')" class="error">{{ errors.visibility }}</p>
                 </ion-item>
                 <ion-button expand="full" @click="addProduct">{{ $t('product.submit') }}</ion-button>
             </ion-card-content>
             </ion-content>
         </ion-card>
+        <ToastComponent ref="toast" />
     </ion-modal>
 </template>
 
@@ -98,17 +114,8 @@
 import {  IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime, IonCard, IonContent, IonTitle, IonToolbar, IonButtons, IonHeader, modalController,IonCardContent, IonModal } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
-import { useGeographic } from 'ol/proj'
+import ToastComponent from './ToastComponent.vue';
 
-import Style from 'ol/style/Style';
-import Circle from 'ol/style/Circle';
-import Fill from 'ol/style/Fill';
-import Stroke from 'ol/style/Stroke';
-import VectorLayer from 'ol/layer/Vector';
-import VectorSource from 'ol/source/Vector';
-import Feature from 'ol/Feature';
-import Point from 'ol/geom/Point';
-import { colorPalette } from 'ionicons/icons';
 export default defineComponent({
     name: 'AddOfferComponent',
     components: {
@@ -127,23 +134,17 @@ export default defineComponent({
         IonButtons,
         IonHeader,
         IonCardContent,
-        IonModal
+        IonModal,
+        ToastComponent
     },
     emits: ['getOffers'],
     setup() {
-        const mapElement = ref(null)
-        useGeographic();
         return {
-            modalController, mapElement
+            modalController
         };
     },
     data() {
         return {
-            map:null,
-            markerLayer: null,
-            markerSource: null,
-            selectedLocation:{lat:null, lng:null},
-            center: [22.9999, 62.9999],
             productName: '',
             description: '',
             price: 0,
@@ -163,16 +164,38 @@ export default defineComponent({
             endDate:new Date().toISOString(),
             selectedMaterialId: null,
             selectedMaterialName: '',
-            markerStyle: new Style({
-                            image: new Circle({
-                                radius: 8,
-                                fill: new Fill({ color: 'green' }),
-                                stroke: new Stroke({ color: '#fff', width: 2 })
-                            })
-                        })
+            address: '',
+            zipcode:'',
+            city:'',
+            errors: {}
         };
     },
     methods: {
+
+        validateForm() {
+            this.errors = {};
+
+            if (!this.companyID) this.errors.companyID = this.$t('validation.companyRequired');
+            if (!this.material) this.errors.material = this.$t('validation.materialRequired');
+            if (!this.selectedMaterialName) this.errors.selectedMaterialName = this.$t('validation.materialNameRequired');
+            if (!this.type) this.errors.type = this.$t('validation.typeRequired');
+            if (!this.description) this.errors.description = this.$t('validation.descriptionRequired');
+            if (!this.address) this.errors.address = this.$t('validation.addressRequired');
+            if (!this.zipcode) this.errors.zipcode = this.$t('validation.zipcodeRequired');
+            if (!this.city) this.errors.city = this.$t('validation.cityRequired');
+            if (!this.price || this.price <= 0) this.errors.price = this.$t('validation.priceRequired');
+            if (!this.quantity || this.quantity <= 0) this.errors.quantity = this.$t('validation.quantityRequired');
+            if (!this.unit) this.errors.unit = this.$t('validation.unitRequired');
+            if (!this.logisticType) this.errors.logisticType = this.$t('validation.logisticTypeRequired');
+            if (!this.startDate) this.errors.startDate = this.$t('validation.startDateRequired');
+            if (!this.endDate) this.errors.endDate = this.$t('validation.endDateRequired');
+            if (!this.visibility) this.errors.visibility = this.$t('validation.visibilityRequired');
+
+            return Object.keys(this.errors).length === 0; 
+        },
+        hasError(field) {
+            return this.errors[field];
+        },
         updateTimeZoneStart(event) {
         const date = new Date(event.target.value);
         const timezoneOffset = -date.getTimezoneOffset(); // Get the timezone offset in minutes
@@ -188,7 +211,10 @@ export default defineComponent({
             axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.companies = response.data.message;
-                    localStorage.setItem('current_company', response.data.message[0].id);
+                    if (this.companies.length === 1) {
+                        this.companyID = this.companies[0].id;
+                        localStorage.setItem('current_company', this.companies[0].id);
+                    }
                 }
             });
         }
@@ -209,15 +235,26 @@ export default defineComponent({
             }
         },
         addProduct() {
+
+            if (!this.validateForm()) {
+                this.$refs.toast.showToast(this.$t('validation.fillAllFields'), 2000, 'danger');
+                return;
+            }
             // Logic to add the product
+            try{
             
             var url = this.$api_add + "/createoffer";
-            axios.post(url,{"location":this.selectedLocation,"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            axios.post(url,{"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description, "address": this.address, "city": this.city, "zipcode":this.zipcode},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
                     this.modalController.dismiss();
+                    this.$refs.toast.showToast(this.$t('product.successMessage'), 2000, 'success');
                     this.$emit('getOffers');
-                }
+                } 
             });
+        }  catch (error) {
+            console.error("Error adding product:", error)
+                this.$refs.toast.showToast(this.$t('product.errorMessage'), 2000, 'danger');
+            }
         },
         getMaterials(){
             var url = this.$api_add + "/getmaterials";
@@ -251,44 +288,9 @@ export default defineComponent({
             } else if(this.$i18n.locale === 'sv'){
                 return 'sv-SE';
             }
-        },
-        onAddOffer(){
-            this.map = this.$refs.regionMap.map;
-
-            if (this.map) {
-                
-               this.map.on('singleclick', (event) =>{
-                    if (!this.map.getLayers().getArray().includes(this.markerLayer)) {
-                        this.map.addLayer(this.markerLayer);
-                    }  
-                    this.markerSource.clear();
-
-                    const coordinate = event.coordinate; // Get the clicked coordinate
-                    if (coordinate){
-                        this.selectedLocation = {
-                            lat: coordinate[1],
-                            lng: coordinate[0]
-                        };
-                        const marker = new Feature({
-                            geometry: new Point(coordinate),
-                        });
-                        marker.setStyle(this.markerStyle);
-                        this.markerSource.addFeature(marker);
-                    }
-                    
-               });
-            } else {
-                console.error('Map reference is not available');
-            }
-            
         }
     },
     mounted(){
-        this.markerSource = new VectorSource();
-        this.markerLayer = new VectorLayer({
-            source: this.markerSource,
-            name: 'markerLayer'
-        });
         this.getMaterials();
         this.getUserCompanies();
     }
@@ -296,5 +298,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Add your styles here */
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
+}
 </style>
