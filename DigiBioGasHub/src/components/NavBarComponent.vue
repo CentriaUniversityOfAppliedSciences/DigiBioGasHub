@@ -23,11 +23,12 @@
                 <li class="menu-item"><a href="/home">{{$t('menu.home')}}</a></li>
                 <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
                 <li class="menu-item"><a href="/map">{{ $t('menu.map') }}</a></li>
-                <li v-if="LoggedIn" class="menu-item" ><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li class="menu-item"><a href="/chat">{{ $t('menu.chat') }}</a></li>
                 <!-- <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li> -->
                 <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
+                <li v-if="LoggedIn" class="menu-item"><a href="/contracts">{{ $t('menu.mycontracts') }}</a></li>
+                <li v-if="LoggedIn" class="menu-item" ><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><LogoutComponent /></li>
                 <li v-if="Admin" class="menu-item"><AdminComponent /></li>

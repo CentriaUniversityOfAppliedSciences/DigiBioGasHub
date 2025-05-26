@@ -25,6 +25,8 @@ import PrivateChatComponent from '../components/PrivateChatComponent.vue';
 import ChatPageView from '../views/ChatPageView.vue';
 import CompanyOffersPage from '../views/Company/OffersPage.vue';
 import EditOfferPage from '../views/Company/EditOfferPage.vue';
+import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
+import ContractsPage from '../views/ContractsPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -156,6 +158,24 @@ const routes = [
     component: MarketplacePage
   },
   {
+    path: '/contractHistory/:id',
+    name: 'ContractHistory',
+    component: ContractHistoryPage,
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    }
+  },
+  {
     path: '/company',
     name: 'Company',
     beforeEnter: (to, from, next) => {
@@ -208,6 +228,24 @@ const routes = [
       }
     },
     component: ProfilePage
+  },
+  {
+    path: "/contracts",
+    name: "ContractsPage",
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: ContractsPage
   },
   {
     path: '/knowledge-base',

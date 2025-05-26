@@ -14,6 +14,7 @@
         "myRequests": "Omat pyynnöt",
         "myProducts": "Omat tuotteet",
         "mycompany": "Yritykseni",
+        "mycontracts": "Omat sopimukset",
         "marketplace": "Markkinapaikka",
         "map": "Kartta",
         "deleteAccount": "Poista tilisi",
@@ -45,7 +46,8 @@
         "are_you_sure":"Oletko varma?",
         "yes":"Kyllä",
         "giveFeedback": "Anna palautetta",
-        "chat":"Keskustelu"
+        "chat":"Keskustelu",
+        "close":"Sulje"
         
     },
     "general":{
@@ -250,7 +252,16 @@
         "openlink": "Tiedot",
         "error":{
             "product_buy_over_amount": "Määrä ylittää tarjotun määrän"
-        }
+        },
+        "contract_history":"Ostohistoria"
+    },
+    "contract":{
+        "contract": "Sopimus",
+        "buyer": "Ostaja",
+        "seller": "Myyjä",
+        "buyerCompany": "Ostajan yritys",
+        "buyDate": "Ostopäivämäärä",
+        "price": "Hinta"
     },
     "logisticQuotation": {
         "title": "Logistiikkatarjous",
@@ -457,6 +468,7 @@
         "exploreRooms": "Tutki huoneita",
         "confirmLeave": "Haluatko varmasti poistua tästä huoneesta?",
         "privateChat": "Yksityinen keskustelu",
+        "notifications": "Ilmoitukset",
         "join": "LIITY",
         "leave": "POISTU",
         "send": "Lähetä",
@@ -465,7 +477,8 @@
         "edited": "Muokattu",
         "confirmDelete": "Vahvista poisto",
         "deleteMessage": "Haluatko varmasti poistaa tämän viestin?",
-        "errorMessage": "Osoitetta ei löytynyt"
+        "errorMessage": "Osoitetta ei löytynyt",
+        "privateChatWith": "Yksityinen keskustelu käyttäjän kanssa"
     }
 
 }

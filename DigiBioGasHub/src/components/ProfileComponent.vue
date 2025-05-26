@@ -23,7 +23,7 @@
                     <ion-button id="changePassword">{{ $t('menu.changePassword') }}</ion-button>
                 </ion-card-content>
             </ion-card>
-            <ion-card class="profile-card">
+            <!--<ion-card class="profile-card">
                 <ion-card-header>
                     <ion-card-title>{{ $t('menu.offers')}}</ion-card-title>
                 </ion-card-header>
@@ -38,7 +38,7 @@
                     <p></p>
                     <ion-button :disabled="isInCompany" id="addOffer">{{ $t('offers.addOffer') }}</ion-button>
                 </ion-card-content>
-            </ion-card>
+            </ion-card>-->
             <!--
             <ion-card class="profile-card">
                 <ion-card-header>
@@ -55,7 +55,7 @@
             </ion-card>-->
         </ion-content>
     
-        <AddOfferComponent trigger="addOffer" />
+        <!--<AddOfferComponent trigger="addOffer" />-->
         <!--<ion-modal trigger="addCompany">
             <ion-header>
                 <ion-toolbar>

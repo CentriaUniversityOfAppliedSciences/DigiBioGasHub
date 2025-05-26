@@ -125,14 +125,21 @@ export default defineComponent( {
 
         // handle pointermove
         this.map.on('pointermove', (evt) => {
-        const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
-        if (feature) {
-            container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
-            this.hoverOverlay.setPosition(evt.coordinate)
-        } else {
-            this.hoverOverlay.setPosition(undefined)
-        }
+            const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
+            if (feature) {
+                container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
+                this.hoverOverlay.setPosition(evt.coordinate)
+            } else {
+                this.hoverOverlay.setPosition(undefined)
+            }
         })
+        this.map.on('click', (evt) => {
+            const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
+            if (feature) {
+                console.log('Clicked on feature:', feature.get('name'))
+                // You can add more actions here, like opening a modal or navigating to a detail page
+            }
+        });
         
     },
     watch: {

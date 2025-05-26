@@ -229,32 +229,42 @@
             "public": "Public",
             "private": "Private"
         },
-        "openlink": "Tiedot"
+        "openlink": "Tiedot",
+        "contract_history":"Contracts"
     },
-            "title": "Logistic Quotation",
-            "pickupAddress": "Pickup Address",
-            "deliveryAddress": "Delivery Address",
-            "pickupDate": "Pickup Date",
-            "deliveryDate": "Delivery Date",
-            "recurring": "Recurring",
-            "weekly": "Weekly",
-            "biweekly": "Biweekly",
-            "monthly": "Monthly",
-            "userInput": "User Input",
-            "endDate": "End Date",
-            "submit": "Submit",
-        
-        "material":{
-            "type":{
-                "0":"unknown",
-                "1":"straw",
-                "2":"dung solid",
-                "3":"dung liquid",
-                "4":"compressed biogas",
-                "5":"liquid biogas",
-                "6":"feedstock",
-                "7":"digestate"
-            },
+    "contract":{
+        "contract": "Sopimus",
+        "buyer": "Ostaja",
+        "seller": "Myyjä",
+        "buyerCompany": "Ostajan yritys",
+        "buyDate": "Ostopäivämäärä",
+        "price": "Hinta"
+    },
+    "logisticQuotation": {
+        "title": "Logistic Quotation",
+        "pickupAddress": "Pickup Address",
+        "deliveryAddress": "Delivery Address",
+        "pickupDate": "Pickup Date",
+        "deliveryDate": "Delivery Date",
+        "recurring": "Recurring",
+        "weekly": "Weekly",
+        "biweekly": "Biweekly",
+        "monthly": "Monthly",
+        "userInput": "User Input",
+        "endDate": "End Date",
+        "submit": "Submit"
+    },
+    "material":{
+        "type":{
+            "0":"unknown",
+            "1":"straw",
+            "2":"dung solid",
+            "3":"dung liquid",
+            "4":"compressed biogas",
+            "5":"liquid biogas",
+            "6":"feedstock",
+            "7":"digestate"
+        },
         "placeholder":{
             "0": "/placeholders/unknown.png",
             "1": "/placeholders/straw.jpeg",
