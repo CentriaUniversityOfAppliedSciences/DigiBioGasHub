@@ -27,6 +27,7 @@ import CompanyOffersPage from '../views/Company/OffersPage.vue';
 import EditOfferPage from '../views/Company/EditOfferPage.vue';
 import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
 import ContractsPage from '../views/ContractsPage.vue';
+import UserSettingsPage from '../views/SettingsPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -228,6 +229,24 @@ const routes = [
       }
     },
     component: ProfilePage
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: UserSettingsPage
   },
   {
     path: "/contracts",

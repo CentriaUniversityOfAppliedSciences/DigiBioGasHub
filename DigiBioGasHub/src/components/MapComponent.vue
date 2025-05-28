@@ -77,12 +77,14 @@ export default defineComponent( {
             ]);
             this.vectorSource.clear();  
             var features = this.markers.map((m) => {
+                console.log('Adding marker:', m);
                 const feature = new Feature({
                     geometry: new Point(m.coords),
                     name: m.name,
                     type: m.type,
                     location: m.location,
-                    info: m.info
+                    info: m.info,
+                    offerID: m.offerID
                 })
                 if (m.type === 'Station'){
                     feature.setStyle(this.stationStyle);
@@ -135,9 +137,13 @@ export default defineComponent( {
         })
         this.map.on('click', (evt) => {
             const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
-            if (feature) {
-                console.log('Clicked on feature:', feature.get('name'))
-                // You can add more actions here, like opening a modal or navigating to a detail page
+            if (feature && feature.get("type") === 'Offer') {
+                this.$router.push({
+                    name: 'Product Offer',
+                    params: {
+                        id: feature.get('offerID')
+                    }
+                })
             }
         });
         

@@ -37,6 +37,18 @@
                 <ion-item>
                     <ion-textarea :label="$t('product.desc')" labelPlacement="floating" v-model="description"></ion-textarea>
                 </ion-item>
+                <ion-item>
+                    <ion-input required v-model="address" :label="$t('general.address')" labelPlacement="floating"></ion-input>
+                    <p v-if="hasError('address')" class="error">{{ errors.address }}</p>
+                </ion-item>
+                <ion-item>
+                    <ion-input required v-model="zipcode" :label="$t('general.postalCode')" labelPlacement="floating"></ion-input>
+                    <p v-if="hasError('zipcode')" class="error">{{ errors.zipcode }}</p>
+                </ion-item>
+                <ion-item>
+                    <ion-input required v-model="city" :label="$t('general.city')" labelPlacement="floating"> </ion-input>
+                    <p v-if="hasError('city')" class="error">{{ errors.city }}</p>
+                </ion-item>
                 <ion-item >
                     <ion-input required :label="$t('product.price.offer')" labelPlacement="floating" type="number" v-model="price" min="0"></ion-input>
                 </ion-item>
@@ -76,14 +88,15 @@
                         <ion-select-option value="2">{{ $t('product.visibility.private') }}</ion-select-option>
                     </ion-select>
                 </ion-item>
-                <ion-item>
+                <!--<ion-item>
                     <ol-map ref="regionMap" :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height: 200px; width: 200px;" >
                         <ol-view :center=center :zoom="8"  />
                         <ol-tile-layer>
                             <ol-source-osm />
                         </ol-tile-layer>
                     </ol-map>
-                </ion-item>
+                </ion-item>-->
+                
                 <ion-button expand="full" @click="saveProduct">{{ $t('menu.save') }}</ion-button>
             </ion-card-content>
             </ion-content>
@@ -162,10 +175,6 @@ export default defineComponent({
     },
     data() {
         return {
-            map:null,
-            markerLayer: null,
-            markerSource: null,
-            selectedLocation:{lat:null, lng:null},
             center: [22.9999, 62.9999],
             productName: '',
             description: '',
@@ -180,6 +189,9 @@ export default defineComponent({
             unit: null,
             logisticType: null,
             visibility: null,
+            address: '',
+            zipcode: '',
+            city: '',
             materials: [],
             material:"",
             imageChanged: false,
@@ -187,7 +199,6 @@ export default defineComponent({
             oldImageId: null,
             locationID: null,
             offerID: null,
-            locationChanged: false,
             oldLocation: null,
             startDate:new Date().toISOString(),
             endDate:new Date().toISOString(),
@@ -205,15 +216,12 @@ export default defineComponent({
     setup() {
         const route = useRoute();
         const productID = route.params.id;
-        const mapElement = ref(null)
-        useGeographic();
         
         return {
-            productID,mapElement
+            productID,
         }
     },
     mounted() {
-        this.onAddOffer();
         this.getOfferDetails();
         this.getUserCompanies();
         this.getMaterials();
@@ -224,18 +232,22 @@ export default defineComponent({
         });
     },
     methods: {
+        hasError(field) {
+            return false;
+            //return this.errors[field] && this.errors[field].length > 0;
+        },
         getOfferDetails(){
-            //this.map = this.$refs.regionMap.map;
+
             axios.post(this.$api_add + '/getoffersbyid',{id: this.productID}).then(response => {
                 
                 var offer = response.data.message; 
-                console.log(offer);
                 this.productName = offer.name;
                 this.description = offer.description;
+                
                 this.price = offer.price;
                 this.productImage = offer.image;
                 this.imageName = offer.imageName;
-                //this.image64 = offer.fileLink;
+
                 this.type = offer.type + "";
                 this.quantity = offer.amount;
                 this.companyID = offer.companyID;
@@ -247,33 +259,18 @@ export default defineComponent({
                 this.endDate = offer.endDate;
                 this.offerID = offer.id;
                 if (offer.Files != null && offer.Files.length > 0){
-                    console.log(offer.fileLink);
+
                     this.image64 = offer.fileLink;
                     this.oldImage = offer.id + "_" + offer.Files[0].name;//offer.Files[0].data;
                     this.oldImageId = offer.Files[0].id;
                 }
                 if (offer.Locations != null && offer.Locations.length > 0){
-                    this.oldLocation = true;
-                    this.selectedLocation = {
-                        lat: offer.Locations[0].latitude,
-                        lng: offer.Locations[0].longitude
-                    };
-                    this.locationID = offer.Locations[0].id;
-                    if (!this.map.getLayers().getArray().includes(this.markerLayer)) {
-                        this.map.addLayer(this.markerLayer);
-                }  
-                else{
-                    this.oldLocation = false;
+                    if (offer.Locations[0].address != null){
+                        this.address = offer.Locations[0].address;
+                        this.zipcode = offer.Locations[0].zipcode;
+                        this.city = offer.Locations[0].city; 
+                    }
                 }
-                this.markerSource.clear();
-                const marker = new Feature({
-                    geometry: new Point([offer.Locations[0].longitude, offer.Locations[0].latitude]),
-                });
-                marker.setStyle(this.markerStyle);
-                this.markerSource.addFeature(marker);
-                }
-                
-                
             });
         
         },
@@ -314,7 +311,10 @@ export default defineComponent({
         },
         saveProduct() {
             var url = this.$api_add + "/updateoffer";
-            axios.post(url,{"oldLocation":this.oldLocation,"locationChanged":this.locationChanged,"id":this.offerID,"location":this.selectedLocation,"locationID": this.locationID,"image64":this.image64,"imageChanged":this.imageChanged,"oldImage":this.oldImage,"oldImageId":this.oldImageId,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+            axios.post(url,{"oldLocation":this.oldLocation,"address":this.address,"city":this.city,"zipcode":this.zipcode,"id":this.offerID,"locationID": this.locationID,
+            "image64":this.image64,"imageChanged":this.imageChanged,"oldImage":this.oldImage,"oldImageId":this.oldImageId,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1",
+             "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,
+             "description":this.description},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
                     this.$router.push('/companyoffers/'+this.companyID, {});
                 }
@@ -353,38 +353,8 @@ export default defineComponent({
             } else if(this.$i18n.locale === 'sv'){
                 return 'sv-SE';
             }
-        },
-        onAddOffer(){
-            this.map = this.$refs.regionMap.map;
-
-            if (this.map) {
-                
-               this.map.on('singleclick', (event) =>{
-                    if (!this.map.getLayers().getArray().includes(this.markerLayer)) {
-                        this.map.addLayer(this.markerLayer);
-                    }  
-                    this.markerSource.clear();
-
-                    const coordinate = event.coordinate; // Get the clicked coordinate
-                    if (coordinate){
-                        this.selectedLocation = {
-                            lat: coordinate[1],
-                            lng: coordinate[0]
-                        };
-                        const marker = new Feature({
-                            geometry: new Point(coordinate),
-                        });
-                        marker.setStyle(this.markerStyle);
-                        this.markerSource.addFeature(marker);
-                        this.locationChanged = true;
-                    }
-                    
-               });
-            } else {
-                console.error('Map reference is not available');
-            }
-            
         }
+        
     }
 });
     

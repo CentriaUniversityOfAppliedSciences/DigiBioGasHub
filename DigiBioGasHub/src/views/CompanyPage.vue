@@ -4,10 +4,10 @@
         <ion-toolbar>
             <ion-row style="align-items: center; justify-content: space-between; padding: 16px;">
                 <ion-col size="auto">
-                    <h2>Companies</h2>
+                    <h2>{{ $t("general.companies") }}</h2>
                 </ion-col>
                 <ion-col size="auto">
-                    <ion-button @click="showAddCompany = true">Add company</ion-button>
+                    <ion-button @click="showAddCompany = true">{{ $t("general.add_company") }}</ion-button>
                 </ion-col>
             </ion-row>
         </ion-toolbar>
@@ -20,19 +20,14 @@
                         <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted"  />
                     </ion-col>
                 </ion-row>
-                <!--
-                <ion-row>
-                    <ion-col size="12">
-                        <agreement-component />
-                    </ion-col>
-                </ion-row>
-                -->
+                
             </ion-grid>
         
             
-            <FooterComponent />
+            
              <AddCompanyComponent v-model:visible="showAddCompany" />
         </ion-content>
+        <FooterComponent />
        
         
         

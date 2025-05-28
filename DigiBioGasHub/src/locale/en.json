@@ -45,6 +45,10 @@
         "chat": "Chat"
     },
     "general":{
+        "welcome": "Welcome to DigiBioGasHub",
+        "welcomeMessage": "DigiBioGasHub is a platform for sharing and trading biogas materials and services.",
+        "latestOffers": "Latest Offers",
+        "latestArticles": "Latest Articles",
         "loading": "Loading...",
         "error": "Error",
         "noData": "No data",
@@ -98,7 +102,10 @@
         "TermsAndConditions": "Terms and Conditions",
         "PrivacyPolicy": "Privacy Policy",
         "read_more": "Read more",
-        "feedback": "Feedback"
+        "feedback": "Feedback",
+        "settings": "Settings",
+        "companies": "Companies",
+        "add_company": "Add company"
     },
     "footer":{
         "KP": "/assets/kp-eng.jpg",
@@ -219,6 +226,12 @@
             "includedInPrice": "Included in price",
             "freeToPickup": "Free to pick up",
             "agreedupon": "Agreed upon"
+        },
+        "logisticType": {
+            "0": "Unknown",
+            "1": "Included in price",
+            "2": "Free to pick up",
+            "3": "Agreed upon"
         },
         "endTime": "End time",
         "time": "Time",

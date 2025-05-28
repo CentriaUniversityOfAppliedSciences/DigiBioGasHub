@@ -9,9 +9,9 @@
                 </ion-col>
                 </ion-row>
             </ion-grid>
-           <FooterComponent /> 
+           
         </ion-content>
-        
+        <FooterComponent /> 
     </ion-page>
 </template>
 <script>

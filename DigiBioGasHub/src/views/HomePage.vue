@@ -11,21 +11,21 @@
         <ion-row>
           <ion-col>
             <div id="container">
-              <strong>Welcome to DigiBioGasHub</strong>
-              <p>Your hub for all things biogas</p>
+              <strong>{{ $t("general.welcome") }}</strong>
+              <p>{{ $t("general.welcomeMessage") }}</p>
             </div>
           </ion-col>
           <ion-col>
             <img src="@/assets/biokaasulaitos.jpeg" alt="Placeholder Image" style="height:30vh" />
           </ion-col>
         </ion-row>
-        <h2 style="margin: 20px ;">Latest Offers</h2>
+        <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
         <ion-row>
           <ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
             <ListingComponent :product="product" :isMarketplace="true" />
           </ion-col>
         </ion-row>
-        <h2 style="margin: 20px ;">Latest Articles</h2>
+        <h2 style="margin: 20px ;">{{ $t("general.latestArticles") }}</h2>
         <ion-row>
           <ion-col style="padding: 10px;" size="12" size-sm="12" size-md="6" v-for="article in articles"
             :key="article.title">

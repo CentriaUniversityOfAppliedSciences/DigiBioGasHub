@@ -114,7 +114,8 @@ export default defineComponent({
                                 color: 'green',
                                 category: 'Offer',
                                 type: 'Offer',
-                                info: off.description
+                                info: off.description,
+                                offerID: off.id,
                             };
                         }
                         return null;
