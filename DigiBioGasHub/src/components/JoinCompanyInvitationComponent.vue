@@ -61,7 +61,8 @@ import { defineComponent } from 'vue';
       };
     },
     mounted() {
-      this.invitationId = this.$route.params.id;
+      this.companyId = this.$route.params.companyId;
+      this.invitationId = this.$route.params.invitationId;
       const token = localStorage.getItem('token');
   
       if (token) {
@@ -77,7 +78,8 @@ import { defineComponent } from 'vue';
         this.loading = true;
         try {
           const response = await axios.post(this.$api_add + '/invitations/validate', {
-            invitationId: this.invitationId,
+            companyId: this.companyId,
+            invitationId: this.invitationId
           }, {
             headers: { authorization: localStorage.getItem('token') },
           });
@@ -99,7 +101,8 @@ import { defineComponent } from 'vue';
       async acceptInvitation() {
         try {
           const response = await axios.post(this.$api_add + '/api/invitations/accept', {
-            invitationId: this.invitationId,
+            companyId: this.companyId,
+            invitationId: this.invitationId
           }, {
             headers: { authorization: localStorage.getItem('token') },
           });

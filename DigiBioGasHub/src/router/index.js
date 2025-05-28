@@ -264,7 +264,7 @@ const routes = [
     beforeEnter:[checkUser]
 },
 {
-  path: "/join-company/:id",
+  path: "/join-company/:companyId/:invitationId",
   name: "JoinCompanyInvitationComponent",
   component: JoinCompanyInvitationComponent
 },
