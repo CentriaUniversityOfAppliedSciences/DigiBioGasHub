@@ -77,7 +77,7 @@ export default defineComponent({
                     
                     localStorage.setItem('token', response.data.token);
                     this.modalController.dismiss();
-                    window.location.href = '/home';
+                    this.$emit('login-success'); 
                 } else {
                     this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
                 }
