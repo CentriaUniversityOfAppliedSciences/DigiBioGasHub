@@ -26,6 +26,7 @@ import ChatPageView from '../views/ChatPageView.vue';
 import CompanyOffersPage from '../views/Company/OffersPage.vue';
 import EditOfferPage from '../views/Company/EditOfferPage.vue';
 import JoinCompanyInvitationComponent from '../components/JoinCompanyInvitationComponent.vue';
+import LoginPage from '../views/LoginPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -71,6 +72,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: HomePage
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage
   },
   {
     path: '/register',
