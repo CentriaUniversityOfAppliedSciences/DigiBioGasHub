@@ -1,27 +1,36 @@
 <template>
-    <ion-content>
-      <ion-spinner v-if="loading" />
-      
-      <div v-else>
-        <ion-card v-if="isLoggedIn && isValid">
-          <ion-card-header>
-            <ion-card-title>You're invited!</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>
-            <ion-button @click="acceptInvitation">Accept</ion-button>
-          </ion-card-content>
-        </ion-card>
+  <ion-content>
+    <ion-spinner v-if="loading" />
 
-        <div v-else-if="!isLoggedIn">
-          <ion-text>You're not logged in. Please login or register to continue.</ion-text>
-          <ion-button @click="redirectToLogin">Login</ion-button>
-          <ion-button @click="redirectToRegister">Register</ion-button>
-        </div>
-  
-        <ion-text v-if="errorMessage" color="danger">{{ errorMessage }}</ion-text>
+    <div v-else class="center-container">
+      <ion-card class="centered-card" v-if="isLoggedIn && isValid">
+        <ion-card-header>
+          <ion-card-title>You're invited!</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-button expand="block" @click="acceptInvitation">Accept</ion-button>
+        </ion-card-content>
+      </ion-card>
+
+      <div v-else-if="!isLoggedIn" class="centered-card">
+        <ion-text>
+          <h2>Please login or register to continue.</h2>
+        </ion-text>
+        <ion-button expand="block" color="primary" @click="redirectToLogin">
+          Login
+        </ion-button>
+        <ion-button expand="block" fill="outline" color="medium" @click="redirectToRegister">
+          Register
+        </ion-button>
       </div>
-    </ion-content>
-  </template>
+
+      <ion-text v-if="errorMessage" color="danger" class="error-message">
+        {{ errorMessage }}
+      </ion-text>
+    </div>
+  </ion-content>
+</template>
+
   
   <script>
   import LoginComponent from './LoginComponent.vue';
@@ -91,7 +100,7 @@ import { defineComponent } from 'vue';
             this.errorMessage = '';
           }
         } catch (error) {
-          this.errorMessage = 'Validation failed.';
+          this.errorMessage = 'Invalid or expired invitation.';
           this.isValid = false;
         } finally {
           this.loading = false;
@@ -133,4 +142,42 @@ import { defineComponent } from 'vue';
     }
   });
   </script>
-  
+
+<style scoped>
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
+  flex-direction: column;
+  background: var(--ion-background-color);
+}
+
+.centered-card {
+  max-width: 400px;
+  width: 100%;
+  padding: 24px;
+  border-radius: 16px;
+  background-color: var(--ion-card-background);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  color: var(--ion-text-color);
+  text-align: center;
+}
+
+.centered-card h2 {
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+
+ion-button {
+  margin-top: 12px;
+}
+
+.error-message {
+  margin-top: 20px;
+  text-align: center;
+  color: var(--ion-color-danger);
+}
+</style>
