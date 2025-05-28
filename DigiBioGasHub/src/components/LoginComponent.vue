@@ -88,7 +88,12 @@ export default defineComponent({
         },
         register(){
             this.modalController.dismiss();
-            window.location.href = '/register';
+            this.$router.push({
+                name: 'Register',
+                query: {
+                    redirect: this.$route.fullPath,
+                }
+            });
         },
         
         validateEmail(email) {
