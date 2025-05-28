@@ -14,8 +14,8 @@
 
         <div v-else-if="!isLoggedIn">
           <ion-text>You're not logged in. Please login or register to continue.</ion-text>
+          <ion-button @click="redirectToLogin">Login</ion-button>
           <ion-button @click="redirectToRegister">Register</ion-button>
-          <LoginComponent @login-success="handleLoginSuccess" />
         </div>
   
         <ion-text v-if="errorMessage" color="danger">{{ errorMessage }}</ion-text>
@@ -120,11 +120,12 @@ import { defineComponent } from 'vue';
           query: { redirect: this.$route.fullPath },
         });
       },
-  
-      handleLoginSuccess() {
-        this.isLoggedIn = true;
-        this.showLogin = false;
-        this.validateInvitation();
+      
+      redirectToLogin() {
+        this.$router.push({
+          name: 'Login',
+          query: { redirect: this.$route.fullPath },
+        });
       }
     }
   });

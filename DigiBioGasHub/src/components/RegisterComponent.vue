@@ -144,7 +144,6 @@ export default defineComponent ({
                 if (response.status === 200) {
                     // Registration successful
                     const redirectPath = this.$route.query.redirect || '/home';
-                    console.log("Redirect Path", redirectPath);
 
                     window.location.href = redirectPath;
                 }

@@ -70,7 +70,9 @@ export default defineComponent({
                     
                     localStorage.setItem('token', response.data.token);
                     this.modalController.dismiss();
-                    this.$emit('login-success'); 
+                    const redirectPath = this.$route.query.redirect || '/home';
+
+                    window.location.href = redirectPath;
                 } else {
                     this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
                 }
