@@ -44,7 +44,7 @@
     IonCardContent,
     IonButton
   } from '@ionic/vue';
-  import axios from 'axios';
+import axios from 'axios';
 import { defineComponent } from 'vue';
   
   export default defineComponent( {
@@ -83,6 +83,7 @@ import { defineComponent } from 'vue';
       }
     },
     methods: {
+
       async validateInvitation() {
         this.loading = true;
         try {
@@ -92,32 +93,37 @@ import { defineComponent } from 'vue';
           }, {
             headers: { authorization: localStorage.getItem('token') },
           });
-  
-          this.isValid = response.data.success;
-          if (!this.isValid) {
-            this.errorMessage = 'Invalid or expired invitation.';
-          } else {
+
+          const result = response.data.result;
+
+          if (result === 'ok') {
+            this.isValid = true;
             this.errorMessage = '';
+          } else if (result === 'alreadyMember') {
+            this.$router.push({ name: 'Company' });
+          } else {
+            this.isValid = false;
+            this.errorMessage = 'Invalid or expired invitation.';
           }
         } catch (error) {
-          this.errorMessage = 'Invalid or expired invitation.';
           this.isValid = false;
+          this.errorMessage = 'Invalid or expired invitation.';
         } finally {
           this.loading = false;
         }
       },
-  
+
       async acceptInvitation() {
         try {
-          const response = await axios.post(this.$api_add + '/api/invitations/accept', {
+          const response = await axios.post(this.$api_add + '/invitations/accept', {
             companyId: this.companyId,
             invitationId: this.invitationId
           }, {
             headers: { authorization: localStorage.getItem('token') },
           });
   
-          if (response.data.success) {
-            this.$router.push({ name: 'Dashboard' });
+          if (response.data.result === 'ok') {
+            this.$router.push({ name: 'Company' });
           } else {
             this.errorMessage = response.data.message || 'Failed to accept invitation.';
           }

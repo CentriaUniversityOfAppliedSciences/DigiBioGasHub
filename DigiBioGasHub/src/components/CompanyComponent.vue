@@ -161,10 +161,8 @@ export default defineComponent({
 
         const token = localStorage.getItem('token');
         const decodedToken = token ? jwtDecode(token) : null;
-        console.log("decoeddToken", decodedToken);
 
         const userLevel = decodedToken?.userlevel || null;
-        console.log("userLevel", userLevel);
 
         return {
             alertController,
@@ -279,7 +277,7 @@ export default defineComponent({
                     headers: { authorization: localStorage.getItem('token') },
                 });
 
-                if (response.data.success) {
+                if (response.data.result === 'ok') {
                     alert(this.$t('company.inviteSuccess'));
                     this.closeInviteModal();
                 } else {
