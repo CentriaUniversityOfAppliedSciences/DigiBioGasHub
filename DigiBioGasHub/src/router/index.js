@@ -25,8 +25,8 @@ import PrivateChatComponent from '../components/PrivateChatComponent.vue';
 import ChatPageView from '../views/ChatPageView.vue';
 import CompanyOffersPage from '../views/Company/OffersPage.vue';
 import EditOfferPage from '../views/Company/EditOfferPage.vue';
-import JoinCompanyInvitationComponent from '../components/JoinCompanyInvitationComponent.vue';
 import LoginPage from '../views/LoginPage.vue';
+import JoinCompanyPage from '../views/JoinCompanyPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -265,8 +265,8 @@ const routes = [
 },
 {
   path: "/join-company/:companyId/:invitationId",
-  name: "JoinCompanyInvitationComponent",
-  component: JoinCompanyInvitationComponent
+  name: "JoinCompanyPage",
+  component: JoinCompanyPage
 },
 ]
 

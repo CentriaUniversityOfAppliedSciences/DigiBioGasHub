@@ -58,7 +58,7 @@
                     <ion-button @click="confirmDelete(company.id)" id="deleteCompany" color="danger" >{{$t('menu.delete')}}</ion-button>
                     <ion-button @click="saveCompany" color="success" >{{$t('menu.save')}}</ion-button>
                     <ion-button @click="goToOffers(company.id)" color="primary" >{{$t('company.offers')}}</ion-button>
-                    <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal" color="primary"> {{ $t('company.inviteMembers') }}</ion-button>
+                    <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal" color="primary"> {{ $t('invitations.inviteMembers') }}</ion-button>
                 </ion-card-content>
             </ion-card>
         
@@ -83,7 +83,8 @@
             <ion-button expand="block" @click="sendInvite">{{ $t('general.send') }}</ion-button>
         </ion-content>
     </ion-modal>
-           
+    
+    <ToastComponent ref="toastComponent" />
        
 </template>
 
@@ -117,6 +118,7 @@ import { locationOutline, callOutline, mailOutline, globeOutline } from 'ionicon
 import { jwtDecode } from "../router";
 import axios from 'axios';
 import AddCompanyComponent from './AddCompanyComponent.vue';
+import ToastComponent from './ToastComponent.vue';
 
 export default defineComponent({
     name: 'CompanyComponent',
@@ -142,7 +144,8 @@ export default defineComponent({
         IonContent,
         AddCompanyComponent,
         IonAlert,
-        alertController
+        alertController,
+        ToastComponent
 
     },
     props: {
@@ -278,18 +281,15 @@ export default defineComponent({
                 });
 
                 if (response.data.result === 'ok') {
-                    alert(this.$t('company.inviteSuccess'));
+                    this.$refs.toastComponent.showToast(this.$t('invitations.inviteSuccess'), 2000, 'success');
                     this.closeInviteModal();
                 } else {
-                    alert(this.$t('company.inviteError'));
+                    this.$refs.toastComponent.showToast(this.$t('invitations.inviteError'), 2000, 'danger');
                 }
             } catch (error) {
-                console.error(error);
-                alert(this.$t('company.inviteError'));
+                this.$refs.toastComponent.showToast(this.$t('invitations.inviteError'), 2000, 'danger');
             }
         }
-
-
     }
 });
 </script>

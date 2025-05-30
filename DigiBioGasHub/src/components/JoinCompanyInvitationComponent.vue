@@ -5,22 +5,22 @@
     <div v-else class="center-container">
       <ion-card class="centered-card" v-if="isLoggedIn && isValid">
         <ion-card-header>
-          <ion-card-title>You're invited!</ion-card-title>
+          <ion-card-title>{{ $t('invitations.title') }}</ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          <ion-button expand="block" @click="acceptInvitation">Accept</ion-button>
+          <ion-button expand="block" @click="acceptInvitation">{{ $t('invitations.acceptButton') }}</ion-button>
         </ion-card-content>
       </ion-card>
 
       <div v-else-if="!isLoggedIn" class="centered-card">
         <ion-text>
-          <h2>Please login or register to continue.</h2>
+          <h2>{{ $t('invitations.loginPrompt') }}</h2>
         </ion-text>
         <ion-button expand="block" color="primary" @click="redirectToLogin">
-          Login
+          {{ $t('invitations.loginButton') }}
         </ion-button>
         <ion-button expand="block" fill="outline" color="medium" @click="redirectToRegister">
-          Register
+          {{ $t('invitations.registerButton') }}
         </ion-button>
       </div>
 
@@ -28,6 +28,7 @@
         {{ errorMessage }}
       </ion-text>
     </div>
+    <ToastComponent ref="toastComponent" />
   </ion-content>
 </template>
 
@@ -46,6 +47,7 @@
   } from '@ionic/vue';
 import axios from 'axios';
 import { defineComponent } from 'vue';
+import ToastComponent from './ToastComponent.vue';
   
   export default defineComponent( {
     name: 'JoinCompanyInvitationComponent',
@@ -58,7 +60,8 @@ import { defineComponent } from 'vue';
       IonCardHeader,
       IonCardTitle,
       IonCardContent,
-      IonButton
+      IonButton,
+      ToastComponent
     },
     data() {
       return {
@@ -103,11 +106,11 @@ import { defineComponent } from 'vue';
             this.$router.push({ name: 'Company' });
           } else {
             this.isValid = false;
-            this.errorMessage = 'Invalid or expired invitation.';
+            this.errorMessage = this.$t('invitations.invalidOrExpired');
           }
         } catch (error) {
           this.isValid = false;
-          this.errorMessage = 'Invalid or expired invitation.';
+          this.errorMessage = this.$t('invitations.invalidOrExpired');
         } finally {
           this.loading = false;
         }
@@ -123,12 +126,13 @@ import { defineComponent } from 'vue';
           });
   
           if (response.data.result === 'ok') {
+            this.$refs.toastComponent.showToast(this.$t('invitations.accepted'), 2000, 'success');
             this.$router.push({ name: 'Company' });
           } else {
-            this.errorMessage = response.data.message || 'Failed to accept invitation.';
+            this.errorMessage = response.data.message || this.$t('invitations.acceptErrorMessage');
           }
         } catch {
-          this.errorMessage = 'Failed to accept invitation.';
+          this.errorMessage = this.$t('invitations.acceptErrorMessage');
         }
       },
   
@@ -152,8 +156,8 @@ import { defineComponent } from 'vue';
 <style scoped>
 .center-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: flex-start;
+  align-items: center; 
   min-height: 100vh;
   padding: 16px;
   box-sizing: border-box;
