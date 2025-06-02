@@ -1,16 +1,11 @@
 <template>
-    <ion-button id="login">{{ $t('menu.login') }}</ion-button>
-    <ion-modal trigger="login">
+    <ion-content class="ion-padding">
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{ $t('general.login') }}</ion-title>
-                <ion-buttons slot="end">
-                    <ion-button @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
-                </ion-buttons>
             </ion-toolbar>
         </ion-header>
-        <ion-content>
-            <ion-list>
+        <ion-list>
                 <ion-item>
                     <ion-label position="floating">{{$t('general.username')}}</ion-label>
                     <ion-input v-model="username" type="text"></ion-input>
@@ -23,9 +18,7 @@
             <ion-button expand="full" @click="login">{{ $t('general.loginButton') }}</ion-button>
             <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
             <ion-button class="button-spacing" expand="full" @click="register">{{ $t('general.registerButton') }}</ion-button>
-        </ion-content>
-       
-    </ion-modal>
+    </ion-content>
 </template>
 
 <script>
@@ -77,7 +70,9 @@ export default defineComponent({
                     
                     localStorage.setItem('token', response.data.token);
                     this.modalController.dismiss();
-                    window.location.href = '/home';
+                    const redirectPath = this.$route.query.redirect || '/home';
+
+                    window.location.href = redirectPath;
                 } else {
                     this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
                 }
@@ -88,7 +83,12 @@ export default defineComponent({
         },
         register(){
             this.modalController.dismiss();
-            window.location.href = '/register';
+            this.$router.push({
+                name: 'Register',
+                query: {
+                    redirect: this.$route.fullPath,
+                }
+            });
         },
         
         validateEmail(email) {
@@ -109,11 +109,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-ion-modal {
-    --width: 300px;
-    --height: 400px;
-    --border-radius: 10px;
-}
 .button-spacing {
     margin-top: 15px;
 }

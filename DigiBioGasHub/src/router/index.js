@@ -25,6 +25,8 @@ import PrivateChatComponent from '../components/PrivateChatComponent.vue';
 import ChatPageView from '../views/ChatPageView.vue';
 import CompanyOffersPage from '../views/Company/OffersPage.vue';
 import EditOfferPage from '../views/Company/EditOfferPage.vue';
+import LoginPage from '../views/LoginPage.vue';
+import JoinCompanyPage from '../views/JoinCompanyPage.vue';
 import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
 import ContractsPage from '../views/ContractsPage.vue';
 import UserSettingsPage from '../views/SettingsPage.vue';
@@ -73,6 +75,11 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: HomePage
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginPage
   },
   {
     path: '/register',
@@ -312,6 +319,11 @@ const routes = [
     name: "PrivateChat",
     component: PrivateChatComponent,
     beforeEnter:[checkUser]
+},
+{
+  path: "/join-company/:companyId/:invitationId",
+  name: "JoinCompanyPage",
+  component: JoinCompanyPage
 },
 ]
 

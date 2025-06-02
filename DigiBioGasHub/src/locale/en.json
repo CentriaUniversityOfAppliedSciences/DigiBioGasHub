@@ -465,6 +465,20 @@
         "confirmDelete": "Confirm Delete",
         "deleteMessage": "Are you sure you want to delete this message?",
         "errorMessage": "Invalid Url"
+    },
+    "invitations": {
+        "inviteMembers": "Invite Members",
+        "inviteSuccess": "Invitation sent successfully!",
+        "inviteError": "Failed to send the invitation. Make sure the person is not already invited or a company member.",
+        "title": "You're invited!",
+        "loginPrompt": "Please login or register to continue.",
+        "loginButton": "Login",
+        "registerButton": "Register",
+        "acceptButton": "Accept",
+        "accepted": "Invitation accepted successfully!",
+        "errorMessage": "Invalid or expired invitation.",
+        "acceptErrorMessage": "Failed to accept invitation.",
+        "invalidOrExpired": "Invalid or expired invitation."
     }
 
 }

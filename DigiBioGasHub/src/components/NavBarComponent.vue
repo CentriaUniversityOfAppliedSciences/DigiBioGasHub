@@ -26,7 +26,7 @@
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li class="menu-item"><a href="/chat">{{ $t('menu.chat') }}</a></li>
                 <!-- <li class="menu-item"><a href="/knowledge-base">{{ $t('menu.knowledgeBase') }}</a></li> -->
-                <li v-if="!LoggedIn" class="menu-item" ><LoginComponent /></li>
+                <li v-if="!LoggedIn" class="menu-item" id="loginbtn" ><a href="/login">{{ $t('menu.login') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/contracts">{{ $t('menu.mycontracts') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item" ><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
@@ -187,5 +187,13 @@ export default defineComponent ({
 
 .menu-item a:hover {
     text-decoration: underline;
+}
+
+#loginbtn {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 </style>
