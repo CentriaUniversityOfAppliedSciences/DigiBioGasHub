@@ -15,8 +15,9 @@ import LoginComponent from '../components/LoginComponent.vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import { IonPage } from '@ionic/vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent( {
     name: 'LoginPage',
     components: {
         LoginComponent,
@@ -24,7 +25,7 @@ export default {
         FooterComponent,
         IonPage
     }
-};
+});
 </script>
 
 <style scoped>
