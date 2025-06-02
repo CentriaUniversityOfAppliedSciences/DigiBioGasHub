@@ -20,7 +20,7 @@
                     <ion-title>{{ $t('product.buy') }}</ion-title>
                     <ion-button id="closeModal" slot="end" @click="modalController.dismiss()">{{ $t('menu.close') }}</ion-button>
                 </ion-toolbar>
-                <OfferBuyComponent :offer="offer" />
+                <OfferBuyComponent :offer="offer" @updateOffers="updateOffers" />
             </ion-header>
             </ion-modal>
 </template>
@@ -37,7 +37,8 @@ import {
     IonModal,
     IonHeader,
     IonToolbar,
-    IonTitle
+    IonTitle,
+    modalController
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import OfferBuyComponent from './OfferBuyComponent.vue'
@@ -56,7 +57,8 @@ export default defineComponent({
         IonHeader,
         IonToolbar,
         IonTitle,
-        OfferBuyComponent
+        OfferBuyComponent,
+        modalController
     },
     props:{
         offer: {
@@ -67,16 +69,23 @@ export default defineComponent({
     },
     data() {
         return {
-            
+            modalController: modalController,
                 
             
         }
     },
+    emits: ['updateOffers'],
     mounted(){
     },
     methods: {
         getOfferTypeTranslation(type) {
-            return this.$t(`product.typenum.${type}`);
+            if (type == null || type == undefined) {
+                return "";
+            }
+            else{
+                return this.$t(`product.typenum.${type}`);
+            }
+            
         },  
         getMaterialTypeTranslation(material) {
             if (material != null && material.Material != null) {
@@ -89,7 +98,13 @@ export default defineComponent({
             }
         },
         getOfferCategoryTranslation(category) {
-            return this.$t(`material.type.${category}`);
+            if (category == null || category == undefined) {
+                return "";
+            }
+            else{
+                return this.$t(`material.type.${category}`);
+            }
+            
         },
         getImageSource(o){
             if (o != null) {
@@ -101,17 +116,34 @@ export default defineComponent({
             }
         },
         getCargoTypeTranslation(cargoType) {
-            return this.$t(`product.logisticType.${cargoType}`);
+            if (cargoType == null || cargoType == undefined) {
+                return "";
+            }
+            else{
+                return this.$t(`product.logisticType.${cargoType}`);
+            }
+            
         },
         getUnitAmountTranslation(type) {
-            return this.$t(`unit.amount.${type}`);
+            if (type == null || type == undefined) {
+                return "";
+            }
+            else{
+                return this.$t(`unit.amount.${type}`);
+            }
         },
         parseLocation(locations) {
             if (locations && locations.length > 0) {
                 return locations.map(location => `${location.address}, ${location.city}, ${location.zipcode}`).join(', ');
             }
             return '';
+        },
+        updateOffers() {
+            
+            this.$emit('updateOffers');
+            
         }
+
         
     },
     

@@ -259,7 +259,8 @@
         },
         "openlink": "Tiedot",
         "error":{
-            "product_buy_over_amount": "Määrä ylittää tarjotun määrän"
+            "product_buy_over_amount": "Määrä ylittää tarjotun määrän",
+            "product_buy_zero_amount": "Määrä ei voi olla nolla"
         },
         "contract_history":"Ostohistoria",
         "successMessage": "Tuote lisätty onnistuneesti",
