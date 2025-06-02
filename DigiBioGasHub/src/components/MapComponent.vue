@@ -77,12 +77,14 @@ export default defineComponent( {
             ]);
             this.vectorSource.clear();  
             var features = this.markers.map((m) => {
+                console.log('Adding marker:', m);
                 const feature = new Feature({
                     geometry: new Point(m.coords),
                     name: m.name,
                     type: m.type,
                     location: m.location,
-                    info: m.info
+                    info: m.info,
+                    offerID: m.offerID
                 })
                 if (m.type === 'Station'){
                     feature.setStyle(this.stationStyle);
@@ -125,14 +127,25 @@ export default defineComponent( {
 
         // handle pointermove
         this.map.on('pointermove', (evt) => {
-        const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
-        if (feature) {
-            container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
-            this.hoverOverlay.setPosition(evt.coordinate)
-        } else {
-            this.hoverOverlay.setPosition(undefined)
-        }
+            const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
+            if (feature) {
+                container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
+                this.hoverOverlay.setPosition(evt.coordinate)
+            } else {
+                this.hoverOverlay.setPosition(undefined)
+            }
         })
+        this.map.on('click', (evt) => {
+            const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
+            if (feature && feature.get("type") === 'Offer') {
+                this.$router.push({
+                    name: 'Product Offer',
+                    params: {
+                        id: feature.get('offerID')
+                    }
+                })
+            }
+        });
         
     },
     watch: {

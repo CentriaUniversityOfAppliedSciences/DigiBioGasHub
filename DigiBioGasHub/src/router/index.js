@@ -27,6 +27,9 @@ import CompanyOffersPage from '../views/Company/OffersPage.vue';
 import EditOfferPage from '../views/Company/EditOfferPage.vue';
 import LoginPage from '../views/LoginPage.vue';
 import JoinCompanyPage from '../views/JoinCompanyPage.vue';
+import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
+import ContractsPage from '../views/ContractsPage.vue';
+import UserSettingsPage from '../views/SettingsPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -163,6 +166,24 @@ const routes = [
     component: MarketplacePage
   },
   {
+    path: '/contractHistory/:id',
+    name: 'ContractHistory',
+    component: ContractHistoryPage,
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    }
+  },
+  {
     path: '/company',
     name: 'Company',
     beforeEnter: (to, from, next) => {
@@ -215,6 +236,42 @@ const routes = [
       }
     },
     component: ProfilePage
+  },
+  {
+    path: '/settings',
+    name: 'Settings',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: UserSettingsPage
+  },
+  {
+    path: "/contracts",
+    name: "ContractsPage",
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: ContractsPage
   },
   {
     path: '/knowledge-base',

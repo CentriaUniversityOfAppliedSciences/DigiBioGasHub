@@ -6,6 +6,13 @@
         </ion-card-header>
         <ion-card-content>
             <ion-item>
+                <ion-select v-model="buy.companyID">
+                    <ion-select-option v-for="company in companies" :key="company.id" :value="company.id">
+                        {{ company.name }}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <ion-item>
                 <ion-input type="number" v-model="buy.amount" :max="offer.amount"></ion-input>
                     <ion-label slot="end">{{ getUnitTypeTranslation(offer.unit) }}</ion-label>
                     <ion-label slot="start">{{ $t('product.productDetails.amount')}}</ion-label>
@@ -18,7 +25,7 @@
                 <ion-label type="number" v-model="buy.price">{{ offer.price }}</ion-label>
             </ion-item>
             <ion-item>
-                <ion-button expand="full" @click="buyOffer">{{ $t('productPage.buyButton') }}</ion-button>
+                <ion-button expand="full" @click="buyOffer">{{ $t('product.buy') }}</ion-button>
             </ion-item>
                     
                         
@@ -29,10 +36,11 @@
     </ion-card>
 </template>
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonButton, IonInput, IonLabel, IonItem, modalController } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonButton, IonInput, IonLabel, IonItem, modalController, IonSelect, IonSelectOption } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import ToastComponent from './ToastComponent.vue';
 import axios from 'axios';
+import { get } from 'ol/proj';
 export default defineComponent({
     name: 'OfferBuyComponent',
     components: {
@@ -45,7 +53,10 @@ export default defineComponent({
         IonButton,
         IonInput,
         IonItem,
-        IonLabel
+        IonLabel,
+        IonSelect,
+        IonSelectOption
+
     },
     props:{
         offer: {
@@ -59,16 +70,19 @@ export default defineComponent({
             amount: 0,
             price: this.offer.price,
             unit: this.offer.unit,
-            offerId: this.offer.id
+            offerId: this.offer.id,
+            companyID:this.companyID
+            
         };
         return {
-            offer: this.offer,
             buy: buy,
-            modalController: modalController
+            modalController: modalController,
+            companies: [],
+            companyID: null,
         }
     },
     mounted(){
-
+        this.getUserCompanies();
     },
     setup() {
         return {
@@ -104,6 +118,17 @@ export default defineComponent({
                 });
             }
             
+        },
+        getUserCompanies(){
+            var url = this.$api_add + "/getusercompanies";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    this.companies = response.data.message;
+                    if (this.companies != null && this.companies.length > 0){
+                        this.buy.companyID = this.companies[0].id;
+                    }
+                }
+            });
         }
     }
 

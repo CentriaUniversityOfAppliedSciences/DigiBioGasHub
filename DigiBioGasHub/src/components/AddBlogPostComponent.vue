@@ -29,6 +29,7 @@ export default defineComponent({
         "theme": "light",
         "height": "100%",
         "onFileUpload": this.processImg,
+        "onSave": this.onSave,
         "dicts": {
           "fonts": [
             {
@@ -363,7 +364,6 @@ export default defineComponent({
         },
         "toolbar": {
           "defaultMode": "ribbon",
-          "enableSourceEditor": true,
           "menus": [
             "base",
             "insert",
@@ -376,7 +376,8 @@ export default defineComponent({
           "importWord": {
             "enabled": true,
             "options": {},
-            "useCustomMethod": true
+            "useCustomMethod": false,
+            onCustomImportMethod() {},
           }
         },
         "page": {
@@ -422,7 +423,7 @@ export default defineComponent({
             "interval": 300000
           }
         },
-        "assistant": {
+        /*"assistant": {
           "enabled": false,
           "maxlength": 100,
           "commands": [
@@ -498,7 +499,7 @@ export default defineComponent({
               "autoSend": false
             }
           ]
-        },
+        },*/
         "shareUrl": "",
         "templates": [],
         "cdnUrl": "https://unpkg.com/@umoteam/editor-external@4",
@@ -522,7 +523,7 @@ export default defineComponent({
   methods: {
 
     async onSave() {
-
+      console.log('Saving document...');
       const content = this.$refs.editorRef.getContent();
       if (!content) {
         console.error('No content to save.');

@@ -14,6 +14,7 @@
         "myRequests": "Omat pyynnöt",
         "myProducts": "Omat tuotteet",
         "mycompany": "Yritykseni",
+        "mycontracts": "Omat sopimukset",
         "marketplace": "Markkinapaikka",
         "map": "Kartta",
         "deleteAccount": "Poista tilisi",
@@ -45,10 +46,15 @@
         "are_you_sure":"Oletko varma?",
         "yes":"Kyllä",
         "giveFeedback": "Anna palautetta",
-        "chat":"Keskustelu"
+        "chat":"Keskustelu",
+        "close":"Sulje"
         
     },
     "general":{
+        "welcome": "Tervetuloa DigiBioGasHubiin",
+        "welcomeMessage": "DigiBioGasHub on digitaalinen markkinapaikka, joka yhdistää biokaasun tuottajat, kuluttajat ja logistiikkapalvelut. Tavoitteenamme on edistää biokaasun käyttöä ja kehittää kestävää energiataloutta.",
+        "latestOffers": "Viimeisimmät tarjoukset",
+        "latestArticles": "Viimeisimmät artikkelit",
         "loading": "Ladataan...",
         "error": "Virhe",
         "noData": "Ei dataa",
@@ -103,7 +109,10 @@
         "PrivacyPolicy": "Tietosuojakäytäntö",
         "industry": "Toimiala",
         "read_more": "Lue lisää",
-        "feedback": "Palaute"
+        "feedback": "Palaute",
+        "settings": "Asetukset",
+        "companies": "Yritykset",
+        "add_company": "Lisää yritys"
         
 
     },
@@ -234,9 +243,10 @@
             "agreedupon": "Sovitaan"
         },
         "logisticType": {
-            "0": "Nouto",
-            "1": "Toimitus",
-            "2": "Molemmat"
+            "0": "Ei logistiikkaa",
+            "1": "Sisältyy hintaan",
+            "2": "Ilmaista noutaa",
+            "3": "Sovitaan erikseen"
         },
         "endTime": "Päättymisaika",
         "time": "Aika",
@@ -250,7 +260,36 @@
         "openlink": "Tiedot",
         "error":{
             "product_buy_over_amount": "Määrä ylittää tarjotun määrän"
-        }
+        },
+        "contract_history":"Ostohistoria",
+        "successMessage": "Tuote lisätty onnistuneesti",
+        "errorMessage": "Tuotteen lisäys epäonnistui. Tarkista tiedot ja yritä uudelleen."
+    },
+    "validation":{
+        "companyRequired": "Yritys on pakollinen",
+        "materialRequired": "Materiaali on pakollinen",
+        "materialNameRequired": "Nimi on pakollinen",
+        "typeRequired": "Tyyppi on pakollinen",
+        "descriptionRequired": "Kuvaus on pakollinen",
+        "addressRequired": "Osoite on pakollinen",
+        "zipcodeRequired": "Postinumero on pakollinen",
+        "cityRequired": "Kaupunki on pakollinen",
+        "priceRequired": "Hinta on pakollinen",
+        "quantityRequired": "Määrä on pakollinen",
+        "unitRequired": "Yksikkö on pakollinen",
+        "logisticTypeRequired": "Logistiikkatyyppi on pakollinen",
+        "startDateRequired": "Aloituspäivämäärä on pakollinen",
+        "endDateRequired": "Päättymispäivämäärä on pakollinen",
+        "visibilityRequired": "Näkyvyys on pakollinen",
+        "fillAllFields": "Täytä kaikki kentät"
+    },
+    "contract":{
+        "contract": "Sopimus",
+        "buyer": "Ostaja",
+        "seller": "Myyjä",
+        "buyerCompany": "Ostajan yritys",
+        "buyDate": "Ostopäivämäärä",
+        "price": "Hinta"
     },
     "logisticQuotation": {
         "title": "Logistiikkatarjous",
@@ -364,7 +403,8 @@
             "confirmDelete": "Haluatko varmasti poistaa tämän yrityksen pysyvästi? Tätä toimintoa ei voi peruuttaa!",
             "verifyFail": "Yrityksen vahvistaminen epäonnistui!",
             "unverifyFail": "Yrityksen vahvistuksen poistaminen epäonnistui!",
-            "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!"
+            "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!",
+            "manageCompanies": "Hallitse yrityksiä"
         },
         "blogpost":{
             "blogs": "Julkaisut",
@@ -441,7 +481,8 @@
             "updateRoomTitle": "Päivitä huone",
             "saveChanges": "Tallenna muutokset",
             "roomUpdated": "Huone päivitetty onnistuneesti",
-            "roomUpdateFailed": "Huoneen päivitys epäonnistui"
+            "roomUpdateFailed": "Huoneen päivitys epäonnistui",
+            "leaveRoomConfirmation": "Haluatko varmasti poistua tästä huoneesta? Tämä poistaa sinut huoneesta, mutta et poista huonetta."
         },
         "placeholders": {
             "enterRoomName": "Anna huoneen nimi",
@@ -457,6 +498,7 @@
         "exploreRooms": "Tutki huoneita",
         "confirmLeave": "Haluatko varmasti poistua tästä huoneesta?",
         "privateChat": "Yksityinen keskustelu",
+        "notifications": "Ilmoitukset",
         "join": "LIITY",
         "leave": "POISTU",
         "send": "Lähetä",
@@ -465,7 +507,17 @@
         "edited": "Muokattu",
         "confirmDelete": "Vahvista poisto",
         "deleteMessage": "Haluatko varmasti poistaa tämän viestin?",
-        "errorMessage": "Osoitetta ei löytynyt"
+        "errorMessage": "Osoitetta ei löytynyt",
+        "privateChatWith": "Yksityinen keskustelu käyttäjän kanssa"
+    },
+    "settings":{
+        "filter":"Suodatinasetukset",
+        "chat":"Keskusteluasetukset",
+        "feedstock":"Syötteet",
+        "biogas": "Biokaasu",
+        "logistics": "Logistiikka",
+        "digestate": "Mädätysjäännös",
+        "chatVisibility":"Näy yksityisviestilistalla"
     }
 
 }

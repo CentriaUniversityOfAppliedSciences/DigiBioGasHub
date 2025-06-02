@@ -7,9 +7,10 @@
                     {{ errorMessage }}
                 </div>
                 <BlogPostComponent v-else :content="content" />
-                <FooterComponent />
+                
             </div>
         </ion-content>
+        <FooterComponent />
     </ion-page>
 </template>
 <script>

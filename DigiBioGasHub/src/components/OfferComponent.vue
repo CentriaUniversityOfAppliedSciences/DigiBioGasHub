@@ -2,12 +2,15 @@
             <ion-card>
                 <ion-img style="width: 300px;" :src=getImageSource(offer)></ion-img>
                 <ion-card-header>
-                    <ion-card-title>{{ offer.description }} </ion-card-title>
+                    <ion-card-title>{{ offer.description }}</ion-card-title>
                     <ion-card-subtitle>{{ getOfferTypeTranslation(offer.type) }} - {{ getOfferCategoryTranslation(offer.category) }}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
-                    <p>{{ $t('product.logistic.type') }}: {{ offer.cargoType }}</p>
-                    <p>{{ $t('product.productDetails.amount') }}: {{ offer.availableAmount }}</p>
+                    <p>{{ $t('product.logistic.type') }}: {{ getCargoTypeTranslation(offer.cargoType) }}</p>
+                    <p>{{ $t('product.productDetails.location') }}: {{ parseLocation(offer.Locations) }}</p>
+                    <p>{{ $t('product.productDetails.amount') }}: {{ offer.availableAmount }} {{ getUnitAmountTranslation(offer.unit)}}</p>
+                    <p>{{ $t('product.productDetails.price') }}: {{ offer.price }} €</p>
+
                 </ion-card-content>
                 <ion-button id="buyOffer">{{ $t('product.buy') }}</ion-button>
             </ion-card>
@@ -97,6 +100,18 @@ export default defineComponent({
                 return "";
             }
         },
+        getCargoTypeTranslation(cargoType) {
+            return this.$t(`product.logisticType.${cargoType}`);
+        },
+        getUnitAmountTranslation(type) {
+            return this.$t(`unit.amount.${type}`);
+        },
+        parseLocation(locations) {
+            if (locations && locations.length > 0) {
+                return locations.map(location => `${location.address}, ${location.city}, ${location.zipcode}`).join(', ');
+            }
+            return '';
+        }
         
     },
     

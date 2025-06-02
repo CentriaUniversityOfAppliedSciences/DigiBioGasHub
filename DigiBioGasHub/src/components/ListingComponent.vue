@@ -19,6 +19,7 @@
                 <ion-button v-if="isMarketplace" expand="full" @click="openDetails(product.id)">{{ $t('product.openlink') }}</ion-button>
                 <ion-button v-if="isCompanyParent" expand="full" @click="openEdit(product.id)">{{ $t('menu.edit') }}</ion-button>
                 <ion-button v-if="isCompanyParent" expand="full" color="danger" @click="deleteOffer(product.id)">{{ $t('menu.delete') }}</ion-button>
+                <ion-button v-if="isCompanyParent" expand="full" color="success" @click="contractHistory(product.id)">{{ $t('product.contract_history') }}</ion-button>
             </ion-item>
         </ion-card-content>
     </ion-card>
@@ -67,11 +68,8 @@ export default {
     methods:{
         checkFileLink(){
             if (this.product.fileLink == null || this.product.fileLink == undefined || this.product.fileLink == "") {
-                
-                console.log(this.$t('material.placeholder.'+this.product.Material.type));
                 return this.$t('material.placeholder.'+this.product.Material.type);
             } else {
-                console.log(this.product.fileLink);
                 return this.product.fileLink;
             }
         },
@@ -113,6 +111,10 @@ export default {
             ]
             });
             await alert.present();
+        },
+        contractHistory(id) {
+            console.log("Contract history for offer with id: " + id);
+            this.$router.push({ name: 'ContractHistory', params: { id: id } });
         }
     }
 }
