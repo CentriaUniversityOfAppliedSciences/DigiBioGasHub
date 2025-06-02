@@ -478,7 +478,8 @@
         "accepted": "Invitation accepted successfully!",
         "errorMessage": "Invalid or expired invitation.",
         "acceptErrorMessage": "Failed to accept invitation.",
-        "invalidOrExpired": "Invalid or expired invitation."
+        "invalidOrExpired": "Invalid or expired invitation.",
+        "sendInvitation": "Send Invitation"
     }
 
 }

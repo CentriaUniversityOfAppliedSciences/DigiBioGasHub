@@ -69,7 +69,7 @@
     <ion-modal :is-open="isInviteModalOpen" @didDismiss="closeInviteModal">
         <ion-header>
             <ion-toolbar>
-                <ion-title>{{ $t('company.inviteMembers') }}</ion-title>
+                <ion-title>{{ $t('invitations.inviteMembers') }}</ion-title>
                 <ion-buttons slot="end">
                     <ion-button @click="closeInviteModal">{{ $t('general.close') }}</ion-button>
                 </ion-buttons>
@@ -80,7 +80,7 @@
                 <ion-label position="floating">{{ $t('general.email') }}</ion-label>
                 <ion-input v-model="inviteEmail" type="email"></ion-input>
             </ion-item>
-            <ion-button expand="block" @click="sendInvite">{{ $t('general.send') }}</ion-button>
+            <ion-button expand="block" @click="sendInvite">{{ $t('invitations.sendInvitation') }}</ion-button>
         </ion-content>
     </ion-modal>
     
