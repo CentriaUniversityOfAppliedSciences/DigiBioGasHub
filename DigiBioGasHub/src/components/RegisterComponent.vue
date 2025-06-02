@@ -143,7 +143,9 @@ export default defineComponent ({
             }).then(response => {
                 if (response.status === 200) {
                     // Registration successful
-                    this.$router.push('/home');
+                    const redirectPath = this.$route.query.redirect || '/home';
+
+                    window.location.href = redirectPath;
                 }
             }).catch(error => {
                 console.error(error);

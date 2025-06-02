@@ -58,12 +58,33 @@
                     <ion-button @click="confirmDelete(company.id)" id="deleteCompany" color="danger" >{{$t('menu.delete')}}</ion-button>
                     <ion-button @click="saveCompany" color="success" >{{$t('menu.save')}}</ion-button>
                     <ion-button @click="goToOffers(company.id)" color="primary" >{{$t('company.offers')}}</ion-button>
+                    <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal" color="primary"> {{ $t('invitations.inviteMembers') }}</ion-button>
                 </ion-card-content>
             </ion-card>
         
             
                 <AddCompanyComponent/>
-           
+
+
+    <ion-modal :is-open="isInviteModalOpen" @didDismiss="closeInviteModal">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>{{ $t('invitations.inviteMembers') }}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button @click="closeInviteModal">{{ $t('general.close') }}</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-item>
+                <ion-label position="floating">{{ $t('general.email') }}</ion-label>
+                <ion-input v-model="inviteEmail" type="email"></ion-input>
+            </ion-item>
+            <ion-button expand="block" @click="sendInvite">{{ $t('invitations.sendInvitation') }}</ion-button>
+        </ion-content>
+    </ion-modal>
+    
+    <ToastComponent ref="toastComponent" />
        
 </template>
 
@@ -80,6 +101,7 @@ import {
     IonIcon,
     IonLabel,
     IonButton,
+    IonButtons,
     IonInput,
     IonSelect,
     IonSelectOption,
@@ -93,8 +115,10 @@ import {
     alertController,
 } from '@ionic/vue';
 import { locationOutline, callOutline, mailOutline, globeOutline } from 'ionicons/icons';
+import { jwtDecode } from "../router";
 import axios from 'axios';
 import AddCompanyComponent from './AddCompanyComponent.vue';
+import ToastComponent from './ToastComponent.vue';
 
 export default defineComponent({
     name: 'CompanyComponent',
@@ -109,6 +133,7 @@ export default defineComponent({
         IonIcon,
         IonLabel,
         IonButton,
+        IonButtons,
         IonInput,
         IonSelect,
         IonSelectOption,
@@ -119,7 +144,8 @@ export default defineComponent({
         IonContent,
         AddCompanyComponent,
         IonAlert,
-        alertController
+        alertController,
+        ToastComponent
 
     },
     props: {
@@ -136,14 +162,22 @@ export default defineComponent({
             website: globeOutline,
         };
 
+        const token = localStorage.getItem('token');
+        const decodedToken = token ? jwtDecode(token) : null;
+
+        const userLevel = decodedToken?.userlevel || null;
+
         return {
             alertController,
             icons,
+            userLevel,
         };
     },
     data() {
         return {
             companyEdit: true,
+            isInviteModalOpen: false,
+            inviteEmail: '',
             alertButtons: [
                 {
                     text: this.$t('general.cancel'),
@@ -223,6 +257,39 @@ export default defineComponent({
                 
             });
         },
+        openInviteModal() {
+            this.isInviteModalOpen = true;
+        },
+        closeInviteModal() {
+            this.isInviteModalOpen = false;
+            this.inviteEmail = '';
+        },
+        async sendInvite() {
+            if (!this.inviteEmail) {
+                alert(this.$t('general.enterValidEmail'));
+                return;
+            }
+
+            const token = localStorage.getItem('token');
+            const decodedToken = jwtDecode(token);
+            const invitedById = decodedToken?.id || null;
+            const invitedByName = decodedToken?.name || null;
+
+            try {
+                const response = await axios.post(this.$api_add + '/company-admin/invitemembers', { email: this.inviteEmail, companyID: this.company.id, companyName: this.company.name, invitedById, invitedByName }, {
+                    headers: { authorization: localStorage.getItem('token') },
+                });
+
+                if (response.data.result === 'ok') {
+                    this.$refs.toastComponent.showToast(this.$t('invitations.inviteSuccess'), 2000, 'success');
+                    this.closeInviteModal();
+                } else {
+                    this.$refs.toastComponent.showToast(this.$t('invitations.inviteError'), 2000, 'danger');
+                }
+            } catch (error) {
+                this.$refs.toastComponent.showToast(this.$t('invitations.inviteError'), 2000, 'danger');
+            }
+        }
     }
 });
 </script>
