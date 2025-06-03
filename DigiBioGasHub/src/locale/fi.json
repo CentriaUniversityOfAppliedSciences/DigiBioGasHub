@@ -48,7 +48,6 @@
         "giveFeedback": "Anna palautetta",
         "chat":"Keskustelu",
         "close":"Sulje"
-        
     },
     "general":{
         "welcome": "Tervetuloa DigiBioGasHubiin",
@@ -113,8 +112,6 @@
         "settings": "Asetukset",
         "companies": "Yritykset",
         "add_company": "Lisää yritys"
-        
-
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -162,7 +159,11 @@
         "passwordLength": "Salasanan pitää olla vähintään 8 merkkiä pitkä",
         "newPasswordRepeat": "Toista uusi salasana",
         "name": "Nimi",
-        "noOffers": "Ei myynti-ilmoituksia"
+        "noOffers": "Ei myynti-ilmoituksia",
+        "loginSuccess": "Kirjautuminen onnistui",
+        "loginFail": "Kirjautuminen epäonnistui",
+        "loginEmailFail": "Sähköposti on virheellinen",
+        "loginPasswordFail": "Salasana on virheellinen"
     },
     "forms":{
         "helper":{
@@ -178,7 +179,6 @@
             "confirmPassword": "Salasanojen täytyy täsmätä!",
             "newPassword": "Kirjoita uusi salasanasi, sen pitää vähintään 8 merkkiä pitkä",
             "terms": "Käyttöehtojen hyväksyminen on pakollista"
-
         },
         "error":{
             "firstName": "Anna etunimesi",
@@ -259,7 +259,8 @@
         },
         "openlink": "Tiedot",
         "error":{
-            "product_buy_over_amount": "Määrä ylittää tarjotun määrän"
+            "product_buy_over_amount": "Määrä ylittää tarjotun määrän",
+            "product_buy_zero_amount": "Määrä ei voi olla nolla"
         },
         "contract_history":"Ostohistoria",
         "successMessage": "Tuote lisätty onnistuneesti",
@@ -338,8 +339,6 @@
         "addOffer": "Lisää tarjous",
         "editOffer": "Muokkaa tarjousta",
         "deleteOffer": "Poista tarjous"
-        
-
     },
     "company":{
         "name": "Yrityksen nimi",
@@ -385,10 +384,10 @@
             "5":"Logistiikka",
             "6":"Muu"
         }
-
     },
     "admin": {
         "company": {
+            "manageCompanies": "Hallitse yrityksiä",
             "title": "Yrityksen hallinta",
             "detailstitle": "Yrityksen tiedot",
             "verified": "Vahvistettu",
@@ -403,8 +402,7 @@
             "confirmDelete": "Haluatko varmasti poistaa tämän yrityksen pysyvästi? Tätä toimintoa ei voi peruuttaa!",
             "verifyFail": "Yrityksen vahvistaminen epäonnistui!",
             "unverifyFail": "Yrityksen vahvistuksen poistaminen epäonnistui!",
-            "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!",
-            "manageCompanies": "Hallitse yrityksiä"
+            "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!"
         },
         "blogpost":{
             "blogs": "Julkaisut",
@@ -446,7 +444,6 @@
             "quality": "Laatu",
             "locality":"Kieli",
             "addMaterial": "Lisää materiaali"
-
         },
         "edittitle": "Muokkaa yritystä",
         "confirmAction": "Vahvista toiminto",
@@ -497,6 +494,7 @@
         "enter": "Liity",
         "exploreRooms": "Tutki huoneita",
         "confirmLeave": "Haluatko varmasti poistua tästä huoneesta?",
+        "leaveRoomConfirmation": "Haluatko varmasti poistua tästä huoneesta? Tämä poistaa sinut huoneesta, mutta et poista huonetta.",
         "privateChat": "Yksityinen keskustelu",
         "notifications": "Ilmoitukset",
         "join": "LIITY",
@@ -510,6 +508,21 @@
         "errorMessage": "Osoitetta ei löytynyt",
         "privateChatWith": "Yksityinen keskustelu käyttäjän kanssa"
     },
+    "invitations": {
+        "inviteMembers": "Kutsu käyttäjiä",
+        "inviteSuccess": "Kutsu lähetetty onnistuneesti!",
+        "inviteError": "Kutsun lähettäminen epäonnistui. Tarkista, että henkilöä ei ole jo kutsuttu tai ole jo yrityksen käyttäjä.",
+        "title": "Sinut on kutsuttu!",
+        "loginPrompt": "Kirjaudu sisään tai rekisteröidy hyväksyäksesi kutsun.",
+        "loginButton": "Kirjaudu sisään",
+        "registerButton": "Rekisteröidy",
+        "acceptButton": "Hyväksy",
+        "accepted": "Kutsu hyväksytty",
+        "errorMessage": "Virheellinen tai vanhentunut kutsu.",
+        "acceptErrorMessage": "Kutsun hyväksyminen epäonnistui.",
+        "invalidOrExpired": "Virheellinen tai vanhentunut kutsu.",
+        "sendInvitation": "Lähetä kutsu"
+    },
     "settings":{
         "filter":"Suodatinasetukset",
         "chat":"Keskusteluasetukset",
@@ -519,5 +532,4 @@
         "digestate": "Mädätysjäännös",
         "chatVisibility":"Näy yksityisviestilistalla"
     }
-
 }
