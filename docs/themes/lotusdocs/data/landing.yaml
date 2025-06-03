@@ -1,0 +1,93 @@
+# Note: Template blocks require a 'weight' parameter so they're correctly ordered on the landing page
+
+# Hero
+hero:
+  enable: true
+  weight: 10
+  template: hero
+
+  backgroundImage:
+    path: "images/templates/hero"
+    filename:
+      desktop: "gradient-desktop.webp"
+      mobile: "gradient-mobile.webp"
+
+  badge:
+    text: v0.1.0
+    color: primary # primary, secondary, success, danger, warning, info, light, dark
+    pill: false # boolean
+    soft: true # boolean
+
+  titleLogo:
+    path: "images/logos"
+    filename: "DBH-logo.png"
+    alt: "DigiBioGasHub Logo" # Optional but recommended
+    height: 80px
+
+  title: "DigiBioGasHubs Docs"
+  subtitle: A lightweight, **modern documentation** theme for Hugo. Easily customised for building **fast**, **secure**, and **SEO-friendly** documentation sites.
+
+  image:
+    path: "images" # path to image under configured assets directory. default 'images'
+    filename: "lotus_docs_screenshot.png" # filename of your hero image (including file extension)
+    alt: "Lotus Docs Screenshot" # Optional but recommended
+    boxShadow: true # default 'false' (excludes .svg images)
+    rounded: true # round the image corners? default 'false' (excludes .svg images)
+
+  ctaButton:
+    icon: docs
+    btnText: "Docs"
+    url: "/docs/"
+  cta2Button:
+    icon: code
+    btnText: "Checkout the code"
+    url: "https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub"
+
+  info: "**Open Source** MIT Licensed."
+
+# Feature Grid
+featureGrid:
+  enable: true
+  weight: 20
+  template: feature grid
+
+  title: What is DigiBioGasHub?
+  subtitle: DigiBioGasHub is a **marketplace** for **biogas** related products and services. It is a **community** for **biogas enthusiasts**, **industry players**, **farmers**, and **researchers**.
+
+  items:
+    - title: Community
+      icon: groups
+      description: The platform is built for the community. It has chat feature for networking with the community.
+
+    - title: Marketplace
+      icon: storefront
+      description: Users can create offers or ask for products and services in the platform.
+
+    - title: Articles
+      icon: news
+      description: Platform admin can create articles for the community. Articles can be used to share knowledge and news about biogas. Platform provides easy-to-use WYSIWYG editor for creating articles.
+
+    - title: Knowledge Base
+      icon: lightbulb
+      description: Platform provides a wiki-like knowledge base for the community. Knowledge base will have regulatory documents, guides, and other useful information for the community. Platform provides easy-to-use WYSIWYG editor for creating knowledge base articles.
+
+    - title: Map
+      icon: explore
+      description: Map feature will be used to show biogas related products and services on the map. Users can find offerings, companies or services near them.
+
+    - title: Dark Mode
+      icon: dark_mode
+      description: "Prefer not to be blasted by the sun while reading? Switch to a low-light UI with the click of a button. Modify colour variables to match your branding."
+
+    - title: Search by DocSearch
+      icon: search
+      description: Search your docs with DocSearch. A powerful, efficient and accessible search solution built on Algolia Crawler & Autocomplete.
+
+    - title: Multilingual Support
+      icon: translate
+      description: The platform is available in Finnish, Swedish, and English. Users can choose their preferred language in the platform. Developers can add more languages to the platform.
+
+    - title: Bootstrap v5
+      icon: palette
+      description: Built on Bootstrap 5, Lotus Docs allows for a familiar, flexible, and intuitive developer experience. Easily customise your site via SCSS variables and files.
+

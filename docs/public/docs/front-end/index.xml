@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Front-end on DigiBioGasHubs Documentation</title>
+    <link>http://localhost:1313/docs/front-end/</link>
+    <description>Recent content in Front-end on DigiBioGasHubs Documentation</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 May 2023 00:44:31 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/docs/front-end/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Front-end Documentation</title>
+      <link>http://localhost:1313/docs/front-end/frontend/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/front-end/frontend/</guid>
+      <description>&lt;h2 id=&#34;front-end&#34;&gt;Front-End &lt;a href=&#34;#front-end&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+  </channel>
+</rss>
