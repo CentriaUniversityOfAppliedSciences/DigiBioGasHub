@@ -358,7 +358,8 @@
         "types": "Types",
         "logisticsRegistration": {
             "title": "Logistics Registration",
-            "haulType": "Haul Type"
+            "haulType": "Haul Type",
+            "logisticsRegistrationBtn": "Logistics Registration"
         }
     },
     "admin": {
