@@ -355,7 +355,11 @@
         "editAgreement": "Edit agreement",
         "deleteAgreement": "Delete agreement",
         "products": "Products",
-        "types": "Types"
+        "types": "Types",
+        "logisticsRegistration": {
+            "title": "Logistics Registration",
+            "haulType": "Haul Type"
+        }
     },
     "admin": {
         "company": {

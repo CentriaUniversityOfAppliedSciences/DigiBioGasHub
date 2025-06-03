@@ -1,8 +1,9 @@
 <template>
     <ion-page>
         <ion-header>
+            <NavBarComponent />
             <ion-toolbar>
-                <ion-title>Logistics Register</ion-title>
+                <ion-title>{{ $t('company.logisticsRegistration.title') }}</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content>
@@ -34,7 +35,7 @@
                     </ion-col>
                     <ion-col size="12">
                         <ion-item>
-                            <ion-label position="floating">Haul Type</ion-label>
+                            <ion-label position="floating">{{ $t('company.logisticsRegistration.haulType') }}</ion-label>
                             <ion-select v-model="form.haulType">
                                 <ion-select-option v-for="(value, key) in materialTypes" :key="key" :value="value">
                                     {{ value }}
@@ -45,7 +46,7 @@
                 </ion-row>
                 <ion-row>
                     <ion-col size="12">
-                        <ion-button expand="block" @click="submitForm">Submit</ion-button>
+                        <ion-button expand="block" @click="submitForm">{{ $t('general.submit') }}</ion-button>
                     </ion-col>
                 </ion-row>
             </ion-grid>
@@ -53,6 +54,7 @@
             <ToastComponent ref="toastComponent" />
 
         </ion-content>
+        <FooterComponent />
     </ion-page>
 </template>
 
@@ -61,6 +63,8 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, 
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import ToastComponent from './ToastComponent.vue';
+import NavBarComponent from './NavBarComponent.vue';
+import FooterComponent from './FooterComponent.vue';
 
 export default defineComponent({
     name: 'LogisticsRegisterComponent',
@@ -80,7 +84,9 @@ export default defineComponent({
         IonButton,
         IonSelect,
         IonSelectOption,
-        ToastComponent
+        ToastComponent,
+        NavBarComponent,
+        FooterComponent
     },
     data() {
         return {
