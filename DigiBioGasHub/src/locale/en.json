@@ -468,6 +468,7 @@
     },
     "invitations": {
         "inviteMembers": "Invite Members",
+        "invalidEmail": "Invalid email address!",
         "inviteSuccess": "Invitation sent successfully!",
         "inviteError": "Failed to send the invitation. Make sure the person is not already invited or a company member.",
         "title": "You're invited!",
