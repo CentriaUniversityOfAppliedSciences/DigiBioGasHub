@@ -1,7 +1,8 @@
 <template>
     <ion-page>
-        <ion-content>
         <NavBarComponent />
+        <ion-content>
+        
         
             
             <ion-grid class="main-grid">
@@ -24,9 +25,8 @@
                 <AddOfferComponent @getOffers="getOffers"/>
             
        
-                
+                <FooterComponent />  
     </ion-content>
-    <FooterComponent />
     </ion-page>
 </template>
 
@@ -84,6 +84,16 @@ export default defineComponent ({
                 console.error('Invalid material.type format in i18n configuration');
             }
         },
+        updateOffers(choice){
+            if (choice){
+                this.getOffers();
+            }
+        }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.getProducts();
+        });
     },
     mounted() {
         this.currentProducts = this.products;

@@ -14,6 +14,7 @@
         "myRequests": "Mina förfrågningar",
         "myProducts": "Mina produkter",
         "mycompany": "Mitt företag",
+        "mycontracts": "Mina avtal",
         "marketplace": "Marknadsplats",
         "map": "Karta",
         "deleteAccount": "Radera ditt konto",
@@ -40,11 +41,19 @@
         "resetPasswordFailMessage": "Användarnamnet hittades inte. Kontrollera användarnamnet och försök igen.",
         "forgotPassword": "Glömt lösenordet?",
         "edit": "Redigera",
-        "delete":"Radera"
-    
-
+        "company": "Företag",
+        "delete":"Radera",
+        "are_you_sure": "Är du säker?",
+        "yes": "Ja",
+        "giveFeedback": "Ge feedback",
+        "chat": "Chat",
+        "close": "Stäng"
     },
     "general":{
+        "welcome": "Välkommen till DigiBioGasHub",
+        "welcomeMessage": "DigiBioGasHub är en plattform för att underlätta handel och samarbete inom biogasindustrin. Här kan du hitta erbjudanden, efterfrågningar och produkter relaterade till biogas.",
+        "latestOffers": "Senaste erbjudanden",
+        "latestArticles": "Senaste artiklar",
         "loading": "Laddar...",
         "error": "Fel",
         "noData": "Ingen data",
@@ -96,7 +105,13 @@
         "lastName": "Efternamn",
         "company": "Företag",
         "TermsAndConditions": "Användarvillkor",
-        "PrivacyPolicy": "Integritetspolicy"
+        "PrivacyPolicy": "Integritetspolicy",
+        "industry": "Industri",
+        "read_more": "Läs mer",
+        "feedback": "Feedback",
+        "settings": "Inställningar",
+        "companies": "Företag",
+        "add_company": "Lägg till företag"
     },
     "footer":{
         "KP": "src/assets/kp.jpg",
@@ -138,7 +153,17 @@
         "deleteAccountFailMessage": "Radering av kontot misslyckades. Kontrollera uppgifterna och försök igen.",
         "deleteAccountConfirm": "Är du säker på att du vill radera ditt konto? Denna åtgärd är oåterkallelig.",
         "deleteAccountConfirmMessage": "Ditt konto kommer att raderas och all relaterad information kommer att förloras. Är du säker på att du vill fortsätta?",
-        "terms": "Jag godkänner användarvillkoren"
+        "terms": "Jag godkänner användarvillkoren",
+        "oldPassword": "Gammalt lösenord",
+        "passwordMismatch": "Lösenorden matchar inte",
+        "passwordLength": "Lösenordet måste vara minst 8 tecken långt",
+        "newPasswordRepeat": "Bekräfta ditt nya lösenord",
+        "name":"Namn",
+        "noOffers": "Du har inga erbjudanden ännu.",
+        "loginSuccess": "Inloggning lyckades",
+        "loginFail": "Inloggning misslyckades",
+        "loginEmailFail": "E-postadressen är ogiltig.",
+        "loginPasswordFail": "Lösenordet är ogiltigt."
     },
     "forms":{
         "helper":{
@@ -184,17 +209,24 @@
             "no": "Nej",
             "amount": "Mängd"
         },
-        
             "image": "Bild",
             "material": "Material",
             "chooseMaterial": "Välj material",
+            "chooseCompany": "Välj företag",
             "name": "Produktnamn",
             "offerTypes": "Offertyper",
             "chooseType": "Välj typ",
+            "buy": "Köp",
             "type": {
                 "offer": "Erbjudande",
                 "demand": "Efterfrågan",
                 "auction": "Auktion"
+            },
+            "typenum":{
+                "0":"Tjänst",
+                "1":"Erbjudande",
+                "2":"Efterfrågan",
+                "3":"Auktion"
             },
             "desc": "Beskrivning",
             "price": {
@@ -210,6 +242,12 @@
                 "freeToPickup": "Gratis att hämta",
                 "agreedupon": "Bestäms"
             },
+            "logisticType": {
+                "0": "Ingen logistik",
+                "1": "Ingår i priset",
+                "2": "Gratis att hämta",
+                "3": "Bestäms"
+            },
             "endTime": "Sluttid",
             "time": "Tid",
             "submit": "Skicka",
@@ -218,8 +256,41 @@
                 "chooseVisibility": "Välj synlighet",
                 "public": "Offentlig",
                 "private": "Privat"
-            }
-        
+            },
+            "openlink": "Information",
+            "error":{
+                "product_buy_over_amount": "Mängden överskrider det erbjudna beloppet",
+                "product_buy_zero_amount": "Mängden kan inte vara noll"
+            },
+            "contract_history":"Kontrakthistorik",
+            "successMessage": "Produkten har lagts till",
+            "errorMessage": "Det gick inte att lägga till produkten. Kontrollera uppgifterna och försök igen."
+    },
+    "validation":{
+        "companyRequired": "Företag är obligatoriskt",
+        "materialRequired": "Material är obligatoriskt",
+        "materialNameRequired": "Namn är obligatoriskt",
+        "typeRequired": "Typ är obligatoriskt",
+        "descriptionRequired": "Beskrivning är obligatoriskt",
+        "addressRequired": "Adress är obligatoriskt",
+        "zipcodeRequired": "Postnummer är obligatoriskt",
+        "cityRequired": "Stad är obligatoriskt",
+        "priceRequired": "Pris är obligatoriskt",
+        "quantityRequired": "Mängd är obligatoriskt",
+        "unitRequired": "Enhet är obligatoriskt",
+        "logisticTypeRequired": "Logistiktyp är obligatoriskt",
+        "startDateRequired": "Startdatum är obligatoriskt",
+        "endDateRequired": "Slutdatum är obligatoriskt",
+        "visibilityRequired": "Synlighet är obligatoriskt",
+        "fillAllFields": "Fyll i alla fält"
+    },
+    "contract":{
+        "contract": "Avtal",
+        "buyer": "Köpare",
+        "seller": "Säljare",
+        "buyerCompany": "Köparens företag",
+        "buyDate": "Köpedatum",
+        "price": "Pris"
     },
     "logisticQuotation": {
         "title": "Logistikanbud",
@@ -245,6 +316,16 @@
             "5":"flytande biogas",
             "6":"råmaterial",
             "7":"restprodukter"
+        },
+        "placeholder":{
+            "0": "/placeholders/unknown.png",
+            "1": "/placeholders/straw.jpeg",
+            "2": "/placeholders/solid-manure.jpeg",
+            "3": "/placeholders/liquid-manure.jpeg",
+            "4": "/placeholders/biogas.jpeg",
+            "5": "/placeholders/liquid-biogas.jpeg",
+            "6": "/placeholders/feed.jpeg",
+            "7": "/placeholders/digestate.jpeg"
         }
     },
     "unit":{
@@ -292,7 +373,84 @@
         "editAgreement": "Redigera avtal",
         "deleteAgreement": "Radera avtal",
         "products": "Produkter",
-        "types": "Typer"
+        "types": "Typer",
+        "addCompany": "Lägg till företag",
+        "type": {
+            "0":"Tjänsteleverantör",
+            "1":"Jordbruk",
+            "2":"Småskalig biogasproducent",
+            "3":"Biogasproducent",
+            "4":"Industri",
+            "5":"Logistik",
+            "6":"Annat"
+        }
+    },
+    "admin": {
+        "company": {
+            "manageCompanies": "Hantera företag",
+            "title": "Företagshantering",
+            "detailstitle": "Företagsinformation",
+            "verified": "Verifierad",
+            "unverified": "Overifierad",
+            "disabled": "Inaktiverad",
+            "verify": "Verifiera",
+            "unverify": "Ta bort verifiering",
+            "disable": "Inaktivera",
+            "confirmVerify": "Är du säker på att du vill verifiera detta företag?",
+            "confirmUnverify": "Är du säker på att du vill ta bort verifieringen för detta företag?",
+            "confirmDisable": "Är du säker på att du vill inaktivera detta företag?",
+            "confirmDelete": "Är du säker på att du vill ta bort detta företag permanent? Denna åtgärd kan inte ångras!",
+            "verifyFail": "Verifiering av företaget misslyckades!",
+            "unverifyFail": "Borttagning av verifiering misslyckades!",
+            "disableFail": "Inaktivering av företaget misslyckades!"
+        },
+        "blogpost":{
+            "blogs": "Inlägg",
+            "published":"Publicerad",
+            "unpublished": "Opublicerad",
+            "drafts": "Utkast",
+            "publish": "publicera",
+            "unpublish": "ta bort publicering",
+            "confirmDelete": "Bekräfta borttagning",
+            "confirmPublish": "Bekräfta publicering",
+            "confirmUnpublish": "Bekräfta borttagning av publicering",
+            "confirmPublishMessage": "Är du säker på att du vill publicera denna artikel?",
+            "confirmUnpublishMessage": "Är du säker på att du vill ta bort publiceringen av denna artikel?",
+            "confirmDeleteMessage": "Är du säker på att du vill ta bort denna artikel permanent? Denna åtgärd kan inte ångras!",
+            "publishSuccess":"Artikeln har publicerats!",
+            "unpublishSuccess": "Artikeln har avpublicerats!",
+            "deleteSuccess": "Artikeln har tagits bort!",
+            "publishFail": "Publicering misslyckades!",
+            "unpublishFail": "Borttagning av publicering misslyckades!",
+            "deleteFail": "Borttagning misslyckades!",
+            "fetchingPostFailed": "Inga artiklar hittades!",
+            "reviewEdit": "Granska och redigera",
+            "addPost": "Lägg till artikel"
+        },
+        "users": {
+            "title": "Användare",
+            "userlevel": "Användarnivå",
+            "hubID": "Hub-ID",
+            "actions": "Åtgärder",
+            "fetchUsersFail": "Hämtning av användare misslyckades!",
+            "fetchUserFail": "Hämtning av användare misslyckades!",
+            "editTitle": "Redigera användare",
+            "pagination": "Resultat per sida"
+        },
+        "material":{
+            "name": "Materialnamn",
+            "type": "Materialtyp",
+            "description": "Beskrivning",
+            "quality": "Kvalitet",
+            "locality":"Språk",
+            "addMaterial": "Lägg till material"
+        },
+        "edittitle": "Redigera företag",
+        "confirmAction": "Bekräfta åtgärd",
+        "materials": "Material",
+        "manage_users": "Hantera användare",
+        "settings": "Inställningar",
+        "reports": "Rapporter"
     },
     "filter":{
         "hide":"Dölj",
@@ -302,8 +460,76 @@
         "offer":"Erbjudande",
         "plant":"Biogasanläggning",
         "company":"Företag"
+    },
+    "chat": {
+        "admin": {
+            "createRoom": "SKAPA RUM",
+            "deleteRoom": "TA BORT RUM",
+            "deleteRoomConfirmation": "Är du säker på att du vill ta bort detta rum? Detta tar bort alla meddelanden i rummet. Denna åtgärd kan inte ångras.",
+            "roomDeleted": "Rummet har tagits bort",
+            "roomDeletionFailed": "Borttagning av rummet misslyckades",
+            "createRoomTitle": "Skapa nytt rum",
+            "roomName": "Rumsnamn",
+            "roomDescription": "Rumsbeskrivning",
+            "create": "Skapa",
+            "roomCreated": "Rummet har skapats",
+            "roomCreationFailed": "Skapande av rum misslyckades",
+            "updateRoom": "UPPDATERA",
+            "updateRoomTitle": "Uppdatera rum",
+            "saveChanges": "Spara ändringar",
+            "roomUpdated": "Rummet har uppdaterats",
+            "roomUpdateFailed": "Uppdatering av rummet misslyckades",
+            "leaveRoomConfirmation": "Är du säker på att du vill lämna detta rum? Detta tar bort dig från rummet, men rummet tas inte bort."
+        },
+        "placeholders": {
+            "enterRoomName": "Ange rumsnamn",
+            "enterRoomDescription": "Ange rumsbeskrivning",
+            "enterMessage": "Skriv ditt meddelande"
+        },
+        "chatRooms": "Chattrum",
+        "chatRoom": "Chattrum",
+        "chatUsers": "Användare",
+        "groupChat": "Gruppchatt",
+        "joinedRooms": "Anslutna rum",
+        "enter": "Gå med",
+        "exploreRooms": "Utforska rum",
+        "confirmLeave": "Är du säker på att du vill lämna detta rum?",
+        "leaveRoomConfirmation": "Är du säker på att du vill lämna detta rum? Detta tar bort dig från rummet, men rummet tas inte bort.",
+        "privateChat": "Privat chatt",
+        "notifications": "Aviseringar",
+        "join": "GÅ MED",
+        "leave": "LÄMNA",
+        "send": "Skicka",
+        "placeholder": "Skriv ditt meddelande...",
+        "noMessages": "Inga meddelanden än. Var först med att skicka ett meddelande!",
+        "edited": "Redigerad",
+        "confirmDelete": "Bekräfta borttagning",
+        "deleteMessage": "Är du säker på att du vill ta bort detta meddelande?",
+        "errorMessage": "Adressen hittades inte",
+        "privateChatWith": "Privat chatt med"
+    },
+    "invitations": {
+        "inviteMembers": "Bjud in användare",
+        "inviteSuccess": "Inbjudan skickad!",
+        "inviteError": "Det gick inte att skicka inbjudan. Kontrollera att personen inte redan är inbjuden eller redan är användare i företaget.",
+        "title": "Du har blivit inbjuden!",
+        "loginPrompt": "Logga in eller registrera dig för att acceptera inbjudan.",
+        "loginButton": "Logga in",
+        "registerButton": "Registrera",
+        "acceptButton": "Acceptera",
+        "accepted": "Inbjudan accepterad",
+        "errorMessage": "Ogiltig eller utgången inbjudan.",
+        "acceptErrorMessage": "Det gick inte att acceptera inbjudan.",
+        "invalidOrExpired": "Ogiltig eller utgången inbjudan.",
+        "sendInvitation": "Skicka inbjudan"
+    },
+    "settings":{
+        "filter":"Filterinställningar",
+        "chat":"Chattinställningar",
+        "feedstock":"Insatsvaror",
+        "biogas": "Biogas",
+        "logistics": "Logistik",
+        "digestate": "Rester",
+        "chatVisibility":"Visa i privat chattlista"
     }
-
-
-
 }

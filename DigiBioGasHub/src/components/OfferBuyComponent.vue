@@ -13,7 +13,7 @@
                 </ion-select>
             </ion-item>
             <ion-item>
-                <ion-input type="number" v-model="buy.amount" :max="offer.amount"></ion-input>
+                <ion-input type="number" v-model="buy.amount" :max="offer.availableAmount"></ion-input>
                     <ion-label slot="end">{{ getUnitTypeTranslation(offer.unit) }}</ion-label>
                     <ion-label slot="start">{{ $t('product.productDetails.amount')}}</ion-label>
                 
@@ -89,6 +89,7 @@ export default defineComponent({
             ToastComponent
         }
     },
+    emits: ['updateOffers'],
     methods:{
         getUnitTypeTranslation(type) {
             return this.$t(`unit.amount.${type}`);
@@ -104,7 +105,11 @@ export default defineComponent({
             }
         },
         buyOffer(){
-            if (this.buy.amount > 0 && this.offer.amount < this.buy.amount){
+            if (this.buy.amount == 0){
+                this.ToastComponent.methods.showToast(this.$t('product.error.product_buy_zero_amount'), 2000, 'danger');
+                return;
+            }
+            else if (this.buy.amount > 0 && this.offer.amount < this.buy.amount){
                 this.ToastComponent.methods.showToast(this.$t('product.error.product_buy_over_amount'), 2000, 'danger');
                 return;
             }
@@ -112,8 +117,11 @@ export default defineComponent({
                 var url = this.$api_add + "/buyoffer";
                 axios.post(url, this.buy, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                     if (response.data.type="result" && response.data.result == "ok"){
-                        this.$router.push({ name: 'Marketplace' });
+                        this.$emit('updateOffers');
                         modalController.dismiss();
+                        this.$router.push({ name: 'Marketplace' });
+                        
+                        
                     }
                 });
             }

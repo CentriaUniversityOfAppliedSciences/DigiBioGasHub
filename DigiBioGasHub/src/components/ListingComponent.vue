@@ -63,7 +63,7 @@ export default {
         }
     },
     mounted() {
-        
+        console.log("product", this.product);  
     },
     methods:{
         checkFileLink(){
@@ -97,11 +97,8 @@ export default {
                 {
                 text: this.$t('menu.yes'),
                 handler: () => {
-                    // Place your delete logic here
-                    console.log(`Deleting offer with id: ${id}`);
                     var url = this.$api_add + "/deleteoffer";
                     axios.post(url,{"id":id},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                        console.log(response);
                         if (response.data.type="result" && response.data.result == "ok"){
                             this.$router.push('/company/', {});
                         }
@@ -113,7 +110,6 @@ export default {
             await alert.present();
         },
         contractHistory(id) {
-            console.log("Contract history for offer with id: " + id);
             this.$router.push({ name: 'ContractHistory', params: { id: id } });
         }
     }
