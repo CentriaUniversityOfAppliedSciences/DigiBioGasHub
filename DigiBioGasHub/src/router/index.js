@@ -30,6 +30,7 @@ import JoinCompanyPage from '../views/JoinCompanyPage.vue';
 import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
 import ContractsPage from '../views/ContractsPage.vue';
 import UserSettingsPage from '../views/SettingsPage.vue';
+import LogisticsRegisterComponent from '../components/LogisticsRegisterComponent.vue';
 
 export function jwtDecode(token) {
   try {
@@ -218,6 +219,11 @@ const routes = [
       }
     },
     component: CompanyOffersPage
+  },
+  {
+    path: '/logisticsregister',
+    name: 'LogisticsRegister',
+    component: LogisticsRegisterComponent
   },
   {
     path: '/profile',
