@@ -271,7 +271,8 @@
         "startDateRequired": "Start date cannot be empty.",
         "endDateRequired": "End date cannot be empty.",
         "visibilityRequired": "Please select a visibility option.",
-        "fillAllFields": "Please fill in all required fields."
+        "fillAllRequiredFields": "Please fill in all required fields.",
+        "fillAllFields":"All fields are required. Please fill in all fields."
       },
     "logisticQuotation": {
             "title": "Logistic Quotation",

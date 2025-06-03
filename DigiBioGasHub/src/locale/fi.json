@@ -281,7 +281,7 @@
         "startDateRequired": "Aloituspäivämäärä on pakollinen",
         "endDateRequired": "Päättymispäivämäärä on pakollinen",
         "visibilityRequired": "Näkyvyys on pakollinen",
-        "fillAllFields": "Täytä kaikki kentät"
+        "fillAllRequiredFields": "Täytä kaikki kentät"
     },
     "contract":{
         "contract": "Sopimus",

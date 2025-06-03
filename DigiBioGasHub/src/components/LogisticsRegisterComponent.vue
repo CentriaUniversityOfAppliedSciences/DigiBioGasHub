@@ -97,6 +97,12 @@ export default defineComponent({
     },
     methods: {
         async submitForm() {
+
+            if (!this.form.companyName || !this.form.address || !this.form.city || !this.form.zipcode || !this.form.haulType) {
+                this.$refs.toastComponent.showToast(this.$t('validation.fillAllFields'), 2000, 'danger');
+                return;
+            }
+
             try {
                 const response = await axios.post(this.$api_add + '/logistics/register', this.form);
                 if (response.status === 200) {
