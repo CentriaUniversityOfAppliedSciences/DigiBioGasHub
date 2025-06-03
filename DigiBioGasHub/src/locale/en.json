@@ -14,6 +14,7 @@
         "myRequests": "My Requests",
         "myProducts": "My Products",
         "mycompany": "My Company",
+        "mycontracts": "My Contracts",
         "marketplace": "Marketplace",
         "map": "Map",
         "deleteAccount": "Delete your account",
@@ -40,9 +41,13 @@
         "resetPasswordFailMessage": "Username not found. Check the username and try again.",
         "forgotPassword": "Forgot your password?",
         "edit": "Edit",
+        "company": "Company",
         "delete":" Delete",
+        "are_you_sure": "Are you sure?",
+        "yes": "Yes",
         "giveFeedback": "Give feedback",
-        "chat": "Chat"
+        "chat": "Chat",
+        "close": "Close"
     },
     "general":{
         "welcome": "Welcome to DigiBioGasHub",
@@ -101,6 +106,7 @@
         "company": "Company",
         "TermsAndConditions": "Terms and Conditions",
         "PrivacyPolicy": "Privacy Policy",
+        "industry": "Industry",
         "read_more": "Read more",
         "feedback": "Feedback",
         "settings": "Settings",
@@ -147,7 +153,17 @@
         "deleteAccountFailMessage": "Failed to delete account. Check the information and try again.",
         "deleteAccountConfirm": "Are you sure you want to delete your account? This action is irreversible.",
         "deleteAccountConfirmMessage": "Your account and all related information will be deleted. Are you sure you want to continue?",
-        "terms": "Accept the terms and conditions"
+        "terms": "Accept the terms and conditions",
+        "oldPassword": "Current password",
+        "passwordMismatch": "Passwords do not match",
+        "passwordLength": "Password must be at least 8 characters long",
+        "newPasswordRepeat": "Repeat new password",
+        "name": "Name",
+        "noOffers": "You have no offers",
+        "loginSuccess": "Login successful",
+        "loginFail": "Login failed",
+        "loginEmailFail": "Email is invalid",
+        "loginPasswordFail": "Password is invalid"
     },
     "forms":{
         "helper":{
@@ -180,7 +196,6 @@
         },
         "register": "Register"
     },
-    
     "product": {
         "productDetails": {
             "title": "Product Details",
@@ -243,17 +258,13 @@
             "private": "Private"
         },
         "openlink": "Tiedot",
+        "error":{
+            "product_buy_over_amount": "Amount cannot exceed the available quantity",
+            "product_buy_zero_amount": "Amount must be greater than 0"
+        },
         "successMessage": "Offer created successfully",
         "errorMessage": "Failed to create offer! Check the information and try again.",
         "contract_history":"Contracts"
-    },
-    "contract":{
-        "contract": "Contract",
-        "buyer": "Buyer",
-        "seller": "Seller",
-        "buyerCompany": "Buyer company",
-        "buyDate": "Buy date",
-        "price": "Price"
     },
     "validation": {
         "companyRequired": "Please select a company.",
@@ -274,6 +285,14 @@
         "fillAllRequiredFields": "Please fill in all required fields.",
         "fillAllFields":"All fields are required. Please fill in all fields."
       },
+      "contract":{
+        "contract": "Contract",
+        "buyer": "Buyer",
+        "seller": "Seller",
+        "buyerCompany": "Buyer company",
+        "buyDate": "Buy date",
+        "price": "Price"
+    },
     "logisticQuotation": {
             "title": "Logistic Quotation",
             "pickupAddress": "Pickup Address",
@@ -359,6 +378,16 @@
         "logisticsRegistration": {
             "title": "Logistics Registration",
             "haulType": "Haul Type"
+           },
+        "addCompany": "Add company",
+        "type":{
+            "0":"Service provider",
+            "1":"Agriculture",
+            "2":"Biogas producer (small scale)",
+            "3":"Biogas producer",
+            "4":"Industry",
+            "5":"Logistics",
+            "6":"Other"
         }
     },
     "admin": {
@@ -413,13 +442,24 @@
             "editTitle": "Edit User",
             "pagination": "Results per page"
         },
+        "material":{
+            "name": "Material name",
+            "type": "Material type",
+            "description": "Description",
+            "quality": "Quality",
+            "locality": "Locality",
+            "addMaterial": "Add Material"
+        },
         "edittitle": "Edit Company",
-        "confirmAction":"Confirm Action"
+        "confirmAction":"Confirm Action",
+        "materials": "Materials",
+        "manage_users":"Manage Users",
+        "settings": "Settings",
+        "reports": "Reports"
     },
     "filter":{
         "hide":"Hide",
         "show":"Show",
-
         "width":"Toggle width",
         "farm":"Farm",
         "offer":"Offer",
@@ -443,7 +483,8 @@
             "updateRoomTitle": "Update room",
             "saveChanges": "Save changes",
             "roomUpdated": "Room updated successfully",
-            "roomUpdateFailed": "Room update failed"
+            "roomUpdateFailed": "Room update failed",
+            "leaveRoomConfirmation": "Are you sure you want to leave this room? This will remove you from the room but will not remove the room."
         },
         "placeholders": {
             "enterRoomName": "Enter room name",
@@ -469,10 +510,12 @@
         "edited": "Edited",
         "confirmDelete": "Confirm Delete",
         "deleteMessage": "Are you sure you want to delete this message?",
-        "errorMessage": "Invalid Url"
+        "errorMessage": "Invalid Url",
+        "privateChatWith": "Private chat with user"
     },
     "invitations": {
         "inviteMembers": "Invite Members",
+        "invalidEmail": "Invalid email address!",
         "inviteSuccess": "Invitation sent successfully!",
         "inviteError": "Failed to send the invitation. Make sure the person is not already invited or a company member.",
         "title": "You're invited!",
@@ -485,6 +528,14 @@
         "acceptErrorMessage": "Failed to accept invitation.",
         "invalidOrExpired": "Invalid or expired invitation.",
         "sendInvitation": "Send Invitation"
+    },
+    "settings":{
+        "filter":"Filter settings",
+        "chat":"Chat settings",
+        "feedstock":"Feedstock",
+        "biogas": "Biogas",
+        "logistics": "Logistics",
+        "digestate": "Digestate",
+        "chatVisibility":"Show me on private chat list"
     }
-
 }

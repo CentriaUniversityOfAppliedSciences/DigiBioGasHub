@@ -9,8 +9,8 @@
                 <BlogPostComponent v-else :content="content" />
                 
             </div>
+            <FooterComponent />
         </ion-content>
-        <FooterComponent />
     </ion-page>
 </template>
 <script>
@@ -59,10 +59,6 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   min-height: 100%;
-}
-
-.page-wrapper > *:last-child {
-  margin-top: auto;
 }
 
 </style>

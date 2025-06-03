@@ -2,7 +2,7 @@
     <ion-page>
         <NavBarComponent />
         <ion-content class="main-content">
-            <OfferComponent :offer="offers"/>
+            <OfferComponent :offer="offers" @updateOffers="updateOffers"/>
             
         </ion-content>
         <FooterComponent />
@@ -38,6 +38,10 @@ export default defineComponent ({
             axios.post(this.$api_add + '/getoffersbyid',{id: this.productId}).then(response => {
                 this.offers = response.data.message;
             });
+        },
+        updateOffers(){
+            this.getOffer();
+            this.$emit('updateOffers');
         }
     },
     mounted(){

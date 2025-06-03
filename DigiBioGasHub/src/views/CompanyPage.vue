@@ -26,8 +26,9 @@
             
             
              <AddCompanyComponent v-model:visible="showAddCompany" />
+             <FooterComponent />
         </ion-content>
-        <FooterComponent />
+    
        
         
         
