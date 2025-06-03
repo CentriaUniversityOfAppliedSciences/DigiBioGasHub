@@ -37,7 +37,7 @@
                         <ion-item>
                             <ion-label position="floating">{{ $t('company.logisticsRegistration.haulType')
                                 }}</ion-label>
-                            <ion-select v-model="form.haulType">
+                            <ion-select multiple="true" v-model="form.haulType">
                                 <ion-select-option v-for="(value, key) in materialTypes" :key="key" :value="value">
                                     {{ value }}
                                 </ion-select-option>
@@ -97,7 +97,7 @@ export default defineComponent({
                 address: '',
                 city: '',
                 zipcode: '',
-                haulType: '',
+                haulType: [],
             },
             materialTypes: {}, 
         };
