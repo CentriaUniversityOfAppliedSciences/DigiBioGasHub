@@ -2,13 +2,13 @@
     <ion-page>
         <ion-header>
             <NavBarComponent />
-            <ion-toolbar>
-                <ion-title>{{ $t('company.logisticsRegistration.title') }}</ion-title>
-            </ion-toolbar>
         </ion-header>
-        <ion-content>
-            <ion-grid>
-                <ion-row >
+        <ion-content class="ion-padding">
+            <ion-grid class="form-grid">
+                <ion-toolbar>
+                    <ion-title style="text-align: center;">{{ $t('company.logisticsRegistration.title') }}</ion-title>
+                </ion-toolbar>
+                <ion-row>
                     <ion-col size="12">
                         <ion-item>
                             <ion-label position="floating">{{ $t('general.name') }}</ion-label>
@@ -35,7 +35,8 @@
                     </ion-col>
                     <ion-col size="12">
                         <ion-item>
-                            <ion-label position="floating">{{ $t('company.logisticsRegistration.haulType') }}</ion-label>
+                            <ion-label position="floating">{{ $t('company.logisticsRegistration.haulType')
+                                }}</ion-label>
                             <ion-select v-model="form.haulType">
                                 <ion-select-option v-for="(value, key) in materialTypes" :key="key" :value="value">
                                     {{ value }}
@@ -147,3 +148,16 @@ export default defineComponent({
     },
 });
 </script>
+
+<style scoped>
+
+.form-grid {
+    max-width: 700px;
+    width: 100%; 
+    padding: 5px;
+    margin: auto;
+    border-radius: 8px;
+    border: 2px solid gray;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+</style>
