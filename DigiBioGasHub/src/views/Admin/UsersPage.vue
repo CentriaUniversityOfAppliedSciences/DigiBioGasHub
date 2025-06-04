@@ -101,9 +101,9 @@
                         }
                     }
                 ]"></ion-alert>
-
+            <FooterComponent />
         </IonContent>
-        <FooterComponent />
+
     </IonPage>
 </template>
 

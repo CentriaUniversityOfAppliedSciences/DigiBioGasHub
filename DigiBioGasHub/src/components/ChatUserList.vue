@@ -1,12 +1,10 @@
 <template>
-    <ion-page>
+    <ion-page style="overflow-y: auto;">
         <NavBarComponent />
-        <ion-content>
+        <ion-content class="main-content">
             <ion-toolbar>
                 <ion-title>{{ $t('chat.chatUsers') }}</ion-title>
             </ion-toolbar>
-        </ion-content>
-        <ion-content class="main-content">
             <ion-list>
                 <ion-item v-for="user in users" :key="user.id" button @click="navigateToChat(user.id, user.name)" style="margin-bottom: 1rem;">
                     <ion-label class="ion-text-wrap">

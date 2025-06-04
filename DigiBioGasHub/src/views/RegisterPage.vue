@@ -1,18 +1,20 @@
 <template>
     <ion-page>
-    <NavBarComponent />
-    <div class="register-page">
-        <RegisterComponent />
-    </div>
-    <FooterComponent />
-</ion-page>
+        <NavBarComponent />
+        <ion-content>
+            <div class="register-page">
+                <RegisterComponent />
+            </div>
+            <FooterComponent />
+        </ion-content>
+    </ion-page>
 </template>
 
 <script>
 import RegisterComponent from '../components/RegisterComponent.vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
-import { IonPage } from '@ionic/vue';
+import { IonContent, IonPage } from '@ionic/vue';
 
 export default {
     name: 'RegisterPage',
@@ -20,7 +22,8 @@ export default {
         RegisterComponent,
         NavBarComponent,
         FooterComponent,
-        IonPage
+        IonPage,
+        IonContent
     }
 };
 </script>

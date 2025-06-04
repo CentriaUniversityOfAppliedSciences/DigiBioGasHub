@@ -1,10 +1,10 @@
 <template>
-    <ion-page>
+    <ion-page style="overflow-y: auto;">
         <NavBarComponent />
         <ion-content class="main-content">
             <ProfileComponent :user="myUser" :offers="myOffers" :company="myCompanies"/>
         </ion-content>
-    <FooterComponent />
+        <FooterComponent />
     </ion-page>
 </template>
 <script>

@@ -22,9 +22,8 @@
       </ion-grid>
 
       <ChatRoomComponent />
-    
+      <FooterComponent />
     </ion-content>
-    <FooterComponent />
   </ion-page>
 </template>
 

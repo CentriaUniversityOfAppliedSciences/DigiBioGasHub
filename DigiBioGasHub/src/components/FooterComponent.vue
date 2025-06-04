@@ -1,8 +1,8 @@
 <template>
-   <ion-footer>
-        <ion-grid class="dark-footer" >
+    <ion-footer>
+        <ion-grid class="white-footer">
             <ion-row>
-                <ion-col size="12" size-sm="3">
+                <ion-col size="12" size-md="4">
                     <ul>
                         <li class="menu-item"><a href="/terms-of-service">{{ $t('general.TermsAndConditions') }}</a></li>
                     
@@ -12,48 +12,36 @@
 
                     </ul>
                 </ion-col>
-                <ion-col size="12" size-sm="3">
-                    <ion-item class="logo">
-                        <img :src="$t('footer.KP')" :alt="$t('footer.KP-logo')" class="logo">
-                    </ion-item>
-                </ion-col size="12" size-sm="3">
-                <ion-col>
-                    <ion-item class="logo">
-                        <img :src="$t('footer.EP')" :alt="$t('footer.EP-logo')" class="logo">
-                    </ion-item>
-                </ion-col>
 
-                <ion-col size="12" size-sm="3">
-                    <ion-item class="logo">
-                        <img :src="$t('footer.P')" :alt="$t('footer.P-logo')" class="logo">
-                    </ion-item>
+                <ion-col size="12" size-md="8">
+                    <ion-row>
+                        <ion-col size="12" size-sm="4" class="logo-col">
+                            <img :src="$t('footer.KP')" :alt="$t('footer.KP-logo')" class="logo" />
+                        </ion-col>
+                        <ion-col size="12" size-sm="4" class="logo-col">
+                            <img :src="$t('footer.EP')" :alt="$t('footer.EP-logo')" class="logo" />
+                        </ion-col>
+                        <ion-col size="12" size-sm="4" class="logo-col">
+                            <img :src="$t('footer.P')" :alt="$t('footer.P-logo')" class="logo" />
+                        </ion-col>
+                    </ion-row>
+
+                    <ion-row>
+                        <ion-col size="12" size-sm="4" class="logo-col">
+                            <img :src="$t('footer.Centria')" :alt="$t('footer.Centria-logo')" class="logo" />
+                        </ion-col>
+                        <ion-col size="12" size-sm="4" class="logo-col">
+                            <img :src="$t('footer.seAMK')" :alt="$t('footer.seAMK-logo')" class="logo" />
+                        </ion-col>
+                        <ion-col size="12" size-sm="4" class="logo-col">
+                            <img :src="$t('footer.vaasanYliopisto')" :alt="$t('footer.vaasanYliopisto-logo')"
+                                class="logo" />
+                        </ion-col>
+                    </ion-row>
                 </ion-col>
             </ion-row>
-            <ion-row>
-                <ion-col size="12" size-sm="3">
-
-                </ion-col>
-                <ion-col size="12" size-sm="3">
-                    <ion-item class="logo">
-                        <img :src="$t('footer.Centria')" :alt="$t('footer.Centria-logo')" class="logo">
-                    </ion-item>
-                </ion-col>
-                <ion-col size="12" size-sm="3">
-                    <ion-item class="logo">
-                        <img :src="$t('footer.seAMK')" :alt="$t('footer.seAMK-logo')" class="logo">
-                    </ion-item>
-                </ion-col>
-
-                <ion-col size="12" size-sm="3">
-                    <ion-item class="logo">
-                        <img :src="$t('footer.vaasanYliopisto')" :alt="$t('footer.vaasanYliopisto-logo')" class="logo">
-                    </ion-item>
-                </ion-col>
-            </ion-row>
-            
         </ion-grid>
-   </ion-footer>
-
+    </ion-footer>
 </template>
 
 <script>
@@ -76,21 +64,34 @@ export default {
 </script>
 
 <style scoped>
-.dark-footer {
-  background-color: #333333;
-  color: #fff;
-  bottom: 0;
-  width: 100%;
-  padding: 2rem;
+.white-footer {
+    background-color: #fff;
+    color: #000;
+    padding: 1.5rem;
 }
+
 .menu-item a {
-    color: #fff;
+    color: #1b1b1b;
     text-decoration: none;
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
+
+.logo-col {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
 .logo {
-    width: 400px;
     height: 100px;
-    margin: 0 auto;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
     display: block;
 }
+
 </style>

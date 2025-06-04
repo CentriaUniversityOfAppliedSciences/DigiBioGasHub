@@ -2,13 +2,12 @@
 
     <ion-page>
         <ion-content>
-        <NavBarComponent />
-        
-        <MaterialsComponent :materials="myMaterials" @getMaterials="getMaterials"/>
-      
-        
-    </ion-content>
-    <FooterComponent />
+            <NavBarComponent />
+
+            <MaterialsComponent :materials="myMaterials" @getMaterials="getMaterials" />
+            <FooterComponent />
+        </ion-content>
+
     </ion-page>
 </template>
 

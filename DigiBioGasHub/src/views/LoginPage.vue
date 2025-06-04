@@ -1,12 +1,14 @@
 <template>
     <ion-page>
         <NavBarComponent />
-        <div class="login-page">
-            <div class="login-container">
-                <LoginComponent />
+        <ion-content>
+            <div class="login-page">
+                <div class="login-container">
+                    <LoginComponent />
+                </div>
             </div>
-        </div>
-        <FooterComponent />
+            <FooterComponent />
+        </ion-content>
     </ion-page>
 </template>
 
@@ -14,7 +16,7 @@
 import LoginComponent from '../components/LoginComponent.vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
-import { IonPage } from '@ionic/vue';
+import { IonContent, IonPage } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent( {
@@ -23,7 +25,8 @@ export default defineComponent( {
         LoginComponent,
         NavBarComponent,
         FooterComponent,
-        IonPage
+        IonPage,
+        IonContent
     }
 });
 </script>
