@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project on DigiBioGasHubs Documentation</title>
+    <link>http://localhost:1313/</link>
+    <description>Recent content in Project on DigiBioGasHubs Documentation</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 22 May 2023 00:44:31 +0100</lastBuildDate>
+    <atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Introduction</title>
+      <link>http://localhost:1313/docs/project/introduction/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/project/introduction/</guid>
+      <description>&lt;p&gt;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA;  &#xA;&#xA;&#xA;&#xA;  &#xA;    &#xA;      &lt;img src=&#34;http://localhost:1313/images/DBH_logo_en_up.png&#34; alt=&#34;Project Logo&#34; width=&#34;1920&#34; height=&#34;1080&#34; loading=&#34;lazy&#34;&gt;&#xA;    &#xA;  &#xA;&lt;/p&gt;&#xA;&lt;h2 id=&#34;short-project-description&#34;&gt;Short Project Description &lt;a href=&#34;#short-project-description&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;&lt;strong&gt;1.12.2023 - 30.11.2025&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Dependence on fossil fuels, the need to decrease the number of CO2 emissions, the large amount of waste and unused material flows, and the necessity to increase the resilience of the energy system and regional energy self-sufficiency and food and supply security challenge actors to develop circular economy solutions and increase the share of renewable energy sources in the energy system. Biogas plays a key role in solving the aforementioned challenges.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Platform</title>
+      <link>http://localhost:1313/docs/project/platform/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/project/platform/</guid>
+      <description>&lt;h2 id=&#34;digibiogashubs-platform&#34;&gt;DigiBioGasHubs Platform &lt;a href=&#34;#digibiogashubs-platform&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;DigiBioGasHubs platform is a marketplace for offering or demanding biogas related products.&lt;/p&gt;&#xA;&lt;h3 id=&#34;features&#34;&gt;Features &lt;a href=&#34;#features&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h3&gt;</description>
+    </item>
+    <item>
+      <title>Getting Started</title>
+      <link>http://localhost:1313/docs/get-started/gettingstarted/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/get-started/gettingstarted/</guid>
+      <description>&lt;h2 id=&#34;getting-started&#34;&gt;Getting Started &lt;a href=&#34;#getting-started&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Front-end Documentation</title>
+      <link>http://localhost:1313/docs/front-end/frontend/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/front-end/frontend/</guid>
+      <description>&lt;h2 id=&#34;front-end&#34;&gt;Front-End &lt;a href=&#34;#front-end&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Backend Architecture</title>
+      <link>http://localhost:1313/docs/backend/backend/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/backend/backend/</guid>
+      <description>&lt;h2 id=&#34;architecture&#34;&gt;Architecture &lt;a href=&#34;#architecture&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Group Chat</title>
+      <link>http://localhost:1313/docs/chat/groupchat/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/chat/groupchat/</guid>
+      <description>&lt;h2 id=&#34;group-chat&#34;&gt;Group Chat &lt;a href=&#34;#group-chat&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Marketplace</title>
+      <link>http://localhost:1313/docs/marketplace/marketplace/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/marketplace/marketplace/</guid>
+      <description>&lt;h2 id=&#34;marketplace&#34;&gt;Marketplace &lt;a href=&#34;#marketplace&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Documentation</title>
+      <link>http://localhost:1313/docs/api/documentation/</link>
+      <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
+      <guid>http://localhost:1313/docs/api/documentation/</guid>
+      <description>&lt;h2 id=&#34;api-documentation&#34;&gt;API Documentation &lt;a href=&#34;#api-documentation&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+  </channel>
+</rss>
