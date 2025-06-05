@@ -453,8 +453,8 @@
         "reports": "Reports"
     },
     "filter":{
-        "hide":"Hide",
-        "show":"Show",
+        "hide":"Hide Filters",
+        "show":"Show Filters",
         "width":"Toggle width",
         "farm":"Farm",
         "offer":"Offer",

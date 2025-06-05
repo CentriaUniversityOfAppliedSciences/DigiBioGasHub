@@ -1,13 +1,12 @@
 <template>
     <div class="filter-component">
+        <div class="filter-box">
         <ion-button @click="toggleVisibility">
-            {{ isCardVisible ?  $t('filter.hide')  :  $t('filter.show')  }}
-        </ion-button>
-        <ion-button @click="toggleWidth">
-            {{ $t('filter.width') }}
+            <ion-icon :icon="isCardVisible ? 'filter-sharp' : 'filter-sharp'" slot="start" style="margin-right: 5px;"></ion-icon>
+            {{ isCardVisible ? $t('filter.hide')  :  $t('filter.show')  }}
         </ion-button>
 
-        <ion-card v-if="isCardVisible" :class="{'wide-card': isWide, 'narrow-card': !isWide}">
+        <ion-card v-if="isCardVisible">
             <ion-list>
                 <div v-for="category in filtersData" :key="category.value">
                     
@@ -18,22 +17,27 @@
                             :value="category.value"
                             :key="category.value"
                         />
-                        <ion-label style="margin-left:10px">{{ category.label }}</ion-label>
+                        <ion-label style="margin-left: 8px;">{{ category.label }}</ion-label>
                     </ion-item>
                 </div>
             </ion-list>
         </ion-card>
     </div>
+    </div>
 </template>
 
 <script>
 import { defineComponent, ref, watch, toRaw } from 'vue'
-import { IonList, IonItem, IonLabel, IonCheckbox, IonCard, IonButton } from '@ionic/vue'
-
+import { IonList, IonItem, IonLabel, IonCheckbox, IonCard, IonButton, IonIcon } from '@ionic/vue'
+import { addIcons } from 'ionicons';
+import { filterSharp } from 'ionicons/icons';
+addIcons({
+    "filter-sharp": filterSharp
+});
 
 export default defineComponent({
     name: 'FilterComponent',
-    components: { IonList, IonItem, IonLabel, IonCheckbox, IonCard, IonButton },
+    components: { IonList, IonItem, IonLabel, IonCheckbox, IonCard, IonButton, IonIcon },
     props: {
         filtersData: { type: Array, default: () => [] },
         dataToFilter: { type: Array, default: () => [] }
@@ -89,32 +93,76 @@ export default defineComponent({
 
 <style scoped>
 .filter-component {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1rem;
 }
+
+.filter-box {
+  width: 100%;
+  background-color: var(--ion-color-light);
+  padding: 0.8rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
 
 ion-button {
-    --background: #007bff;
-    --background-focused: #0056b3;
-    --border-radius: 4px;
+    --background: var(--ion-color-primary);
+    --background-hover: var(--ion-color-primary-shade);
+    --color: var(--ion-color-light);
+    --border-radius: 0.75rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    box-shadow: 0 2px 6px rgba(var(--ion-color-primary-rgb), 0.15);
 }
 
-.wide-card {
-    width: 100%;
-    transition: width 0.3s ease;
+ion-checkbox {
+  --size: 24px; 
+  --border-radius: 5px; 
+  --background: var(--ion-color-primary); 
+  --background-checked: var(--ion-color-primary-shade); 
+  --border-color: var(--ion-color-primary);
+  --border-width: 2px; 
 }
 
-.narrow-card {
-    width: 300px;
-    transition: width 0.3s ease;
+ion-button:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
 }
 
 ion-card {
-    --background: #f8f9fa;
-    --border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    padding: 1rem;
+    --background: var(--ion-card-background, var(--ion-item-background, var(--ion-background-color)));
+    transition: box-shadow 0.3s ease;
 }
+
+ion-card:hover {
+    box-shadow: 0 6px 18px rgba(var(--ion-color-step-600-rgb), 0.15);
+}
+
+ion-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    border-radius: 12px;
+}
+
+ion-item {
+    --inner-padding-end: 0;
+    --inner-padding-start: 0;
+    --padding-start: 0;
+    --min-height: 48px;
+    --background: var(--ion-color-step-50);
+    --border-radius: 0.5rem;
+    padding: 0.5rem;
+}
+
+ion-item:hover {
+    background-color: var(--ion-color-step-50);
+}
+
 </style>
