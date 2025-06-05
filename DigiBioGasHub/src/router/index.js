@@ -30,6 +30,7 @@ import JoinCompanyPage from '../views/JoinCompanyPage.vue';
 import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
 import ContractsPage from '../views/ContractsPage.vue';
 import UserSettingsPage from '../views/SettingsPage.vue';
+import LandingPage from '../views/LandingPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -325,6 +326,11 @@ const routes = [
   name: "JoinCompanyPage",
   component: JoinCompanyPage
 },
+{
+  path: "/landingpage",
+  name: "LandingPage",
+  component: LandingPage
+}
 ]
 
 const router = createRouter({
