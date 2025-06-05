@@ -56,7 +56,7 @@ export default defineComponent( {
                     anchor: [0.5, 0.5],
                     anchorXUnits: 'fraction',
                     anchorYUnits: 'fraction',
-                    src: 'src/assets/plant.svg',
+                    src: '/assets/plant.svg',
                     color: 'green'
 
                 })
