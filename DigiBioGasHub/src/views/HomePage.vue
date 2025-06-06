@@ -8,17 +8,7 @@
 
     <ion-content :fullscreen="true">
       <ion-grid class="main-grid">
-        <ion-row>
-          <ion-col>
-            <div id="container">
-              <strong>{{ $t("general.welcome") }}</strong>
-              <p>{{ $t("general.welcomeMessage") }}</p>
-            </div>
-          </ion-col>
-          <ion-col>
-            <img src="@/assets/biokaasulaitos.jpeg" alt="Placeholder Image" style="height:30vh" />
-          </ion-col>
-        </ion-row>
+       
         <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
         <ion-row>
           <ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
