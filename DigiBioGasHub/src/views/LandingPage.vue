@@ -284,9 +284,48 @@ p {
 }
 
 .hero {
-    background: linear-gradient(150deg, #3DA35D, #F79D65);
+    position: relative;
+    overflow: hidden;
     color: white;
-    padding: 5rem 1rem;
+    padding: 3rem 1rem;
+    background: linear-gradient(150deg, #3DA35D, #F79D65);
+}
+
+.hero::before {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(135deg,
+            rgba(72, 172, 89, 0.356),
+            rgba(0, 200, 255, 0.274),
+            rgba(255, 255, 0, 0.226),
+            rgba(255, 0, 149, 0.144));
+    background-size: 300% 300%;
+    animation: smoothColorFlow 100s ease-in-out infinite;
+    pointer-events: none;
+    filter: blur(12px);
+}
+
+.hero>* {
+    position: relative;
+    z-index: 1;
+}
+
+@keyframes smoothColorFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .hero-text {
