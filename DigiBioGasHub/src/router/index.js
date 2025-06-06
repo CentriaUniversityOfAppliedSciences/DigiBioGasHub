@@ -69,13 +69,15 @@ function checkUser(to, from, next) {
 
 const routes = [
   {
-    path: '/',
-    redirect: '/home'
+    path: '/welcome',
+    name: 'LandingPage',
+    component: LandingPage
   },
   {
     path: '/home',
     name: 'Home',
-    component: HomePage
+    component: HomePage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/login',
@@ -90,53 +92,62 @@ const routes = [
   {
     path: '/map',
     name: 'Map',
-    component: MapPage
+    component: MapPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin/manage-users',
     name: 'UsersPage',
     component: UsersPage,
-    beforeEnter: [checkAdmin]
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
   },
 
   {
     path: '/admin/add-blog-post',
     name: 'AddBlogPost',
     component: AddBlogPostPage,
-    beforeEnter: [checkAdmin] 
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin/edit-blog-post/:postID/:title',
     name: 'EditBlogPostPage',
     component: EditBlogPostPage,
-    beforeEnter: [checkAdmin]
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin/manage-blog-post',
     name: 'ManageBlogPosts',
     component: ManageBlogPosts,
-    beforeEnter: [checkAdmin] 
+    beforeEnter: [checkAdmin] ,
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin/manage-companies',
     name: 'CompaniesPage',
     component: CompaniesPage,
-    beforeEnter: [checkAdmin] 
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
   },
   {
     path: '/blog/:postID/:title',
     name: 'Blog',
-    component: BlogPage
+    component: BlogPage,
+    meta: { requiresAuth: true  }
   },
   {
     path: '/articles',
     name: 'Articles Listing',
-    component: BlogListingPage
+    component: BlogListingPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/offers/:id',
     name: 'Product Offer',
-    component: OfferPage
+    component: OfferPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/offers/edit/:id',
@@ -154,17 +165,20 @@ const routes = [
       } else {
         next('/home')
       }
-    }
+    },
+    meta: { requiresAuth: true }
   },
   {
     path: '/products',
     name: 'Marketplace',
-    component: ProductPage
+    component: ProductPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/marketplace',
     name: 'Marketplace',
-    component: MarketplacePage
+    component: MarketplacePage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/contractHistory/:id',
@@ -182,7 +196,8 @@ const routes = [
       } else {
         next('/home')
       }
-    }
+    },
+    meta: { requiresAuth: true }
   },
   {
     path: '/company',
@@ -200,7 +215,8 @@ const routes = [
         next('/home')
       }
     },
-    component: CompanyPage
+    component: CompanyPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/companyoffers:/:id',
@@ -218,7 +234,8 @@ const routes = [
         next('/home')
       }
     },
-    component: CompanyOffersPage
+    component: CompanyOffersPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/profile',
@@ -236,7 +253,8 @@ const routes = [
         next('/home')
       }
     },
-    component: ProfilePage
+    component: ProfilePage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/settings',
@@ -254,7 +272,8 @@ const routes = [
         next('/home')
       }
     },
-    component: UserSettingsPage
+    component: UserSettingsPage,
+    meta: { requiresAuth: true }
   },
   {
     path: "/contracts",
@@ -272,64 +291,68 @@ const routes = [
         next('/home')
       }
     },
-    component: ContractsPage
+    component: ContractsPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/knowledge-base',
     name: 'Knowledge Base',
-    component: KnowledgeBasePage
+    component: KnowledgeBasePage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin/materials',
     name: 'MaterialsPage',
     component: MaterialsPage,
-    beforeEnter: [checkAdmin]
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin/settings',
     name: 'SettingsPage',
     component: SettingsPage,
-    beforeEnter: [checkAdmin]
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
   },
   {
     path: '/admin/reports',
     name: 'ReportsPage',
     component: ReportsPage,
-    beforeEnter: [checkAdmin]
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
   },
   {
     path: '/chat',
     name: 'ChatPageView',
     component: ChatPageView,
-    beforeEnter:[checkUser]
+    beforeEnter:[checkUser],
+    meta: { requiresAuth: true }
   },
   {
     path: "/chat/:roomId/:roomTitle",
     name: "Chat",
     component: ChatComponent,
-    beforeEnter:[checkUser]
+    beforeEnter:[checkUser],
+    meta: { requiresAuth: true }
   },
   {
     path: "/privateChat",
     name: "ChatUserList",
     component: ChatUserList,
-    beforeEnter:[checkUser]
+    beforeEnter:[checkUser],
+    meta: { requiresAuth: true }
 },
 {
     path: "/privateChat/:recipientId/:recipientName",
     name: "PrivateChat",
     component: PrivateChatComponent,
-    beforeEnter:[checkUser]
+    beforeEnter:[checkUser],
+    meta: { requiresAuth: true }
 },
 {
   path: "/join-company/:companyId/:invitationId",
   name: "JoinCompanyPage",
   component: JoinCompanyPage
-},
-{
-  path: "/landingpage",
-  name: "LandingPage",
-  component: LandingPage
 }
 ]
 
@@ -339,5 +362,30 @@ const router = createRouter({
 })
 
 
+router.beforeEach((to, from, next) => {
+  const token = localStorage.getItem('token')
+  let user = null
+  let isValid = false
+
+  if (token) {
+    try {
+      user = jwtDecode(token)
+      const isUserLevel = user?.userlevel >= 1
+      isValid = isUserLevel
+    } catch (e) {
+      console.warn('Invalid token:', e)
+    }
+  }
+
+  if (to.path === '/') {
+    return isValid ? next('/home') : next({ name: 'LandingPage' })
+  }
+
+  if (to.meta.requiresAuth && !isValid) {
+    return next({ name: 'LandingPage' })
+  }
+
+  next()
+})
 
 export default router
