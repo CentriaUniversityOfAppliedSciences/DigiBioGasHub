@@ -6,7 +6,7 @@
                 <div class="nav-left">
                     <img src="../assets/funder-logo-en.png" alt="funder-logo"
                         style="height: 30px; margin-right: 10px;" />
-                    <h2 class="app-name">DigiBiogasHubs</h2>
+                    <h2 class="app-name" v-if="!isMobile">DigiBiogasHubs</h2>
                 </div>
                 <div class="nav-center">
                     <img src="../assets/DBH-logo.png" style="height: 50px;" alt="center-logo" class="center-logo" />
@@ -14,7 +14,21 @@
                 <div class="nav-right">
                     <ion-button fill="clear" size="small" @click="goToLogin">Login</ion-button>
                     <ion-button fill="solid" size="small" color="primary" @click="goToSignup">Sign Up</ion-button>
+                    <LocaleComponent />
                 </div>
+
+                <div class="hamburger-menu" v-if="isMobile">
+                    <ion-button fill="clear" @click="toggleMenu">
+                        <ion-icon name="menu-outline"></ion-icon>
+                    </ion-button>
+                </div>
+            </div>
+
+            <div v-if="showMenu && isMobile" class="mobile-menu">
+                <h2 class="app-name">DigiBiogasHubs</h2>
+                <ion-button fill="clear" size="small" @click="goToLogin">Login</ion-button>
+                <ion-button fill="solid" size="small" color="primary" @click="goToSignup">Sign Up</ion-button>
+                <LocaleComponent />
             </div>
 
             <section class="hero">
@@ -23,7 +37,7 @@
                         <ion-col size="12" size-md="6" class="hero-text">
                             <h1 class="hero-title">Welcome to DigiBiogasHubs</h1>
                             <p class="hero-subtitle">
-                                The digital meeting place for the biogas business
+                                The digital meeting place for the biogas business.
                             </p>
                             <ion-button size="large" class="join-btn" @click="goToLogin">
                                 Join <ion-icon name="arrow-forward-sharp"></ion-icon>
@@ -67,7 +81,7 @@
                     </ion-row>
                     <ion-row class="ion-justify-content-center">
                         <ion-col size="12" size-md="4" class="feature-box">
-                            <ion-icon name="people-outline" class="feature-icon"></ion-icon>
+                            <ion-icon name="peoples-outline" class="feature-icon"></ion-icon>
                             <h3 class="feature-title">Find Partners</h3>
                             <p class="feature-desc">
                                 Connect with biogas producers, consumers, and logistics operators.
@@ -143,13 +157,15 @@ import {
 } from '@ionic/vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import { addIcons } from 'ionicons';
-import { peopleOutline, listOutline, constructOutline, arrowForwardSharp } from 'ionicons/icons';
+import { peopleOutline, listOutline, constructOutline, arrowForwardSharp, menuOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
+import LocaleComponent from '../components/LocaleComponent.vue';
 addIcons({
-    "people-outline": peopleOutline,
+    "peoples-outline": peopleOutline,
     "list-outline": listOutline,
     "construct-outline": constructOutline,
-    "arrow-forward-sharp": arrowForwardSharp
+    "arrow-forward-sharp": arrowForwardSharp,
+    "menu-outline": menuOutline
 });
 
 export default defineComponent({
@@ -166,10 +182,14 @@ export default defineComponent({
         IonCardContent,
         IonButton,
         IonIcon,
+        LocaleComponent,
         FooterComponent,
     },
     data() {
-        return {};
+        return {
+            isMobile: false,
+            showMenu: false
+        };
     },
     methods: {
         goToLogin() {
@@ -178,7 +198,20 @@ export default defineComponent({
         goToSignup() {
             this.$router.push('/register');
         },
+        toggleMenu() {
+            this.showMenu = !this.showMenu;
+        },
+        checkMobile() {
+            this.isMobile = window.innerWidth <= 768;
+        },
     },
+    mounted() {
+        this.checkMobile();
+        window.addEventListener('resize', this.checkMobile);
+    },
+    beforeUnmount() {
+        window.removeEventListener('resize', this.checkMobile);
+    }
 });
 </script>
 
@@ -216,8 +249,39 @@ p {
     margin: 0;
 }
 
-.nav-right ion-button {
-    margin-left: 0.5rem;
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.hamburger-menu {
+    display: none;
+}
+
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background-color: rgb(255, 255, 255);
+    padding: 1rem;
+    position: fixed;
+    top: 70px;
+    right: 10px;
+    z-index: 101;
+    border-radius: 8px;
+    width: 200px;
+}
+
+.mobile-menu ion-button {
+    color: rgb(0, 0, 0);
+}
+
+.mobile-menu h2 {
+    font-family: "Roboto", sans-serif;
+    color: black;
+    font-size: 1.4rem; 
+    margin: 0 0 1rem 0; 
 }
 
 .container {
@@ -366,4 +430,27 @@ p {
     --color: white;
     font-weight: bold;
 }
+
+@media (max-width: 768px) {
+    .nav-right {
+        display: none;
+    }
+
+    .hamburger-menu {
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .join-btn {
+        margin-bottom: 1rem;
+    }
+
+    .cta-btn {
+        margin-bottom: 1rem;
+    }
+}
+
 </style>
