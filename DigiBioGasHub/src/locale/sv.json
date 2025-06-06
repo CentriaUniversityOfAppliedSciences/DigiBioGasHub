@@ -383,6 +383,14 @@
             "4":"Industri",
             "5":"Logistik",
             "6":"Annat"
+        },
+        "logistics":{
+            "terminalsMenuButton":"Terminaler",
+            "terminalRegistration":"Registrera terminal",
+            "haulType":"Transporttyp",
+            "registerSuccess":"Terminal registrerad",
+            "registerFail":"Registrering av terminal misslyckades",
+            "confirmDeleteTerminal":"Är du säker på att du vill radera denna terminal?"
         }
     },
     "admin": {

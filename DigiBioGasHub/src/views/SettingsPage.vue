@@ -80,16 +80,14 @@ export default defineComponent({
         getSettings() {
             var url = this.$api_add + "/getsettings";
             axios.post(url,{}, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                console.log(response);
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
                     var data = response.data.message;
-                    console.log(data);
+
                     if (data.length > 0) {
                         for (let i = 0; i < data.length; i++) {
                             var key = data[i].key;
                             var value = data[i].value;
                             this.settings[key] = value;
-                            console.log(this.settings);
                         }
                     }
                 }
@@ -99,17 +97,16 @@ export default defineComponent({
 
             
             var url = this.$api_add + "/updatesettings";
-            console.log(this.settings);
+
             axios.post(url,{"settings":this.settings},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
-                    console.log(response.data.message);
+
                     var data = response.data.message;
                     if (data.length > 0) {
                         for (let i = 0; i < data.length; i++) {
                             var key = data[i].key;
                             var value = data[i].value;
                             this.settings[key] = value;
-                            console.log(this.settings);
                         }
                     }
                 }

@@ -28,6 +28,7 @@ import FooterComponent from '../components/FooterComponent.vue';
 import FilterComponent from '../components/FilterComponent.vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import { terminal } from 'ionicons/icons';
 
 export default defineComponent({
     name: 'MapPage',
@@ -48,12 +49,13 @@ export default defineComponent({
             fData: [],
             location: [],
             type: [],
+            terminals: [],
             
         }
     },
     methods:{
         fillFilters(){
-            this.fData = [ {label: this.$t('filter.farm'), value: 'Farm'}, {label: this.$t('filter.offer'), value: 'Offer'}, {label: this.$t('filter.plant'), value: 'Plant'}, { label: this.$t('filter.company'), value: 'Company' } ];
+            this.fData = [ {label: this.$t('filter.farm'), value: 'Farm'}, {label: this.$t('filter.offer'), value: 'Offer'}, {label: this.$t('filter.plant'), value: 'Plant'}, { label: this.$t('filter.company'), value: 'Company' },{ label: this.$t('company.logistics.terminalsMenuButton'), value:'Terminal'} ];
         },
         resetFilters(){
             this.markerData = this.originalData;
@@ -73,6 +75,40 @@ export default defineComponent({
             this.originalData = this.markerData;
             
         },
+        getTerminals(){
+            var url = this.$api_add + "/logistics/getterminals";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    this.terminals = response.data.message;
+                    if (this.terminals.length > 0){
+                        const newMarkers = this.terminals.map((term) => {
+                            var infoText = this.$t('company.logistics.haulType') + ": ";
+                            var haulTypes = term.haulType;
+                            for (var i = 0; i < haulTypes.length; i++) {
+                                var type = haulTypes[i];
+                                var typeText = this.$t('material.type.' + type);
+                                infoText += typeText  + " ";
+                                
+                            }
+                            return {
+                                coords: [term.longitude, term.latitude],
+                                location: term.city,
+                                name: term.companyName,
+                                color: 'blue',
+                                category: 'Terminal',
+                                type: 'Terminal',
+                                info: infoText,
+                                terminalID: term.id,
+                            };
+                        });
+                        this.markerData = [...this.markerData, ...newMarkers]; // Reassign the array
+                        this.originalData = [...this.markerData]; // Update the original data as well
+                    }
+                    
+                    
+                }
+            });
+        },
         filterLocationData(location){
             if(!location){
                 return this.originalData;
@@ -89,6 +125,7 @@ export default defineComponent({
                 return m.type === type
             })
         },
+        
         getUniqueLocations() {
             if (!this.markerData) return []
             return [...new Set(this.markerData.map(marker => marker.location))]
@@ -123,6 +160,7 @@ export default defineComponent({
                     this.markerData = [...this.markerData, ...newMarkers]; // Reassign the array
                     this.originalData = [...this.markerData]; // Update the original data as well
                 }
+                this.getTerminals();
             });
         }
     },
@@ -135,7 +173,14 @@ export default defineComponent({
         this.type = this.getUniqueTypes();
         
         this.resetFilters();
-    }
+    },
+    beforeRouteEnter(to, from, next) {
+        next(vm => {
+            vm.getMarkers();
+            vm.getOffers();
+            vm.fillFilters();
+        });
+    },
     
 });
 </script>

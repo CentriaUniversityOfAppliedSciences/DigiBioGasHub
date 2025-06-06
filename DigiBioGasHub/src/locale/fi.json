@@ -282,7 +282,7 @@
         "startDateRequired": "Aloituspäivämäärä on pakollinen",
         "endDateRequired": "Päättymispäivämäärä on pakollinen",
         "visibilityRequired": "Näkyvyys on pakollinen",
-        "fillAllFields": "Täytä kaikki kentät"
+        "fillAllRequiredFields": "Täytä kaikki kentät"
     },
     "contract":{
         "contract": "Sopimus",
@@ -383,6 +383,14 @@
             "4":"Teollisuus",
             "5":"Logistiikka",
             "6":"Muu"
+        },
+        "logistics":{
+            "terminalsMenuButton":"Terminaalit",
+            "terminalRegistration":"Luo terminaali",
+            "haulType":"Kuljetustyyppi",
+            "registerSuccess":"Terminaali luotu onnistuneesti",
+            "registerFail":"Terminaalin luonti epäonnistui",
+            "confirmDeleteTerminal":"Haluatko varmasti poistaa tämän terminaalin?"
         }
     },
     "admin": {
