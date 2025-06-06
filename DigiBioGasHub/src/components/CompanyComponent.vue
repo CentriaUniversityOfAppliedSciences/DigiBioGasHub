@@ -58,7 +58,7 @@
                     <ion-button @click="confirmDelete(company.id)" id="deleteCompany" color="danger" >{{$t('menu.delete')}}</ion-button>
                     <ion-button @click="saveCompany" color="success" >{{$t('menu.save')}}</ion-button>
                     <ion-button @click="goToOffers(company.id)" color="primary" >{{$t('company.offers')}}</ion-button>
-                    <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)" color="primary" >{{$t('company.logisticsRegistration.logisticsRegistrationBtn')}}</ion-button>
+                    <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)" color="primary" >{{$t('company.logistics.terminalsMenuButton')}}</ion-button>
                     <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal" color="primary"> {{ $t('invitations.inviteMembers') }}</ion-button>
                 </ion-card-content>
             </ion-card>
@@ -243,7 +243,6 @@ export default defineComponent({
                 headers: { 'authorization': localStorage.getItem('token') },
                 withCredentials: false
             }).then((response) => {
-                console.log(response);
                 if (response.data.type == "result" && response.data.result == "ok") {
                     this.$emit('companyDeleted', compID);
                 }
@@ -260,7 +259,7 @@ export default defineComponent({
         },
         goToLogisticsRegister(companyID, companyName) {
             this.$router.push({
-                path: '/logisticsregister',
+                path: '/logistics',
                 query: {
                     companyID: companyID,
                     companyName: companyName,

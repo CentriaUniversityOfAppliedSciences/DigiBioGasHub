@@ -383,6 +383,14 @@
             "4":"Teollisuus",
             "5":"Logistiikka",
             "6":"Muu"
+        },
+        "logistics":{
+            "terminalsMenuButton":"Terminaalit",
+            "terminalRegistration":"Luo terminaali",
+            "haulType":"Kuljetustyyppi",
+            "registerSuccess":"Terminaali luotu onnistuneesti",
+            "registerFail":"Terminaalin luonti epäonnistui",
+            "confirmDeleteTerminal":"Haluatko varmasti poistaa tämän terminaalin?"
         }
     },
     "admin": {

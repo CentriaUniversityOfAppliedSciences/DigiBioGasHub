@@ -6,7 +6,7 @@
         <ion-content class="ion-padding">
             <ion-grid class="form-grid">
                 <ion-toolbar>
-                    <ion-title style="text-align: center;">{{ $t('company.logisticsRegistration.title') }}</ion-title>
+                    <ion-title style="text-align: center;">{{ $t('company.logistics.terminalRegistration') }}</ion-title>
                 </ion-toolbar>
                 <ion-row>
                     <ion-col size="12">
@@ -35,12 +35,21 @@
                     </ion-col>
                     <ion-col size="12">
                         <ion-item>
-                            <ion-label position="floating">{{ $t('company.logisticsRegistration.haulType')
+                            <ion-label position="floating">{{ $t('company.logistics.haulType')
                                 }}</ion-label>
                             <ion-select multiple="true" v-model="form.haulType">
-                                <ion-select-option v-for="(value, key) in materialTypes" :key="key" :value="value">
+                                <ion-select-option v-for="(value, key) in materialTypes" :key="key" :value="key">
                                     {{ value }}
                                 </ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="12">
+                        <ion-item>
+                            <ion-label position="floating">{{ $t('product.visibility.chooseVisibility') }}</ion-label>
+                            <ion-select v-model="form.visibility">
+                                <ion-select-option value="1">{{ $t('product.visibility.public') }}</ion-select-option>
+                                <ion-select-option value="0">{{ $t('product.visibility.private') }}</ion-select-option>
                             </ion-select>
                         </ion-item>
                     </ion-col>
@@ -98,27 +107,37 @@ export default defineComponent({
                 city: '',
                 zipcode: '',
                 haulType: [],
+                visibility: '0', // Default visibility set to private
             },
             materialTypes: {}, 
         };
     },
+    emits: ['refreshLogistics'],
     methods: {
         async submitForm() {
 
             if (!this.form.companyName || !this.form.address || !this.form.city || !this.form.zipcode || !this.form.haulType) {
-                this.$refs.toastComponent.showToast(this.$t('validation.fillAllFields'), 2000, 'danger');
+                this.$refs.toastComponent.showToast(this.$t('validation.fillAllRequiredFields'), 2000, 'danger');
                 return;
             }
 
             try {
                 const response = await axios.post(this.$api_add + '/logistics/register', this.form);
                 if (response.status === 200) {
-                    this.$refs.toastComponent.showToast(this.$t('logistics.registerSuccess'), 2000, 'success');
+                    this.$refs.toastComponent.showToast(this.$t('company.logistics.registerSuccess'), 2000, 'success');
                     this.resetForm();
+                    this.$emit('refreshLogistics');
+                    this.$router.push({
+                        path: '/logistics',
+                        query: {
+                            companyID: this.$route.query.companyID,
+                            companyName: this.$route.query.companyName,
+                        },
+                    });
                 }
             } catch (error) {
                 console.error('Error submitting form:', error);
-                this.$refs.toastComponent.showToast(this.$t('logistics.registerFail'), 2000, 'danger');
+                this.$refs.toastComponent.showToast(this.$t('company.logistics.registerFail'), 2000, 'danger');
             }
         },
         resetForm() {

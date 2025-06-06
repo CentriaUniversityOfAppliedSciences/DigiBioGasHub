@@ -389,6 +389,14 @@
             "4":"Industry",
             "5":"Logistics",
             "6":"Other"
+        },
+        "logistics":{
+            "terminalsMenuButton":"Terminals",
+            "terminalRegistration":"Create Terminal",
+            "haulType":"Haul Type",
+            "registerSuccess":"Terminal registered successfully!",
+            "registerFail":"Failed to register terminal. Check the information and try again.",
+            "confirmDeleteTerminal":"Are you sure you want to delete this terminal? This action cannot be undone."
         }
     },
     "admin": {
