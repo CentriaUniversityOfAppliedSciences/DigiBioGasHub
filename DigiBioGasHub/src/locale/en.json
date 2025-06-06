@@ -532,5 +532,36 @@
         "logistics": "Logistics",
         "digestate": "Digestate",
         "chatVisibility":"Show me on private chat list"
+    },
+    "landingPage": {
+        "appName": "DigiBiogasHubs",
+        "signupButton": "Sign Up",
+        "heroTitle": "Welcome to DigiBiogasHubs",
+        "heroSubtitle": "The digital meeting place for the biogas business",
+        "joinButton": "Join",
+        "introSection": {
+            "introText1": "<strong>DigiBiogasHubs</strong> is a new digital marketplace that brings together <strong>biogas producers and users</strong>, <strong>biomass owners</strong>, and <strong>logistics operators</strong>.",
+            "introText2": "Our goal is to <strong>develop a sustainable energy economy</strong>, support the <strong>wider adoption of biogas</strong>, and address challenges related to the <strong>fragmentation of the sector</strong>."
+        },
+        "featuresSection": {
+            "sectionTitle": "With our service, you can:",
+            "feature1": {
+                "title": "Find Partners",
+                "description": "Connect with biogas producers, consumers, and logistics operators."
+            },
+            "feature2": {
+                "title": "Create & Browse Listings",
+                "description": "Post or discover biomass and biogas resources to trade or collaborate."
+            },
+            "feature3": {
+                "title": "Use Smart Tools",
+                "description": "Boost development and operations with digital collaboration tools."
+            }
+        },
+        "researchSection": {
+            "researchText1": "<strong>DigiBiogasHubs</strong> is part of a joint research project by the <strong>University of Vaasa</strong>, <strong>Centria University of Applied Sciences</strong>, and <strong>Seinäjoki University of Applied Sciences</strong>, aimed at fostering cooperation among biogas actors.",
+            "researchText2": "Our platform offers <strong>concrete solutions</strong> to help you grow your business and be part of building a <strong>carbon-neutral future</strong>.",
+            "ctaButton": "Join Now"
+        }
     }
 }

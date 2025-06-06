@@ -6,14 +6,14 @@
                 <div class="nav-left">
                     <img src="../assets/funder-logo-en.png" alt="funder-logo"
                         style="height: 30px; margin-right: 10px;" />
-                    <h2 class="app-name" v-if="!isMobile">DigiBiogasHubs</h2>
+                    <h2 class="app-name" v-if="!isMobile">{{ $t('landingPage.appName') }}</h2>
                 </div>
                 <div class="nav-center">
                     <img src="../assets/DBH-logo.png" style="height: 50px;" alt="center-logo" class="center-logo" />
                 </div>
                 <div class="nav-right">
-                    <ion-button fill="clear" size="small" @click="goToLogin">Login</ion-button>
-                    <ion-button fill="solid" size="small" color="primary" @click="goToSignup">Sign Up</ion-button>
+                    <ion-button fill="clear" size="small" @click="goToLogin">{{ $t('general.login') }}</ion-button>
+                    <ion-button fill="solid" size="small" color="primary" @click="goToSignup">{{ $t('landingPage.signupButton') }}</ion-button>
                     <LocaleComponent />
                 </div>
 
@@ -25,9 +25,9 @@
             </div>
 
             <div v-if="showMenu && isMobile" class="mobile-menu">
-                <h2 class="app-name">DigiBiogasHubs</h2>
-                <ion-button fill="clear" size="small" @click="goToLogin">Login</ion-button>
-                <ion-button fill="solid" size="small" color="primary" @click="goToSignup">Sign Up</ion-button>
+                <h2 class="app-name">{{ $t('landingPage.appName') }}</h2>
+                <ion-button fill="clear" size="small" @click="goToLogin">{{ $t('general.login') }}</ion-button>
+                <ion-button fill="solid" size="small" color="primary" @click="goToSignup">{{ $t('landingPage.signupButton') }}</ion-button>
                 <LocaleComponent />
             </div>
 
@@ -35,12 +35,12 @@
                 <ion-grid class="container">
                     <ion-row class="ion-align-items-center">
                         <ion-col size="12" size-md="6" class="hero-text">
-                            <h1 class="hero-title">Welcome to DigiBiogasHubs</h1>
+                            <h1 class="hero-title">{{ $t('landingPage.heroTitle') }}</h1>
                             <p class="hero-subtitle">
-                                The digital meeting place for the biogas business.
+                                {{ $t('landingPage.heroSubtitle') }}
                             </p>
                             <ion-button size="large" class="join-btn" @click="goToLogin">
-                                Join <ion-icon name="arrow-forward-sharp"></ion-icon>
+                                {{ $t('landingPage.joinButton') }} <ion-icon name="arrow-forward-sharp"></ion-icon>
                             </ion-button>
                         </ion-col>
                         <ion-col size="12" size-md="6" class="hero-image">
@@ -57,16 +57,8 @@
                             <img src="../assets/DBH-logo-cc.png" alt="Marketplace Illustration" />
                         </ion-col>
                         <ion-col size="12" size-md="6" class="intro-text">
-                            <p>
-                                <strong>DigiBiogasHubs</strong> is a new digital marketplace that brings together
-                                <strong>biogas producers and users</strong>, <strong>biomass owners</strong>, and
-                                <strong>logistics operators</strong>.
-                            </p>
-                            <p>
-                                Our goal is to <strong>develop a sustainable energy economy</strong>, support the
-                                <strong>wider adoption of biogas</strong>, and address challenges related to the
-                                <strong>fragmentation of the sector</strong>.
-                            </p>
+                            <p v-html="$t('landingPage.introSection.introText1')"></p>
+                            <p v-html="$t('landingPage.introSection.introText2')"></p>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -76,31 +68,31 @@
                 <ion-grid class="container">
                     <ion-row class="ion-justify-content-center">
                         <ion-col size="12">
-                            <h2 class="section-title">With our service, you can:</h2>
+                            <h2 class="section-title">{{ $t('landingPage.featuresSection.sectionTitle') }}</h2>
                         </ion-col>
                     </ion-row>
                     <ion-row class="ion-justify-content-center">
                         <ion-col size="12" size-md="4" class="feature-box">
                             <ion-icon name="peoples-outline" class="feature-icon"></ion-icon>
-                            <h3 class="feature-title">Find Partners</h3>
+                            <h3 class="feature-title">{{ $t('landingPage.featuresSection.feature1.title') }}</h3>
                             <p class="feature-desc">
-                                Connect with biogas producers, consumers, and logistics operators.
+                                {{ $t('landingPage.featuresSection.feature1.description') }}
                             </p>
                         </ion-col>
 
                         <ion-col size="12" size-md="4" class="feature-box">
                             <ion-icon name="list-outline" class="feature-icon"></ion-icon>
-                            <h3 class="feature-title">Create & Browse Listings</h3>
+                            <h3 class="feature-title">{{ $t('landingPage.featuresSection.feature2.title') }}</h3>
                             <p class="feature-desc">
-                                Post or discover biomass and biogas resources to trade or collaborate.
+                                {{ $t('landingPage.featuresSection.feature2.description') }}
                             </p>
                         </ion-col>
 
                         <ion-col size="12" size-md="4" class="feature-box">
                             <ion-icon name="construct-outline" class="feature-icon"></ion-icon>
-                            <h3 class="feature-title">Use Smart Tools</h3>
+                            <h3 class="feature-title">{{ $t('landingPage.featuresSection.feature3.title') }}</h3>
                             <p class="feature-desc">
-                                Boost development and operations with digital collaboration tools.
+                                {{ $t('landingPage.featuresSection.feature3.description') }}
                             </p>
                         </ion-col>
                     </ion-row>
@@ -111,20 +103,10 @@
                 <ion-grid class="container">
                     <ion-row class="ion-align-items-center">
                         <ion-col size="12" size-md="6" class="research-text">
-                            <p>
-                                <strong>DigiBiogasHubs</strong> is part of a joint research project by the
-                                <strong>University of Vaasa</strong>, <strong>Centria University of Applied
-                                    Sciences</strong>, and
-                                <strong>Seinäjoki University of Applied Sciences</strong>, aimed at fostering
-                                cooperation among biogas actors.
-                            </p>
-                            <p>
-                                Our platform offers <strong>concrete solutions</strong> to help you grow your business
-                                and be part of building a
-                                <strong>carbon-neutral future</strong>.
-                            </p>
+                            <p v-html="$t('landingPage.researchSection.researchText1')"></p>
+                            <p v-html="$t('landingPage.researchSection.researchText2')"></p>
                             <ion-button color="success" size="large" class="cta-btn" @click="goToLogin">
-                                Join Now
+                                {{ $t('landingPage.researchSection.ctaButton') }}
                             </ion-button>
                         </ion-col>
 

@@ -531,5 +531,36 @@
         "logistics": "Logistiikka",
         "digestate": "Mädätysjäännös",
         "chatVisibility":"Näy yksityisviestilistalla"
+    },
+    "landingPage": {
+        "appName": "DigiBiogasHubs",
+        "signupButton": "Rekisteröidy",
+        "heroTitle": "Tervetuloa DigiBiogasHubsiin",
+        "heroSubtitle": "Biokaasuliiketoiminnan digitaaliseen kohtaamispaikkaan",
+        "joinButton": "Liity",
+        "introSection": {
+            "introText1": "<strong>DigiBiogasHubs</strong> on uusi digitaalinen markkinapaikka, joka kokoaa yhteen <strong>biokaasun tuottajat ja käyttäjät</strong>, <strong>biomassojen omistajat</strong> sekä <strong>logistiikkatoimijat</strong>.",
+            "introText2": "Tavoitteenamme on <strong>kehittää kestävää energiataloutta</strong>, tukea <strong>biokaasun laajempaa käyttöönottoa</strong> ja ratkaista alan <strong>hajanaisuuteen liittyviä haasteita</strong>."
+        },
+        "featuresSection": {
+            "sectionTitle": "Palvelumme avulla voit:",
+            "feature1": {
+                "title": "Löytää kumppaneita",
+                "description": "Yhdistä biokaasun tuottajat, käyttäjät ja logistiikkatoimijat."
+            },
+            "feature2": {
+                "title": "Selata ja luoda ilmoituksia",
+                "description": "Julkaise tai löydä biomassaan ja biokaasuun liittyviä resursseja kaupankäyntiin tai yhteistyöhön."
+            },
+            "feature3": {
+                "title": "Käyttää älykkäitä työkaluja",
+                "description": "Tehosta kehitystä ja toimintaa digitaalisilla yhteistyövälineillä."
+            }
+        },
+        "researchSection": {
+            "researchText1": "<strong>DigiBiogasHubs</strong> on osa <strong>Vaasan yliopiston</strong>, <strong>Centria-ammattikorkeakoulun</strong> ja <strong>Seinäjoen ammattikorkeakoulun</strong> yhteistä tutkimushanketta, jonka tavoitteena on kehittää yhteistyötä biokaasutoimijoiden välillä.",
+            "researchText2": "Alustamme tarjoaa <strong>konkreettisia ratkaisuja</strong>, joilla voit kasvattaa liiketoimintaasi ja olla mukana rakentamassa <strong>hiilineutraalia tulevaisuutta</strong>.",
+            "ctaButton": "Liity nyt"
+        }
     }
 }
