@@ -237,7 +237,7 @@ export default defineComponent({
         addProduct() {
 
             if (!this.validateForm()) {
-                this.$refs.toast.showToast(this.$t('validation.fillAllFields'), 2000, 'danger');
+                this.$refs.toast.showToast(this.$t('validation.fillAllRequiredFields'), 2000, 'danger');
                 return;
             }
             // Logic to add the product

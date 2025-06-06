@@ -77,7 +77,6 @@ export default defineComponent( {
             ]);
             this.vectorSource.clear();  
             var features = this.markers.map((m) => {
-                console.log('Adding marker:', m);
                 const feature = new Feature({
                     geometry: new Point(m.coords),
                     name: m.name,
@@ -129,7 +128,7 @@ export default defineComponent( {
         this.map.on('pointermove', (evt) => {
             const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
             if (feature) {
-                container.innerHTML = (feature.get('name') + "<br>" + feature.get('type') + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
+                container.innerHTML = (feature.get('name') + "<br>" + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
                 this.hoverOverlay.setPosition(evt.coordinate)
             } else {
                 this.hoverOverlay.setPosition(undefined)

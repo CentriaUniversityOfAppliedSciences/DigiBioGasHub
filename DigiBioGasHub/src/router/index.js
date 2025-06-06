@@ -31,6 +31,8 @@ import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
 import ContractsPage from '../views/ContractsPage.vue';
 import UserSettingsPage from '../views/SettingsPage.vue';
 import LandingPage from '../views/LandingPage.vue';
+import LogisticsRegisterComponent from '../components/LogisticsRegisterComponent.vue';
+import LogisticsPage from '../views/LogisticsPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -236,6 +238,29 @@ const routes = [
     },
     component: CompanyOffersPage,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/logisticsregister',
+    name: '',
+    component: LogisticsRegisterComponent
+  },
+  {
+    path: '/logistics',
+    name: 'Logistics',
+    component: LogisticsPage,
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    }
   },
   {
     path: '/profile',

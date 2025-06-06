@@ -54,7 +54,7 @@ export default defineComponent({
 
             ],
             currentProducts: [],
-            filtersData: []
+            filtersData: [],
         }
     },
     methods: {

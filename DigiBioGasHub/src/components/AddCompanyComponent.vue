@@ -108,7 +108,6 @@ export default defineComponent({
             var url = this.$api_add + "/createcompany";
             axios.post(url,{ "userID": this.userID, "name": this.company.name, "address": this.company.address, "city": this.company.city, "zipcode": this.company.zipcode, "phone": this.company.phone, "email":this.company.email, "companyType": this.company.companyType, "web":this.company.web },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
                 if (response.data.type==="result" && response.data.result ==="ok" && response.data.message.length > 0){
-                    console.log("If codition passed........!")
                     this.materials = response.data.message; 
                 }
                 this.$emit('update:visible', false);

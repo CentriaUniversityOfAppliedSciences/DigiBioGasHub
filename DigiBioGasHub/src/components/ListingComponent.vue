@@ -62,8 +62,7 @@ export default {
             alertController
         }
     },
-    mounted() {
-        console.log("product", this.product);  
+    mounted() { 
     },
     methods:{
         checkFileLink(){

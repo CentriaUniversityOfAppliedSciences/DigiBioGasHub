@@ -282,7 +282,8 @@
         "startDateRequired": "Start date cannot be empty.",
         "endDateRequired": "End date cannot be empty.",
         "visibilityRequired": "Please select a visibility option.",
-        "fillAllFields": "Please fill in all required fields."
+        "fillAllRequiredFields": "Please fill in all required fields.",
+        "fillAllFields":"All fields are required. Please fill in all fields."
       },
       "contract":{
         "contract": "Contract",
@@ -374,6 +375,11 @@
         "deleteAgreement": "Delete agreement",
         "products": "Products",
         "types": "Types",
+        "logisticsRegistration": {
+            "title": "Logistics Registration",
+            "haulType": "Haul Type",
+            "logisticsRegistrationBtn": "Logistics Registration"
+           },
         "addCompany": "Add company",
         "type":{
             "0":"Service provider",
@@ -383,6 +389,14 @@
             "4":"Industry",
             "5":"Logistics",
             "6":"Other"
+        },
+        "logistics":{
+            "terminalsMenuButton":"Terminals",
+            "terminalRegistration":"Create Terminal",
+            "haulType":"Haul Type",
+            "registerSuccess":"Terminal registered successfully!",
+            "registerFail":"Failed to register terminal. Check the information and try again.",
+            "confirmDeleteTerminal":"Are you sure you want to delete this terminal? This action cannot be undone."
         }
     },
     "admin": {
