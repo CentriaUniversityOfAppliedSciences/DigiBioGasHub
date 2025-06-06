@@ -560,8 +560,10 @@
         },
         "researchSection": {
             "researchText1": "<strong>DigiBiogasHubs</strong> is part of a joint research project by the <strong>University of Vaasa</strong>, <strong>Centria University of Applied Sciences</strong>, and <strong>Seinäjoki University of Applied Sciences</strong>, aimed at fostering cooperation among biogas actors.",
-            "researchText2": "Our platform offers <strong>concrete solutions</strong> to help you grow your business and be part of building a <strong>carbon-neutral future</strong>.",
-            "ctaButton": "Join Now"
+            "researchText2": "Our platform offers <strong>concrete solutions</strong> to help you grow your business and be part of building a <strong>carbon-neutral future</strong>."
+        },
+        "joinNowSection": {
+            "joinNowText": " Join now and make the most of the opportunities in the biogas business!"
         }
     }
 }

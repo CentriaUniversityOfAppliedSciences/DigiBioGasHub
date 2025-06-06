@@ -13,7 +13,8 @@
                 </div>
                 <div class="nav-right">
                     <ion-button fill="clear" size="small" @click="goToLogin">{{ $t('general.login') }}</ion-button>
-                    <ion-button fill="solid" size="small" color="primary" @click="goToSignup">{{ $t('landingPage.signupButton') }}</ion-button>
+                    <ion-button fill="solid" size="small" color="primary" @click="goToSignup">{{
+                        $t('landingPage.signupButton') }}</ion-button>
                     <LocaleComponent />
                 </div>
 
@@ -27,7 +28,8 @@
             <div v-if="showMenu && isMobile" class="mobile-menu">
                 <h2 class="app-name">{{ $t('landingPage.appName') }}</h2>
                 <ion-button fill="clear" size="small" @click="goToLogin">{{ $t('general.login') }}</ion-button>
-                <ion-button fill="solid" size="small" color="primary" @click="goToSignup">{{ $t('landingPage.signupButton') }}</ion-button>
+                <ion-button fill="solid" size="small" color="primary" @click="goToSignup">{{
+                    $t('landingPage.signupButton') }}</ion-button>
                 <LocaleComponent />
             </div>
 
@@ -105,13 +107,22 @@
                         <ion-col size="12" size-md="6" class="research-text">
                             <p v-html="$t('landingPage.researchSection.researchText1')"></p>
                             <p v-html="$t('landingPage.researchSection.researchText2')"></p>
-                            <ion-button color="success" size="large" class="cta-btn" @click="goToLogin">
-                                {{ $t('landingPage.researchSection.ctaButton') }}
-                            </ion-button>
                         </ion-col>
 
                         <ion-col size="12" size-md="6" class="research-image">
                             <img src="../assets/biokaasulaitos.jpeg" alt="Research Illustration" />
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </section>
+
+            <section class="join-now-section">
+                <ion-grid class="container">
+                    <ion-row class="ion-align-items-center">
+                        <ion-col size="12" class="join-now-content">
+                            <ion-button class="join-now-btn" @click="goToLogin">
+                                {{ $t('landingPage.joinNowSection.joinNowText') }}
+                            </ion-button>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -262,8 +273,8 @@ p {
 .mobile-menu h2 {
     font-family: "Roboto", sans-serif;
     color: black;
-    font-size: 1.4rem; 
-    margin: 0 0 1rem 0; 
+    font-size: 1.4rem;
+    margin: 0 0 1rem 0;
 }
 
 .container {
@@ -318,7 +329,7 @@ p {
 .intro-section {
     background-color: #f4f4f4;
     color: #333;
-    padding: 4rem 1rem;
+    padding: 3rem 1rem;
 }
 
 .intro-text {
@@ -406,11 +417,20 @@ p {
     border-radius: 12px;
 }
 
-.cta-btn {
-    margin-top: 1rem;
-    --background: #009688;
+.join-now-section {
+    background-color: #1f1d7a;
+    text-align: center;
+}
+
+.join-now-btn {
+    --background: none;
     --color: white;
-    font-weight: bold;
+    --box-shadow: none;
+    text-decoration: underline;
+}
+
+.join-now-btn:hover {
+    transform: scale(1.01);
 }
 
 @media (max-width: 768px) {
@@ -434,5 +454,4 @@ p {
         margin-bottom: 1rem;
     }
 }
-
 </style>

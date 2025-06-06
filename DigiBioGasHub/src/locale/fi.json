@@ -559,8 +559,10 @@
         },
         "researchSection": {
             "researchText1": "<strong>DigiBiogasHubs</strong> on osa <strong>Vaasan yliopiston</strong>, <strong>Centria-ammattikorkeakoulun</strong> ja <strong>Seinäjoen ammattikorkeakoulun</strong> yhteistä tutkimushanketta, jonka tavoitteena on kehittää yhteistyötä biokaasutoimijoiden välillä.",
-            "researchText2": "Alustamme tarjoaa <strong>konkreettisia ratkaisuja</strong>, joilla voit kasvattaa liiketoimintaasi ja olla mukana rakentamassa <strong>hiilineutraalia tulevaisuutta</strong>.",
-            "ctaButton": "Liity nyt"
+            "researchText2": "Alustamme tarjoaa <strong>konkreettisia ratkaisuja</strong>, joilla voit kasvattaa liiketoimintaasi ja olla mukana rakentamassa <strong>hiilineutraalia tulevaisuutta</strong>."
+        },
+        "joinNowSection": {
+            "joinNowText": "Liity nyt mukaan ja ota kaikki irti biokaasuliiketoiminnan mahdollisuuksista!"
         }
     }
 }
