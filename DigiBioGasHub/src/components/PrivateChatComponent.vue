@@ -209,7 +209,6 @@ export default defineComponent({
                     this.hasError = false;
                 } else {
                     this.errorMessageKey = 'chat.invalidUrlMessage';
-                    console.error("Failed to join private chat room:", response.message);
                 }
             });
 
