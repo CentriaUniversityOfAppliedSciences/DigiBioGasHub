@@ -76,8 +76,14 @@
     </IonPage>
     <IonPage v-else>
         <ion-content>
+            <ion-toolbar>
+                <LocaleComponent />
+            </ion-toolbar>
             <div>
-                {{ $t('chat.errorMessage') }}
+                {{ errorMessage }}
+                <br />
+                <a v-if="errorMessage === $t('chat.chatDisabledMessage')" href="/settings">{{ $t('chat.goToSettings')
+                    }}</a>
             </div>
         </ion-content>
     </IonPage>
@@ -104,6 +110,7 @@ import NavBarComponent from "./NavBarComponent.vue";
 import { defineComponent } from "vue";
 import { addIcons } from "ionicons";
 import { arrowBack } from "ionicons/icons";
+import LocaleComponent from "./LocaleComponent.vue";
 
 addIcons({
     "arrow-back": arrowBack,
@@ -123,7 +130,8 @@ export default defineComponent({
         IonIcon,
         IonButton,
         IonInput,
-        IonAlert
+        IonAlert,
+        LocaleComponent
     },
     data() {
         return {
@@ -142,8 +150,18 @@ export default defineComponent({
             socket:null,
             allLoaded:false,
             loadingMore:false,
-            hasError: false   
+            hasError: true,
+            errorMessageKey: null
+            
         };
+    },
+    computed: {
+        errorMessage() {
+            if (this.errorMessageKey) {
+                return this.$t(this.errorMessageKey);
+            }
+            return "";
+        },
     },
     async mounted() {
         this.initializeChat();
@@ -171,19 +189,26 @@ export default defineComponent({
             const token = localStorage.getItem("token");
             this.decodedToken = jwtDecode(token);
 
+            const response = await axios.post(this.$chat_server_add + '/getchatusers');
+            const currentUser = response.data.find(user => user.id === this.decodedToken.id);
+
+            if (!currentUser) {
+                this.errorMessageKey = 'chat.chatDisabledMessage';
+                return;
+            }
+
             const senderId = this.decodedToken.id;
             const privateRoomId = [senderId, this.recipientId].sort().join("_");
             this.privateRoomId = privateRoomId;
 
-            await this.loadMessages(true); 
-
             this.setupsocketListeners();
 
-            this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, (response) => {
+            this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, async (response) => {
                 if (response.status === "success") {
-                    console.log("Joined private chat room successfully");
+                    await this.loadMessages(true); 
+                    this.hasError = false;
                 } else {
-                    this.hasError = true;
+                    this.errorMessageKey = 'chat.invalidUrlMessage';
                     console.error("Failed to join private chat room:", response.message);
                 }
             });

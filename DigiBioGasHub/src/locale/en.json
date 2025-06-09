@@ -519,7 +519,10 @@
         "edited": "Edited",
         "confirmDelete": "Confirm Delete",
         "deleteMessage": "Are you sure you want to delete this message?",
-        "errorMessage": "Invalid Url",
+        "chatDisabledMessage": "Your private chat is disabled. Please enable it in settings to start chatting.",
+        "invalidUrlMessage": "The chat URL is invalid. Please check the link and try again.",
+        "generalErrorMessage": "An error occurred while initializing the chat. Please try again later.",
+        "goToSettings": "Go to Settings",
         "privateChatWith": "Private chat with user"
     },
     "invitations": {
@@ -545,7 +548,7 @@
         "biogas": "Biogas",
         "logistics": "Logistics",
         "digestate": "Digestate",
-        "chatVisibility":"Show me on private chat list"
+        "chatVisibility":"Enable Private Chat"
     },
     "landingPage": {
         "appName": "DigiBiogasHubs",
