@@ -1,50 +1,46 @@
 <template>
-    <ion-page>
-        <NavBarComponent />
+    <div>
         <ion-content class="main-content">
-            <OfferComponent :offer="offers" @updateOffers="updateOffers"/>
-            
+            <OfferComponent :offer="offers" @updateOffers="updateOffers" />
         </ion-content>
-        <FooterComponent />
-    </ion-page>
+        <ion-button expand="full" @click="$emit('close')">{{ $t('menu.close') }}</ion-button>
+    </div>
 </template>
 <script>
 import { defineComponent } from 'vue'
 import NavBarComponent from '../components/NavBarComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
-import {IonPage, IonContent} from '@ionic/vue'
+import { IonPage, IonContent, IonButton } from '@ionic/vue'
 import OfferComponent from '../components/OfferComponent.vue';
 import axios from 'axios';
-import {useRoute} from 'vue-router';
 
-export default defineComponent ({
+export default defineComponent({
     name: 'OfferPage',
-    components: { NavBarComponent, FooterComponent, IonPage, IonContent, OfferComponent},
-    setup() {
-        const route = useRoute();
-        const productId = route.params.id;
-        
-        return { productId
+    components: { NavBarComponent, FooterComponent, IonPage, IonContent, OfferComponent, IonButton },
+    props: {
+        productId: {
+            type: String,
+            required: true
         }
     },
-    data(){
-        return{
+    data() {
+        return {
             offers: {}
         }
-        
+
     },
     methods: {
-        getOffer(){
-            axios.post(this.$api_add + '/getoffersbyid',{id: this.productId}).then(response => {
+        getOffer() {
+            axios.post(this.$api_add + '/getoffersbyid', { id: this.productId }).then(response => {
                 this.offers = response.data.message;
             });
         },
-        updateOffers(){
+        updateOffers() {
             this.getOffer();
             this.$emit('updateOffers');
         }
     },
-    mounted(){
+    mounted() {
         this.getOffer();
     }
 })

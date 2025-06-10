@@ -1,10 +1,11 @@
 <template>
     <ion-card>
         <ion-card-header>
-            <ion-img :src="checkFileLink()" alt="Material Image" style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
+            <ion-img :src="checkFileLink()" alt="Material Image"
+                style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
             <ion-card-title>{{ product.Material.name }}</ion-card-title>
             <ion-card-subtitle> {{ getMaterialTypeTranslation(product.Material.type) }}</ion-card-subtitle>
-            
+
         </ion-card-header>
         <ion-card-content>
             <p>{{ product.Material.description }}</p>
@@ -13,21 +14,31 @@
                 <ion-label>{{ $t('product.productDetails.price') }}: {{ product.price }} €</ion-label>
             </ion-item>
             <ion-item>
-                <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.availableAmount }} {{  getUnitAmountTranslation(product.unit) }}</ion-label>
+                <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.availableAmount }} {{
+                    getUnitAmountTranslation(product.unit) }}</ion-label>
             </ion-item>
             <ion-item>
-                <ion-button v-if="isMarketplace" expand="full" @click="openDetails(product.id)">{{ $t('product.openlink') }}</ion-button>
-                <ion-button v-if="isCompanyParent" expand="full" @click="openEdit(product.id)">{{ $t('menu.edit') }}</ion-button>
-                <ion-button v-if="isCompanyParent" expand="full" color="danger" @click="deleteOffer(product.id)">{{ $t('menu.delete') }}</ion-button>
-                <ion-button v-if="isCompanyParent" expand="full" color="success" @click="contractHistory(product.id)">{{ $t('product.contract_history') }}</ion-button>
+                <ion-button v-if="isMarketplace" expand="full" @click="openModal">{{
+                    $t('product.openlink') }}</ion-button>
+                <ion-button v-if="isCompanyParent" expand="full" @click="openEdit(product.id)">{{ $t('menu.edit')
+                }}</ion-button>
+                <ion-button v-if="isCompanyParent" expand="full" color="danger" @click="deleteOffer(product.id)">{{
+                    $t('menu.delete') }}</ion-button>
+                <ion-button v-if="isCompanyParent" expand="full" color="success" @click="contractHistory(product.id)">{{
+                    $t('product.contract_history') }}</ion-button>
             </ion-item>
         </ion-card-content>
     </ion-card>
+
+    <ion-modal :is-open="isModalOpen" @didDismiss="closeModal">
+        <OfferPage :productId="product.id" />
+    </ion-modal>
 </template>
 
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg, IonAlert, alertController } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg, IonAlert, alertController, IonModal } from '@ionic/vue';
 import axios from 'axios';
+import OfferPage from '../views/OfferPage.vue';
 export default {
     name: 'ListingComponent',
     components: {
@@ -41,6 +52,8 @@ export default {
         IonButton,
         IonImg,
         IonAlert,
+        OfferPage,
+        IonModal,
         alertController
     },
     props: {
@@ -57,14 +70,20 @@ export default {
             default: false
         }
     },
-    setup() {
+    data() {
         return {
-            alertController
-        }
+            isModalOpen: false
+        };
     },
     mounted() { 
     },
     methods:{
+        openModal() {
+            this.isModalOpen = true;
+        },
+        closeModal() {
+            this.isModalOpen = false;
+        },
         checkFileLink(){
             if (this.product.fileLink == null || this.product.fileLink == undefined || this.product.fileLink == "") {
                 return this.$t('material.placeholder.'+this.product.Material.type);
@@ -77,9 +96,6 @@ export default {
         },
         getUnitAmountTranslation(type) {
             return this.$t(`unit.amount.${type}`);
-        },
-        openDetails(id) {
-            this.$router.push({ name: 'Product Offer', params: { id: id } });
         },
         openEdit(id) {
             this.$router.push({ name: 'CompanyEditOffer', params: { id: id } });
