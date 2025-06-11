@@ -119,6 +119,7 @@ export default defineComponent({
                     if (response.data.type="result" && response.data.result == "ok"){
                         this.$emit('updateOffers');
                         modalController.dismiss();
+                        this.ToastComponent.methods.showToast(this.$t('product.buySuccess'), 2000, 'success');
                         this.$router.push({ name: 'Marketplace' });
                         
                         

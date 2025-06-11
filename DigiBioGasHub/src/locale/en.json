@@ -262,6 +262,7 @@
             "product_buy_over_amount": "Amount cannot exceed the available quantity",
             "product_buy_zero_amount": "Amount must be greater than 0"
         },
+        "buySuccess": "Product bought successfully",
         "successMessage": "Offer created successfully",
         "errorMessage": "Failed to create offer! Check the information and try again.",
         "contract_history":"Contracts"
