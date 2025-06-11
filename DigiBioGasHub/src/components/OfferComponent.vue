@@ -1,29 +1,39 @@
 <template>
-    <ion-card>
-        <ion-img style="width: 300px;" :src=getImageSource(offer)></ion-img>
-        <ion-card-header>
-            <ion-card-title>{{ offer.description }}</ion-card-title>
-            <ion-card-subtitle>{{ getOfferTypeTranslation(offer.type) }} - {{
-                getOfferCategoryTranslation(offer.category) }}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-            <p>{{ $t('product.logistic.type') }}: {{ getCargoTypeTranslation(offer.cargoType) }}</p>
-            <p>{{ $t('product.productDetails.location') }}: {{ parseLocation(offer.Locations) }}</p>
-            <p>{{ $t('product.productDetails.amount') }}: {{ offer.availableAmount }} {{
-                getUnitAmountTranslation(offer.unit)}}</p>
-            <p>{{ $t('product.productDetails.price') }}: {{ offer.price }} €</p>
+    <ion-card class="offer-card">
+        <ion-img :src="getImageSource(offer)" class="offer-img" />
 
+        <ion-card-header>
+            <ion-card-title class="offer-title">{{ offer.description }}</ion-card-title>
+            <ion-card-subtitle class="offer-subtitle">
+                {{ getOfferTypeTranslation(offer.type) }} - {{ getOfferCategoryTranslation(offer.category) }}
+            </ion-card-subtitle>
+        </ion-card-header>
+
+        <ion-card-content>
+            <div class="offer-detail">
+                <p><strong>{{ $t('product.logistic.type') }}:</strong> {{ getCargoTypeTranslation(offer.cargoType) }}
+                </p>
+                <p><strong>{{ $t('product.productDetails.location') }}:</strong> {{ parseLocation(offer.Locations) }}
+                </p>
+                <p><strong>{{ $t('product.productDetails.amount') }}:</strong> {{ offer.availableAmount }} {{
+                    getUnitAmountTranslation(offer.unit) }}</p>
+                <p><strong>{{ $t('product.productDetails.price') }}:</strong> {{ offer.price }} €</p>
+            </div>
         </ion-card-content>
-        <ion-button id="buyOffer">{{ $t('product.buy') }}</ion-button>
+
+        <ion-button id="buyOffer" expand="block" class="buy-button">
+            {{ $t('product.buy') }}
+        </ion-button>
     </ion-card>
+
     <ion-modal id="buyOfferModal" trigger="buyOffer">
         <ion-header>
             <ion-toolbar>
                 <ion-title>{{ $t('product.buy') }}</ion-title>
                 <ion-buttons slot="end">
-                <ion-button id="closeModal" @click="modalController.dismiss()">
-                    <ion-icon name="close"></ion-icon>
-                </ion-button>
+                    <ion-button id="closeModal" @click="modalController.dismiss()">
+                        <ion-icon name="close"></ion-icon>
+                    </ion-button>
                 </ion-buttons>
             </ion-toolbar>
             <OfferBuyComponent :offer="offer" @updateOffers="updateOffers" />
@@ -160,4 +170,47 @@ ion-img {
     width: 100%;
     height: auto;
 }
+
+.offer-card {
+  margin: 1rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.offer-card:hover {
+  transform: translateY(-5px);
+}
+
+.offer-img {
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  object-position: center;
+}
+
+.offer-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.offer-subtitle {
+  font-size: 1rem;
+}
+
+.offer-detail p {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+}
+
+.buy-button {
+  margin: 1rem;
+  font-weight: bold;
+  --background: #3880ff;
+  --color: white;
+  border-radius: 0.75rem;
+}
+
 </style>
