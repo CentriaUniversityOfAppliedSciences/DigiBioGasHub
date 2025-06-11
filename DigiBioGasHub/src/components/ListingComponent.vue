@@ -101,7 +101,7 @@ export default {
             this.$router.push({ name: 'CompanyEditOffer', params: { id: id } });
         },
         async deleteOffer(id) {
-            const alert = await this.alertController.create({
+            const alert = await alertController.create({
                 header: this.$t('menu.delete'),
                 message: this.$t('menu.are_you_sure'),
                 buttons: [
