@@ -14,24 +14,16 @@
             </ion-item>
             <ion-item>
                 <ion-input type="number" v-model="buy.amount" :max="offer.availableAmount"></ion-input>
-                    <ion-label slot="end">{{ getUnitTypeTranslation(offer.unit) }}</ion-label>
-                    <ion-label slot="start">{{ $t('product.productDetails.amount')}}</ion-label>
-                
-                    
+                <ion-label slot="end">{{ getUnitTypeTranslation(offer.unit) }}</ion-label>
+                <ion-label slot="start">{{ $t('product.productDetails.amount') }}</ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>{{ $t('product.productDetails.price') }}</ion-label>
-              
                 <ion-label type="number" v-model="buy.price">{{ offer.price }}</ion-label>
             </ion-item>
             <ion-item>
                 <ion-button expand="full" @click="buyOffer">{{ $t('product.buy') }}</ion-button>
             </ion-item>
-                    
-                        
-               
-                
-           
         </ion-card-content>
     </ion-card>
 </template>
@@ -40,7 +32,6 @@ import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, 
 import { defineComponent } from 'vue';
 import ToastComponent from './ToastComponent.vue';
 import axios from 'axios';
-import { get } from 'ol/proj';
 export default defineComponent({
     name: 'OfferBuyComponent',
     components: {
@@ -58,11 +49,10 @@ export default defineComponent({
         IonSelectOption
 
     },
-    props:{
+    props: {
         offer: {
             type: Object,
             required: true,
-            
         },
     },
     data() {
@@ -71,8 +61,7 @@ export default defineComponent({
             price: this.offer.price,
             unit: this.offer.unit,
             offerId: this.offer.id,
-            companyID:this.companyID
-            
+            companyID: this.companyID
         };
         return {
             buy: buy,
@@ -81,7 +70,7 @@ export default defineComponent({
             companyID: null,
         }
     },
-    mounted(){
+    mounted() {
         this.getUserCompanies();
     },
     setup() {
@@ -90,7 +79,7 @@ export default defineComponent({
         }
     },
     emits: ['updateOffers'],
-    methods:{
+    methods: {
         getUnitTypeTranslation(type) {
             return this.$t(`unit.amount.${type}`);
         },
@@ -100,47 +89,43 @@ export default defineComponent({
                 var type = mat.type;
                 return this.$t(`material.type.${type}`);
             }
-            else{
+            else {
                 return "";
             }
         },
-        buyOffer(){
-            if (this.buy.amount == 0){
+        buyOffer() {
+            if (this.buy.amount == 0) {
                 this.ToastComponent.methods.showToast(this.$t('product.error.product_buy_zero_amount'), 2000, 'danger');
                 return;
             }
-            else if (this.buy.amount > 0 && this.offer.amount < this.buy.amount){
+            else if (this.buy.amount > 0 && this.offer.amount < this.buy.amount) {
                 this.ToastComponent.methods.showToast(this.$t('product.error.product_buy_over_amount'), 2000, 'danger');
                 return;
             }
-            else{
+            else {
                 var url = this.$api_add + "/buyoffer";
-                axios.post(url, this.buy, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                    if (response.data.type="result" && response.data.result == "ok"){
+                axios.post(url, this.buy, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                    if (response.data.type = "result" && response.data.result == "ok") {
                         this.$emit('updateOffers');
                         modalController.dismiss();
                         this.ToastComponent.methods.showToast(this.$t('product.buySuccess'), 2000, 'success');
                         this.$router.push({ name: 'Marketplace' });
-                        
-                        
                     }
                 });
             }
-            
         },
-        getUserCompanies(){
+        getUserCompanies() {
             var url = this.$api_add + "/getusercompanies";
-            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+            axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
                     this.companies = response.data.message;
-                    if (this.companies != null && this.companies.length > 0){
+                    if (this.companies != null && this.companies.length > 0) {
                         this.buy.companyID = this.companies[0].id;
                     }
                 }
             });
         }
     }
-
 });
 
 </script>

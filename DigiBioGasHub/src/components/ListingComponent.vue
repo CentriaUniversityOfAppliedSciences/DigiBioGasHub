@@ -21,7 +21,7 @@
                 <ion-button v-if="isMarketplace" expand="full" @click="openModal">{{
                     $t('product.openlink') }}</ion-button>
                 <ion-button v-if="isCompanyParent" expand="full" @click="openEdit(product.id)">{{ $t('menu.edit')
-                }}</ion-button>
+                    }}</ion-button>
                 <ion-button v-if="isCompanyParent" expand="full" color="danger" @click="deleteOffer(product.id)">{{
                     $t('menu.delete') }}</ion-button>
                 <ion-button v-if="isCompanyParent" expand="full" color="success" @click="contractHistory(product.id)">{{
@@ -31,7 +31,7 @@
     </ion-card>
 
     <ion-modal :is-open="isModalOpen" @didDismiss="closeModal">
-        <OfferPage :productId="product.id" />
+        <OfferPage :productId="product.id" @close="closeModal" />
     </ion-modal>
 </template>
 
@@ -61,11 +61,11 @@ export default {
             type: Object,
             required: true
         },
-        isMarketplace:{
+        isMarketplace: {
             type: Boolean,
             default: false
         },
-        isCompanyParent:{
+        isCompanyParent: {
             type: Boolean,
             default: false
         }
@@ -75,18 +75,18 @@ export default {
             isModalOpen: false
         };
     },
-    mounted() { 
+    mounted() {
     },
-    methods:{
+    methods: {
         openModal() {
             this.isModalOpen = true;
         },
         closeModal() {
             this.isModalOpen = false;
         },
-        checkFileLink(){
+        checkFileLink() {
             if (this.product.fileLink == null || this.product.fileLink == undefined || this.product.fileLink == "") {
-                return this.$t('material.placeholder.'+this.product.Material.type);
+                return this.$t('material.placeholder.' + this.product.Material.type);
             } else {
                 return this.product.fileLink;
             }
@@ -102,25 +102,25 @@ export default {
         },
         async deleteOffer(id) {
             const alert = await this.alertController.create({
-            header: this.$t('menu.delete'),
-            message: this.$t('menu.are_you_sure'),
-            buttons: [
-                {
-                text: this.$t('menu.cancel'),
-                role: 'cancel'
-                },
-                {
-                text: this.$t('menu.yes'),
-                handler: () => {
-                    var url = this.$api_add + "/deleteoffer";
-                    axios.post(url,{"id":id},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                        if (response.data.type="result" && response.data.result == "ok"){
-                            this.$router.push('/company/', {});
+                header: this.$t('menu.delete'),
+                message: this.$t('menu.are_you_sure'),
+                buttons: [
+                    {
+                        text: this.$t('menu.cancel'),
+                        role: 'cancel'
+                    },
+                    {
+                        text: this.$t('menu.yes'),
+                        handler: () => {
+                            var url = this.$api_add + "/deleteoffer";
+                            axios.post(url, { "id": id }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                                if (response.data.type = "result" && response.data.result == "ok") {
+                                    this.$router.push('/company/', {});
+                                }
+                            });
                         }
-                    });
-                }
-                }
-            ]
+                    }
+                ]
             });
             await alert.present();
         },

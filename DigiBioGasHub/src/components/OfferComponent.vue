@@ -1,28 +1,34 @@
 <template>
-            <ion-card>
-                <ion-img style="width: 300px;" :src=getImageSource(offer)></ion-img>
-                <ion-card-header>
-                    <ion-card-title>{{ offer.description }}</ion-card-title>
-                    <ion-card-subtitle>{{ getOfferTypeTranslation(offer.type) }} - {{ getOfferCategoryTranslation(offer.category) }}</ion-card-subtitle>
-                </ion-card-header>
-                <ion-card-content>
-                    <p>{{ $t('product.logistic.type') }}: {{ getCargoTypeTranslation(offer.cargoType) }}</p>
-                    <p>{{ $t('product.productDetails.location') }}: {{ parseLocation(offer.Locations) }}</p>
-                    <p>{{ $t('product.productDetails.amount') }}: {{ offer.availableAmount }} {{ getUnitAmountTranslation(offer.unit)}}</p>
-                    <p>{{ $t('product.productDetails.price') }}: {{ offer.price }} €</p>
+    <ion-card>
+        <ion-img style="width: 300px;" :src=getImageSource(offer)></ion-img>
+        <ion-card-header>
+            <ion-card-title>{{ offer.description }}</ion-card-title>
+            <ion-card-subtitle>{{ getOfferTypeTranslation(offer.type) }} - {{
+                getOfferCategoryTranslation(offer.category) }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <p>{{ $t('product.logistic.type') }}: {{ getCargoTypeTranslation(offer.cargoType) }}</p>
+            <p>{{ $t('product.productDetails.location') }}: {{ parseLocation(offer.Locations) }}</p>
+            <p>{{ $t('product.productDetails.amount') }}: {{ offer.availableAmount }} {{
+                getUnitAmountTranslation(offer.unit)}}</p>
+            <p>{{ $t('product.productDetails.price') }}: {{ offer.price }} €</p>
 
-                </ion-card-content>
-                <ion-button id="buyOffer">{{ $t('product.buy') }}</ion-button>
-            </ion-card>
-            <ion-modal id="buyOfferModal" trigger="buyOffer">
-                <ion-header>
-                <ion-toolbar>
-                    <ion-title>{{ $t('product.buy') }}</ion-title>
-                    <ion-button id="closeModal" slot="end" @click="modalController.dismiss()">{{ $t('menu.close') }}</ion-button>
-                </ion-toolbar>
-                <OfferBuyComponent :offer="offer" @updateOffers="updateOffers" />
-            </ion-header>
-            </ion-modal>
+        </ion-card-content>
+        <ion-button id="buyOffer">{{ $t('product.buy') }}</ion-button>
+    </ion-card>
+    <ion-modal id="buyOfferModal" trigger="buyOffer">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>{{ $t('product.buy') }}</ion-title>
+                <ion-buttons slot="end">
+                <ion-button id="closeModal" @click="modalController.dismiss()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+            <OfferBuyComponent :offer="offer" @updateOffers="updateOffers" />
+        </ion-header>
+    </ion-modal>
 </template>
 
 <script>
@@ -38,10 +44,15 @@ import {
     IonHeader,
     IonToolbar,
     IonTitle,
-    modalController
+    modalController,
+    IonIcon,
+    IonButtons
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import OfferBuyComponent from './OfferBuyComponent.vue'
+import { addIcons } from 'ionicons';
+import { close } from 'ionicons/icons';
+addIcons({ close });   
 
 export default defineComponent({
     name: 'OfferComponent',
@@ -52,26 +63,25 @@ export default defineComponent({
         IonCardSubtitle,
         IonCardContent,
         IonImg,
+        IonButtons,
         IonButton,
         IonModal,
         IonHeader,
         IonToolbar,
         IonTitle,
+        IonIcon,
         OfferBuyComponent,
         modalController
     },
     props:{
         offer: {
             type: Object,
-            required: true,
-            
+            required: true,  
         }
     },
     data() {
         return {
             modalController: modalController,
-                
-            
         }
     },
     emits: ['updateOffers'],
@@ -85,7 +95,6 @@ export default defineComponent({
             else{
                 return this.$t(`product.typenum.${type}`);
             }
-            
         },  
         getMaterialTypeTranslation(material) {
             if (material != null && material.Material != null) {
@@ -104,7 +113,6 @@ export default defineComponent({
             else{
                 return this.$t(`material.type.${category}`);
             }
-            
         },
         getImageSource(o){
             if (o != null) {
@@ -122,7 +130,6 @@ export default defineComponent({
             else{
                 return this.$t(`product.logisticType.${cargoType}`);
             }
-            
         },
         getUnitAmountTranslation(type) {
             if (type == null || type == undefined) {
@@ -139,14 +146,9 @@ export default defineComponent({
             return '';
         },
         updateOffers() {
-            
-            this.$emit('updateOffers');
-            
+            this.$emit('updateOffers');  
         }
-
-        
-    },
-    
+    }, 
 });
 </script>
 
