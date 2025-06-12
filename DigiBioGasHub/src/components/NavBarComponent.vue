@@ -21,13 +21,9 @@
                 <div class="navbar-right">
                     <ion-buttons slot="end">
                         <NotificationComponent />
-                        <button class="hamburger" @click="toggleMenu" v-if="isMobile">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 6H21M3 12H21M3 18H21" stroke="white" stroke-width="2"
-                                    stroke-linecap="round" />
-                            </svg>
-                        </button>
+                        <ion-button fill="clear" class="hamburger" v-if="isMobile" @click="toggleMenu">
+                            <ion-icon :icon="showMenu ? 'close' : 'menu'" size="large"></ion-icon>
+                        </ion-button>
                     </ion-buttons>
                 </div>
             </nav>
@@ -73,10 +69,13 @@ import LocaleComponent from './LocaleComponent.vue';
 import LoginComponent from './LoginComponent.vue';
 import LogoutComponent from './LogoutComponent.vue';
 import NotificationComponent from './NotificationComponent.vue';
-import { IonButtons } from '@ionic/vue';
+import { IonButton, IonButtons, IonIcon } from '@ionic/vue';
+import { close, menu } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+addIcons({ close, menu });
 export default defineComponent({
     name: 'NavBarComponent',
-    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent, NotificationComponent, IonButtons },
+    components: { LocaleComponent, LoginComponent, AdminComponent, LogoutComponent, NotificationComponent, IonButtons, IonButton, IonIcon },
     setup() {
         return {};
     },
