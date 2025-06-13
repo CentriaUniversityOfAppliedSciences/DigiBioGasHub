@@ -61,6 +61,7 @@ Add .env file to the root of the project and type the following inside:
 VITE_BACKEND_ADDRESS=https://address_to_server/api
 VITE_CHATSERVER=https://address_to_server/chatserver
 VITE_CHATSOCKET=https://address_to_server
+VITE_ENABLE_BIOKAASUKLINIKKA=false #true only if BKKlinikkaComponent.vue exists
 ```
 
 ## Building for production

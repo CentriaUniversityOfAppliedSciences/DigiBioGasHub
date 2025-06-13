@@ -23,6 +23,22 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <div v-if="KllComponent && chatboxVisible" :style="chatboxStyle">
+        <button @click="toggleChatboxSize" style="position: absolute; top: 5px; right: 70px; width: 3vw; max-width:20px ; z-index: 1001;">
+          {{ chatboxLarge ? '🗗' : '🗖' }}
+        </button>
+        <button @click="toggleChatbox" style="position: absolute; top: 5px; right: 45px; width: 3vw; max-width:20px ; z-index: 1001;">
+          {{ chatboxMinimized ? '▲' : '▼' }}
+        </button>
+        <button @click="closeChatbox" style="position: absolute; top: 5px; right: 20px; width: 3vw; max-width:20px ; z-index: 1001;">
+          ✖
+        </button>
+        <div v-if="chatboxMinimized" style="padding: 10px; text-align: center;">
+          <!-- Static header shown when minimized -->
+          <strong>Biokaasuklinikka</strong>
+        </div>
+        <component v-else :is="KllComponent" style="width: 100%; height: 100%;" />
+      </div>
       <FooterComponent />
     </ion-content>
   </ion-page>
@@ -35,6 +51,7 @@ import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import BlogListingComponent from '../components/BlogListingComponent.vue';
 import ListingComponent from '../components/ListingComponent.vue';
+
 import axios from 'axios';
 import slugify from 'slugify';
 
@@ -43,6 +60,10 @@ export default defineComponent({
   components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent, IonFooter },
   data() {
     return {
+      KllComponent: null,
+      chatboxMinimized: false,
+      chatboxVisible: true,
+      chatboxLarge: false,
       products: [
 
       ],
@@ -52,7 +73,45 @@ export default defineComponent({
       ]
     }
   },
+  computed: {
+    chatboxStyle() {
+      return {
+        position: 'fixed',
+        bottom: '2%',
+        right: '2%',
+        width: this.chatboxLarge ? '90vw' : '50vw',
+        height: this.chatboxMinimized ? '40px' : (this.chatboxLarge ? '80vh' : '50%'),
+        zIndex: 1000,
+        background: '#fff',
+        border: '1px solid #ccc',
+        borderRadius: '8px 8px 0 0',
+        overflow: 'hidden',
+        boxShadow: '0 0 10px rgba(0,0,0,0.2)',
+        maxWidth: this.chatboxLarge ? '900px' : '400px',
+      }
+    }
+  },
+  async created() {
+    if (import.meta.env.VITE_ENABLE_BIOKAASUKLINIKKA === 'true') {
+      try{
+        const module = await import("../components/BKKlinikkaComponent.vue");
+        this.KllComponent = module.default;
+      }
+      catch (error) {
+        console.error("Error during component creation:", error);
+      }
+    }
+  },
   methods: {
+    toggleChatbox() {
+      this.chatboxMinimized = !this.chatboxMinimized;
+    },
+    toggleChatboxSize() {
+      this.chatboxLarge = !this.chatboxLarge;
+    },
+    closeChatbox() {
+      this.chatboxVisible = false;
+    },
     getProducts() {
 
       var url = this.$api_add + "/getoffers";
