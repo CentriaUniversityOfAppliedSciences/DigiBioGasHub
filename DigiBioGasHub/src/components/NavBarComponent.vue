@@ -346,6 +346,72 @@ export default defineComponent({
     }
 }
 
+@media screen and (min-width: 1279px) and (max-width: 1281px) {
+
+    .navbar {
+        padding: 0;
+    }
+
+    .navbar-left,
+    .navbar-center,
+    .navbar-right {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .navbar-left {
+        margin-right: 2rem;
+    }
+
+    .menu {
+        flex-direction: row;
+        font-size: 0.9rem;
+        gap: 0px;
+    }
+
+    #localesty {
+        --inner-padding-end: 16px;
+    }
+
+    .menu-item {
+        width: 100%;
+        text-align: left;
+        padding-left: 1rem;
+    }
+
+    .feedback-button {
+        justify-content: center;
+        margin-left: 0;
+        height: 1.2rem;
+        padding: 1rem;
+        font-size: 0.7rem;
+    }
+
+    #loginbtn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hamburger {
+        align-self: flex-end;
+    }
+
+    ion-button {
+        --padding-start: 5px;
+        --padding-end: 5px;
+        --font-size: 14px;
+        min-height: 0.1rem;
+        --padding-top: 5px;
+        --padding-bottom: 5px;
+        font-size: 0.7rem;
+    }
+
+    .logo {
+        width: 72%;
+        height: auto;
+    }
+}
+
 @media (max-width: 768px) {
     .menu:not(.mobile):not(.open) {
         display: none !important;
