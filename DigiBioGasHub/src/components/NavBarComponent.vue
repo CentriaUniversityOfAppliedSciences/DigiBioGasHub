@@ -1,40 +1,37 @@
 <template>
-    <ion-header>
-        <ion-toolbar>
-            <nav class="navbar">
-                <div class="navbar-left">
-                    <img :src="$t('menu.logoPath')" alt="Funder Logo" class="logo">
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img :src="$t('menu.logoPath')" alt="Funder Logo" class="logo">
 
-                    <button class="feedback-button" v-if="!isMobile" @click="openFeedback">
-                        <span>{{ $t('menu.giveFeedback') }}</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </div>
+            <button class="feedback-button" v-if="!isMobile" @click="openFeedback">
+                <span>{{ $t('menu.giveFeedback') }}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </div>
 
-                <div class="navbar-center">
-                    <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo">
-                </div>
+        <div class="navbar-center">
+            <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo">
+        </div>
 
-                <div class="navbar-right">
-                    <ion-buttons slot="end">
-                        <NotificationComponent />
-                        <ion-button fill="clear" class="hamburger" v-if="isMobile" @click="toggleMenu">
-                            <ion-icon :icon="showMenu ? 'close' : 'menu'" size="large"></ion-icon>
-                        </ion-button>
-                    </ion-buttons>
-                </div>
-            </nav>
+        <div class="navbar-right">
+            <ion-buttons slot="end">
+                <NotificationComponent />
+                <ion-button fill="clear" class="hamburger" v-if="isMobile" @click="toggleMenu">
+                    <ion-icon :icon="showMenu ? 'close' : 'menu'" size="large"></ion-icon>
+                </ion-button>
+            </ion-buttons>
 
-            <ul class="menu" :class="{ mobile: isMobile, open: showMenu }" v-if="!isMobile || showMenu">
+            <ul class="menu" v-if="!isMobile">
                 <li class="menu-item"><a href="/home">{{ $t('menu.home') }}</a></li>
                 <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
                 <li class="menu-item"><a href="/map">{{ $t('menu.map') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li class="menu-item"><a href="/chat">{{ $t('menu.chat') }}</a></li>
-                <li v-if="!LoggedIn" class="menu-item" id="loginbtn"><a href="/login">{{ $t('menu.login') }}</a></li>
+                <li v-if="!LoggedIn" class="menu-item" id="loginbtn"><a href="/login">{{ $t('menu.login') }}</a>
+                </li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/contracts">{{ $t('menu.mycontracts') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
@@ -47,19 +44,39 @@
                 <li class="menu-item">
                     <LocaleComponent />
                 </li>
-                <li v-if="isMobile" class="menu-item">
-                    <button class="feedback-button" @click="openFeedback">
-                        <span>{{ $t('menu.giveFeedback') }}</span>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                        </svg>
-                    </button>
-                </li>
             </ul>
+        </div>
+    </nav>
 
-        </ion-toolbar>
-    </ion-header>
+    <ul class="menu" :class="{ mobile: isMobile, open: showMenu }" v-if="isMobile && showMenu">
+        <li class="menu-item"><a href="/home">{{ $t('menu.home') }}</a></li>
+        <li class="menu-item"><a href="/marketplace">{{ $t('menu.marketplace') }}</a></li>
+        <li class="menu-item"><a href="/map">{{ $t('menu.map') }}</a></li>
+        <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
+        <li class="menu-item"><a href="/chat">{{ $t('menu.chat') }}</a></li>
+        <li v-if="!LoggedIn" class="menu-item" id="loginbtn"><a href="/login">{{ $t('menu.login') }}</a></li>
+        <li v-if="LoggedIn" class="menu-item"><a href="/contracts">{{ $t('menu.mycontracts') }}</a></li>
+        <li v-if="LoggedIn" class="menu-item"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
+        <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
+        <li v-if="LoggedIn" class="menu-item">
+            <LogoutComponent />
+        </li>
+        <li v-if="Admin" class="menu-item">
+            <AdminComponent />
+        </li>
+        <li class="menu-item">
+            <LocaleComponent />
+        </li>
+        <li v-if="isMobile" class="menu-item">
+            <button class="feedback-button" @click="openFeedback">
+                <span>{{ $t('menu.giveFeedback') }}</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L13 6M19 12L13 18" stroke="white" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+            </button>
+        </li>
+    </ul>
 </template>
 
 <script>
@@ -220,7 +237,6 @@ export default defineComponent({
     gap: 20px;
     padding: 0;
     margin: 0;
-    flex-wrap: wrap;
 }
 
 .menu.mobile {
