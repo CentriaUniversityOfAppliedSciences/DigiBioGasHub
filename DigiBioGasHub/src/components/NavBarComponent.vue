@@ -147,7 +147,7 @@ export default defineComponent({
             this.showMenu = !this.showMenu;
         },
         checkMobile() {
-            this.isMobile = window.innerWidth <= 768;
+            this.isMobile = window.innerWidth <= 853;
         },
         openFeedback() {
             window.open('https://link.webropolsurveys.com/S/941E350F901601ED', '_blank');
@@ -279,6 +279,71 @@ export default defineComponent({
     display: flex;
     align-items: center;
     padding: 10px;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .navbar {
+        padding: 0;
+    }
+
+    .navbar-left,
+    .navbar-center,
+    .navbar-right {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .navbar-left {
+        margin-right: 2rem;
+    }
+
+    .menu {
+        flex-direction: row;
+        font-size: 10px;
+        gap: 0px;
+    }
+
+    #localesty {
+        --inner-padding-end: 16px;
+    }
+
+    .menu-item {
+        width: 100%;
+        text-align: left;
+        padding-left: 10px;
+    }
+
+    .feedback-button {
+        justify-content: center;
+        margin-left: 0;
+        height: 1.2rem;
+        padding: 0.8rem;
+        font-size: 0.6rem;
+    }
+
+    #loginbtn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .hamburger {
+        align-self: flex-end;
+    }
+
+    ion-button {
+        --padding-start: 4px;
+        --padding-end: 4px;
+        --font-size: 14px;
+        min-height: 0.1rem;
+        --padding-top: 4px;
+        --padding-bottom: 4px;
+        font-size: 0.7rem;
+    }
+
+    .logo {
+        width: 60%;
+        height: auto;
+    }
 }
 
 @media (max-width: 768px) {
