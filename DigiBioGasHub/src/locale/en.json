@@ -163,7 +163,9 @@
         "loginSuccess": "Login successful",
         "loginFail": "Login failed",
         "loginEmailFail": "Email is invalid",
-        "loginPasswordFail": "Password is invalid"
+        "loginPasswordFail": "Password is invalid",
+        "registerSuccess": "Registration successful. You can now login with your credentials.",
+        "registerFail": "Registration failed"
     },
     "forms":{
         "helper":{
@@ -192,7 +194,8 @@
             "password": "Enter your password, it must be at least 8 characters long",
             "confirmPassword": "Passwords do not match!",
             "newPassword": "Enter your new password, it must be at least 8 characters long",
-            "terms": "Accepting the terms and conditions is mandatory"
+            "terms": "Accepting the terms and conditions is mandatory",
+            "formInvalid": "Make sure all required fields are filled in correctly and the information is valid."
         },
         "register": "Register"
     },
