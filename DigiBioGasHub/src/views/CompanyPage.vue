@@ -2,30 +2,46 @@
     <ion-page>
         <NavBarComponent />
         <ion-toolbar>
-            <ion-row style="align-items: center; justify-content: space-between; padding: 16px;">
+            <ion-row style=" display: flex; align-items: center; justify-content: space-between; padding: 16px;">
                 <ion-col size="auto">
                     <h2>{{ $t("general.companies") }}</h2>
                 </ion-col>
                 <ion-col size="auto">
-                    <ion-button @click="showAddCompany = true">{{ $t("general.add_company") }}</ion-button>
+                    <ion-button fill="solid" shape="round" color="primary" @click="showAddCompany = true">
+                        {{ $t("general.add_company") }}
+                    </ion-button>
                 </ion-col>
             </ion-row>
         </ion-toolbar>
 
         <ion-content>
-            <ion-segment v-model="selectedSegment">
-                <ion-segment-button value="verified">{{ $t('admin.company.verified') }}</ion-segment-button>
-                <ion-segment-button value="unverified">{{ $t('admin.company.unverified') }}</ion-segment-button>
+            <ion-segment v-model="selectedSegment" class="custom-segment">
+                <ion-segment-button value="verified">
+                    {{ $t("admin.company.verified") }}
+                </ion-segment-button>
+                <ion-segment-button value="unverified">
+                    {{ $t("admin.company.unverified") }}
+                </ion-segment-button>
             </ion-segment>
+            <div v-if="selectedSegment === 'unverified'" class="approval-note">
+                {{ $t("company.waiting_approval") }}
+            </div>
 
             <ion-grid class="main-grid">
-                <ion-row v-for="comp in filteredCompanies" :key="comp.id">
+                <ion-row v-if="filteredCompanies.length > 0" v-for="comp in filteredCompanies" :key="comp.id">
                     <ion-col>
-                        <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted" />
+                        <div :class="['company-card', selectedSegment === 'unverified' ? 'unverified-card' : '']">
+                            <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted" />
+                        </div>
                     </ion-col>
                 </ion-row>
-
+                <ion-row v-else>
+                    <ion-col>
+                        <p>{{ $t("company.noCompanies") }}</p>
+                    </ion-col>
+                </ion-row>
             </ion-grid>
+
             <AddCompanyComponent v-model:visible="showAddCompany" />
             <FooterComponent />
         </ion-content>
@@ -121,7 +137,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-/* Optional styling */
 .main-grid {
     min-height: 75vh;
     display: grid;
@@ -146,5 +161,39 @@ export default defineComponent({
     .main-grid {
         grid-template-columns: repeat(5, 1fr);
     }
+}
+
+.custom-segment {
+  margin: 16px;
+  --background: var(--ion-color-light);
+  --indicator-color: var(--ion-color-primary);
+  border-radius: 12px;
+}
+
+.company-card {
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 16px;
+  transition: transform 0.2s ease;
+}
+
+.company-card:hover {
+  transform: translateY(-2px);
+}
+
+.unverified-card {
+  border-left: 4px solid #ffc107;
+}
+
+.approval-note {
+  margin: 1rem auto;
+  margin-bottom: 2rem;
+  max-width: 35rem;
+  padding: 1rem;
+  border-radius: 12px;
+  color: var(--color);
+  background-color: transparent;
+  text-align: center;
+  border: 2px solid var(--ion-color-warning);
 }
 </style>

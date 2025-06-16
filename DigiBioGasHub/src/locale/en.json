@@ -378,6 +378,8 @@
         "deleteAgreement": "Delete agreement",
         "products": "Products",
         "types": "Types",
+        "waiting_approval": "Note: All the companies listed below are waiting for approval!",
+        "noCompanies": "No companies yet! You can create your own company by clicking 'Add Company' or wait for approval if your company is in the unverified list",
         "logisticsRegistration": {
             "title": "Logistics Registration",
             "haulType": "Haul Type",

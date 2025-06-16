@@ -308,7 +308,7 @@ export default defineComponent({
 <style scoped>
 .company-card {
     max-width: 400px;
-    margin: 0 auto;
+    margin: 0.1rem;
     text-align: center;
 }
 </style>
