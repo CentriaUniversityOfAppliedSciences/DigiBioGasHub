@@ -162,8 +162,7 @@
         "noOffers": "You have no offers",
         "loginSuccess": "Login successful",
         "loginFail": "Login failed",
-        "loginEmailFail": "Email is invalid",
-        "loginPasswordFail": "Password is invalid",
+        "loginCredentialsFail": "Invalid username or password",
         "registerSuccess": "Registration successful. You can now login with your credentials.",
         "registerFail": "Registration failed"
     },

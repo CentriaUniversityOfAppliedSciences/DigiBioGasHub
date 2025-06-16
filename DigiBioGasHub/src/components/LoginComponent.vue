@@ -49,40 +49,51 @@ export default defineComponent({
         return{modalController, ToastComponent}
     },
     methods: {
-        login(){
+        async login() {
             this.errorMessage = '';
+
             if (!this.validateEmail(this.username)) {
-                this.errorMessage = this.$t('account.loginEmailFail');
-                this.ToastComponent.methods.showToast($t('account.loginEmailFail'), 2000, 'danger');
+                this.errorMessage = this.$t('account.loginCredentialsFail');
+                this.ToastComponent.methods.showToast(this.$t('account.loginCredentialsFail'), 2000, 'danger');
                 return;
             }
+
             if (this.password.length < 6) {
-                this.errorMessage = this.$t('account.loginPasswordFail');
-                this.ToastComponent.methods.showToast(this.$t('account.loginPasswordFail'), 2000, 'danger');
+                this.errorMessage = this.$t('account.loginCredentialsFail');
+                this.ToastComponent.methods.showToast(this.$t('account.loginCredentialsFail'), 2000, 'danger');
                 return;
             }
-            axios.post(this.$api_add + '/login', {
-                username: this.username,
-                password: this.password
-            }).then(response => {
+
+            try {
+                const response = await axios.post(this.$api_add + '/login', {
+                    username: this.username,
+                    password: this.password
+                });
+
                 if (response.data.result === 'ok') {
                     this.ToastComponent.methods.showToast(this.$t('account.loginSuccess'), 2000, 'success');
-                    
-                    localStorage.setItem('token', response.data.token);
-                    this.modalController.dismiss();
-                    const redirectPath = this.$route.query.redirect || '/home';
 
-                    window.location.href = redirectPath;
+                    localStorage.setItem('token', response.data.token);
+
+                    const topModal = await modalController.getTop();
+                    if (topModal) {
+                        await modalController.dismiss({ dismissed: true });
+                    }
+
+                    const redirectPath = this.$route.query.redirect || '/home';
+                    this.$router.push(redirectPath);
                 } else {
-                    this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
+                    this.ToastComponent.methods.showToast(this.$t('account.loginCredentialsFail'), 2000, 'danger');
                 }
-            }).catch(error => {
+            } catch (error) {
                 this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
-                this.errorMessage = error;
-            });
+            }
         },
-        register(){
-            this.modalController.dismiss();
+        async register() {
+            const topModal = await modalController.getTop();
+            if (topModal) {
+                await modalController.dismiss();
+            }
             this.$router.push({
                 name: 'Register',
                 query: {
