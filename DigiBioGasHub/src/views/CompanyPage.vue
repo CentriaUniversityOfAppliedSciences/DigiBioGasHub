@@ -23,7 +23,7 @@
                     {{ $t("admin.company.unverified") }}
                 </ion-segment-button>
             </ion-segment>
-            <div v-if="selectedSegment === 'unverified'" class="approval-note">
+            <div v-if="selectedSegment === 'unverified' && filteredCompanies.length > 0 " class="approval-note">
                 {{ $t("company.waiting_approval") }}
             </div>
 
