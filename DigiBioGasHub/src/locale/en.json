@@ -270,6 +270,11 @@
         "contract_history":"Contracts"
     },
     "validation": {
+        "companyNameRequired": "Company name cannot be empty.",
+        "companyTypeRequired": "Please select a company type.",
+        "companyPhoneRequired": "Phone number cannot be empty.",
+        "companyEmailRequired": "Email cannot be empty.",
+        "invalidEmail": "Invalid email!",
         "companyRequired": "Please select a company.",
         "materialRequired": "Please select a material.",
         "materialNameRequired": "Material name cannot be empty.",
