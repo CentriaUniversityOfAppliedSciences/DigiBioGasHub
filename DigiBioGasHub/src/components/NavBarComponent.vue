@@ -346,7 +346,7 @@ export default defineComponent({
     }
 }
 
-@media screen and (min-width: 1279px) and (max-width: 1281px) {
+@media screen and (min-width: 1025px) and (max-width: 1350px) {
 
     .navbar {
         padding: 0;
