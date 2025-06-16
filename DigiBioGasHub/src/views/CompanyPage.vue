@@ -13,26 +13,22 @@
         </ion-toolbar>
 
         <ion-content>
+            <ion-segment v-model="selectedSegment">
+                <ion-segment-button value="verified">{{ $t('admin.company.verified') }}</ion-segment-button>
+                <ion-segment-button value="unverified">{{ $t('admin.company.unverified') }}</ion-segment-button>
+            </ion-segment>
 
             <ion-grid class="main-grid">
-                <ion-row v-for="comp in companies">
+                <ion-row v-for="comp in filteredCompanies" :key="comp.id">
                     <ion-col>
-                        <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted"  />
+                        <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted" />
                     </ion-col>
                 </ion-row>
-                
+
             </ion-grid>
-        
-            
-            
-             <AddCompanyComponent v-model:visible="showAddCompany" />
-             <FooterComponent />
+            <AddCompanyComponent v-model:visible="showAddCompany" />
+            <FooterComponent />
         </ion-content>
-    
-       
-        
-        
-        
     </ion-page>
 </template>
 
@@ -48,7 +44,9 @@ import {
     IonModal,
     IonGrid,
     IonRow,
-    IonCol
+    IonCol,
+    IonSegment,
+    IonSegmentButton
 } from '@ionic/vue'
 import NavBarComponent from '../components/NavBarComponent.vue';
 import CompanyComponent from '../components/CompanyComponent.vue';
@@ -74,13 +72,25 @@ export default defineComponent({
         IonModal,
         IonGrid,
         IonRow,
-        IonCol
+        IonCol,
+        IonSegment,
+        IonSegmentButton
     },
     data() {
         return {
             companies: [],
-            showAddCompany: false
+            showAddCompany: false,
+            selectedSegment: 'verified',
+            selectedCompany: null
         }
+    },
+    computed: {
+        filteredCompanies() {
+            return this.companies.filter(c =>
+                (this.selectedSegment === 'verified' && c.companyStatus === 1) ||
+                (this.selectedSegment === 'unverified' && c.companyStatus === 0)
+            );
+        },
     },
     methods: {
         getCompanies() {
