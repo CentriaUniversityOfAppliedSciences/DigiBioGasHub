@@ -93,17 +93,17 @@
         </ion-content>
     </ion-modal>
 
-    <ion-alert :is-open="showEditAlert" header="Warning"
-        message="If you edit this company, it will need to be verified again. Are you sure?" :buttons="[
+    <ion-alert :is-open="showEditAlert" :header= "$t('general.warning')" :message="$t('company.editWarning')"
+        :buttons="[
             {
-                text: 'Cancel',
+                text: $t('general.cancel'),
                 role: 'cancel',
                 handler: () => {
                     showEditAlert = false;
                 }
             },
             {
-                text: 'Proceed',
+                text: $t('general.proceed'),
                 handler: () => {
                     showEditAlert = false;
                     openEditModal();
@@ -113,7 +113,7 @@
     <ion-modal :is-open="isEditModalOpen" @didDismiss="closeEditModal">
         <ion-header>
             <ion-toolbar>
-                <ion-title>Edit Company</ion-title>
+                <ion-title>{{ $t('admin.edittitle') }}</ion-title>
                 <ion-buttons slot="end">
                     <ion-button @click="closeEditModal">{{ $t('general.close') }}</ion-button>
                 </ion-buttons>
