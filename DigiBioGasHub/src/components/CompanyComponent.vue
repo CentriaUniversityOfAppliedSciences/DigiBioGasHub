@@ -1,70 +1,78 @@
 <template>
-        
-            <ion-card class="company-card">
-                <ion-card-header>
-                    <ion-card-title>{{ company.name }}</ion-card-title>
-                    <ion-card-subtitle>{{ getCompanyTypeTranslation(company.companyType) }}</ion-card-subtitle>
-                </ion-card-header>
-                <ion-card-content>
-                    <p>{{ company.description }}</p>
-                    <ion-list>
-                        <ion-item v-if="!companyEdit">
-                            <ion-icon :icon="icons.location" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.name">{{ $t('general.name') }}</ion-input>
-                        </ion-item>
-                        <ion-item v-if="!companyEdit">
-                            <ion-icon :icon="icons.location" slot="start" />
-                            <!--<ion-input :disabled="companyEdit" v-model="company.companyType">{{ $t('company.type.'+company.companyType) }}</ion-input>-->
-                            <ion-select disabled v-model="company.companyType">
-                                <ion-select-option :value=0>{{ $t('company.type.0') }}</ion-select-option>
-                                <ion-select-option :value=1>{{ $t('company.type.1') }}</ion-select-option>
-                                <ion-select-option :value=2>{{ $t('company.type.2') }}</ion-select-option>
-                                <ion-select-option :value=3>{{ $t('company.type.3') }}</ion-select-option>
-                                <ion-select-option :value=4>{{ $t('company.type.4') }}</ion-select-option>
-                                <ion-select-option :value=5>{{ $t('company.type.5') }}</ion-select-option>
-                                <ion-select-option :value=6>{{ $t('company.type.6') }}</ion-select-option>
-                            </ion-select>
-                        </ion-item>
-                        <!--<ion-item v-if="!companyEdit">
+
+    <ion-card class="company-card">
+        <ion-card-header>
+            <ion-card-title>{{ company.name }}</ion-card-title>
+            <ion-card-subtitle>{{ getCompanyTypeTranslation(company.companyType) }}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <p>{{ company.description }}</p>
+            <ion-list>
+                <ion-item>
+                    <ion-icon :icon="icons.location" slot="start" />
+                    <ion-input :disabled="companyEdit" v-model="company.name">{{ $t('general.name') }}</ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :icon="icons.location" slot="start" />
+                    <!--<ion-input :disabled="companyEdit" v-model="company.companyType">{{ $t('company.type.'+company.companyType) }}</ion-input>-->
+                    <ion-select disabled v-model="company.companyType">
+                        <ion-select-option :value=0>{{ $t('company.type.0') }}</ion-select-option>
+                        <ion-select-option :value=1>{{ $t('company.type.1') }}</ion-select-option>
+                        <ion-select-option :value=2>{{ $t('company.type.2') }}</ion-select-option>
+                        <ion-select-option :value=3>{{ $t('company.type.3') }}</ion-select-option>
+                        <ion-select-option :value=4>{{ $t('company.type.4') }}</ion-select-option>
+                        <ion-select-option :value=5>{{ $t('company.type.5') }}</ion-select-option>
+                        <ion-select-option :value=6>{{ $t('company.type.6') }}</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <!--<ion-item v-if="!companyEdit">
                             <ion-icon :icon="icons.location" slot="start" />
                             <ion-input :disabled="companyEdit" v-model="company.description">{{ $t('company.description') }}</ion-input>
                         </ion-item>-->
-                        <ion-item>
-                            <ion-icon :icon="icons.location" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.address">{{ $t('company.address') }}</ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-icon :icon="icons.location" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.city">{{ $t('company.city') }}</ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-icon :icon="icons.location" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.zipcode">{{ $t('company.postalCode') }}</ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-icon :icon="icons.phone" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.phone">{{ $t('general.phone') }}</ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-icon :icon="icons.email" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.email">{{ $t('general.email') }}</ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-icon :icon="icons.website" slot="start" />
-                            <ion-input :disabled="companyEdit" v-model="company.web">{{ $t('company.website') }}</ion-input>
-                        </ion-item>
-                    </ion-list>
-                    <ion-button @click="toggleCompanyEdit" :disabled="company.companyStatus === 0" color="warning" >{{$t('menu.edit')}}</ion-button>
-                    <ion-button @click="confirmDelete(company.id)" id="deleteCompany" :disabled="company.companyStatus === 0 " color="danger" >{{$t('menu.delete')}}</ion-button>
-                    <ion-button @click="saveCompany" :disabled="company.companyStatus === 0" color="success" >{{$t('menu.save')}}</ion-button>
-                    <ion-button @click="goToOffers(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary" >{{$t('company.offers')}}</ion-button>
-                    <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary" >{{$t('company.logistics.terminalsMenuButton')}}</ion-button>
-                    <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary"> {{ $t('invitations.inviteMembers') }}</ion-button>
-                </ion-card-content>
-            </ion-card>
-        
-            
-                <AddCompanyComponent/>
+                <ion-item>
+                    <ion-icon :icon="icons.location" slot="start" />
+                    <ion-input :disabled="companyEdit" v-model="company.address">{{ $t('company.address') }}</ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :icon="icons.location" slot="start" />
+                    <ion-input :disabled="companyEdit" v-model="company.city">{{ $t('company.city') }}</ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :icon="icons.location" slot="start" />
+                    <ion-input :disabled="companyEdit" v-model="company.zipcode">{{ $t('company.postalCode')
+                        }}</ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :icon="icons.phone" slot="start" />
+                    <ion-input :disabled="companyEdit" v-model="company.phone">{{ $t('general.phone') }}</ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :icon="icons.email" slot="start" />
+                    <ion-input :disabled="companyEdit" v-model="company.email">{{ $t('general.email') }}</ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-icon :icon="icons.website" slot="start" />
+                    <ion-input :disabled="companyEdit" v-model="company.web">{{ $t('company.website') }}</ion-input>
+                </ion-item>
+            </ion-list>
+            <ion-button @click="showEditAlert = true" :disabled="company.companyStatus === 0" color="warning">{{
+                $t('menu.edit') }}</ion-button>
+            <ion-button @click="confirmDelete(company.id)" id="deleteCompany" :disabled="company.companyStatus === 0"
+                color="danger">{{ $t('menu.delete') }}</ion-button>
+            <ion-button @click="goToOffers(company.id)"
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
+                $t('company.offers') }}</ion-button>
+            <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)"
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
+                $t('company.logistics.terminalsMenuButton') }}</ion-button>
+            <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal"
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary"> {{
+                $t('invitations.inviteMembers') }}</ion-button>
+        </ion-card-content>
+    </ion-card>
+
+
+    <AddCompanyComponent />
 
 
     <ion-modal :is-open="isInviteModalOpen" @didDismiss="closeInviteModal">
@@ -84,9 +92,89 @@
             <ion-button expand="block" @click="sendInvite">{{ $t('invitations.sendInvitation') }}</ion-button>
         </ion-content>
     </ion-modal>
-    
+
+    <ion-alert :is-open="showEditAlert" header="Warning"
+        message="If you edit this company, it will need to be verified again. Are you sure?" :buttons="[
+            {
+                text: 'Cancel',
+                role: 'cancel',
+                handler: () => {
+                    showEditAlert = false;
+                }
+            },
+            {
+                text: 'Proceed',
+                handler: () => {
+                    showEditAlert = false;
+                    openEditModal();
+                }
+            }]" />
+
+    <ion-modal :is-open="isEditModalOpen" @didDismiss="closeEditModal">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>Edit Company</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button @click="closeEditModal">{{ $t('general.close') }}</ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('general.name') }}</ion-label>
+                    <ion-input v-model="editableCompany.name"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('company.type') }}</ion-label>
+                    <ion-select :value="editableCompany.companyType" disabled>
+                        <ion-select-option :value="editableCompany.companyType">
+                            {{ getCompanyTypeTranslation(editableCompany.companyType) }}
+                        </ion-select-option>
+                    </ion-select>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('company.address') }}</ion-label>
+                    <ion-input v-model="editableCompany.address"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('company.city') }}</ion-label>
+                    <ion-input v-model="editableCompany.city"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('company.postalCode') }}</ion-label>
+                    <ion-input v-model="editableCompany.zipcode"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('general.phone') }}</ion-label>
+                    <ion-input v-model="editableCompany.phone"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('general.email') }}</ion-label>
+                    <ion-input v-model="editableCompany.email"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('company.website') }}</ion-label>
+                    <ion-input v-model="editableCompany.web"></ion-input>
+                </ion-item>
+            </ion-list>
+
+            <ion-button expand="block" :disabled="!hasChanges" @click="saveCompany" color="success">
+                {{ $t('menu.save') }}
+            </ion-button>
+        </ion-content>
+    </ion-modal>
+
+
     <ToastComponent ref="toastComponent" />
-       
+
 </template>
 
 <script>
@@ -176,8 +264,11 @@ export default defineComponent({
     },
     data() {
         return {
+            showEditAlert: false,
             companyEdit: true,
             isInviteModalOpen: false,
+            isEditModalOpen: false,
+            editableCompany: {...this.company }, 
             inviteEmail: '',
             alertButtons: [
                 {
@@ -194,9 +285,18 @@ export default defineComponent({
             ]
         };
     },
+    computed: {
+        hasChanges() {
+            return JSON.stringify(this.editableCompany) !== JSON.stringify(this.company);
+        }
+    },
     methods: {
-        toggleCompanyEdit(){
-            this.companyEdit = !this.companyEdit;
+        openEditModal() {
+            this.editableCompany = JSON.parse(JSON.stringify(this.company)); 
+            this.isEditModalOpen = true;
+        },
+        closeEditModal() {
+            this.isEditModalOpen = false;
         },
         confirmDelete(compID) {
             this.alertController
@@ -219,7 +319,9 @@ export default defineComponent({
             .then(alert => alert.present());
         },
         saveCompany(){
-            this.companyEdit = !this.companyEdit;
+            
+            Object.assign(this.company, this.editableCompany);
+            this.isEditModalOpen = false;
             var url = this.$api_add + "/updatecompany";
             axios.post(url, {
                 id: this.company.id,
