@@ -43,7 +43,8 @@
                 </ion-row>
                 <ion-row v-else>
                     <ion-col>
-                        <p>{{ $t("company.noCompanies") }}</p>
+                        <p v-if="selectedSegment === 'unverified' || selectedSegment === 'verified'">{{ $t("company.noCompanies") }}</p>
+                        <p v-else>{{ $t("company.noRejectedCompanies") }}</p>
                     </ion-col>
                 </ion-row>
             </ion-grid>

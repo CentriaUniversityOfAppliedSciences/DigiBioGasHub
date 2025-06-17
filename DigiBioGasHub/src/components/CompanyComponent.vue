@@ -55,11 +55,11 @@
                         </ion-item>
                     </ion-list>
                     <ion-button @click="toggleCompanyEdit" :disabled="company.companyStatus === 0" color="warning" >{{$t('menu.edit')}}</ion-button>
-                    <ion-button @click="confirmDelete(company.id)" id="deleteCompany" :disabled="company.companyStatus === 0" color="danger" >{{$t('menu.delete')}}</ion-button>
+                    <ion-button @click="confirmDelete(company.id)" id="deleteCompany" :disabled="company.companyStatus === 0 " color="danger" >{{$t('menu.delete')}}</ion-button>
                     <ion-button @click="saveCompany" :disabled="company.companyStatus === 0" color="success" >{{$t('menu.save')}}</ion-button>
-                    <ion-button @click="goToOffers(company.id)" :disabled="company.companyStatus === 0" color="primary" >{{$t('company.offers')}}</ion-button>
-                    <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)" :disabled="company.companyStatus === 0" color="primary" >{{$t('company.logistics.terminalsMenuButton')}}</ion-button>
-                    <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal" :disabled="company.companyStatus === 0" color="primary"> {{ $t('invitations.inviteMembers') }}</ion-button>
+                    <ion-button @click="goToOffers(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary" >{{$t('company.offers')}}</ion-button>
+                    <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary" >{{$t('company.logistics.terminalsMenuButton')}}</ion-button>
+                    <ion-button v-if="userLevel === 23 || userLevel === 99" @click="openInviteModal" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary"> {{ $t('invitations.inviteMembers') }}</ion-button>
                 </ion-card-content>
             </ion-card>
         

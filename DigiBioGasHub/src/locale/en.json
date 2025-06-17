@@ -386,6 +386,7 @@
         "waiting_approval": "Note: All the companies listed below are waiting for approval!",
         "rejected": "Note: All the companies listed below have been rejected! Please edit your company information and resubmit for approval.",
         "noCompanies": "No companies yet! You can create your own company by clicking 'Add Company' or wait for approval if your company is in the unverified list",
+        "noRejectedCompanies": "Yahoo! No rejected companies yet!",
         "logisticsRegistration": {
             "title": "Logistics Registration",
             "haulType": "Haul Type",
