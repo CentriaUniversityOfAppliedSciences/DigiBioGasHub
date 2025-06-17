@@ -207,7 +207,7 @@ export default defineComponent({
     },
     getUserCompanies(){
         if (localStorage.getItem('token') != null) {
-            var url = this.$api_add + "/getusercompanies";
+            var url = this.$api_add + "/getverifiedusercompanies";
             axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.companies = response.data.message;
