@@ -22,9 +22,15 @@
                 <ion-segment-button value="unverified">
                     {{ $t("admin.company.unverified") }}
                 </ion-segment-button>
+                <ion-segment-button value="not verified">
+                    {{ $t("admin.company.notVerified") }}
+                </ion-segment-button>
             </ion-segment>
             <div v-if="selectedSegment === 'unverified' && filteredCompanies.length > 0 " class="approval-note">
                 {{ $t("company.waiting_approval") }}
+            </div>
+            <div v-if="selectedSegment === 'not verified' && filteredCompanies.length > 0 " class="approval-note">
+                {{ $t("company.rejected") }}
             </div>
 
             <ion-grid class="main-grid">
@@ -104,7 +110,8 @@ export default defineComponent({
         filteredCompanies() {
             return this.companies.filter(c =>
                 (this.selectedSegment === 'verified' && c.companyStatus === 1) ||
-                (this.selectedSegment === 'unverified' && c.companyStatus === 0)
+                (this.selectedSegment === 'unverified' && c.companyStatus === 0) ||
+                (this.selectedSegment === 'not verified' && c.companyStatus === 2)
             );
         },
     },
