@@ -37,7 +37,7 @@
                 <ion-row v-if="filteredCompanies.length > 0" v-for="comp in filteredCompanies" :key="comp.id">
                     <ion-col>
                         <div :class="['company-card', selectedSegment === 'unverified' ? 'unverified-card' : '']">
-                            <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted" />
+                            <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted" @companyUpdated="updateCompanyInList" />
                         </div>
                     </ion-col>
                 </ion-row>
@@ -136,7 +136,13 @@ export default defineComponent({
         handleCompDeleted(){
             this.getCompanies();
         },
-        
+        updateCompanyInList(updatedCompany) {
+            updatedCompany.companyStatus = 0;
+            const index = this.companies.findIndex(c => c.id === updatedCompany.id);
+            if (index !== -1) {
+                this.companies.splice(index, 1, updatedCompany);
+            }
+        },
     },
     mounted() {
         this.getCompanies()

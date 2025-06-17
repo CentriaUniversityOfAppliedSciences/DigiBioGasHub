@@ -240,7 +240,7 @@ export default defineComponent({
     props: {
         company: Object,
     },
-    emits: ['companyDeleted'],
+    emits: ['companyDeleted', 'companyUpdated'],
     setup() {
     
 
@@ -334,6 +334,13 @@ export default defineComponent({
                 phone: this.company.phone,
                 email: this.company.email,
                 web: this.company.web
+            }).then((response) => {
+                if (response.data.type == "result" && response.data.result == "ok") {
+                    this.$refs.toastComponent.showToast(this.$t('company.updateSuccess'), 2000, 'success');
+                    this.$emit('companyUpdated', this.company);
+                } else {
+                    this.$refs.toastComponent.showToast(this.$t('company.updateFail'), 2000, 'danger');
+                }
             })
         },
         deleteCompany(compID){
