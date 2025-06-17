@@ -15,7 +15,7 @@
                         <ion-item v-if="!companyEdit">
                             <ion-icon :icon="icons.location" slot="start" />
                             <!--<ion-input :disabled="companyEdit" v-model="company.companyType">{{ $t('company.type.'+company.companyType) }}</ion-input>-->
-                            <ion-select :disabled="companyEdit" v-model="company.companyType">
+                            <ion-select disabled v-model="company.companyType">
                                 <ion-select-option :value=0>{{ $t('company.type.0') }}</ion-select-option>
                                 <ion-select-option :value=1>{{ $t('company.type.1') }}</ion-select-option>
                                 <ion-select-option :value=2>{{ $t('company.type.2') }}</ion-select-option>
