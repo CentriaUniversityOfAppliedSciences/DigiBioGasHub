@@ -129,7 +129,7 @@ export default defineComponent({
         axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
           if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
 
-            localStorage.setItem('current_company', response.data.message[0].id);
+            localStorage.setItem('current_company', response.data.message[0].Company.id);
           }
         });
       }

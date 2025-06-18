@@ -7,7 +7,7 @@
         <ion-card-content>
             <ion-item>
                 <ion-select v-model="buy.companyID">
-                    <ion-select-option v-for="company in companies" :key="company.id" :value="company.id">
+                    <ion-select-option v-for="company in companies" :key="company.Company.id" :value="company.Company.id">
                         {{ company.name }}
                     </ion-select-option>
                 </ion-select>
@@ -120,7 +120,7 @@ export default defineComponent({
                 if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
                     this.companies = response.data.message;
                     if (this.companies != null && this.companies.length > 0) {
-                        this.buy.companyID = this.companies[0].id;
+                        this.buy.companyID = this.companies[0].Company.id;
                     }
                 }
             });

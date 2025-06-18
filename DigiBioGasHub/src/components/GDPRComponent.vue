@@ -1,67 +1,79 @@
 <template>
-    <ion-page>
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>Privacy Policy</ion-title>
-            </ion-toolbar>
-        </ion-header>
-        <ion-content>
-            <ion-card>
-                <ion-card-header>
-                    <ion-card-title>GDPR Privacy Policy</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <p>
-                        Your privacy is important to us. It is our policy to respect your privacy regarding any information we may collect from you across our website, and other sites we own and operate.
-                    </p>
-                    <p>
-                        We only ask for personal information when we truly need it to provide a service to you. We collect it by fair and lawful means, with your knowledge and consent. We also let you know why we’re collecting it and how it will be used.
-                    </p>
-                    <p>
-                        We only retain collected information for as long as necessary to provide you with your requested service. What data we store, we’ll protect within commercially acceptable means to prevent loss and theft, as well as unauthorized access, disclosure, copying, use or modification.
-                    </p>
-                    <p>
-                        We don’t share any personally identifying information publicly or with third-parties, except when required to by law.
-                    </p>
-                    <p>
-                        Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and practices of these sites, and cannot accept responsibility or liability for their respective privacy policies.
-                    </p>
-                    <p>
-                        You are free to refuse our request for your personal information, with the understanding that we may be unable to provide you with some of your desired services.
-                    </p>
-                    <p>
-                        Your continued use of our website will be regarded as acceptance of our practices around privacy and personal information. If you have any questions about how we handle user data and personal information, feel free to contact us.
-                    </p>
-                    <p>
-                        This policy is effective as of 1 January 2023.
-                    </p>
-                </ion-card-content>
-            </ion-card>
-        </ion-content>
-    </ion-page>
+                   <ion-grid>
+                        
+                            <p class="ion-text-wrap">{{$t("gdpr.docTitle")}}</p>
+                       
+                            <p class="ion-text-wrap">{{$t("gdpr.createdDate")}}</p>
+                       
+                            <p class="ion-text-wrap">{{$t("gdpr.updatedDate")}}</p>
+                        
+                            <p class="ion-text-wrap">{{$t("gdpr.section")}}</p>
+                        
+                            <p class="ion-text-wrap">{{$t("gdpr.lawNumber")}}<br/></p>
+                       
+
+                        <ion-item>
+                        <ion-label style="white-space: pre-line;"><h2>{{$t("gdpr.p1Title")}}</h2><br/>{{$t("gdpr.p1Content")}}<br/></ion-label>
+                    </ion-item>
+                        <ion-item>
+                        <ion-label style="white-space: pre-line"><h2>{{$t("gdpr.p2Title")}}</h2><br/>{{$t("gdpr.p2Content")}}<br/></ion-label>
+                        
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p3Title")}}</h2><br/>{{$t("gdpr.p3Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p4Title")}}</h2><br/>{{$t("gdpr.p4Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p5Title")}}</h2><br/>{{$t("gdpr.p5Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p6Title")}}</h2><br/>{{$t("gdpr.p6Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p7Title")}}</h2><br/>{{$t("gdpr.p7Content")}}<br/></ion-label>
+
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p8Title")}}</h2><br/>{{$t("gdpr.p8Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p9Title")}}</h2><br/>{{$t("gdpr.p9Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p10Title")}}</h2><br/>{{$t("gdpr.p10Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p11Title")}}</h2><br/>{{$t("gdpr.p11Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p12Title")}}</h2><br/>{{$t("gdpr.p12Content")}}<br/></ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label class="ion-text-wrap"><h2>{{$t("gdpr.p13Title")}}</h2><br/>{{$t("gdpr.p13Content")}}<br/></ion-label>
+                    </ion-item>
+                    
+                    </ion-grid>
+            
 </template>
-
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent } from '@ionic/vue';
+import {  IonItem,IonLabel, IonGrid,  } from '@ionic/vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     name: 'GDPRComponent',
     components: {
-        IonPage,
-        IonHeader,
-        IonToolbar,
-        IonTitle,
-        IonContent,
-        IonCard,
-        IonCardHeader,
-        IonCardTitle,
-        IonCardContent
+        IonLabel,
+        IonGrid,
+        IonItem,
+        
+    },
+    setup(){
+        return { }
+    },
+    methods:{
+        
     }
-};
+});
 </script>
-
-<style scoped>
-ion-card {
-    margin: 16px;
-}
-</style></p>

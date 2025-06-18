@@ -1,5 +1,5 @@
 <template>
-    <ion-modal :is-open="visible" @didDismiss="onDismiss">
+    <ion-modal :is-open="editModalOpen" @didDismiss="onDismiss">
             <ion-header>
                 <ion-toolbar>
                     <ion-title>{{ $t('company.addCompany') }}</ion-title>
@@ -95,31 +95,34 @@ export default defineComponent({
         IonTitle, 
         ToastComponent
     },
-    setup() {
+    
+    data() {
         const icons = {
             location: locationOutline,
             phone: callOutline,
             email: mailOutline,
             website: globeOutline,
         };
-
         return {
             modalController,
             icons,
-        };
-    },
-    data() {
-        return {
             company: {  name: '', address: '', city: '', zipcode: '', phone: '', email:'', companyType: null, web:'' },
             isAdmin: false,
             userID: null,
             errors:{}
+            editModalOpen: false,
         };
     },
     props: {
-        visible: Boolean
+        visible: Boolean,
     },
-    emits: ['update:visible'],
+    watch: {
+        visible(newVal) {
+            console.log("Modal visibility changed to: ", newVal);
+            this.editModalOpen = newVal;
+        }
+    },
+    emits: ['companyAdded'],
     methods: {
         validateForm() {
             this.errors = {};
@@ -148,14 +151,18 @@ export default defineComponent({
                 if (response.data.type==="result" && response.data.result ==="ok" && response.data.message.length > 0){
                     this.materials = response.data.message; 
                 }
-                this.$emit('update:visible', false);
+                this.$emit('companyAdded');
+                this.editModalOpen = false;
+
             });
         },
         onDismiss() {
-            this.$emit('update:visible', false);
+            this.editModalOpen = false;
+            this.$emit('companyAdded');
         },
         closeModal() {
-            this.$emit('update:visible', false);
+            this.editModalOpen = false;
+            this.$emit('companyAdded');
         },
         getLocale(){
             

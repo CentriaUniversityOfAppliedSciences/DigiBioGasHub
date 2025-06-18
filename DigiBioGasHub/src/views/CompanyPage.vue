@@ -7,13 +7,12 @@
                     <h2>{{ $t("general.companies") }}</h2>
                 </ion-col>
                 <ion-col size="auto">
-                    <ion-button fill="solid" shape="round" color="primary" @click="showAddCompany = true">
+                    <ion-button fill="solid" shape="round" color="primary" @click="toggleAddCompany(true)">
                         {{ $t("general.add_company") }}
                     </ion-button>
                 </ion-col>
             </ion-row>
         </ion-toolbar>
-
         <ion-content>
             <ion-segment v-model="selectedSegment" class="custom-segment">
                 <ion-segment-button value="verified">
@@ -32,12 +31,12 @@
             <div v-if="selectedSegment === 'not verified' && filteredCompanies.length > 0 " class="approval-note">
                 {{ $t("company.rejected") }}
             </div>
-
             <ion-grid class="main-grid">
                 <ion-row v-if="filteredCompanies.length > 0" v-for="comp in filteredCompanies" :key="comp.id">
                     <ion-col>
+
                         <div :class="['company-card', selectedSegment === 'unverified' ? 'unverified-card' : '']">
-                            <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted" @companyUpdated="updateCompanyInList" />
+                            <CompanyComponent :company="comp.Company" @companyDeleted="handleCompDeleted" :companyData="comp" @companyUpdated="updateCompanyInList" />
                         </div>
                     </ion-col>
                 </ion-row>
@@ -49,9 +48,10 @@
                 </ion-row>
             </ion-grid>
 
-            <AddCompanyComponent v-model:visible="showAddCompany" />
+            <AddCompanyComponent  @companyAdded="refreshList" v-model:visible="showAddCompany" />
             <FooterComponent />
         </ion-content>
+
     </ion-page>
 </template>
 
@@ -120,11 +120,8 @@ export default defineComponent({
         getCompanies() {
             var url = this.$api_add + "/getusercompanies";
             axios.post(url,{"userID": this.getUserID() },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                
                 if (response.data.type="result"){
                     this.companies = response.data.message;
-                    //TODO make current_company actually set according to user input
-                    localStorage.setItem('current_company', response.data.result[0].id);
                 }
             });
         },
@@ -136,6 +133,7 @@ export default defineComponent({
         handleCompDeleted(){
             this.getCompanies();
         },
+
         updateCompanyInList(updatedCompany) {
             updatedCompany.companyStatus = 0;
             const index = this.companies.findIndex(c => c.id === updatedCompany.id);
@@ -143,6 +141,13 @@ export default defineComponent({
                 this.companies.splice(index, 1, updatedCompany);
             }
         },
+        refreshList() {
+            this.showAddCompany = false;
+            this.getCompanies();
+        },
+        toggleAddCompany(value) {
+            this.showAddCompany = value;
+        }
     },
     mounted() {
         this.getCompanies()

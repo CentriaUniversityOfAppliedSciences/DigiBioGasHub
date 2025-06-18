@@ -7,7 +7,7 @@
                 <ion-card-content>
                 <ion-item>
                     <ion-select required v-model="companyID" :label="$t('menu.company')" :placeholder="$t('product.chooseCompany')">
-                        <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.id">{{ comp.name }}</ion-select-option>
+                        <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.Company.id">{{ comp.name }}</ion-select-option>
                     </ion-select>
                 </ion-item>
                 <ion-item>
@@ -289,7 +289,7 @@ export default defineComponent({
             axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.companies = response.data.message;
-                    localStorage.setItem('current_company', response.data.message[0].id);
+                    localStorage.setItem('current_company', response.data.message[0].Company.id);
                 }
             });
         }

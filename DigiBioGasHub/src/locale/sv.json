@@ -153,7 +153,9 @@
         "deleteAccountFailMessage": "Radering av kontot misslyckades. Kontrollera uppgifterna och försök igen.",
         "deleteAccountConfirm": "Är du säker på att du vill radera ditt konto? Denna åtgärd är oåterkallelig.",
         "deleteAccountConfirmMessage": "Ditt konto kommer att raderas och all relaterad information kommer att förloras. Är du säker på att du vill fortsätta?",
-        "terms": "Jag godkänner användarvillkoren",
+        "terms": "Jag godkänner {termsLink} och {gdpr}",
+        "termsLink": "användarvillkoren",
+        "gdpr":"integritetspolicyn",
         "oldPassword": "Gammalt lösenord",
         "passwordMismatch": "Lösenorden matchar inte",
         "passwordLength": "Lösenordet måste vara minst 8 tecken långt",
@@ -362,6 +364,7 @@
         "addUser": "Lägg till användare",
         "editUser": "Redigera användare",
         "deleteUser": "Radera användare",
+        "deleteUserFromCompany": "Radera användare från företag",
         "companyUsers": "Företagsanvändare",
         "offers": "Erbjudanden",
         "addOffer": "Lägg till erbjudande",
@@ -391,6 +394,11 @@
             "registerSuccess":"Terminal registrerad",
             "registerFail":"Registrering av terminal misslyckades",
             "confirmDeleteTerminal":"Är du säker på att du vill radera denna terminal?"
+        },
+        "userlevels":{
+            "0": "Ytterligare användare",
+            "1": "Användare",
+            "2": "Administratör"
         }
     },
     "admin": {
@@ -539,5 +547,51 @@
         "logistics": "Logistik",
         "digestate": "Rester",
         "chatVisibility":"Visa i privat chattlista"
+    },
+    "landingPage": {
+        "appName": "DigiBiogasHubs",
+        "signupButton": "Registrera dig",
+        "heroTitle": "Välkommen till DigiBiogasHubs",
+        "heroSubtitle": "Din plattform för biogashandel och samarbete",
+        "joinButton": "Gå med nu",
+        "introSection": {
+            "introText1": "{digibiogashubs} är en ny digital marknadsplats som samlar {producer_user}, {owners} och {logistics_operators}.",
+            "introText2": "Vårt mål är att {develop}, stödja {support} och lösa branschens {diversity}.",
+            "digibiogashubs": "DigiBiogasHubs",
+            "producer_user": "biogasproducenter och användare",
+            "owners": "biomassaägare",
+            "logistics_operators": "logistikoperatörer",
+            "develop": "utveckla en hållbar energiekonomi",
+            "support": "en bredare användning av biogas",
+            "diversity": "utmaningar relaterade till fragmentering"
+        },
+        "featuresSection": {
+            "sectionTitle": "Med vår tjänst kan du:",
+            "feature1": {
+            "title": "Hitta partners",
+            "description": "Koppla samman biogasproducenter, användare och logistikoperatörer."
+            },
+            "feature2": {
+            "title": "Bläddra och skapa annonser",
+            "description": "Publicera eller hitta resurser relaterade till biomassa och biogas för handel eller samarbete."
+            },
+            "feature3": {
+            "title": "Använd smarta verktyg",
+            "description": "Effektivisera utveckling och verksamhet med digitala samarbetsverktyg."
+            }
+        },
+        "researchSection": {
+            "researchText1": "{digibiogashubs} är en del av ett gemensamt forskningsprojekt mellan {vaasanUniversity}, {centriaUniversity} och {seamkUniversity} med målet att utveckla samarbetet mellan biogasaktörer.",
+            "researchText2": "Vår plattform erbjuder {congreteSolutions} som hjälper dig att växa din verksamhet och vara med och bygga en {carbonNeutralFuture}.",
+            "digibiogashubs": "DigiBiogasHubs",
+            "vaasanUniversity": "Vasa universitet",
+            "centriaUniversity": "Centria yrkeshögskola",
+            "seamkUniversity": "Seinäjoki yrkeshögskola",
+            "congreteSolutions": "konkreta lösningar",
+            "carbonNeutralFuture": "koldioxidneutral framtid"
+        },
+        "joinNowSection": {
+            "joinNowText": "Gå med nu och ta vara på alla möjligheter inom biogasbranschen!"
+        }
     }
 }

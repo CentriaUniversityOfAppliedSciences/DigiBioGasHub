@@ -59,8 +59,37 @@
                             <img src="../assets/DBH-logo-cc.png" alt="Marketplace Illustration" />
                         </ion-col>
                         <ion-col size="12" size-md="6" class="intro-text">
-                            <p v-html="$t('landingPage.introSection.introText1')"></p>
-                            <p v-html="$t('landingPage.introSection.introText2')"></p>
+                            <!--<p v-html="$t('landingPage.introSection.introText1')"></p>-->
+                            <p>
+                                <i18n-t keypath="landingPage.introSection.introText1" tag="span">
+                                    <template #digibiogashubs>
+                                        <b>{{ $t('landingPage.introSection.digibiogashubs') }}</b>
+                                    </template>
+                                    <template #producer_user>
+                                        <b>{{ $t('landingPage.introSection.producer_user') }}</b>
+                                    </template>
+                                    <template #owners>
+                                        <b>{{ $t('landingPage.introSection.owners') }}</b>
+                                    </template>
+                                    <template #logistics_operators>
+                                        <b>{{ $t('landingPage.introSection.logistics_operators') }}</b>
+                                    </template>
+                                </i18n-t>
+                            </p>
+                            <p>
+                            
+                                <i18n-t keypath="landingPage.introSection.introText2" tag="span">
+                                    <template #support>
+                                        <b>{{ $t('landingPage.introSection.support') }}</b>
+                                    </template>
+                                    <template #diversity>
+                                        <b>{{ $t('landingPage.introSection.diversity') }}</b>
+                                    </template>
+                                    <template #develop>
+                                        <b>{{ $t('landingPage.introSection.develop') }}</b>
+                                    </template>
+                                </i18n-t>
+                            </p>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -105,8 +134,37 @@
                 <ion-grid class="container">
                     <ion-row class="ion-align-items-center">
                         <ion-col size="12" size-md="6" class="research-text">
-                            <p v-html="$t('landingPage.researchSection.researchText1')"></p>
-                            <p v-html="$t('landingPage.researchSection.researchText2')"></p>
+                            <!--<p v-html="$t('landingPage.researchSection.researchText1')"></p>-->
+                            <p>
+                            
+                                <i18n-t keypath="landingPage.researchSection.researchText1" tag="span">
+                                    <template #digibiogashubs>
+                                        <b>{{ $t('landingPage.researchSection.digibiogashubs') }}</b>
+                                    </template>
+                                    <template #vaasanUniversity>
+                                        <b>{{ $t('landingPage.researchSection.vaasanUniversity') }}</b>
+                                    </template>
+                                    <template #centriaUniversity>
+                                        <b>{{ $t('landingPage.researchSection.centriaUniversity') }}</b>
+                                    </template>
+                                    <template #seamkUniversity>
+                                        <b>{{ $t('landingPage.researchSection.seamkUniversity') }}</b>
+                                    </template>
+                                </i18n-t>
+                            </p>
+                            <!--<p v-html="$t('landingPage.researchSection.researchText2')"></p>-->
+                            <p>
+                            
+                                <i18n-t keypath="landingPage.researchSection.researchText2" tag="span">
+                                    <template #congreteSolutions>
+                                        <b>{{ $t('landingPage.researchSection.congreteSolutions') }}</b>
+                                    </template>
+                                    <template #carbonNeutralFuture>
+                                        <b>{{ $t('landingPage.researchSection.carbonNeutralFuture') }}</b>
+                                    </template>
+                                    
+                                </i18n-t>
+                            </p>
                         </ion-col>
 
                         <ion-col size="12" size-md="6" class="research-image">

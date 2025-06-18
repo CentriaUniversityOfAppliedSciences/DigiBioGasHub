@@ -27,32 +27,7 @@
                         </ion-item>
                     </ion-col>
                 </ion-row>
-                <!--
-                <ion-row class="ion-justify-content-center ion-padding-horizontal">
-                    <ion-col size="12" size-md="8">
-                        <ion-item>
-                            <ion-label position="floating">{{$t('account.address')}}</ion-label>
-                            <ion-input ref="street" @ionInput="validateStreetAddress" @ionBlur="markTouched" :helper-text="$t('forms.helper.address')" :error-text="$t('forms.error.street')" v-model="streetAddress" type="text"></ion-input>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row class="ion-justify-content-center ion-padding-horizontal">
-                    <ion-col size="12" size-md="8">
-                        <ion-item>
-                            <ion-label position="floating">{{$t('account.postal')}}</ion-label>
-                            <ion-input ref="postal" @ionInput="validatePostal" @ionBlur="markTouched" :helper-text="$t('forms.helper.postal')" :error-text="$t('forms.error.postal')" v-model="zipCode" type="text"></ion-input>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                <ion-row class="ion-justify-content-center ion-padding-horizontal">
-                    <ion-col size="12" size-md="8">
-                        <ion-item>
-                            <ion-label position="floating">{{$t('account.city')}}</ion-label>
-                            <ion-input ref="city" @ionInput="validateCity" @ionBlur="markTouched" :helper-text="$t('forms.helper.city')" :error-text="$t('forms.error.city')" v-model="city" type="text"></ion-input>
-                        </ion-item>
-                    </ion-col>
-                </ion-row>
-                --->
+               
                 <ion-row class="ion-justify-content-center ion-padding-horizontal">
                     <ion-col size="12" size-md="8">
                         <ion-item>
@@ -80,8 +55,19 @@
                 <ion-row class="ion-justify-content-center ion-padding-horizontal">
                     <ion-col size="12" size-md="8">
                         <ion-item>
-                            <ion-label position="stacked">{{$t('account.terms')}}</ion-label>
-                            <ion-checkbox v-model="disabled"></ion-checkbox>
+                            <ion-label position="stacked">
+                            <div style="margin-bottom:50px;margin-top:0px;">
+                                <i18n-t keypath="account.terms" tag="span">
+                                    <template #termsLink>
+                                        <a href="/terms-of-service" target="_blank">{{ $t('account.termsLink') }}</a>
+                                    </template>
+                                    <template #gdpr>
+                                        <a href="/privacy-policy" target="_blank">{{ $t('account.gdpr') }}</a>
+                                    </template>
+                                </i18n-t>
+                            </div>
+                        </ion-label>
+                        <ion-checkbox v-model="disabled"></ion-checkbox>
                         </ion-item>
                     </ion-col>
                 </ion-row>
@@ -92,15 +78,14 @@
                 </ion-row>
             </ion-grid>
         </ion-content>
-
         <ToastComponent ref="toastComponent" />
-
 </template>
 
 <script>
 import {  IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton, IonCheckbox } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import ToastComponent from './ToastComponent.vue';
 import ToastComponent from './ToastComponent.vue';
 export default defineComponent ({
     name: 'RegisterComponent',
@@ -132,7 +117,7 @@ export default defineComponent ({
             email: '',
             password1: '',
             password2: '',
-            disabled: true
+            disabled: true,
         };
     },
     methods: {
