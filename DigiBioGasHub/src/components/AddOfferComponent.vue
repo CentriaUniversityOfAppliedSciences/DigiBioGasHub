@@ -207,7 +207,7 @@ export default defineComponent({
     },
     getUserCompanies(){
         if (localStorage.getItem('token') != null) {
-            var url = this.$api_add + "/getusercompanies";
+            var url = this.$api_add + "/getverifiedusercompanies";
             axios.post(url, [], { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.companies = response.data.message;
@@ -241,18 +241,20 @@ export default defineComponent({
                 return;
             }
             // Logic to add the product
-            try{
-            
-            var url = this.$api_add + "/createoffer";
-            axios.post(url,{"image64":this.image64,"imageName":this.imageName,"type":this.type, "materialID":this.material,"companyID":this.companyID,"locationID":"1", "unit":this.unit, "price":this.price,"amount":this.quantity, "startDate":this.startDate, "endDate": this.endDate, "visibility":this.visibility,"cargoType":this.logisticType,"description":this.description, "address": this.address, "city": this.city, "zipcode":this.zipcode},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined){
-                    this.modalController.dismiss();
-                    this.$refs.toast.showToast(this.$t('product.successMessage'), 2000, 'success');
-                    this.$emit('getOffers');
-                } 
-            });
-        }  catch (error) {
-            console.error("Error adding product:", error)
+            try {
+
+                var url = this.$api_add + "/createoffer";
+                axios.post(url, { "image64": this.image64, "imageName": this.imageName, "type": this.type, "materialID": this.material, "companyID": this.companyID, "locationID": "1", "unit": this.unit, "price": this.price, "amount": this.quantity, "startDate": this.startDate, "endDate": this.endDate, "visibility": this.visibility, "cargoType": this.logisticType, "description": this.description, "address": this.address, "city": this.city, "zipcode": this.zipcode }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                    if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined) {
+                        this.modalController.dismiss();
+                        this.$refs.toast.showToast(this.$t('product.successMessage'), 2000, 'success');
+                        this.$emit('getOffers');
+                    } 
+                    if (response.data.result == "fail" && response.data.message === "Invalid Company") {
+                        this.$refs.toast.showToast(this.$t('product.invalidCompany'), 2000, 'danger');
+                    }
+                });
+            } catch (error) {
                 this.$refs.toast.showToast(this.$t('product.errorMessage'), 2000, 'danger');
             }
         },
