@@ -259,10 +259,10 @@ export default defineComponent({
 
         async deleteCompany(id) {
             try {
-                const url = this.$api_add + "/deletecompany";
+                const url = this.$api_add + "/admin/deletecompany";
 
-                const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-                if (response.data.type = "result" && response.data.result == "ok") {
+                const response = await axios.post(url, {  id: id } ,{ headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.type === "result" && response.data.result === "ok") {
                     this.$refs.toastComponent.showToast(this.$t('company.deleteCompanySuccess'), 2000, 'success');
                     this.companies = this.companies.filter(company => company.id !== id);
                     this.isReviewOpen = false;
