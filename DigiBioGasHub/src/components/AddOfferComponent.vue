@@ -14,7 +14,7 @@
                 <ion-card-content>
                 <ion-item>
                     <ion-select required v-model="companyID" :label="$t('menu.company')" :placeholder="$t('product.chooseCompany')">
-                        <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.id">{{ comp.name }}</ion-select-option>
+                        <ion-select-option v-for="comp in companies" :key="comp.Company.name" :value="comp.Company.id">{{ comp.Company.name }}</ion-select-option>
                         <p v-if="hasError('companyID')" class="error">{{ errors.companyID }}</p>
                     </ion-select>
                 </ion-item>
@@ -212,8 +212,8 @@ export default defineComponent({
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.companies = response.data.message;
                     if (this.companies.length === 1) {
-                        this.companyID = this.companies[0].id;
-                        localStorage.setItem('current_company', this.companies[0].id);
+                        this.companyID = this.companies[0].Company.id;
+                        localStorage.setItem('current_company', this.companies[0].Company.id);
                     }
                 }
             });

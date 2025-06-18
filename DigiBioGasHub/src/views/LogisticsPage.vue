@@ -17,7 +17,7 @@
             <ion-grid class="main-grid">
                 <ion-row v-for="term in terminals">
                     <ion-col>
-                        <LogisticsComponent :terminal="term" @terminalDeleted="updateTerminals"/>
+                        <LogisticsComponent :companyData="companyData" :terminal="term" @terminalDeleted="updateTerminals"/>
                     </ion-col>
                 </ion-row>
                 
@@ -72,7 +72,8 @@ export default defineComponent({
         return {
             terminals: [],
             thisCompany: this.$route.query.companyID,
-            companyName: this.$route.query.companyName
+            companyName: this.$route.query.companyName,
+            companyData: {},
         }
     },
     methods: {
@@ -82,6 +83,14 @@ export default defineComponent({
                 if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
                     this.terminals = response.data.message;
                     
+                }
+            });
+        },
+        getUserCompData(){
+            var url = this.$api_add + "/company/getusercompanydata";
+            axios.post(url,{"companyID":this.thisCompany},{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok"){
+                    this.companyData = response.data.message;
                 }
             });
         },
@@ -101,6 +110,7 @@ export default defineComponent({
     },
     mounted() {
         this.getTerminals();
+        this.getUserCompData();
     }
     
 });

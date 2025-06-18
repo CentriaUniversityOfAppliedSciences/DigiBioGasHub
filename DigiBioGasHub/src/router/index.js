@@ -33,6 +33,9 @@ import UserSettingsPage from '../views/SettingsPage.vue';
 import LandingPage from '../views/LandingPage.vue';
 import LogisticsRegisterComponent from '../components/LogisticsRegisterComponent.vue';
 import LogisticsPage from '../views/LogisticsPage.vue';
+import CompanyUsersPage from '../views/Company/CompanyUsersPage.vue';
+import GDPRPage from '../views/GDPRPage.vue';
+import ToSPage from '../views/ToSPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -240,6 +243,24 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/companyusers:/:id',
+    name: 'CompanyUsers',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: CompanyUsersPage,
+  },
+  {
     path: '/logisticsregister',
     name: '',
     component: LogisticsRegisterComponent
@@ -378,6 +399,16 @@ const routes = [
   path: "/join-company/:companyId/:invitationId",
   name: "JoinCompanyPage",
   component: JoinCompanyPage
+},
+{
+  path: '/privacy-policy',
+  name: 'GDPRPage',
+  component: GDPRPage
+},
+{
+  path : '/terms-of-service',
+  name: 'ToSPage',
+  component: ToSPage
 }
 ]
 

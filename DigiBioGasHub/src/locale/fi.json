@@ -153,7 +153,9 @@
         "deleteAccountFailMessage": "Tilin poisto epäonnistui. Tarkista tiedot ja yritä uudelleen.",
         "deleteAccountConfirm": "Haluatko varmasti poistaa tilisi? Tämä toiminto on peruuttamaton.",
         "deleteAccountConfirmMessage": "Tilisi poistetaan ja kaikki siihen liittyvät tiedot menetetään. Haluatko varmasti jatkaa?",
-        "terms": "Hyväksy käyttöehdot",
+        "terms": "Hyväksy {termsLink} ja {gdpr}",
+        "termsLink": "käyttöehdot",
+        "gdpr":"tietosuojakäytäntö",
         "oldPassword": "Nykyinen salasana",
         "passwordMismatch": "Salasanat eivät täsmää",
         "passwordLength": "Salasanan pitää olla vähintään 8 merkkiä pitkä",
@@ -362,6 +364,7 @@
         "addUser": "Lisää käyttäjä",
         "editUser": "Muokkaa käyttäjää",
         "deleteUser": "Poista käyttäjä",
+        "deleteUserFromCompany": "Poista käyttäjä yrityksestä",
         "companyUsers": "Yrityksen käyttäjät",
         "offers": "Tarjoukset",
         "addOffer": "Lisää tarjous",
@@ -391,6 +394,11 @@
             "registerSuccess":"Terminaali luotu onnistuneesti",
             "registerFail":"Terminaalin luonti epäonnistui",
             "confirmDeleteTerminal":"Haluatko varmasti poistaa tämän terminaalin?"
+        },
+        "userlevels":{
+            "0": "Tuntematon",
+            "1": "Peruskäyttäjä",
+            "2": "Yrityksen ylläpitäjä"
         }
     },
     "admin": {
@@ -547,8 +555,15 @@
         "heroSubtitle": "Biokaasuliiketoiminnan digitaaliseen kohtaamispaikkaan.",
         "joinButton": "Liity",
         "introSection": {
-            "introText1": "<strong>DigiBiogasHubs</strong> on uusi digitaalinen markkinapaikka, joka kokoaa yhteen <strong>biokaasun tuottajat ja käyttäjät</strong>, <strong>biomassojen omistajat</strong> sekä <strong>logistiikkatoimijat</strong>.",
-            "introText2": "Tavoitteenamme on <strong>kehittää kestävää energiataloutta</strong>, tukea <strong>biokaasun laajempaa käyttöönottoa</strong> ja ratkaista alan <strong>hajanaisuuteen liittyviä haasteita</strong>."
+            "introText1": "{digibiogashubs} on uusi digitaalinen markkinapaikka, joka kokoaa yhteen {producer_user}, {owners} sekä {logistics_operators}.",
+            "introText2": "Tavoitteenamme on {develop}, tukea {support} ja ratkaista alan {diversity}.",
+            "digibiogashubs": "DigiBiogasHubs",
+            "producer_user": "biokaasun tuottajat ja käyttäjät",
+            "owners": "biomassojen omistajat",
+            "logistics_operators": "logistiikkatoimijat",
+            "develop":"kehittää kestävää energiataloutta",
+            "support":"biokaasun laajempaa käyttöönottoa",
+            "diversity":"hajanaisuuteen liittyviä haasteita"
         },
         "featuresSection": {
             "sectionTitle": "Palvelumme avulla voit:",
@@ -566,11 +581,63 @@
             }
         },
         "researchSection": {
-            "researchText1": "<strong>DigiBiogasHubs</strong> on osa <strong>Vaasan yliopiston</strong>, <strong>Centria-ammattikorkeakoulun</strong> ja <strong>Seinäjoen ammattikorkeakoulun</strong> yhteistä tutkimushanketta, jonka tavoitteena on kehittää yhteistyötä biokaasutoimijoiden välillä.",
-            "researchText2": "Alustamme tarjoaa <strong>konkreettisia ratkaisuja</strong>, joilla voit kasvattaa liiketoimintaasi ja olla mukana rakentamassa <strong>hiilineutraalia tulevaisuutta</strong>."
+            "researchText1": "{digibiogashubs} on osa {vaasanUniversity}, {centriaUniversity} ja {seamkUniversity} yhteistä tutkimushanketta, jonka tavoitteena on kehittää yhteistyötä biokaasutoimijoiden välillä.",
+            "researchText2": "Alustamme tarjoaa {congreteSolutions}, joilla voit kasvattaa liiketoimintaasi ja olla mukana rakentamassa {carbonNeutralFuture}.",
+            "digibiogashubs":"DigiBiogasHubs",
+            "vaasanUniversity":"Vaasan yliopiston",
+            "centriaUniversity":"Centria-ammattikorkeakoulun",
+            "seamkUniversity":"Seinäjoen ammattikorkeakoulun",
+            "congreteSolutions": "konkreettisia ratkaisuja",
+            "carbonNeutralFuture": "hiilineutraalia tulevaisuutta"
+
         },
         "joinNowSection": {
             "joinNowText": "Liity nyt mukaan ja ota kaikki irti biokaasuliiketoiminnan mahdollisuuksista!"
         }
+    },
+    "gdpr":{
+			"docTitle":"Tietosuojailmoitus",
+			"title":"Tietosuojailmoitus",
+			"createdDate":"Laatimispäivä: 18.6.2025",
+			"updatedDate":"Päivitetty: 18.6.2025",
+			"section": "EU-GDPR 2016/679",
+			"lawNumber": "Tietosuojalaki 2018/1050",
+			"p1Title": "1. Rekisterinpitäjä",
+			"p1Content": "Centria-ammattikorkeakoulu\n Talonpojankatu 2, 67100 Kokkola\n Puhelin: (06) 868 0200",
+			"p2Title": "2. Rekisteriasioista vastaava henkilö ja yhteyshenkilö",
+			"p2Content": "Vastaava henkilö\n- Fabian Sander, TKI-asiantuntija, fabian.sander{'@'}centria.fi\nYhteyshenkilö:\n- Risto Hietala, TKI-asiantuntija, risto.hietala{'@'}centria.fi",
+			"p3Title": "3. Rekisterin nimi",
+			"p3Content": "DigiBiogasHubs-pilotti -tietorekisteri",
+			"p4Title": "4. Säännönmukaiset tietolähteet",
+			"p4Content": "Rekisteriin tallennettavat tiedot tulevat järjestelmän rekisteröitymislomakkeesta ja palvelun käytöstä.",
+			"p5Title": "5. Henkilötietojen säilytysaika",
+			"p5Content": "Henkilötietojen säilytys aloitetaan palvelun käyttöönoton yhteydessä ja lopetetaan hankkeen lopetuksen yhteydessä. Palvelun käytön loppuessa henkilötiedot poistetaan 2 vuoden kuluttua ja muita tietoja säilytetään viisi vuotta, mutta näitä tietoja ei voida enää yhdistää henkilötietoihin.",
+			"p6Title": "6. Käsittelyn peruste",
+			"p6Content": "Käsittely on tarpeen rekisterinpitäjän tai kolmannen osapuolen oikeutettujen etujen toteuttamiseksi.",
+			"p7Title": "7. Henkilötietojen käsittelyn tarkoitus",
+			"p7Content": "Henkilötietoja käytetään ainoastaan palvelun sisällä. Asiakas voi tarkistaa omat tietonsa hänelle saatavilla olevan palvelun kautta tai olemalla yhteydessä rekisterinpitäjään. Palveluun luotuja osto- ja myyntitarjouksia voidaan välittää kolmansille osapuolille avoimen rajapinnna välityksellä. Näihin ei kuitenkaan yhdistetä henkilötietoja.",
+			"p8Title": "8. Rekisterin tietosisältö",
+			"p8Content": "Asiakasprofiili sisältää asiakkaan syöttämät henkilötiedot, asiointikielen ja asiakkaan IP-osoitteen. Järjestelmä kerää lisäksi logia palvelussa tehdyistä tapahtumista.",
+			"p9Title": "9. Tietojen siirto EU:n tai ETA:n ulkopuolelle",
+			"p9Content": "Tietoja ei siirretä EU:n tai ETA:n ulkopuolelle.",
+			"p10Title": "10. Rekisterin suojauksen periaatteet",
+			"p10Content": "Henkilötiedot on suojattu teknisillä toimenpiteillä ja niiden käyttöoikeudet on rajattu vain niille henkilöille, joiden työnkuvaan rekisteritietojen käsittely kuuluu. Henkilöstö on perehdytetty ja koulutettu tiedon turvalliseen käsittelyyn. Henkilöstöä sitoo vaitiolovelvollisuus",
+			"p11Title": "11. Tarkastusoikeus",
+			"p11Content": "Rekisteröidyllä on oikeus tutustua ja nähdä häntä itseään koskevat henkilötiedot ja pyynnöstä saada niistä kopiot.\n a. Tarkastuspyyntö tehdään kirjallisesti.\n b. Hakijan on pystyttävä todistamaan henkilöllisyytensä.",
+			"p12Title": "12. Oikeus vaatia tiedon korjaamista ja/tai poistamista",
+			"p12Content": "Rekisterinpitäjän on ilman aiheetonta viivytystä oma-aloitteisesti tai rekisteröidyn vaatimuksesta oikaistava, poistettava tai täydennettävä rekisterissä oleva, käsittelyn kannalta virheellinen, tarpeeton, puutteellinen tai vanhentunut henkilötieto.",
+			"p13Title": "13. Oikeus tehdä valitus",
+			"p13Content": "Rekisteröidyllä on oikeus tehdä valitus valvontaviranomaiselle, jos hän katsoo, että häntä koskevien henkilötietojen käsittelyssä rikotaan EU:n tietosuoja-asetusta."
+    },
+    "terms":{
+        "title": "Käyttöehdot",
+        "updatedDate": "Päivitetty: 18.6.2025",
+        "content0": "Tervetuloa verkkosivustollemme. Käyttämällä tätä sivustoa hyväksyt seuraavat käyttöehdot.\n Mikäli et hyväksy ehtoja, pyydämme olemaan käyttämättä sivustoa.\n\n",
+        "content1": "1. Sivuston sisältö\n Tämä verkkosivusto tarjoaa yleistä tietoa ja sisältöä, joka on tarkoitettu informatiivisiin tarkoituksiin. Emme takaa sisällön paikkansapitävyyttä, ajantasaisuutta tai täydellisyyttä.\n\n",
+        "content2": "2. Ei vastuuta kaupankäynnistä\n Sivuston ylläpitäjä ei ole vastuussa mistään kaupankäyntiin, sijoittamiseen, ostamiseen, myymiseen tai muihin taloudellisiin toimiin liittyvistä päätöksistä tai seurauksista.\n Sivustolla esitetty sisältö ei ole sijoitusneuvontaa, eikä sitä tule tulkita kehotukseksi ryhtyä mihinkään kaupalliseen toimintaan. Käyttäjä toimii kaikissa kaupankäyntiin liittyvissä asioissa täysin omalla vastuullaan.\n\n ",
+        "content3": "3. Immateriaalioikeudet\n Kaikki sivustolla esitetty sisältö, kuten tekstit, kuvat ja logot, ovat sivuston tai rekisteröityjen käyttäjien omaisuutta, ellei toisin mainita. Sisällön kopiointi, jakaminen tai muu käyttö ilman lupaa on kiellettyä.\n\n ",
+        "content4": "4. Linkit kolmansien osapuolien sivustoille\n Sivustolla voi olla linkkejä ulkopuolisiin verkkosivustoihin. Emme vastaa näiden sivustojen sisällöstä tai toiminnasta.\n\n",
+        "content5": "5. Vastuunrajoitus\n Sivuston käyttö tapahtuu omalla vastuullasi. Emme vastaa mistään suorista tai epäsuorista vahingoista, jotka johtuvat sivuston käytöstä tai sen sisällöstä.\n\n",
+        "content6": "6. Muutokset käyttöehtoihin\n Pidätämme oikeuden muuttaa näitä käyttöehtoja milloin tahansa ilman erillistä ilmoitusta. Suosittelemme tarkistamaan ehdot säännöllisesti.\n\n"
     }
 }

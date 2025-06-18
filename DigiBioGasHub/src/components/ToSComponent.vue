@@ -2,19 +2,24 @@
     <ion-page>
         <ion-header>
             <ion-toolbar>
-                <ion-title>{{ $t('general.tosTitle') }}</ion-title>
+                <ion-title>{{ $t('terms.title') }}</ion-title>
             </ion-toolbar>
         </ion-header>
         <ion-content>
             <ion-card>
                 <ion-card-header>
-                    <ion-card-title>{{$t('general.tosTitle')}}</ion-card-title>
+                    <ion-card-title>{{$t('terms.title')}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
-                    <p>
-                        <!-- Insert your terms and conditions content here -->
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla. 
-                    </p>
+                    <p style="white-space: pre-line">{{ $t("terms.updatedDate") }}</p>
+                    <p style="white-space: pre-line">{{$t('terms.content0')}}</p>
+                    <p style="white-space: pre-line">{{$t('terms.content1')}}</p>
+                    <p style="white-space: pre-line">{{$t('terms.content2')}}</p>
+                    <p style="white-space: pre-line">{{$t('terms.content3')}}</p>
+                    <p style="white-space: pre-line">{{$t('terms.content4')}}</p>
+                    <p style="white-space: pre-line">{{$t('terms.content5')}}</p>
+                    <p style="white-space: pre-line">{{$t('terms.content6')}}</p>                       
+                    
                 </ion-card-content>
             </ion-card>
         </ion-content>

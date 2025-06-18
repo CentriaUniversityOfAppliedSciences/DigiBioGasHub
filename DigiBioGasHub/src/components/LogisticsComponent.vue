@@ -28,7 +28,7 @@
                            
                         </ion-item>
                         <ion-item>
-                            <ion-button @click="confirmDelete()" id="deleteCompany" color="danger" >{{$t('menu.delete')}}</ion-button>
+                            <ion-button v-if="companyData.userLevel === 23 || userLevel === 99" @click="confirmDelete()" id="deleteCompany" color="danger" >{{$t('menu.delete')}}</ion-button>
                         </ion-item>
                 
                 </ion-list>
@@ -44,6 +44,7 @@ import { IonPage, IonContent, IonToolbar, IonTitle, IonItem, IonLabel, IonInput,
 import { terminal } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import { jwtDecode } from "../router";
 
 export default defineComponent({
     name: 'LogisticsComponent',
@@ -66,9 +67,22 @@ export default defineComponent({
         alertController
         
     },
+    setup() {
+        const token = localStorage.getItem('token');
+        const decodedToken = token ? jwtDecode(token) : null;
+        const userLevel = decodedToken?.userlevel || null;
+        return {
+            userLevel
+        };
+    },
     props: {
         terminal: {
-            type: Object
+            type: Object,
+            required: true
+        },
+        companyData: {
+            type: Object,
+            required: true
         }
     },
     emits: ['terminalDeleted'],

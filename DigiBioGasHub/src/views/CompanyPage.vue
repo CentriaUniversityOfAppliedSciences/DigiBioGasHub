@@ -7,32 +7,22 @@
                     <h2>{{ $t("general.companies") }}</h2>
                 </ion-col>
                 <ion-col size="auto">
-                    <ion-button @click="showAddCompany = true">{{ $t("general.add_company") }}</ion-button>
+                    <ion-button @click="toggleAddCompany(true)">{{ $t("general.add_company") }}</ion-button>
                 </ion-col>
             </ion-row>
         </ion-toolbar>
-
         <ion-content>
-
             <ion-grid class="main-grid">
                 <ion-row v-for="comp in companies">
                     <ion-col>
-                        <CompanyComponent :company="comp" @companyDeleted="handleCompDeleted"  />
+                        <CompanyComponent :company="comp.Company" @companyDeleted="handleCompDeleted" :companyData="comp"  />
                     </ion-col>
                 </ion-row>
-                
             </ion-grid>
-        
-            
-            
-             <AddCompanyComponent v-model:visible="showAddCompany" />
-             <FooterComponent />
+             <AddCompanyComponent @companyAdded="refreshList" v-model:visible="showAddCompany" />
+             
         </ion-content>
-    
-       
-        
-        
-        
+        <FooterComponent />
     </ion-page>
 </template>
 
@@ -86,11 +76,8 @@ export default defineComponent({
         getCompanies() {
             var url = this.$api_add + "/getusercompanies";
             axios.post(url,{"userID": this.getUserID() },{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
-                
                 if (response.data.type="result"){
                     this.companies = response.data.message;
-                    //TODO make current_company actually set according to user input
-                    localStorage.setItem('current_company', response.data.result[0].id);
                 }
             });
         },
@@ -102,7 +89,13 @@ export default defineComponent({
         handleCompDeleted(){
             this.getCompanies();
         },
-        
+        refreshList() {
+            this.showAddCompany = false;
+            this.getCompanies();
+        },
+        toggleAddCompany(value) {
+            this.showAddCompany = value;
+        }
     },
     mounted() {
         this.getCompanies()
