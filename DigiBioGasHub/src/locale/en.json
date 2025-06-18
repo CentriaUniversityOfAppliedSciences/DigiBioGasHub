@@ -269,6 +269,7 @@
         "buySuccess": "Product bought successfully",
         "successMessage": "Offer created successfully",
         "errorMessage": "Failed to create offer! Check the information and try again.",
+        "invalidCompany": "Invalid or Unverified company! Please select a valid company.",
         "contract_history":"Contracts"
     },
     "validation": {
