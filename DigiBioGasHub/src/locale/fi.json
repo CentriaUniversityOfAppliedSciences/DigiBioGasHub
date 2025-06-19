@@ -73,6 +73,8 @@
         "yes": "Kyllä",
         "no": "Ei",
         "back": "Takaisin",
+        "proceed": "Jatka",
+        "warning": "Varoitus!",
         "next": "Seuraava",
         "previous": "Edellinen",
         "submit": "Lähetä",
@@ -165,7 +167,10 @@
         "loginSuccess": "Kirjautuminen onnistui",
         "loginFail": "Kirjautuminen epäonnistui",
         "loginEmailFail": "Sähköposti on virheellinen",
-        "loginPasswordFail": "Salasana on virheellinen"
+        "loginPasswordFail": "Salasana on virheellinen",
+        "loginCredentialsFail": "Käyttäjätunnus tai salasana on virheellinen",
+        "registerSuccess": "Rekisteröinti onnistui. Voit nyt kirjautua sisään tunnuksillasi.",
+        "registerFail": "Rekisteröinti epäonnistui"
     },
     "forms":{
         "helper":{
@@ -194,7 +199,8 @@
             "password": "Kirjoita salasanasi, sen pitää olla vähintään 8 merkkiä pitkä",
             "confirmPassword": "Salasanat eivät täsmää!",
             "newPassword": "Kirjoita uusi salasanasi, sen pitää olla vähintään 8 merkkiä pitkä",
-            "terms": "Käyttöehtojen hyväksyminen on pakollista"
+            "terms": "Käyttöehtojen hyväksyminen on pakollista",
+            "formInvalid": "Varmista, että kaikki pakolliset kentät on täytetty oikein ja että tiedot ovat kelvollisia."
         },
         "register": "Rekisteröidy"
     },
@@ -264,11 +270,18 @@
             "product_buy_over_amount": "Määrä ylittää tarjotun määrän",
             "product_buy_zero_amount": "Määrä ei voi olla nolla"
         },
-        "contract_history":"Ostohistoria",
+        "buySuccess": "Tuote ostettu onnistuneesti",
         "successMessage": "Tuote lisätty onnistuneesti",
-        "errorMessage": "Tuotteen lisäys epäonnistui. Tarkista tiedot ja yritä uudelleen."
+        "errorMessage": "Tuotteen lisäys epäonnistui. Tarkista tiedot ja yritä uudelleen.",
+        "invalidCompany": "Virheellinen tai vahvistamaton yritys! Valitse kelvollinen yritys.",
+        "contract_history":"Sopimushistoria"
     },
     "validation":{
+        "companyNameRequired": "Yrityksen nimi on pakollinen.",
+        "companyTypeRequired": "Yrityksen tyyppi on pakollinen.",
+        "companyPhoneRequired": "Puhelinnumero on pakollinen.",
+        "companyEmailRequired": "Sähköposti on pakollinen.",
+        "invalidEmail": "Sähköposti on virheellinen.",
         "companyRequired": "Yritys on pakollinen",
         "materialRequired": "Materiaali on pakollinen",
         "materialNameRequired": "Nimi on pakollinen",
@@ -284,7 +297,8 @@
         "startDateRequired": "Aloituspäivämäärä on pakollinen",
         "endDateRequired": "Päättymispäivämäärä on pakollinen",
         "visibilityRequired": "Näkyvyys on pakollinen",
-        "fillAllRequiredFields": "Täytä kaikki kentät"
+        "fillAllRequiredFields": "Täytä kaikki kentät",
+        "fillAllFields":"Täytä kaikki kentät"
     },
     "contract":{
         "contract": "Sopimus",
@@ -377,6 +391,16 @@
         "deleteAgreement": "Poista sopimus",
         "products": "Tuotteet",
         "types": "Tyypit",
+        "editWarning": "Varoitus: Muokkaat vahvistamatonta yritystä. Jos tallennat muutokset, yritys lähetetään uudelleen hyväksyttäväksi.",
+        "waiting_approval": "Huomautus: Kaikki alla luetellut yritykset odottavat hyväksyntää!",
+        "rejected": "Huomautus: Kaikki alla luetellut yritykset on hylätty! Muokkaa yritystietojasi ja lähetä ne uudelleen hyväksyttäväksi.",
+        "noCompanies": "Ei vielä yrityksiä! Voit luoda oman yrityksen klikkaamalla ‘Lisää yritys’ tai odottaa hyväksyntää, jos yrityksesi on vahvistamattomien listalla.",
+        "noRejectedCompanies": "Jippii! Ei vielä yhtään hylättyä yritystä!",
+        "logisticsRegistration": {
+            "title": "Logistiikan rekisteröinti",
+            "haulType": "Kuljetustyyppi",
+            "logisticsRegistrationBtn": "Logistiikan rekisteröinti"
+           },
         "addCompany": "Lisää yritys",
         "type": {
             "0":"Palvelun tarjoaja",
@@ -411,6 +435,7 @@
             "disabled": "Poistettu käytöstä",
             "verify": "Vahvista",
             "unverify": "Poista vahvistus",
+            "notVerified": "Ei vahvistettu",
             "disable": "Poista käytöstä",
             "confirmVerify": "Haluatko varmasti vahvistaa tämän yrityksen?",
             "confirmUnverify": "Haluatko varmasti poistaa vahvistuksen tältä yritykseltä?",
@@ -521,11 +546,16 @@
         "edited": "Muokattu",
         "confirmDelete": "Vahvista poisto",
         "deleteMessage": "Haluatko varmasti poistaa tämän viestin?",
+        "chatDisabledMessage": "Yksityinen keskustelusi on poistettu käytöstä. Ota se käyttöön asetuksissa aloittaaksesi keskustelun.",
+        "invalidUrlMessage": "Chatin URL-osoite on virheellinen. Tarkista linkki ja yritä uudelleen.",
+        "generalErrorMessage": "Keskustelun alustamisessa tapahtui virhe. Yritä myöhemmin uudelleen.",
+        "goToSettings": "Siirry kohtaan Asetukset",
         "errorMessage": "Osoitetta ei löytynyt",
         "privateChatWith": "Yksityinen keskustelu käyttäjän kanssa"
     },
     "invitations": {
         "inviteMembers": "Kutsu käyttäjiä",
+        "invalidEmail": "Virheellinen sähköpostiosoite",
         "inviteSuccess": "Kutsu lähetetty onnistuneesti!",
         "inviteError": "Kutsun lähettäminen epäonnistui. Tarkista, että henkilöä ei ole jo kutsuttu tai ole jo yrityksen käyttäjä.",
         "title": "Sinut on kutsuttu!",
@@ -589,7 +619,6 @@
             "seamkUniversity":"Seinäjoen ammattikorkeakoulun",
             "congreteSolutions": "konkreettisia ratkaisuja",
             "carbonNeutralFuture": "hiilineutraalia tulevaisuutta"
-
         },
         "joinNowSection": {
             "joinNowText": "Liity nyt mukaan ja ota kaikki irti biokaasuliiketoiminnan mahdollisuuksista!"

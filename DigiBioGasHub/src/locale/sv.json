@@ -73,6 +73,8 @@
         "yes": "Ja",
         "no": "Nej",
         "back": "Tillbaka",
+        "proceed": "Fortsätt",
+        "warning": "Varning!",
         "next": "Nästa",
         "previous": "Föregående",
         "submit": "Skicka",
@@ -165,7 +167,10 @@
         "loginSuccess": "Inloggning lyckades",
         "loginFail": "Inloggning misslyckades",
         "loginEmailFail": "E-postadressen är ogiltig.",
-        "loginPasswordFail": "Lösenordet är ogiltigt."
+        "loginPasswordFail": "Lösenordet är ogiltigt.",
+        "loginCredentialsFail": "Ogiltigt användarnamn eller lösenord",
+        "registerSuccess": "Registrering lyckades. Du kan nu logga in med dina uppgifter.",
+        "registerFail": "Registrering misslyckades"
     },
     "forms":{
         "helper":{
@@ -194,7 +199,8 @@
             "password": "Ange ditt lösenord, det måste vara minst 8 tecken långt",
             "confirmPassword": "Lösenorden matchar inte!",
             "newPassword": "Ange ditt nya lösenord, det måste vara minst 8 tecken långt",
-            "terms": "Godkännande av användarvillkoren är obligatoriskt"
+            "terms": "Godkännande av användarvillkoren är obligatoriskt",
+            "formInvalid": "Se till att alla obligatoriska fält är korrekt ifyllda och att informationen är giltig."
         },
         "register": "Registrera"
     },
@@ -264,11 +270,18 @@
                 "product_buy_over_amount": "Mängden överskrider det erbjudna beloppet",
                 "product_buy_zero_amount": "Mängden kan inte vara noll"
             },
-            "contract_history":"Kontrakthistorik",
+            "buySuccess":" Produkten har köpts",
             "successMessage": "Produkten har lagts till",
-            "errorMessage": "Det gick inte att lägga till produkten. Kontrollera uppgifterna och försök igen."
+            "errorMessage": "Det gick inte att lägga till produkten. Kontrollera uppgifterna och försök igen.",
+            "invalidCompany": "Ogiltigt eller overifierat företag! Vänligen välj ett giltigt företag.",
+            "contract_history":"Avtalshistorik"
     },
     "validation":{
+        "companyNameRequired": "Företagsnamn är obligatoriskt.",
+        "companyTypeRequired": "Företagstyp är obligatorisk.",
+        "companyPhoneRequired": "Telefonnummer är obligatoriskt.",
+        "companyEmailRequired": "E-postadress är obligatorisk.",
+        "invalidEmail": "Ogiltig e-postadress.",
         "companyRequired": "Företag är obligatoriskt",
         "materialRequired": "Material är obligatoriskt",
         "materialNameRequired": "Namn är obligatoriskt",
@@ -284,6 +297,7 @@
         "startDateRequired": "Startdatum är obligatoriskt",
         "endDateRequired": "Slutdatum är obligatoriskt",
         "visibilityRequired": "Synlighet är obligatoriskt",
+        "fillAllRequiredFields": "Fyll i alla obligatoriska fält",
         "fillAllFields": "Fyll i alla fält"
     },
     "contract":{
@@ -377,6 +391,16 @@
         "deleteAgreement": "Radera avtal",
         "products": "Produkter",
         "types": "Typer",
+        "editWarning": "Varning: Du redigerar ett företag som inte är verifierat. Om du sparar ändringarna kommer företaget att skickas för godkännande igen.",
+        "waiting_approval": "Obs: Alla företag som listas nedan väntar på godkännande!",
+        "rejected": "Obs: Alla företag som listas nedan har avvisats! Vänligen redigera din företagsinformation och skicka in den på nytt för godkännande.",
+        "noCompanies": "Inga företag ännu! Du kan skapa ditt eget företag genom att klicka på ”Lägg till företag” eller vänta på godkännande om ditt företag finns i den obekräftade listan",
+        "noRejectedCompanies": "Yahoo! Inga avvisade företag ännu!",
+        "logisticsRegistration": {
+            "title": "Registrering av logistik",
+            "haulType": "Typ av transport",
+            "logisticsRegistrationBtn": "Registrering av logistik"
+           },
         "addCompany": "Lägg till företag",
         "type": {
             "0":"Tjänsteleverantör",
@@ -411,6 +435,7 @@
             "disabled": "Inaktiverad",
             "verify": "Verifiera",
             "unverify": "Ta bort verifiering",
+            "notVerified": "Ej verifierad",
             "disable": "Inaktivera",
             "confirmVerify": "Är du säker på att du vill verifiera detta företag?",
             "confirmUnverify": "Är du säker på att du vill ta bort verifieringen för detta företag?",
@@ -521,11 +546,16 @@
         "edited": "Redigerad",
         "confirmDelete": "Bekräfta borttagning",
         "deleteMessage": "Är du säker på att du vill ta bort detta meddelande?",
+        "chatDisabledMessage": "Din privata chatt är inaktiverad. Aktivera den i inställningarna för att börja chatta.",
+        "invalidUrlMessage": "Chatt-URL:en är ogiltig. Kontrollera länken och försök igen.",
+        "generalErrorMessage": "Ett fel inträffade när chatten initialiserades. Vänligen försök igen senare.",
+        "goToSettings": "Gå till Inställningar",
         "errorMessage": "Adressen hittades inte",
         "privateChatWith": "Privat chatt med"
     },
     "invitations": {
         "inviteMembers": "Bjud in användare",
+        "invalidEmail": "Ogiltig e-postadress",
         "inviteSuccess": "Inbjudan skickad!",
         "inviteError": "Det gick inte att skicka inbjudan. Kontrollera att personen inte redan är inbjuden eller redan är användare i företaget.",
         "title": "Du har blivit inbjuden!",
@@ -593,5 +623,50 @@
         "joinNowSection": {
             "joinNowText": "Gå med nu och ta vara på alla möjligheter inom biogasbranschen!"
         }
+    },
+    "gdpr": {
+        "docTitle": "Integritetspolicy",
+        "title": "Integritetspolicy",
+        "createdDate": "Upprättad: 18.6.2025",
+        "updatedDate": "Uppdaterad: 18.6.2025",
+        "section": "EU-GDPR 2016/679",
+        "lawNumber": "Dataskyddslag 2018/1050",
+        "p1Title": "1. Personuppgiftsansvarig",
+        "p1Content": "Centria yrkeshögskola\n Talonpojankatu 2, 67100 Karleby\n Telefon: (06) 868 0200",
+        "p2Title": "2. Ansvarig och kontaktperson för registerärenden",
+        "p2Content": "Ansvarig person\n- Fabian Sander, FoU-expert, fabian.sander{'@'}centria.fi\nKontaktperson:\n- Risto Hietala, FoU-expert, risto.hietala{'@'}centria.fi",
+        "p3Title": "3. Namn på registret",
+        "p3Content": "DigiBiogasHubs-pilotregistret",
+        "p4Title": "4. Regelbundna informationskällor",
+        "p4Content": "Uppgifter som lagras i registret kommer från systemets registreringsformulär och användningen av tjänsten.",
+        "p5Title": "5. Lagringstid för personuppgifter",
+        "p5Content": "Lagring av personuppgifter påbörjas vid användning av tjänsten och avslutas när projektet avslutas. När användningen av tjänsten upphör raderas personuppgifter efter 2 år och övriga uppgifter sparas i fem år, men dessa kan inte längre kopplas till personuppgifter.",
+        "p6Title": "6. Grund för behandling",
+        "p6Content": "Behandlingen är nödvändig för att tillgodose den personuppgiftsansvariges eller en tredje parts berättigade intressen.",
+        "p7Title": "7. Syftet med behandlingen av personuppgifter",
+        "p7Content": "Personuppgifter används endast inom tjänsten. Kunden kan kontrollera sina egna uppgifter via tjänsten eller genom att kontakta den personuppgiftsansvarige. Köp- och säljbud som skapats i tjänsten kan förmedlas till tredje part via ett öppet gränssnitt. Personuppgifter kopplas dock inte till dessa.",
+        "p8Title": "8. Registerinnehåll",
+        "p8Content": "Kundprofilen innehåller personuppgifter som kunden själv angett, kommunikationsspråk och kundens IP-adress. Systemet samlar även loggar över händelser i tjänsten.",
+        "p9Title": "9. Överföring av uppgifter utanför EU eller EES",
+        "p9Content": "Uppgifter överförs inte utanför EU eller EES.",
+        "p10Title": "10. Principer för registerskydd",
+        "p10Content": "Personuppgifter är skyddade med tekniska åtgärder och åtkomst ges endast till de personer vars arbetsuppgifter kräver behandling av registeruppgifter. Personalen är utbildad i säker hantering av information och omfattas av tystnadsplikt.",
+        "p11Title": "11. Rätt till insyn",
+        "p11Content": "Den registrerade har rätt att ta del av och se sina egna personuppgifter och på begäran få kopior av dem.\n a. Begäran om insyn görs skriftligen.\n b. Sökanden måste kunna styrka sin identitet.",
+        "p12Title": "12. Rätt att kräva rättelse och/eller radering av uppgifter",
+        "p12Content": "Den personuppgiftsansvarige ska utan onödigt dröjsmål på eget initiativ eller på begäran av den registrerade rätta, radera eller komplettera felaktiga, onödiga, ofullständiga eller föråldrade personuppgifter i registret.",
+        "p13Title": "13. Rätt att lämna in klagomål",
+        "p13Content": "Den registrerade har rätt att lämna in klagomål till tillsynsmyndigheten om han eller hon anser att behandlingen av personuppgifter strider mot EU:s dataskyddsförordning."
+    },
+    "terms": {
+        "title": "Användarvillkor",
+        "updatedDate": "Uppdaterad: 18.6.2025",
+        "content0": "Välkommen till vår webbplats. Genom att använda denna webbplats godkänner du följande användarvillkor.\n Om du inte godkänner villkoren, ber vi dig att inte använda webbplatsen.\n\n",
+        "content1": "1. Webbplatsens innehåll\n Denna webbplats tillhandahåller allmän information och innehåll som är avsett för informationsändamål. Vi garanterar inte att innehållet är korrekt, aktuellt eller fullständigt.\n\n",
+        "content2": "2. Ingen ansvar för handel\n Webbplatsens administratör ansvarar inte för några beslut eller konsekvenser relaterade till handel, investeringar, köp, försäljning eller andra ekonomiska aktiviteter.\n Innehållet på webbplatsen är inte investeringsrådgivning och ska inte tolkas som en uppmaning att delta i någon kommersiell verksamhet. Användaren agerar på eget ansvar i alla handelsrelaterade frågor.\n\n ",
+        "content3": "3. Immateriella rättigheter\n Allt innehåll på webbplatsen, såsom texter, bilder och logotyper, tillhör webbplatsen eller registrerade användare om inget annat anges. Kopiering, distribution eller annan användning av innehållet utan tillstånd är förbjudet.\n\n ",
+        "content4": "4. Länkar till tredje parts webbplatser\n Webbplatsen kan innehålla länkar till externa webbplatser. Vi ansvarar inte för innehållet eller funktionen på dessa webbplatser.\n\n",
+        "content5": "5. Ansvarsbegränsning\n Användningen av webbplatsen sker på egen risk. Vi ansvarar inte för några direkta eller indirekta skador som uppstår till följd av användningen av webbplatsen eller dess innehåll.\n\n",
+        "content6": "6. Ändringar av användarvillkor\n Vi förbehåller oss rätten att ändra dessa användarvillkor när som helst utan föregående meddelande. Vi rekommenderar att du regelbundet granskar villkoren.\n\n"
     }
 }

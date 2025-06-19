@@ -109,8 +109,8 @@ export default defineComponent({
             company: {  name: '', address: '', city: '', zipcode: '', phone: '', email:'', companyType: null, web:'' },
             isAdmin: false,
             userID: null,
-            errors:{}
-            editModalOpen: false,
+            errors:{},
+            editModalOpen: false
         };
     },
     props: {

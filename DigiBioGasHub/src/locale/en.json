@@ -166,6 +166,8 @@
         "noOffers": "You have no offers",
         "loginSuccess": "Login successful",
         "loginFail": "Login failed",
+        "loginEmailFail": "Email address is invalid.",
+        "loginPasswordFail": "Password is invalid.",
         "loginCredentialsFail": "Invalid username or password",
         "registerSuccess": "Registration successful. You can now login with your credentials.",
         "registerFail": "Registration failed"
@@ -548,6 +550,7 @@
         "invalidUrlMessage": "The chat URL is invalid. Please check the link and try again.",
         "generalErrorMessage": "An error occurred while initializing the chat. Please try again later.",
         "goToSettings": "Go to Settings",
+        "errorMessage": "Address not found",
         "privateChatWith": "Private chat with user"
     },
     "invitations": {

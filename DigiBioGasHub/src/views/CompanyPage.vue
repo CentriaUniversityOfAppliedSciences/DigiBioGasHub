@@ -32,9 +32,8 @@
                 {{ $t("company.rejected") }}
             </div>
             <ion-grid class="main-grid">
-                <ion-row v-if="filteredCompanies.length > 0" v-for="comp in filteredCompanies" :key="comp.id">
+                <ion-row v-if="filteredCompanies.length > 0" v-for="comp in filteredCompanies" :key="comp.Company.id">
                     <ion-col>
-
                         <div :class="['company-card', selectedSegment === 'unverified' ? 'unverified-card' : '']">
                             <CompanyComponent :company="comp.Company" @companyDeleted="handleCompDeleted" :companyData="comp" @companyUpdated="updateCompanyInList" />
                         </div>
@@ -109,10 +108,11 @@ export default defineComponent({
     },
     computed: {
         filteredCompanies() {
+            console.log("companies:", this.companies);
             return this.companies.filter(c =>
-                (this.selectedSegment === 'verified' && c.companyStatus === 1) ||
-                (this.selectedSegment === 'unverified' && c.companyStatus === 0) ||
-                (this.selectedSegment === 'not verified' && c.companyStatus === 2)
+                (this.selectedSegment === 'verified' && c.Company.companyStatus === 1) ||
+                (this.selectedSegment === 'unverified' && c.Company.companyStatus === 0) ||
+                (this.selectedSegment === 'not verified' && c.Company.companyStatus === 2)
             );
         },
     },
