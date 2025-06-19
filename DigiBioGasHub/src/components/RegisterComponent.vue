@@ -86,7 +86,6 @@ import {  IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, 
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import ToastComponent from './ToastComponent.vue';
-import ToastComponent from './ToastComponent.vue';
 export default defineComponent ({
     name: 'RegisterComponent',
     components: {
