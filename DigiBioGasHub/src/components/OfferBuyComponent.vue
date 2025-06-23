@@ -8,7 +8,7 @@
             <ion-item>
                 <ion-select v-model="buy.companyID">
                     <ion-select-option v-for="company in companies" :key="company.Company.id" :value="company.Company.id">
-                        {{ company.name }}
+                        {{ company.Company.name }}
                     </ion-select-option>
                 </ion-select>
             </ion-item>
