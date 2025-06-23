@@ -56,7 +56,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-icon :icon="icons.website" slot="start" />
-                                <ion-input v-model="company.web" :label="$t('general.website')" labelPlacement="floating"></ion-input>
+                                <ion-input v-model="company.web" :label="$t('company.website')" labelPlacement="floating"></ion-input>
                             </ion-item>
                         </ion-list>
                     </ion-card-content>
