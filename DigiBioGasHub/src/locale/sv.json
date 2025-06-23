@@ -277,10 +277,12 @@
             "contract_history":"Avtalshistorik"
     },
     "validation":{
-        "companyNameRequired": "Företagsnamn är obligatoriskt.",
-        "companyTypeRequired": "Företagstyp är obligatorisk.",
-        "companyPhoneRequired": "Telefonnummer är obligatoriskt.",
-        "companyEmailRequired": "E-postadress är obligatorisk.",
+        "companyRegistration":{
+            "companyNameRequired": "Företagsnamn är obligatoriskt.",
+            "companyTypeRequired": "Företagstyp är obligatorisk.",
+            "companyPhoneRequired": "Telefonnummer är obligatoriskt.",
+            "companyEmailRequired": "E-postadress är obligatorisk." 
+        },
         "invalidEmail": "Ogiltig e-postadress.",
         "companyRequired": "Företag är obligatoriskt",
         "materialRequired": "Material är obligatoriskt",

@@ -277,10 +277,12 @@
         "contract_history":"Sopimushistoria"
     },
     "validation":{
-        "companyNameRequired": "Yrityksen nimi on pakollinen.",
-        "companyTypeRequired": "Yrityksen tyyppi on pakollinen.",
-        "companyPhoneRequired": "Puhelinnumero on pakollinen.",
-        "companyEmailRequired": "Sähköposti on pakollinen.",
+        "companyRegistration":{
+            "companyNameRequired": "Yrityksen nimi on pakollinen.",
+            "companyTypeRequired": "Yrityksen tyyppi on pakollinen.",
+            "companyPhoneRequired": "Puhelinnumero on pakollinen.",
+            "companyEmailRequired": "Sähköposti on pakollinen."
+        },
         "invalidEmail": "Sähköposti on virheellinen.",
         "companyRequired": "Yritys on pakollinen",
         "materialRequired": "Materiaali on pakollinen",

@@ -277,10 +277,12 @@
         "contract_history":"Contracts"
     },
     "validation": {
-        "companyNameRequired": "Company name cannot be empty.",
-        "companyTypeRequired": "Please select a company type.",
-        "companyPhoneRequired": "Phone number cannot be empty.",
-        "companyEmailRequired": "Email cannot be empty.",
+        "companyRegistration":{
+            "companyNameRequired": "Company name cannot be empty.",
+            "companyTypeRequired": "Please select a company type.",
+            "companyPhoneRequired": "Phone number cannot be empty.",
+            "companyEmailRequired": "Email cannot be empty."
+        },
         "invalidEmail": "Invalid email!",
         "companyRequired": "Please select a company.",
         "materialRequired": "Please select a material.",
@@ -298,7 +300,17 @@
         "endDateRequired": "End date cannot be empty.",
         "visibilityRequired": "Please select a visibility option.",
         "fillAllRequiredFields": "Please fill in all required fields.",
-        "fillAllFields":"All fields are required. Please fill in all fields."
+        "fillAllFields":"All fields are required. Please fill in all fields.",
+        "registration":{
+            "firstNameRequired": "Firstname cannot be empty.",
+            "lastNameRequired": "Lastname cannot be empty.",
+            "phoneRequired": "Phone number cannot be empty.",
+            "invalidPhoneNumber":"Invalid phone number!",
+            "emailRequired": "Email cannot be empty.",
+            "passwordRequired": "Password cannot be empty.",
+            "weakPassword": "Password should be at leat 8 characters long.",
+            "unmatchedPassword": "Password don't match."
+        }
       },
       "contract":{
         "contract": "Contract",

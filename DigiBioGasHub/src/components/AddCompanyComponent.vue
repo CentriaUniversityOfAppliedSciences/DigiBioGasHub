@@ -46,7 +46,7 @@
                             </ion-item>
                             <ion-item>
                                 <ion-icon :icon="icons.phone" slot="start" />
-                                <ion-input required type="tel" v-model="company.phone" :label="$t('general.phone')" labelPlacement="floating"></ion-input>
+                                <ion-input required type="tel" v-model="company.phone" :label="$t('general.phone')" labelPlacement="floating" @input="company.phone = company.phone.replace(/\D/g, '')"></ion-input>
                                 <p v-if="hasError('phone')" class="error">{{ errors.phone }}</p>
                             </ion-item>
                             <ion-item>
@@ -127,13 +127,13 @@ export default defineComponent({
         validateForm() {
             this.errors = {};
 
-            if (!this.company.name) this.errors.name = this.$t('validation.companyNameRequired');
-            if (!this.company.companyType) this.errors.companyType = this.$t('validation.companyTypeRequired');
-            if (!this.company.address) this.errors.address = this.$t('validation.addressRequired');
-            if (!this.company.city) this.errors.city = this.$t('validation.cityRequired');
-            if (!this.company.zipcode) this.errors.zipcode = this.$t('validation.zipcodeRequired');
-            if (!this.company.phone) this.errors.phone = this.$t('validation.companyPhoneRequired');
-            if (!this.company.email) this.errors.email = this.$t('validation.companyEmailRequired');
+            if (!this.company.name || this.company.name.trim() === '' ) this.errors.name = this.$t('validation.companyRegistration.companyNameRequired');
+            if (!this.company.companyType || this.company.companyType.trim() === '') this.errors.companyType = this.$t('validation.companyRegistration.companyTypeRequired');
+            if (!this.company.address || this.company.address.trim() === '') this.errors.address = this.$t('validation.addressRequired');
+            if (!this.company.city || this.company.city.trim() === '') this.errors.city = this.$t('validation.cityRequired');
+            if (!this.company.zipcode || this.company.zipcode.trim() === '' ) this.errors.zipcode = this.$t('validation.zipcodeRequired');
+            if (!this.company.phone) this.errors.phone = this.$t('validation.companyRegistration.companyPhoneRequired');
+            if (!this.company.email) this.errors.email = this.$t('validation.companyRegistration.companyEmailRequired');
             else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.company.email)) this.errors.email = this.$t('validation.invalidEmail');
             
             return Object.keys(this.errors).length === 0; 
