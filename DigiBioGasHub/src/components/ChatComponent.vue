@@ -16,6 +16,20 @@
                 </ion-toolbar>
             </ion-header>
             <div id="chatContainer">
+                <div v-if="pinnedMessages.length > 0" id="pinnedMessagesContainer">
+                    <div v-for="(message, index) in pinnedMessages" :key="message._id" class="pinned-message">
+                        <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
+                        <div class="message-content">
+                            <b>{{ message.name }}</b>
+                            <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+                            <div style="white-space:pre-wrap;">{{ message.message }}</div>
+                            <div class="message-actions">
+                                <button @click="togglePin(message)">{{ $t('general.unpin') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="chatBox" ref="messagesContainer">
                     <div v-if="messages.length === 0" class="message">
                         {{ $t('chat.noMessages') }}
@@ -38,6 +52,8 @@
                                         $t('general.edit') }}</button>
                                     <button v-if="isOwnMessage(message) || isAdmin()" @click="confirmDelete(message)">{{
                                         $t('general.delete') }}</button>
+                                    <button v-if="isAdmin()" @click="togglePin(message)">{{ message.pinned ?
+                                        $t('general.unpin') : $t('general.pin') }}</button>
                                 </div>
                             </div>
                         </div>
@@ -162,6 +178,7 @@ export default defineComponent({
             loadingOlderMessages: false,
             hasMoreMessages:true,
             hasError: false,
+            pinnedMessages: [],
         };
     },
     async mounted() {
@@ -196,6 +213,8 @@ export default defineComponent({
             console.error("Failed to fetch chat messages:", error);
         }
 
+        this.fetchPinnedMessages();
+
         this.socket.on("receiveMessage", (message) => {
             this.messages.push(message);
             this.$nextTick(() => {
@@ -214,6 +233,25 @@ export default defineComponent({
                 this.messages[index].message = updatedMessage.message;
                 this.messages[index].isEdited = true;
             }
+        });
+        this.socket.on("messagePinned", (updatedMessage) => {
+            const index = this.messages.findIndex((msg) => msg._id === updatedMessage.id);
+            if (index !== -1) {
+                this.messages[index].pinned = true;
+            }
+
+            const pinnedIndex = this.pinnedMessages.findIndex((msg) => msg._id === updatedMessage.id);
+            if (pinnedIndex === -1) {
+                this.pinnedMessages.push(this.messages[index]);
+            }
+        });
+
+        this.socket.on("messageUnpinned", (updatedMessage) => {
+            const index = this.messages.findIndex((msg) => msg._id === updatedMessage.id);
+            if (index !== -1) {
+                this.messages[index].pinned = false;
+            }
+            this.pinnedMessages = this.pinnedMessages.filter((msg) => msg._id !== updatedMessage.id);
         });
     },
     beforeUnmount() {
@@ -249,6 +287,15 @@ export default defineComponent({
                 console.error("Failed to fetch older chat messages:", error);
             } finally {
                 this.loadingOlderMessages = false;
+            }
+        },
+
+        async fetchPinnedMessages() {
+            try {
+                const response = await axios.get(`${this.$chat_server_add}/pinnedMessages/${this.roomId}`);
+                this.pinnedMessages = response.data;
+            } catch (error) {
+                console.error("Failed to fetch pinned messages:", error);
             }
         },
 
@@ -302,6 +349,15 @@ export default defineComponent({
                 }
                 this.scrollToBottom();
             });
+        },
+        togglePin(message) {
+            const event = message.pinned ? "unpinMessage" : "pinMessage";
+            this.socket.emit(event, { _id: message._id, roomId: this.roomId });
+
+            const index = this.messages.findIndex((msg) => msg._id === message._id);
+            if (index !== -1) {
+                this.messages[index].pinned = !message.pinned;
+            }
         },
         isOwnMessage(message) {
             return message.userId === this.decodedToken.id;
@@ -363,6 +419,9 @@ export default defineComponent({
     display: flex;
     flex-direction: column;
     height: 100vh;
+    align-items: center;
+    background-color: #2d3036;
+
 }
 
 #chatBox {
@@ -371,11 +430,11 @@ export default defineComponent({
     padding-bottom: 60px;
     overflow-y: auto;
     background-color: #2f3136;
-    border-top: 1px solid #202225;
-    border-bottom: 1px solid #202225;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    max-width: 90rem;
 }
 
 .message {
@@ -430,13 +489,12 @@ button {
     display: flex;
     padding: 10px;
     background-color: #2f3136;
-    border-top: 1px solid #202225;
     position: sticky;
     bottom: 0;
     z-index: 10;
+    width: 100%;
+    max-width: 90rem;
 }
-
-
 
 #message {
     flex: 1;
@@ -452,6 +510,36 @@ button {
   background-color: white;
   color: black;
   max-width: 70%;
+}
+
+#pinnedMessagesContainer {
+    width: 100%;
+    max-width: 90rem;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #316632;
+    border-radius: 10px;
+    box-sizing: border-box;
+    max-height: 15rem; 
+    overflow-y: auto;
+}
+
+.pinned-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.pinned-message .message-content {
+    max-width: 70%;
+}
+
+.pinned-message .message-actions button {
+    background: none;
+    color: white; 
+    cursor: pointer;
 }
 
 @media (prefers-color-scheme: dark) {
