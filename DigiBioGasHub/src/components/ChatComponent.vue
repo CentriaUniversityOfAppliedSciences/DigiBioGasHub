@@ -24,7 +24,7 @@
                             <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                             <div style="white-space:pre-wrap;">{{ message.message }}</div>
                             <div class="message-actions">
-                                <button @click="togglePin(message)">{{ $t('general.unpin') }}</button>
+                                <button @click="togglePin(message)">{{ $t('chat.admin.unpinMessage') }}</button>
                             </div>
                         </div>
                     </div>
@@ -64,7 +64,7 @@
                                     <button v-if="isOwnMessage(message) || isAdmin()" @click="confirmDelete(message)">{{
                                         $t('general.delete') }}</button>
                                     <button v-if="isAdmin()" @click="togglePin(message)">{{ message.pinned ?
-                                        $t('general.unpin') : $t('general.pin') }}</button>
+                                        $t('chat.admin.unpinMessage') : $t('chat.admin.pinMessage') }}</button>
                                 </div>
                             </div>
                         </div>

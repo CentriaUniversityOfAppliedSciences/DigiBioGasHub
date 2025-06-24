@@ -532,7 +532,9 @@
             "saveChanges": "Save changes",
             "roomUpdated": "Room updated successfully",
             "roomUpdateFailed": "Room update failed",
-            "leaveRoomConfirmation": "Are you sure you want to leave this room? This will remove you from the room but will not remove the room."
+            "leaveRoomConfirmation": "Are you sure you want to leave this room? This will remove you from the room but will not remove the room.",
+            "pinMessage": "Pin Message",
+            "unpinMessage": "Unpin Message"
         },
         "placeholders": {
             "enterRoomName": "Enter room name",
