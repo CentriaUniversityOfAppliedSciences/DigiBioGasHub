@@ -34,9 +34,18 @@
                                 </div>
                                 <div v-else>
                                     <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                                    <div v-if="isOwnMessage(message)" class="message-actions">
-                                        <button @click="startEdit(message)">{{ $t('general.edit') }}</button>
-                                        <button @click="confirmDelete(message)">{{ $t('general.delete') }}</button>
+                                    <div v-if="isOwnMessage(message)">
+                                        <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
+                                            @click="toggleDropdown(message._id)"></ion-icon>
+
+                                        <div v-if="dropdownVisible === message._id" class="dropdown-menu">
+                                            <button v-if="isOwnMessage(message)" @click="startEdit(message)">
+                                                {{ $t('general.edit') }}
+                                            </button>
+                                            <button v-if="isOwnMessage(message)" @click="confirmDelete(message)">
+                                                {{ $t('general.delete') }}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -109,11 +118,12 @@ import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
 import { defineComponent } from "vue";
 import { addIcons } from "ionicons";
-import { arrowBack } from "ionicons/icons";
+import { arrowBack, ellipsisVerticalCircleSharp } from "ionicons/icons";
 import LocaleComponent from "./LocaleComponent.vue";
 
 addIcons({
     "arrow-back": arrowBack,
+    "ellipsis-vertical-sharp": ellipsisVerticalCircleSharp
 });
 
 
@@ -150,9 +160,9 @@ export default defineComponent({
             socket:null,
             allLoaded:false,
             loadingMore:false,
-            hasError: true,
-            errorMessageKey: null
-            
+            hasError: false,
+            errorMessageKey: null,
+            dropdownVisible: null
         };
     },
     computed: {
@@ -206,8 +216,8 @@ export default defineComponent({
             this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, async (response) => {
                 if (response.status === "success") {
                     await this.loadMessages(true); 
-                    this.hasError = false;
                 } else {
+                    this.hasError = true;
                     this.errorMessageKey = 'chat.invalidUrlMessage';
                 }
             });
@@ -368,6 +378,9 @@ export default defineComponent({
 
             this.socket.emit("deletePrivateMessage", messageData);
         },
+        toggleDropdown(messageId) {
+            this.dropdownVisible = this.dropdownVisible === messageId ? null : messageId;
+        },
         isOwnMessage(message) {
             return message.senderId === this.decodedToken.id;
         },
@@ -391,17 +404,21 @@ export default defineComponent({
 #chatContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    background-color: #2f3136;
+    height: 95vh;
+    align-items: center;
+    background-color: #2d3036;
 }
 
 #chatBox {
     flex: 1;
     padding: 16px;
     overflow-y: auto;
+    background-color: #2f3136;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    max-width: 90rem;
 }
 
 .own-message {
@@ -482,15 +499,47 @@ export default defineComponent({
 .edited-marker {
     font-size: 0.75rem;
     color: #b9bbbe;
-    margin-top: 4px;
+    margin: 0 5px 0 0;
     align-self: flex-end;
 }
 
-.message-actions {
+.message-options-icon {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    cursor: pointer;
+    color: #b9bbbe;
+}
+
+.message-options-icon:hover {
+    color: #ffffff;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 30px;
+    right: -15px;
+    background-color: #40444b;
+    border-radius: 5px;
+    padding: 5px;
     display: flex;
-    gap: 6px;
-    margin-top: 0.7rem;
-    align-self: flex-end;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu button {
+    background: none;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.dropdown-menu button:hover {
+    background-color: #7289da;
 }
 
 button {
@@ -514,10 +563,11 @@ button {
     display: flex;
     padding: 10px;
     background-color: #2f3136; 
-    border-top: 1px solid #202225;
     position: sticky;
     bottom: 0;
     z-index: 10;
+    width: 100%;
+    max-width: 90rem;
 }
 
 #message {

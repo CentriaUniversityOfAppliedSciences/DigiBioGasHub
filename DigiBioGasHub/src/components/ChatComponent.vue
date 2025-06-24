@@ -59,15 +59,23 @@
                             </div>
                             <div v-else>
                                 <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                                <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
-                                    @click="toggleDropdown(message._id)"></ion-icon>
-                                <div v-if="dropdownVisible === message._id" class="dropdown-menu">
-                                    <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{
-                                        $t('general.edit') }}</button>
-                                    <button v-if="isOwnMessage(message) || isAdmin()" @click="confirmDelete(message)">{{
-                                        $t('general.delete') }}</button>
-                                    <button v-if="isAdmin()" @click="togglePin(message)">{{ message.pinned ?
-                                        $t('chat.admin.unpinMessage') : $t('chat.admin.pinMessage') }}</button>
+                                <div v-if="isOwnMessage(message) || isAdmin()">
+                                    <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
+                                        @click="toggleDropdown(message._id)"></ion-icon>
+
+                                    <div v-if="dropdownVisible === message._id" class="dropdown-menu">
+                                        <button v-if="isOwnMessage(message)" @click="startEdit(message)">
+                                            {{ $t('general.edit') }}
+                                        </button>
+                                        <button v-if="isOwnMessage(message) || isAdmin()"
+                                            @click="confirmDelete(message)">
+                                            {{ $t('general.delete') }}
+                                        </button>
+                                        <button v-if="isAdmin()" @click="togglePin(message)">
+                                            {{ message.pinned ? $t('chat.admin.unpinMessage') :
+                                            $t('chat.admin.pinMessage') }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -377,8 +385,8 @@ export default defineComponent({
         isOwnMessage(message) {
             return message.userId === this.decodedToken.id;
         },
-        isAdmin(message) {
-            return this.decodedToken.userlevel >= 22;
+        isAdmin() {
+            return this.decodedToken.userlevel == 99;
         },
         startEdit(message) {
 
