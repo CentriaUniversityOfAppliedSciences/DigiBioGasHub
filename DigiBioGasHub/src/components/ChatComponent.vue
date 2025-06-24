@@ -247,10 +247,6 @@ export default defineComponent({
         });
 
         this.socket.on("messageUnpinned", (updatedMessage) => {
-            const index = this.messages.findIndex((msg) => msg._id === updatedMessage.id);
-            if (index !== -1) {
-                this.messages[index].pinned = false;
-            }
             this.pinnedMessages = this.pinnedMessages.filter((msg) => msg._id !== updatedMessage.id);
         });
     },
