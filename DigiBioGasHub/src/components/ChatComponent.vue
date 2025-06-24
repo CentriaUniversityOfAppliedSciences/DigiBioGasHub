@@ -52,7 +52,7 @@
                             <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div v-if="editingMessageId === message._id">
-                                <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
+                                <textarea v-model="editedMessage"   @keyup.enter.exact="saveEdit(message)" @keyup.enter.shift.prevent rows="4"
                                     class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
@@ -425,7 +425,7 @@ export default defineComponent({
 #chatContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 95vh;
     align-items: center;
     background-color: #2d3036;
 
@@ -434,7 +434,7 @@ export default defineComponent({
 #chatBox {
     flex: 1;
     padding: 10px;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
     overflow-y: auto;
     background-color: #2f3136;
     display: flex;
@@ -474,7 +474,7 @@ export default defineComponent({
 .message-actions {
     display: flex;
     gap: 5px;
-    margin-top: 5px;
+    margin-top: 0.7rem;
 }
 
 button {
