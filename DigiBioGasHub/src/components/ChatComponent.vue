@@ -22,6 +22,7 @@
                         <div class="message-content">
                             <b>{{ message.name }}</b>
                             <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+                            <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div style="white-space:pre-wrap;">{{ message.message }}</div>
                             <div class="message-actions">
                                 <button @click="togglePin(message)">{{ $t('chat.admin.unpinMessage') }}</button>
@@ -52,13 +53,15 @@
                             <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div v-if="editingMessageId === message._id">
-                                <textarea v-model="editedMessage"   @keyup.enter.exact="saveEdit(message)" @keyup.enter.shift.prevent rows="4"
-                                    class="edit-textarea"></textarea>
+                                <textarea v-model="editedMessage" @keyup.enter.exact="saveEdit(message)"
+                                    @keyup.enter.shift.prevent rows="4" class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
                             <div v-else>
                                 <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                                <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
+                                <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
+                                    @click="toggleDropdown(message._id)"></ion-icon>
+                                <div v-if="dropdownVisible === message._id" class="dropdown-menu">
                                     <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{
                                         $t('general.edit') }}</button>
                                     <button v-if="isOwnMessage(message) || isAdmin()" @click="confirmDelete(message)">{{
@@ -150,10 +153,11 @@ import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
 import { defineComponent } from "vue";
 import { addIcons } from "ionicons";
-import { arrowBack } from "ionicons/icons";
+import { arrowBack, ellipsisVerticalSharp } from "ionicons/icons";
 
 addIcons({
     "arrow-back": arrowBack,
+    "ellipsis-vertical-sharp": ellipsisVerticalSharp
 });
 
 
@@ -190,6 +194,7 @@ export default defineComponent({
             hasMoreMessages:true,
             hasError: false,
             pinnedMessages: [],
+            dropdownVisible: null,
         };
     },
     async mounted() {
@@ -366,6 +371,9 @@ export default defineComponent({
                 this.messages[index].pinned = !message.pinned;
             }
         },
+        toggleDropdown(messageId) {
+            this.dropdownVisible = this.dropdownVisible === messageId ? null : messageId;
+        },
         isOwnMessage(message) {
             return message.userId === this.decodedToken.id;
         },
@@ -469,12 +477,46 @@ export default defineComponent({
     border-radius: 8px;
     color: #ffffff;
     max-width: 70%;
+    position: relative;
 }
 
-.message-actions {
+.message-options-icon {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    cursor: pointer;
+    color: #b9bbbe;
+}
+
+.message-options-icon:hover {
+    color: #ffffff;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 30px;
+    right: -15px;
+    background-color: #40444b;
+    border-radius: 5px;
+    padding: 5px;
     display: flex;
+    flex-direction: column;
     gap: 5px;
-    margin-top: 0.7rem;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu button {
+    background: none;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.dropdown-menu button:hover {
+    background-color: #7289da;
 }
 
 button {
@@ -489,7 +531,7 @@ button {
 .timestamp {
     font-size: 0.8em;
     color: #b9bbbe;
-    margin-left: 5px;
+    margin: 0 5px 0 5px;
 }
 
 #messageInputContainer {
@@ -566,7 +608,7 @@ button {
 .edited-marker {
     font-size: 0.8em;
     color: #b9bbbe;
-    margin-left: 5px;
+    margin: 0 5px 0 0;
     font-style: italic;
 }
 
