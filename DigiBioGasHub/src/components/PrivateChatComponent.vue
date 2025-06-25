@@ -21,30 +21,32 @@
                         :class="isOwnMessage(message) ? 'own-message' : 'received-message'">
                         <div class="avatar">{{ message.senderName.charAt(0).toUpperCase() }}</div>
                         <div class="message-bubble">
-                            <div class="sender-time">
+                            <div class="sender-time-wrapper">
                                 <b class="sender-items">{{ message.senderName }}</b>
                                 <span class="sender-items">{{ formatTimestamp(message.timestamp) }}</span>
                             </div>
-                            <div class="message-content">
-                                <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
-                                <div v-if="editingMessageId === message._id">
-                                    <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                        class="edit-textarea"></textarea>
-                                    <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
-                                </div>
-                                <div v-else>
-                                    <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                                    <div v-if="isOwnMessage(message)">
-                                        <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
-                                            @click="toggleDropdown(message._id)"></ion-icon>
+                            <div class="message-content-wrapper">
+                                <div class="message-content">
+                                    <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                                    <div v-if="editingMessageId === message._id">
+                                        <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
+                                            class="edit-textarea"></textarea>
+                                        <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
+                                    </div>
+                                    <div v-else>
+                                        <div style="white-space:pre-wrap;">{{ message.message }}</div>
+                                        <div v-if="isOwnMessage(message)">
+                                            <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
+                                                @click="toggleDropdown(message._id)"></ion-icon>
 
-                                        <div v-if="dropdownVisible === message._id" class="dropdown-menu">
-                                            <button v-if="isOwnMessage(message)" @click="startEdit(message)">
-                                                {{ $t('general.edit') }}
-                                            </button>
-                                            <button v-if="isOwnMessage(message)" @click="confirmDelete(message)">
-                                                {{ $t('general.delete') }}
-                                            </button>
+                                            <div v-if="dropdownVisible === message._id" class="dropdown-menu">
+                                                <button v-if="isOwnMessage(message)" @click="startEdit(message)">
+                                                    {{ $t('general.edit') }}
+                                                </button>
+                                                <button v-if="isOwnMessage(message)" @click="confirmDelete(message)">
+                                                    {{ $t('general.delete') }}
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -53,19 +55,19 @@
                     </div>
                 </div>
 
-                <div id="messageInputContainer">
-                    <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
-                        rows="1" style="overflow:hidden; resize:none; height:auto"
-                        @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
+                    <div id="messageInputContainer">
+                        <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
+                            rows="1" style="overflow:hidden; resize:none; height:auto"
+                            @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
                             $event.target.style.height = 'auto';
                         $event.target.style.height = $event.target.scrollHeight + 'px';
                         " ref="messageInput"></textarea>
-                    <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
+                        <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
+                    </div>
                 </div>
-            </div>
 
-            <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')" :message="$t('chat.deleteMessage')"
-                :buttons="[
+                <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')"
+                    :message="$t('chat.deleteMessage')" :buttons="[
                     {
                         text: $t('general.cancel'),
                         role: 'cancel',
@@ -439,12 +441,28 @@ export default defineComponent({
 .message-bubble {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    max-width: 100%;
+}
+
+.sender-time-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #b9bbbe;
+    margin-bottom: 4px;
+    align-items: center;
+}
+
+.message-content-wrapper {
+    display: inline-block;
     max-width: 100%;
 }
 
 .message-bubble .sender-time {
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     font-size: 0.85rem;
     color: #b9bbbe;
     margin-bottom: 4px;
@@ -453,6 +471,10 @@ export default defineComponent({
 
 .own-message .sender-time {
     justify-content: flex-end;
+}
+
+.own-message .message-bubble {
+    align-items: flex-end;
 }
 
 .avatar {
@@ -471,18 +493,23 @@ export default defineComponent({
 }
 
 .message-content {
-    padding: 10px 14px;
+    display: inline-block;
+    padding: 12px 20px;
     border-radius: 18px;
     font-size: 0.95rem;
     line-height: 1.4;
     word-break: break-word;
     position: relative;
+    background-color: #40444b;
+    color: white;
+    border-top-left-radius: 4px;
 }
 
 .own-message .message-content {
     background-color: #5865f2;
     color: white;
     border-top-right-radius: 4px;
+    border-top-left-radius: 18px;
 }
 
 .received-message .message-content {
@@ -492,7 +519,6 @@ export default defineComponent({
 }
 
 .sender-items{
-    font-weight: bold;
     color: #b9bbbe;
     font-size: 0.9rem;
 }
@@ -505,7 +531,7 @@ export default defineComponent({
 
 .message-options-icon {
     position: absolute;
-    top: 12px;
+    top: 15px;
     right: 0;
     cursor: pointer;
     color: #b9bbbe;
@@ -519,6 +545,10 @@ export default defineComponent({
     position: absolute;
     top: 30px;
     right: -15px;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
     background-color: #40444b;
     border-radius: 5px;
     padding: 5px;

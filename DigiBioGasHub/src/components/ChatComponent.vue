@@ -25,7 +25,7 @@
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div style="white-space:pre-wrap;">{{ message.message }}</div>
                             <div class="message-actions">
-                                <button @click="togglePin(message)">{{ $t('chat.admin.unpinMessage') }}</button>
+                                <button v-if="isAdmin()" @click="togglePin(message)">{{ $t('chat.admin.unpinMessage') }}</button>
                             </div>
                         </div>
                     </div>
@@ -441,7 +441,7 @@ export default defineComponent({
 #chatContainer {
     display: flex;
     flex-direction: column;
-    height: 95vh;
+    height: 90vh;
     align-items: center;
     background-color: #2d3036;
 
@@ -578,7 +578,7 @@ button {
     background-color: #316632;
     border-radius: 10px;
     box-sizing: border-box;
-    max-height: 15rem; 
+    max-height: 18rem; 
     overflow-y: auto;
 }
 
