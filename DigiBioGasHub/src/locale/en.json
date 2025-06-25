@@ -515,6 +515,17 @@
         "company":"Company"
     },
     "chat": {
+        "chatTerms": {
+            "termsModalTitle": "Chat Terms of Use",
+            "termsTitle": "Terms of Use",
+            "termsDescription": "By using this chat, you agree to follow the rules and respect others.",
+            "privacyTitle": "Privacy Policy",
+            "privacyDescription": "Your messages are stored securely and will not be shared without your consent.",
+            "guidelinesTitle": "Behavior Guidelines",
+            "guidelineRespect": "Be respectful to others.",
+            "guidelineNoSpam": "Do not spam the chat.",
+            "guidelineNoHate": "Avoid hateful or offensive language."
+        },
         "admin": {
             "createRoom": "CREATE ROOM",
             "deleteRoom": "DELETE ROOM",
@@ -532,7 +543,9 @@
             "saveChanges": "Save changes",
             "roomUpdated": "Room updated successfully",
             "roomUpdateFailed": "Room update failed",
-            "leaveRoomConfirmation": "Are you sure you want to leave this room? This will remove you from the room but will not remove the room."
+            "leaveRoomConfirmation": "Are you sure you want to leave this room? This will remove you from the room but will not remove the room.",
+            "pinMessage": "Pin Message",
+            "unpinMessage": "Unpin Message"
         },
         "placeholders": {
             "enterRoomName": "Enter room name",

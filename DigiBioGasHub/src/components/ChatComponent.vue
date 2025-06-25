@@ -15,7 +15,59 @@
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
+
+            <ion-modal  v-if="showTermsModal" :is-open="true" :can-dismiss="false">
+                <ion-header>
+                    <ion-toolbar>
+                        <ion-title>{{ $t('chat.chatTerms.termsModalTitle') }}</ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button @click="closeTermsModal">{{ $t('general.close') }}</ion-button>
+                        </ion-buttons>
+                    </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                    <div class="terms-content">
+                        <h2>{{ $t('chat.chatTerms.termsTitle') }}</h2>
+                        <p>{{ $t('chat.chatTerms.termsDescription') }}</p>
+                        <h2>{{ $t('chat.chatTerms.privacyTitle') }}</h2>
+                        <p>{{ $t('chat.chatTerms.privacyDescription') }}</p>
+                        <h2>{{ $t('chat.chatTerms.guidelinesTitle') }}</h2>
+                        <ul>
+                            <li>{{ $t('chat.chatTerms.guidelineRespect') }}</li>
+                            <li>{{ $t('chat.chatTerms.guidelineNoSpam') }}</li>
+                            <li>{{ $t('chat.chatTerms.guidelineNoHate') }}</li>
+                        </ul>
+                    </div>
+                </ion-content>
+            </ion-modal>
+
             <div id="chatContainer">
+                <div v-if="pinnedMessages.length > 0" id="pinnedMessagesContainer">
+                    <div v-for="(message, index) in pinnedMessages" :key="message._id" class="pinned-message">
+                        <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
+                        <div class="message-content">
+                            <b>{{ message.name }}</b>
+                            <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+                            <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                            <div style="white-space:pre-wrap;">{{ message.message }}</div>
+                            <div class="message-actions">
+                                <button v-if="isAdmin()" @click="togglePin(message)">{{ $t('chat.admin.unpinMessage') }}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pinned-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
+                            color="#000000" fill="#ef233c">
+                            <path d="M3 21L8 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                            <path
+                                d="M13.2585 18.8714C9.51516 18.0215 5.97844 14.4848 5.12853 10.7415C4.99399 10.1489 4.92672 9.85266 5.12161 9.37197C5.3165 8.89129 5.55457 8.74255 6.03071 8.44509C7.10705 7.77265 8.27254 7.55888 9.48209 7.66586C11.1793 7.81598 12.0279 7.89104 12.4512 7.67048C12.8746 7.44991 13.1622 6.93417 13.7376 5.90269L14.4664 4.59604C14.9465 3.73528 15.1866 3.3049 15.7513 3.10202C16.316 2.89913 16.6558 3.02199 17.3355 3.26771C18.9249 3.84236 20.1576 5.07505 20.7323 6.66449C20.978 7.34417 21.1009 7.68401 20.898 8.2487C20.6951 8.8134 20.2647 9.05346 19.4039 9.53358L18.0672 10.2792C17.0376 10.8534 16.5229 11.1406 16.3024 11.568C16.0819 11.9955 16.162 12.8256 16.3221 14.4859C16.4399 15.7068 16.2369 16.88 15.5555 17.9697C15.2577 18.4458 15.1088 18.6839 14.6283 18.8786C14.1477 19.0733 13.8513 19.006 13.2585 18.8714Z"
+                                stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </div>
+                </div>
+
                 <div id="chatBox" ref="messagesContainer">
                     <div v-if="messages.length === 0" class="message">
                         {{ $t('chat.noMessages') }}
@@ -27,17 +79,29 @@
                             <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                             <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
                             <div v-if="editingMessageId === message._id">
-                                <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                    class="edit-textarea"></textarea>
+                                <textarea v-model="editedMessage" @keyup.enter.exact="saveEdit(message)"
+                                    @keyup.enter.shift.prevent rows="4" class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
                             <div v-else>
                                 <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                                <div v-if="isOwnMessage(message) || isAdmin" class="message-actions">
-                                    <button v-if="isOwnMessage(message)" @click="startEdit(message)">{{
-                                        $t('general.edit') }}</button>
-                                    <button v-if="isOwnMessage(message) || isAdmin()" @click="confirmDelete(message)">{{
-                                        $t('general.delete') }}</button>
+                                <div v-if="isOwnMessage(message) || isAdmin()">
+                                    <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
+                                        @click="toggleDropdown(message._id)"></ion-icon>
+
+                                    <div v-if="dropdownVisible === message._id" class="dropdown-menu">
+                                        <button v-if="isOwnMessage(message)" @click="startEdit(message)">
+                                            {{ $t('general.edit') }}
+                                        </button>
+                                        <button v-if="isOwnMessage(message) || isAdmin()"
+                                            @click="confirmDelete(message)">
+                                            {{ $t('general.delete') }}
+                                        </button>
+                                        <button v-if="isAdmin()" @click="togglePin(message)">
+                                            {{ message.pinned ? $t('chat.admin.unpinMessage') :
+                                            $t('chat.admin.pinMessage') }}
+                                        </button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -50,7 +114,7 @@
                         @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
                             $event.target.style.height = 'auto';
                         $event.target.style.height = $event.target.scrollHeight + 'px';
-                        " ref="messageInput"></textarea>
+                        " ref="messageInput" :disabled="showTermsModal"></textarea>
                     <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
                 </div>
             </div>
@@ -114,7 +178,8 @@ import {
     IonItem,
     IonInput,
     IonAlert,
-    IonIcon
+    IonIcon,
+    IonModal
 } from "@ionic/vue";
 import axios from "axios";
 import getSocket from "../socket";
@@ -123,10 +188,11 @@ import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
 import { defineComponent } from "vue";
 import { addIcons } from "ionicons";
-import { arrowBack } from "ionicons/icons";
+import { arrowBack, ellipsisVerticalSharp } from "ionicons/icons";
 
 addIcons({
     "arrow-back": arrowBack,
+    "ellipsis-vertical-sharp": ellipsisVerticalSharp
 });
 
 
@@ -144,7 +210,8 @@ export default defineComponent({
         IonButton,
         IonItem,
         IonInput,
-        IonAlert
+        IonAlert,
+        IonModal
     },
     data() {
         return {
@@ -162,9 +229,17 @@ export default defineComponent({
             loadingOlderMessages: false,
             hasMoreMessages:true,
             hasError: false,
+            pinnedMessages: [],
+            dropdownVisible: null,
+            showTermsModal: false,
         };
     },
     async mounted() {
+
+        const modalShown = localStorage.getItem("chatTermsModalShown");
+        if (!modalShown) {
+            this.showTermsModal = true;
+        }
 
         this.socket = getSocket();
         this.roomId = this.$route.params.roomId;
@@ -196,6 +271,8 @@ export default defineComponent({
             console.error("Failed to fetch chat messages:", error);
         }
 
+        this.fetchPinnedMessages();
+
         this.socket.on("receiveMessage", (message) => {
             this.messages.push(message);
             this.$nextTick(() => {
@@ -215,6 +292,21 @@ export default defineComponent({
                 this.messages[index].isEdited = true;
             }
         });
+        this.socket.on("messagePinned", (updatedMessage) => {
+            const index = this.messages.findIndex((msg) => msg._id === updatedMessage.id);
+            if (index !== -1) {
+                this.messages[index].pinned = true;
+            }
+
+            const pinnedIndex = this.pinnedMessages.findIndex((msg) => msg._id === updatedMessage.id);
+            if (pinnedIndex === -1) {
+                this.pinnedMessages.push(this.messages[index]);
+            }
+        });
+
+        this.socket.on("messageUnpinned", (updatedMessage) => {
+            this.pinnedMessages = this.pinnedMessages.filter((msg) => msg._id !== updatedMessage.id);
+        });
     },
     beforeUnmount() {
         const container = this.$refs.messagesContainer;
@@ -231,6 +323,10 @@ export default defineComponent({
     },
 
     methods: {
+        closeTermsModal() {
+            this.showTermsModal = false;
+            localStorage.setItem("chatTermsModalShown", "true");
+        },
 
         async loadOlderMessages (){
 
@@ -249,6 +345,15 @@ export default defineComponent({
                 console.error("Failed to fetch older chat messages:", error);
             } finally {
                 this.loadingOlderMessages = false;
+            }
+        },
+
+        async fetchPinnedMessages() {
+            try {
+                const response = await axios.get(`${this.$chat_server_add}/pinnedMessages/${this.roomId}`);
+                this.pinnedMessages = response.data;
+            } catch (error) {
+                console.error("Failed to fetch pinned messages:", error);
             }
         },
 
@@ -303,11 +408,23 @@ export default defineComponent({
                 this.scrollToBottom();
             });
         },
+        togglePin(message) {
+            const event = message.pinned ? "unpinMessage" : "pinMessage";
+            this.socket.emit(event, { _id: message._id, roomId: this.roomId });
+
+            const index = this.messages.findIndex((msg) => msg._id === message._id);
+            if (index !== -1) {
+                this.messages[index].pinned = !message.pinned;
+            }
+        },
+        toggleDropdown(messageId) {
+            this.dropdownVisible = this.dropdownVisible === messageId ? null : messageId;
+        },
         isOwnMessage(message) {
             return message.userId === this.decodedToken.id;
         },
-        isAdmin(message) {
-            return this.decodedToken.userlevel >= 22;
+        isAdmin() {
+            return this.decodedToken.userlevel == 99;
         },
         startEdit(message) {
 
@@ -362,20 +479,23 @@ export default defineComponent({
 #chatContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 90vh;
+    align-items: center;
+    background-color: #2d3036;
+
 }
 
 #chatBox {
     flex: 1;
     padding: 10px;
-    padding-bottom: 60px;
+    padding-bottom: 30px;
     overflow-y: auto;
     background-color: #2f3136;
-    border-top: 1px solid #202225;
-    border-bottom: 1px solid #202225;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    max-width: 90rem;
 }
 
 .message {
@@ -403,12 +523,46 @@ export default defineComponent({
     border-radius: 8px;
     color: #ffffff;
     max-width: 70%;
+    position: relative;
 }
 
-.message-actions {
+.message-options-icon {
+    position: absolute;
+    top: 12px;
+    right: 0;
+    cursor: pointer;
+    color: #b9bbbe;
+}
+
+.message-options-icon:hover {
+    color: #ffffff;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 30px;
+    right: -15px;
+    background-color: #40444b;
+    border-radius: 5px;
+    padding: 5px;
     display: flex;
+    flex-direction: column;
     gap: 5px;
-    margin-top: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu button {
+    background: none;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.dropdown-menu button:hover {
+    background-color: #7289da;
 }
 
 button {
@@ -423,20 +577,19 @@ button {
 .timestamp {
     font-size: 0.8em;
     color: #b9bbbe;
-    margin-left: 5px;
+    margin: 0 5px 0 5px;
 }
 
 #messageInputContainer {
     display: flex;
     padding: 10px;
     background-color: #2f3136;
-    border-top: 1px solid #202225;
     position: sticky;
     bottom: 0;
     z-index: 10;
+    width: 100%;
+    max-width: 90rem;
 }
-
-
 
 #message {
     flex: 1;
@@ -454,6 +607,43 @@ button {
   max-width: 70%;
 }
 
+#pinnedMessagesContainer {
+    position: relative;
+    width: 100%;
+    max-width: 90rem;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #316632;
+    border-radius: 10px;
+    box-sizing: border-box;
+    max-height: 18rem; 
+    overflow-y: auto;
+}
+
+.pinned-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.pinned-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.pinned-message .message-content {
+    max-width: 70%;
+}
+
+.pinned-message .message-actions button {
+    background: none;
+    color: white; 
+    cursor: pointer;
+}
+
 @media (prefers-color-scheme: dark) {
   .edit-textarea {
     background-color: #40444b;
@@ -464,7 +654,7 @@ button {
 .edited-marker {
     font-size: 0.8em;
     color: #b9bbbe;
-    margin-left: 5px;
+    margin: 0 5px 0 0;
     font-style: italic;
 }
 

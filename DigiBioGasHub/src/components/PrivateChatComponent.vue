@@ -21,22 +21,33 @@
                         :class="isOwnMessage(message) ? 'own-message' : 'received-message'">
                         <div class="avatar">{{ message.senderName.charAt(0).toUpperCase() }}</div>
                         <div class="message-bubble">
-                            <div class="sender-time">
+                            <div class="sender-time-wrapper">
                                 <b class="sender-items">{{ message.senderName }}</b>
                                 <span class="sender-items">{{ formatTimestamp(message.timestamp) }}</span>
                             </div>
-                            <div class="message-content">
-                                <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
-                                <div v-if="editingMessageId === message._id">
-                                    <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
-                                        class="edit-textarea"></textarea>
-                                    <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
-                                </div>
-                                <div v-else>
-                                    <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                                    <div v-if="isOwnMessage(message)" class="message-actions">
-                                        <button @click="startEdit(message)">{{ $t('general.edit') }}</button>
-                                        <button @click="confirmDelete(message)">{{ $t('general.delete') }}</button>
+                            <div class="message-content-wrapper">
+                                <div class="message-content">
+                                    <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                                    <div v-if="editingMessageId === message._id">
+                                        <textarea v-model="editedMessage" @keyup.enter="saveEdit(message)" rows="4"
+                                            class="edit-textarea"></textarea>
+                                        <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
+                                    </div>
+                                    <div v-else>
+                                        <div style="white-space:pre-wrap;">{{ message.message }}</div>
+                                        <div v-if="isOwnMessage(message)">
+                                            <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
+                                                @click="toggleDropdown(message._id)"></ion-icon>
+
+                                            <div v-if="dropdownVisible === message._id" class="dropdown-menu">
+                                                <button v-if="isOwnMessage(message)" @click="startEdit(message)">
+                                                    {{ $t('general.edit') }}
+                                                </button>
+                                                <button v-if="isOwnMessage(message)" @click="confirmDelete(message)">
+                                                    {{ $t('general.delete') }}
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -44,19 +55,19 @@
                     </div>
                 </div>
 
-                <div id="messageInputContainer">
-                    <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
-                        rows="1" style="overflow:hidden; resize:none; height:auto"
-                        @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
+                    <div id="messageInputContainer">
+                        <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
+                            rows="1" style="overflow:hidden; resize:none; height:auto"
+                            @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
                             $event.target.style.height = 'auto';
                         $event.target.style.height = $event.target.scrollHeight + 'px';
                         " ref="messageInput"></textarea>
-                    <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
+                        <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
+                    </div>
                 </div>
-            </div>
 
-            <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')" :message="$t('chat.deleteMessage')"
-                :buttons="[
+                <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')"
+                    :message="$t('chat.deleteMessage')" :buttons="[
                     {
                         text: $t('general.cancel'),
                         role: 'cancel',
@@ -109,11 +120,12 @@ import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
 import { defineComponent } from "vue";
 import { addIcons } from "ionicons";
-import { arrowBack } from "ionicons/icons";
+import { arrowBack, ellipsisVerticalCircleSharp } from "ionicons/icons";
 import LocaleComponent from "./LocaleComponent.vue";
 
 addIcons({
     "arrow-back": arrowBack,
+    "ellipsis-vertical-sharp": ellipsisVerticalCircleSharp
 });
 
 
@@ -150,9 +162,9 @@ export default defineComponent({
             socket:null,
             allLoaded:false,
             loadingMore:false,
-            hasError: true,
-            errorMessageKey: null
-            
+            hasError: false,
+            errorMessageKey: null,
+            dropdownVisible: null
         };
     },
     computed: {
@@ -206,8 +218,8 @@ export default defineComponent({
             this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, async (response) => {
                 if (response.status === "success") {
                     await this.loadMessages(true); 
-                    this.hasError = false;
                 } else {
+                    this.hasError = true;
                     this.errorMessageKey = 'chat.invalidUrlMessage';
                 }
             });
@@ -368,6 +380,9 @@ export default defineComponent({
 
             this.socket.emit("deletePrivateMessage", messageData);
         },
+        toggleDropdown(messageId) {
+            this.dropdownVisible = this.dropdownVisible === messageId ? null : messageId;
+        },
         isOwnMessage(message) {
             return message.senderId === this.decodedToken.id;
         },
@@ -391,17 +406,21 @@ export default defineComponent({
 #chatContainer {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-    background-color: #2f3136;
+    height: 95vh;
+    align-items: center;
+    background-color: #2d3036;
 }
 
 #chatBox {
     flex: 1;
     padding: 16px;
     overflow-y: auto;
+    background-color: #2f3136;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width: 100%;
+    max-width: 90rem;
 }
 
 .own-message {
@@ -422,12 +441,28 @@ export default defineComponent({
 .message-bubble {
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
+    max-width: 100%;
+}
+
+.sender-time-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #b9bbbe;
+    margin-bottom: 4px;
+    align-items: center;
+}
+
+.message-content-wrapper {
+    display: inline-block;
     max-width: 100%;
 }
 
 .message-bubble .sender-time {
     display: flex;
-    justify-content: flex-start; 
+    justify-content: flex-start;
     font-size: 0.85rem;
     color: #b9bbbe;
     margin-bottom: 4px;
@@ -436,6 +471,10 @@ export default defineComponent({
 
 .own-message .sender-time {
     justify-content: flex-end;
+}
+
+.own-message .message-bubble {
+    align-items: flex-end;
 }
 
 .avatar {
@@ -454,18 +493,23 @@ export default defineComponent({
 }
 
 .message-content {
-    padding: 10px 14px;
+    display: inline-block;
+    padding: 12px 20px;
     border-radius: 18px;
     font-size: 0.95rem;
     line-height: 1.4;
     word-break: break-word;
     position: relative;
+    background-color: #40444b;
+    color: white;
+    border-top-left-radius: 4px;
 }
 
 .own-message .message-content {
     background-color: #5865f2;
     color: white;
     border-top-right-radius: 4px;
+    border-top-left-radius: 18px;
 }
 
 .received-message .message-content {
@@ -475,22 +519,57 @@ export default defineComponent({
 }
 
 .sender-items{
-    font-weight: bold;
     color: #b9bbbe;
     font-size: 0.9rem;
 }
 .edited-marker {
     font-size: 0.75rem;
     color: #b9bbbe;
-    margin-top: 4px;
+    margin: 0 5px 0 0;
     align-self: flex-end;
 }
 
-.message-actions {
+.message-options-icon {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    cursor: pointer;
+    color: #b9bbbe;
+}
+
+.message-options-icon:hover {
+    color: #ffffff;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 30px;
+    right: -15px;
+    width: 100px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+    background-color: #40444b;
+    border-radius: 5px;
+    padding: 5px;
     display: flex;
-    gap: 6px;
-    margin-top: 0.7rem;
-    align-self: flex-end;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.dropdown-menu button {
+    background: none;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    text-align: left;
+}
+
+.dropdown-menu button:hover {
+    background-color: #7289da;
 }
 
 button {
@@ -514,10 +593,11 @@ button {
     display: flex;
     padding: 10px;
     background-color: #2f3136; 
-    border-top: 1px solid #202225;
     position: sticky;
     bottom: 0;
     z-index: 10;
+    width: 100%;
+    max-width: 90rem;
 }
 
 #message {
