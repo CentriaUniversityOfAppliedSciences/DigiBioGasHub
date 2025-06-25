@@ -15,6 +15,32 @@
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
+
+            <ion-modal  v-if="showTermsModal" :is-open="true" :can-dismiss="false">
+                <ion-header>
+                    <ion-toolbar>
+                        <ion-title>{{ $t('chat.chatTerms.termsModalTitle') }}</ion-title>
+                        <ion-buttons slot="end">
+                            <ion-button @click="closeTermsModal">{{ $t('general.close') }}</ion-button>
+                        </ion-buttons>
+                    </ion-toolbar>
+                </ion-header>
+                <ion-content>
+                    <div class="terms-content">
+                        <h2>{{ $t('chat.chatTerms.termsTitle') }}</h2>
+                        <p>{{ $t('chat.chatTerms.termsDescription') }}</p>
+                        <h2>{{ $t('chat.chatTerms.privacyTitle') }}</h2>
+                        <p>{{ $t('chat.chatTerms.privacyDescription') }}</p>
+                        <h2>{{ $t('chat.chatTerms.guidelinesTitle') }}</h2>
+                        <ul>
+                            <li>{{ $t('chat.chatTerms.guidelineRespect') }}</li>
+                            <li>{{ $t('chat.chatTerms.guidelineNoSpam') }}</li>
+                            <li>{{ $t('chat.chatTerms.guidelineNoHate') }}</li>
+                        </ul>
+                    </div>
+                </ion-content>
+            </ion-modal>
+
             <div id="chatContainer">
                 <div v-if="pinnedMessages.length > 0" id="pinnedMessagesContainer">
                     <div v-for="(message, index) in pinnedMessages" :key="message._id" class="pinned-message">
@@ -88,7 +114,7 @@
                         @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
                             $event.target.style.height = 'auto';
                         $event.target.style.height = $event.target.scrollHeight + 'px';
-                        " ref="messageInput"></textarea>
+                        " ref="messageInput" :disabled="showTermsModal"></textarea>
                     <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
                 </div>
             </div>
@@ -152,7 +178,8 @@ import {
     IonItem,
     IonInput,
     IonAlert,
-    IonIcon
+    IonIcon,
+    IonModal
 } from "@ionic/vue";
 import axios from "axios";
 import getSocket from "../socket";
@@ -183,7 +210,8 @@ export default defineComponent({
         IonButton,
         IonItem,
         IonInput,
-        IonAlert
+        IonAlert,
+        IonModal
     },
     data() {
         return {
@@ -203,9 +231,15 @@ export default defineComponent({
             hasError: false,
             pinnedMessages: [],
             dropdownVisible: null,
+            showTermsModal: false,
         };
     },
     async mounted() {
+
+        const modalShown = localStorage.getItem("chatTermsModalShown");
+        if (!modalShown) {
+            this.showTermsModal = true;
+        }
 
         this.socket = getSocket();
         this.roomId = this.$route.params.roomId;
@@ -289,6 +323,10 @@ export default defineComponent({
     },
 
     methods: {
+        closeTermsModal() {
+            this.showTermsModal = false;
+            localStorage.setItem("chatTermsModalShown", "true");
+        },
 
         async loadOlderMessages (){
 
