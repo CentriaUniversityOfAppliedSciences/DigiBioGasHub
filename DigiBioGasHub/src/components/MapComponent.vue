@@ -1,13 +1,13 @@
 <template>
     <IonPage style="height: 100%; width: 100%;">
         <IonContent style="height: 100%; width: 100%;">
-                    <ol-map ref="regionMap" :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true" style="height: 100%; width: 100%;">
-                        <ol-view :center=center :zoom="8"  />
-                        <ol-tile-layer>
-                            <ol-source-osm />
-                        </ol-tile-layer>
-                    </ol-map>
-                
+            <ol-map ref="regionMap" :loadTilesWhileAnimating="true" :loadTilesWhileInteracting="true"
+                style="height: 100%; width: 100%;">
+                <ol-view :center=center :zoom="8" />
+                <ol-tile-layer>
+                    <ol-source-osm />
+                </ol-tile-layer>
+            </ol-map>
         </IonContent>
     </IonPage>
 </template>
@@ -16,23 +16,23 @@
 import { IonPage, IonContent, IonGrid, IonRow, IonCol } from '@ionic/vue'
 
 import { ref, defineComponent } from 'vue'
-import { Map, View } from 'ol'
 import { useGeographic } from 'ol/proj'
-import TileLayer from 'ol/layer/Tile'
-import OSM from 'ol/source/OSM'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
 import Feature from 'ol/Feature'
 import Point from 'ol/geom/Point'
-import { fromLonLat } from 'ol/proj'
 import { Style, Circle, Fill, Stroke, Icon } from 'ol/style'
 import Overlay from 'ol/Overlay'
 
-
-
-export default defineComponent( {
+export default defineComponent({
     name: 'MapComponent',
-    components: { IonPage, IonContent, IonGrid, IonRow, IonCol },
+    components: {
+        IonPage,
+        IonContent,
+        IonGrid,
+        IonRow,
+        IonCol
+    },
     props: {
         propA: [Object]
     },
@@ -40,7 +40,6 @@ export default defineComponent( {
         const mapElement = ref(null)
         useGeographic();
         return { mapElement }
-            
     },
     data() {
         return {
@@ -63,19 +62,16 @@ export default defineComponent( {
             }),
             vectorSource: null,
             vectorLayer: null,
-
         }
     },
-    methods:{
-        
-        addMarkers(){
-             
-            
+    methods: {
+
+        addMarkers() {
             this.plantStyle.getImage().setScale([
                 parseFloat(0.25),
                 parseFloat(0.25),
             ]);
-            this.vectorSource.clear();  
+            this.vectorSource.clear();
             var features = this.markers.map((m) => {
                 const feature = new Feature({
                     geometry: new Point(m.coords),
@@ -85,10 +81,10 @@ export default defineComponent( {
                     info: m.info,
                     offerID: m.offerID
                 })
-                if (m.type === 'Station'){
+                if (m.type === 'Station') {
                     feature.setStyle(this.stationStyle);
                 }
-                else if (m.type === 'Plant'){
+                else if (m.type === 'Plant') {
                     feature.setStyle(this.plantStyle);
                 } else if (m.type === 'Company') {
                     feature.setStyle(
@@ -117,14 +113,14 @@ export default defineComponent( {
                 return feature
             })
             this.vectorSource.addFeatures(features);
-            
+
         }
     },
-    mounted(){
+    mounted() {
         this.map = this.$refs.regionMap.map;
-        
-        this.vectorSource= new VectorSource({ });
-        this.vectorLayer= new VectorLayer({ source: this.vectorSource });
+
+        this.vectorSource = new VectorSource({});
+        this.vectorLayer = new VectorLayer({ source: this.vectorSource });
         this.map.addLayer(this.vectorLayer);
         this.addMarkers();
         // create overlay
@@ -140,7 +136,7 @@ export default defineComponent( {
         this.map.on('pointermove', (evt) => {
             const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
             if (feature) {
-                container.innerHTML = (feature.get('name') + "<br>" + "<br>" + feature.get('location') + "<br>" +  feature.get('info'))
+                container.innerHTML = (feature.get('name') + "<br>" + "<br>" + feature.get('location') + "<br>" + feature.get('info'))
                 this.hoverOverlay.setPosition(evt.coordinate)
             } else {
                 this.hoverOverlay.setPosition(undefined)
@@ -157,14 +153,14 @@ export default defineComponent( {
                 })
             }
         });
-        
+
     },
     watch: {
         propA: {
             handler(newVal, oldVal) {
-                if(newVal !== oldVal) {
+                if (newVal !== oldVal) {
                     this.markers = newVal
-                    if (this.map != undefined && this.map != null){
+                    if (this.map != undefined && this.map != null) {
                         this.addMarkers();
                     }
                 }
@@ -173,11 +169,5 @@ export default defineComponent( {
             flush: 'post'
         }
     }
-    
 });
-
 </script>
-
-<style scoped>
-/* Adjust map styling as needed */
-</style>
