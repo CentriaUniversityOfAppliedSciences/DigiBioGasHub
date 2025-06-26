@@ -77,7 +77,7 @@ export default defineComponent({
     },
     methods: {
         getLocations() {
-            var url = this.$api_add + "/company/getlocations";
+            var url = this.$api_add + "/company/getlocations/by-company";
             axios.post(url, { "companyID": this.thisCompany }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                 if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
                     this.locations = response.data.message;
