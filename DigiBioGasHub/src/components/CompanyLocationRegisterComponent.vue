@@ -57,7 +57,7 @@ import NavBarComponent from './NavBarComponent.vue';
 import FooterComponent from './FooterComponent.vue';
 
 export default defineComponent({
-    name: 'LogisticsRegisterComponent',
+    name: 'CompanyLocationRegisterComponent',
     components: {
         IonPage,
         IonHeader,

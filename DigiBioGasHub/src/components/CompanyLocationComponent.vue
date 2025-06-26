@@ -43,7 +43,7 @@ addIcons({
     location
 });
 export default defineComponent({
-    name: 'LogisticsComponent',
+    name: 'CompanyLocationComponent',
     components: {
         IonPage,
         IonContent,

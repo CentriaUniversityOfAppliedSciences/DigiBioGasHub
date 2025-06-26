@@ -46,7 +46,7 @@ import axios from 'axios';
 import CompanyLocationComponent from '../../components/CompanyLocationComponent.vue';
 
 export default defineComponent({
-    name: 'LogisticsPage',
+    name: 'CompanyLocationsPage',
     components: {
         IonPage,
         IonHeader,
