@@ -109,6 +109,27 @@ export default defineComponent({
                 }
             });
         },
+        getCompanyLocations(){
+            var url = this.$api_add + "/company/getAllLocations";
+            axios.post(url,[],{headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false}).then((response) => {
+                if (response.data.type="result" && response.data.result == "ok" && response.data.message.length > 0){
+                    const newMarkers = response.data.message.map((loc) => {
+                        return {
+                            coords: [loc.longitude, loc.latitude],
+                            location: loc.city,
+                            name: loc.companyName,
+                            icon:'building',
+                            category: 'Company',
+                            type: 'Company',
+                            info: loc.address + ", " + loc.zipcode + " " + loc.city,
+                            companyID: loc.companyID,
+                        };
+                    });
+                    this.markerData = [...this.markerData, ...newMarkers];
+                    this.originalData = [...this.markerData]; 
+                }
+            });
+        },
         filterLocationData(location){
             if(!location){
                 return this.originalData;
@@ -161,6 +182,7 @@ export default defineComponent({
                     this.originalData = [...this.markerData]; // Update the original data as well
                 }
                 this.getTerminals();
+                this.getCompanyLocations();
             });
         }
     },

@@ -90,6 +90,18 @@ export default defineComponent( {
                 }
                 else if (m.type === 'Plant'){
                     feature.setStyle(this.plantStyle);
+                } else if (m.type === 'Company') {
+                    feature.setStyle(
+                        new Style({
+                            image: new Icon({
+                                anchor: [0.5, 0.5],
+                                anchorXUnits: 'fraction',
+                                anchorYUnits: 'fraction',
+                                src: '../public/assets/company2.svg',
+                                scale: 0.05,
+                            })
+                        })
+                    );
                 }
                 else {
                     feature.setStyle(
