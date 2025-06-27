@@ -19,18 +19,21 @@
                         <ion-item>
                             <ion-label position="floating">{{ $t('general.address') }}</ion-label>
                             <ion-input v-model="form.address" type="text"></ion-input>
+                            <p v-if="hasError('address')" class="error">{{ errors.address }}</p>
                         </ion-item>
                     </ion-col>
                     <ion-col size="12">
                         <ion-item>
                             <ion-label position="floating">{{ $t('general.city') }}</ion-label>
                             <ion-input v-model="form.city" type="text"></ion-input>
+                            <p v-if="hasError('city')" class="error">{{ errors.city }}</p>
                         </ion-item>
                     </ion-col>
                     <ion-col size="12">
                         <ion-item>
                             <ion-label position="floating">{{ $t('general.postalCode') }}</ion-label>
                             <ion-input v-model="form.zipcode" type="text"></ion-input>
+                            <p v-if="hasError('zipcode')" class="error">{{ errors.zipcode }}</p>
                         </ion-item>
                     </ion-col>
                 </ion-row>
@@ -87,13 +90,27 @@ export default defineComponent({
                 city: '',
                 zipcode: '',
             },
+            errors: {}
         };
     },
     emits: ['refreshLocations'],
     methods: {
+
+        validateForm() {
+            this.errors = {};
+
+            if (!this.form.address || this.form.address.trim() == '') this.errors.address = this.$t('validation.addressRequired');
+            if (!this.form.zipcode || this.form.zipcode.trim() == '') this.errors.zipcode = this.$t('validation.zipcodeRequired');
+            if (!this.form.city || this.form.city.trim() == '' ) this.errors.city = this.$t('validation.cityRequired');
+
+            return Object.keys(this.errors).length === 0; 
+        },
+        hasError(field) {
+            return this.errors[field];
+        },
         async submitForm() {
 
-            if (!this.form.companyName || !this.form.address || !this.form.city || !this.form.zipcode) {
+            if (!this.validateForm()) {
                 this.$refs.toastComponent.showToast(this.$t('validation.fillAllRequiredFields'), 2000, 'danger');
                 return;
             }
@@ -146,5 +163,11 @@ export default defineComponent({
     border-radius: 8px;
     border: 2px solid gray;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.error {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 4px;
 }
 </style>
