@@ -36,6 +36,8 @@ import LogisticsPage from '../views/LogisticsPage.vue';
 import CompanyUsersPage from '../views/Company/CompanyUsersPage.vue';
 import GDPRPage from '../views/GDPRPage.vue';
 import ToSPage from '../views/ToSPage.vue';
+import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
+import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
 
 export function jwtDecode(token) {
   try {
@@ -259,6 +261,18 @@ const routes = [
       }
     },
     component: CompanyUsersPage,
+  },
+  {
+    path: '/companylocations',
+    name: 'CompanyLocations',
+    component: CompanyLocationsPage
+
+  },
+  {
+    path: '/companylocationregister',
+    name: 'CompanyLocationRegister',
+    component: CompanyLocationRegisterComponent
+
   },
   {
     path: '/logisticsregister',

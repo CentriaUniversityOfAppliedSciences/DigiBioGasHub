@@ -413,6 +413,11 @@
             "haulType": "Haul Type",
             "logisticsRegistrationBtn": "Logistics Registration"
            },
+        "locationRegistration": {
+            "location": "Locations",
+            "title": "Location Registration",
+            "addLocationBtn": "Add Location"
+        },
         "addCompany": "Add company",
         "type":{
             "0":"Service provider",

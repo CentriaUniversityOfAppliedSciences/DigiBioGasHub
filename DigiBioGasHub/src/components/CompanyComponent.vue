@@ -56,20 +56,22 @@
                     <ion-input :disabled="companyEdit" v-model="company.web">{{ $t('company.website') }}</ion-input>
                 </ion-item>
             </ion-list>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === 99" @click="showEditAlert = true" :disabled="company.companyStatus === 0" color="warning">{{
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showEditAlert = true" :disabled="company.companyStatus === 0" color="warning">{{
                 $t('menu.edit') }}</ion-button>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === 99" @click="confirmDelete(company.id)" id="deleteCompany" :disabled="company.companyStatus === 0"
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="confirmDelete(company.id)" id="deleteCompany" :disabled="company.companyStatus === 0"
                 color="danger">{{ $t('menu.delete') }}</ion-button>
             <ion-button @click="goToOffers(company.id)"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
                 $t('company.offers') }}</ion-button>
+            <ion-button  v-if="companyData.userlevel === '23' || userLevel === '99'" @click="goToInsertCompanyLocations(company.id, company.name)"
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{ $t('company.locationRegistration.location') }}</ion-button>
             <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
                 $t('company.logistics.terminalsMenuButton') }}</ion-button>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === 99" @click="openInviteModal"
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="openInviteModal"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary"> {{
                 $t('invitations.inviteMembers') }}</ion-button>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === 99" @click="showUsers(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="secondary">{{ $t('company.users') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showUsers(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="secondary">{{ $t('company.users') }}</ion-button>
         </ion-card-content>
     </ion-card>
 
@@ -370,6 +372,16 @@ export default defineComponent({
                 
             });
         },
+        goToInsertCompanyLocations(companyID, companyName) {
+            this.$router.push({
+                path: '/companylocations',
+                query: {
+                    companyID: companyID,
+                    companyName: companyName,
+                },
+            });
+        },
+        
         goToLogisticsRegister(companyID, companyName) {
             this.$router.push({
                 path: '/logistics',
