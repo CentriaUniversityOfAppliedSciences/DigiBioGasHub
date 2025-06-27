@@ -62,6 +62,7 @@ VITE_BACKEND_ADDRESS=https://address_to_server/api
 VITE_CHATSERVER=https://address_to_server/chatserver
 VITE_CHATSOCKET=https://address_to_server
 VITE_ENABLE_BIOKAASUKLINIKKA=false #true only if BKKlinikkaComponent.vue exists
+VITE_CUBE_ADDRESS=https://address_to_server/analytics
 ```
 
 ## Building for production
