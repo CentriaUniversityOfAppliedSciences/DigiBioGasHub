@@ -425,7 +425,8 @@
             "0": "Tuntematon",
             "1": "Peruskäyttäjä",
             "2": "Yrityksen ylläpitäjä"
-        }
+        },
+        "reports":"Raportit"
     },
     "admin": {
         "company": {

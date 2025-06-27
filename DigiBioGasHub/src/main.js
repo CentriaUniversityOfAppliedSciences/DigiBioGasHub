@@ -18,7 +18,7 @@ import OpenLayersMap from 'vue3-openlayers';
 const options = {
   debug: true,
 };
-
+import VueApexCharts from "vue3-apexcharts";
 /* Optional CSS utils that can be commented out */
 import '@ionic/vue/css/padding.css';
 import '@ionic/vue/css/float-elements.css';
@@ -59,18 +59,23 @@ const i18n = createI18n({
 });
 let api_add = import.meta.env.VITE_BACKEND_ADDRESS;
 let chat_server_add = import.meta.env.VITE_CHATSERVER; 
+let cube_add = import.meta.env.VITE_CUBE_ADDRESS;
 const app = createApp(App)
   .use(IonicVue)
 
   .use(i18n)
   .use(router)
-  .use(OpenLayersMap,options);
+  .use(OpenLayersMap,options)
+  .use(VueApexCharts);
 
   app.config.globalProperties.$api_add = api_add;
   app.provide('$api_add', api_add);
 
   app.config.globalProperties.$chat_server_add = chat_server_add;
   app.provide('$chat_server_add', chat_server_add);
+
+  app.config.globalProperties.$cube_add = cube_add;
+  app.provide('$cube_add', cube_add);
 
 router.isReady().then(() => {
   app.mount('#app');

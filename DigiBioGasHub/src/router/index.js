@@ -36,6 +36,8 @@ import LogisticsPage from '../views/LogisticsPage.vue';
 import CompanyUsersPage from '../views/Company/CompanyUsersPage.vue';
 import GDPRPage from '../views/GDPRPage.vue';
 import ToSPage from '../views/ToSPage.vue';
+import CompanyAnalyticsPage from '../views/Company/CompanyAnalyticsPage.vue';
+import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -261,6 +263,24 @@ const routes = [
     component: CompanyUsersPage,
   },
   {
+    path: '/companyanalytics',
+    name: 'CompanyAnalytics',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: CompanyAnalyticsPage
+  },
+  {
     path: '/logisticsregister',
     name: '',
     component: LogisticsRegisterComponent
@@ -362,8 +382,8 @@ const routes = [
   },
   {
     path: '/admin/reports',
-    name: 'ReportsPage',
-    component: ReportsPage,
+    name: 'AnalyticsPage',
+    component: AnalyticsPage,
     beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },

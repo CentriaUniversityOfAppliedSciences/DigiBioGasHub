@@ -30,10 +30,10 @@
                 <li class="menu-item"><a href="/map">{{ $t('menu.map') }}</a></li>
                 <li class="menu-item"><a href="/articles">{{ $t('menu.articles') }}</a></li>
                 <li class="menu-item"><a href="/chat">{{ $t('menu.chat') }}</a></li>
-                <li v-if="!LoggedIn" class="menu-item" id="loginbtn"><a href="/login">{{ $t('menu.login') }}</a>
-                </li>
+                <li v-if="!LoggedIn" class="menu-item" id="loginbtn"><a href="/login">{{ $t('menu.login') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/contracts">{{ $t('menu.mycontracts') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/company">{{ $t('menu.mycompany') }}</a></li>
+                <li v-if="LoggedIn" class="menu-item"><a href="/companyanalytics">{{ $t('company.reports') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item"><a href="/profile">{{ $t('menu.profile') }}</a></li>
                 <li v-if="LoggedIn" class="menu-item">
                     <LogoutComponent />
