@@ -38,6 +38,8 @@ import GDPRPage from '../views/GDPRPage.vue';
 import ToSPage from '../views/ToSPage.vue';
 import CompanyAnalyticsPage from '../views/Company/CompanyAnalyticsPage.vue';
 import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
+import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
+import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
 
 export function jwtDecode(token) {
   try {
@@ -279,6 +281,18 @@ const routes = [
       }
     },
     component: CompanyAnalyticsPage
+  },
+  {
+    path: '/companylocations',
+    name: 'CompanyLocations',
+    component: CompanyLocationsPage
+
+  },
+  {
+    path: '/companylocationregister',
+    name: 'CompanyLocationRegister',
+    component: CompanyLocationRegisterComponent
+
   },
   {
     path: '/logisticsregister',
