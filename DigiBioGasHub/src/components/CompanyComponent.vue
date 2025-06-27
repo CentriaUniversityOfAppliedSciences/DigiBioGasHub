@@ -64,7 +64,7 @@
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
                 $t('company.offers') }}</ion-button>
             <ion-button  v-if="companyData.userlevel === '23' || userLevel === '99'" @click="goToInsertCompanyLocations(company.id, company.name)"
-                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">Insert Locations</ion-button>
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{ $t('company.locationRegistration.location') }}</ion-button>
             <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
                 $t('company.logistics.terminalsMenuButton') }}</ion-button>

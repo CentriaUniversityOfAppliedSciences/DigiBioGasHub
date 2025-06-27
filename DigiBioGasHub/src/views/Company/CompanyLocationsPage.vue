@@ -4,10 +4,10 @@
         <ion-toolbar>
             <ion-row style="align-items: center; justify-content: space-between; padding: 16px;">
                 <ion-col size="auto">
-                    <h2>Locations</h2>
+                    <h2>{{ $t('company.locationRegistration.location') }}</h2>
                 </ion-col>
                 <ion-col size="auto">
-                    <ion-button @click="add_location">Add Location</ion-button>
+                    <ion-button @click="add_location">{{ $t('company.locationRegistration.addLocationBtn') }}</ion-button>
                 </ion-col>
             </ion-row>
         </ion-toolbar>

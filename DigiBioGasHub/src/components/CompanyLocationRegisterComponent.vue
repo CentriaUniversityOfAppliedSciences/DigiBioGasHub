@@ -6,7 +6,7 @@
         <ion-content class="ion-padding">
             <ion-grid class="form-grid">
                 <ion-toolbar>
-                    <ion-title style="text-align: center;">Register Location</ion-title>
+                    <ion-title style="text-align: center;">{{ $t('company.locationRegistration.title') }}</ion-title>
                 </ion-toolbar>
                 <ion-row>
                     <ion-col size="12">
