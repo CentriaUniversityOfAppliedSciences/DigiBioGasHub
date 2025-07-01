@@ -600,14 +600,32 @@
         "invalidOrExpired": "Invalid or expired invitation.",
         "sendInvitation": "Send Invitation"
     },
-    "settings":{
-        "filter":"Filter settings",
-        "chat":"Chat settings",
-        "feedstock":"Feedstock",
-        "biogas": "Biogas",
-        "logistics": "Logistics",
-        "digestate": "Digestate",
-        "chatVisibility":"Enable Private Chat"
+    "settings": {
+        "marketplaceFilters": {
+            "filter": "Filter settings",
+            "chat": "Chat settings",
+            "straw": "Straw",
+            "dungSolid": "Dung Solid",
+            "dungLiquid": "Dung Liquid",
+            "compressedBiogas": "Compressed Biogas",
+            "liquidBiogas": "Liquid Biogas",
+            "feedstock": "Feedstock",
+            "biogas": "Biogas",
+            "logistics": "Logistics",
+            "digestate": "Digestate"
+        },
+        "mapFilters": {
+            "map": "Map Filters",
+            "farm": "Farm",
+            "offer": "Offer",
+            "biogasPlant": "Biogas Plant",
+            "company": "Company",
+            "terminals": "Terminals"
+        },
+        "chatSettings": {
+            "chatTitle": "Chat Settings",
+            "chatVisibility": "Enable Private Chat"
+        }
     },
     "landingPage": {
         "appName": "DigiBiogasHubs",

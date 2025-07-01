@@ -8,24 +8,36 @@
           <ion-col size="12">
             <ion-card>
               <ion-card-header>
-                <ion-card-title>{{ $t("settings.filter") }}</ion-card-title>
+                <ion-card-title>{{ $t("settings.marketplaceFilters.filter") }}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
                 <ion-list>
+                  <ion-item @click="settings.filter.straw = !settings.filter.straw" button>
+                    <ion-label>{{ $t("settings.marketplaceFilters.straw") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.filter.straw" />
+                  </ion-item>
+                  <ion-item @click="settings.filter.dungsolid = !settings.filter.dungsolid" button>
+                    <ion-label>{{ $t("settings.marketplaceFilters.dungSolid") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.filter.dungsolid" />
+                  </ion-item>
+                  <ion-item @click="settings.filter.dungliquid = !settings.filter.dungliquid" button>
+                    <ion-label>{{ $t("settings.marketplaceFilters.dungLiquid") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.filter.dungliquid" />
+                  </ion-item>
+                  <ion-item @click="settings.filter.compressedbiogas = !settings.filter.compressedbiogas" button>
+                    <ion-label>{{ $t("settings.marketplaceFilters.compressedBiogas") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.filter.compressedbiogas" />
+                  </ion-item>
+                  <ion-item @click="settings.filter.liquidbiogas = !settings.filter.liquidbiogas" button>
+                    <ion-label>{{ $t("settings.marketplaceFilters.liquidBiogas") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.filter.liquidbiogas" />
+                  </ion-item>
                   <ion-item @click="settings.filter.feedstock = !settings.filter.feedstock" button>
-                    <ion-label>{{ $t("settings.feedstock") }}</ion-label>
+                    <ion-label>{{ $t("settings.marketplaceFilters.feedstock") }}</ion-label>
                     <ion-checkbox slot="end" :checked="settings.filter.feedstock" />
                   </ion-item>
-                  <ion-item @click="settings.filter.biogas = !settings.filter.biogas" button>
-                    <ion-label>{{ $t("settings.biogas") }}</ion-label>
-                    <ion-checkbox slot="end" :checked ="settings.filter.biogas" />
-                  </ion-item>
-                  <ion-item @click="settings.filter.logistics = !settings.filter.logistics" button>
-                    <ion-label>{{ $t("settings.logistics") }}</ion-label>
-                    <ion-checkbox slot="end" :checked="settings.filter.logistics" />
-                  </ion-item>
                   <ion-item @click="settings.filter.digestate = !settings.filter.digestate" button>
-                    <ion-label>{{ $t("settings.digestate") }}</ion-label>
+                    <ion-label>{{ $t("settings.marketplaceFilters.digestate") }}</ion-label>
                     <ion-checkbox slot="end" :checked="settings.filter.digestate" />
                   </ion-item>
                 </ion-list>
@@ -38,12 +50,46 @@
           <ion-col size="12">
             <ion-card>
               <ion-card-header>
-                <ion-card-title>{{ $t("settings.chat") }}</ion-card-title>
+                <ion-card-title>{{ $t("settings.mapFilters.map") }}</ion-card-title>
+              </ion-card-header>
+              <ion-card-content>
+                <ion-list>
+                  <ion-item @click="settings.map.farm = !settings.map.farm" button>
+                    <ion-label>{{ $t("settings.mapFilters.farm") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.map.farm" />
+                  </ion-item>
+                  <ion-item @click="settings.map.offer = !settings.map.offer" button>
+                    <ion-label>{{ $t("settings.mapFilters.offer") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.map.offer" />
+                  </ion-item>
+                  <ion-item @click="settings.map.biogasplant = !settings.map.biogasplant" button>
+                    <ion-label>{{ $t("settings.mapFilters.biogasPlant") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.map.biogasplant" />
+                  </ion-item>
+                  <ion-item @click="settings.map.company = !settings.map.company" button>
+                    <ion-label>{{ $t("settings.mapFilters.company") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.map.company" />
+                  </ion-item>
+                  <ion-item @click="settings.map.terminals = !settings.map.terminals" button>
+                    <ion-label>{{ $t("settings.mapFilters.terminals") }}</ion-label>
+                    <ion-checkbox slot="end" :checked="settings.map.terminals" />
+                  </ion-item>
+                </ion-list>
+              </ion-card-content>
+            </ion-card>
+          </ion-col>
+        </ion-row>
+
+        <ion-row>
+          <ion-col size="12">
+            <ion-card>
+              <ion-card-header>
+                <ion-card-title>{{ $t("settings.chatSettings.chatTitle") }}</ion-card-title>
               </ion-card-header>
               <ion-card-content>
                 <ion-list>
                   <ion-item @click="settings.chat.chatVisibility = !settings.chat.chatVisibility" button>
-                    <ion-label>{{ $t("settings.chatVisibility") }}</ion-label>
+                    <ion-label>{{ $t("settings.chatSettings.chatVisibility") }}</ion-label>
                     <ion-checkbox slot="end" :checked="settings.chat.chatVisibility" />
                   </ion-item>
                 </ion-list>
@@ -60,8 +106,8 @@
           </ion-col>
         </ion-row>
       </ion-grid>
+      <FooterComponent />
     </ion-content>
-    <FooterComponent />
   </ion-page>
 </template>
 
@@ -79,10 +125,22 @@ export default defineComponent({
     return {
       settings: {
         filter: {
+          straw: false,
+          dungsolid: false,
+          dungliquid: false,
+          compressedbiogas: false,
+          liquidbiogas: false,
           feedstock: false,
           biogas: false,
           logistics: false,
           digestate: false,
+        },
+        map: {
+          farm: false,
+          offer: false,
+          biogasplant: false,
+          company: false,
+          terminals: false,
         },
         chat: {
           chatVisibility: false
