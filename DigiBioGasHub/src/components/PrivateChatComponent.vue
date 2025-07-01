@@ -206,6 +206,7 @@ export default defineComponent({
 
             if (!currentUser) {
                 this.errorMessageKey = 'chat.chatDisabledMessage';
+                this.hasError = true;
                 return;
             }
 
