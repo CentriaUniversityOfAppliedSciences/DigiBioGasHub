@@ -12,21 +12,21 @@
               </ion-card-header>
               <ion-card-content>
                 <ion-list>
-                  <ion-item>
+                  <ion-item @click="settings.filter.feedstock = !settings.filter.feedstock" button>
                     <ion-label>{{ $t("settings.feedstock") }}</ion-label>
-                    <ion-checkbox slot="end" v-model="settings.filter.feedstock" />
+                    <ion-checkbox slot="end" :checked="settings.filter.feedstock" />
                   </ion-item>
-                  <ion-item>
+                  <ion-item @click="settings.filter.biogas = !settings.filter.biogas" button>
                     <ion-label>{{ $t("settings.biogas") }}</ion-label>
-                    <ion-checkbox slot="end" v-model="settings.filter.biogas" />
+                    <ion-checkbox slot="end" :checked ="settings.filter.biogas" />
                   </ion-item>
-                  <ion-item>
+                  <ion-item @click="settings.filter.logistics = !settings.filter.logistics" button>
                     <ion-label>{{ $t("settings.logistics") }}</ion-label>
-                    <ion-checkbox slot="end" v-model="settings.filter.logistics" />
+                    <ion-checkbox slot="end" :checked="settings.filter.logistics" />
                   </ion-item>
-                  <ion-item>
+                  <ion-item @click="settings.filter.digestate = !settings.filter.digestate" button>
                     <ion-label>{{ $t("settings.digestate") }}</ion-label>
-                    <ion-checkbox slot="end" v-model="settings.filter.digestate" />
+                    <ion-checkbox slot="end" :checked="settings.filter.digestate" />
                   </ion-item>
                 </ion-list>
               </ion-card-content>
@@ -42,9 +42,9 @@
               </ion-card-header>
               <ion-card-content>
                 <ion-list>
-                  <ion-item>
+                  <ion-item @click="settings.chat.chatVisibility = !settings.chat.chatVisibility" button>
                     <ion-label>{{ $t("settings.chatVisibility") }}</ion-label>
-                    <ion-checkbox slot="end" v-model="settings.chat.chatVisibility" />
+                    <ion-checkbox slot="end" :checked="settings.chat.chatVisibility" />
                   </ion-item>
                 </ion-list>
               </ion-card-content>
