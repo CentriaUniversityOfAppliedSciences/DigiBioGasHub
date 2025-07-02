@@ -96,6 +96,9 @@
       </ion-grid>
       <FooterComponent />
     </ion-content>
+    
+    <ToastComponent ref="toastComponent" />
+
   </ion-page>
 </template>
 
@@ -105,10 +108,11 @@ import { IonPage, IonContent, IonList, IonItem, IonLabel, IonCheckbox, IonGrid, 
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
+import ToastComponent from '../components/ToastComponent.vue';
 
 export default defineComponent({
   name: 'SettingsPage',
-  components: { IonPage, IonContent, NavBarComponent, FooterComponent, IonList, IonItem, IonLabel, IonCheckbox, IonGrid, IonRow, IonCol, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent },
+  components: { IonPage, IonContent, NavBarComponent, FooterComponent, IonList, IonItem, IonLabel, IonCheckbox, IonGrid, IonRow, IonCol, IonButton, IonCard, IonCardHeader, IonCardTitle, IonCardContent, ToastComponent },
   data() {
     return {
       settings: {
@@ -157,7 +161,7 @@ export default defineComponent({
       var url = this.$api_add + "/updatesettings";
       axios.post(url, { "settings": this.settings }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
         if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined) {
-
+          this.$refs.toastComponent.showToast(this.$t("settings.settingsSaved"), 2000, 'success');
           var data = response.data.message;
           if (data.length > 0) {
             for (let i = 0; i < data.length; i++) {

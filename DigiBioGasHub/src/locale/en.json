@@ -601,6 +601,8 @@
         "sendInvitation": "Send Invitation"
     },
     "settings": {
+        "filterNote":"Filter settings have been applied. You can change them from",
+        "filterSettings": "Settings",
         "marketplaceFilters": {
             "filter": "Filter settings",
             "chat": "Chat settings",
@@ -622,7 +624,8 @@
         "chatSettings": {
             "chatTitle": "Chat Settings",
             "chatVisibility": "Enable Private Chat"
-        }
+        },
+        "settingsSaved": "Settings saved successfully!"
     },
     "landingPage": {
         "appName": "DigiBiogasHubs",
