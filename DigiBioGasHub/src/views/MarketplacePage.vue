@@ -3,10 +3,16 @@
         <NavBarComponent />
         <ion-content>
             <div class="page-container">
-                <div class="add-offer-top-container">
-                    <ion-button color="success" id="addOffer">
-                        {{ $t('offers.addOffer') }}
-                    </ion-button>
+                <div class="top-parts">
+                    <div class="add-offer-top-container">
+                        <ion-button color="success" id="addOffer">
+                            {{ $t('offers.addOffer') }}
+                        </ion-button>
+                    </div>
+                    <ion-note v-if="filter" class="filter-note">
+                        {{ $t('settings.filterNote') }}&nbsp;<a href="/settings"> {{ $t('settings.filterSettings') }}</a>.
+                        <ion-icon name="close-circle-outline" class="close-icon" @click="filter = false"></ion-icon>
+                    </ion-note>
                 </div>
                 <ion-grid class="main-grid">
                     <ion-row class="responsive-row">
@@ -39,11 +45,16 @@ import FilterComponent from '../components/FilterComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import ListingComponent from '../components/ListingComponent.vue'
 import AddOfferComponent from '../components/AddOfferComponent.vue'
-import { IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton, IonModal } from '@ionic/vue'
+import { IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton, IonModal, IonNote, IonIcon } from '@ionic/vue'
 import axios from 'axios'
+import { addIcons } from 'ionicons'
+import { closeCircleOutline } from 'ionicons/icons'
+addIcons({
+    closeCircleOutline
+})
 export default defineComponent({
     name: 'MarketplacePage',
-    components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent, IonButton, IonModal, AddOfferComponent },
+    components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonNote, IonIcon, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent, IonButton, IonModal, AddOfferComponent },
     setup() {
         return {
         }
@@ -55,6 +66,7 @@ export default defineComponent({
             ],
             currentProducts: [],
             filtersData: [],
+            filter: false
         }
     },
     methods: {
@@ -67,6 +79,7 @@ export default defineComponent({
                 if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
                     this.products = response.data.message;
                     this.currentProducts = response.data.message;
+                    this.filter = response.data.filtered === true;
                 }
             });
         },
@@ -116,9 +129,17 @@ export default defineComponent({
     min-height: 75vh;
 }
 
+.top-parts {
+    display: flex;
+    align-items: center;
+    gap: 4.5rem;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
 .add-offer-top-container {
-    max-width: 280px;
+    width: 280px;
     margin: 16px;
+    flex: 0 0 auto;
 }
 
 #addOffer {
@@ -127,5 +148,24 @@ export default defineComponent({
 
 ion-button{
     --border-radius: 10px;
+}
+
+.filter-note {
+    background: rgba(255,255,0,0.2);
+    border: 1px solid #f1c40f;
+    padding: 1rem 1rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.close-icon {
+    font-size: 1.5rem;
+    color: #f1c40f;
+    cursor: pointer;
+    margin-left: 10px;
+    justify-content: center;
 }
 </style>
