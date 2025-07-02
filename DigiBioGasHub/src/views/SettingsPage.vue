@@ -54,18 +54,6 @@
               </ion-card-header>
               <ion-card-content>
                 <ion-list>
-                  <ion-item @click="settings.map.farm = !settings.map.farm" button>
-                    <ion-label>{{ $t("settings.mapFilters.farm") }}</ion-label>
-                    <ion-checkbox slot="end" :checked="settings.map.farm" />
-                  </ion-item>
-                  <ion-item @click="settings.map.offer = !settings.map.offer" button>
-                    <ion-label>{{ $t("settings.mapFilters.offer") }}</ion-label>
-                    <ion-checkbox slot="end" :checked="settings.map.offer" />
-                  </ion-item>
-                  <ion-item @click="settings.map.biogasplant = !settings.map.biogasplant" button>
-                    <ion-label>{{ $t("settings.mapFilters.biogasPlant") }}</ion-label>
-                    <ion-checkbox slot="end" :checked="settings.map.biogasplant" />
-                  </ion-item>
                   <ion-item @click="settings.map.company = !settings.map.company" button>
                     <ion-label>{{ $t("settings.mapFilters.company") }}</ion-label>
                     <ion-checkbox slot="end" :checked="settings.map.company" />
@@ -136,9 +124,6 @@ export default defineComponent({
           digestate: false,
         },
         map: {
-          farm: false,
-          offer: false,
-          biogasplant: false,
           company: false,
           terminals: false,
         },

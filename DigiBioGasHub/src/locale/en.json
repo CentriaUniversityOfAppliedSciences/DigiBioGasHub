@@ -616,9 +616,6 @@
         },
         "mapFilters": {
             "map": "Map Filters",
-            "farm": "Farm",
-            "offer": "Offer",
-            "biogasPlant": "Biogas Plant",
             "company": "Company",
             "terminals": "Terminals"
         },
