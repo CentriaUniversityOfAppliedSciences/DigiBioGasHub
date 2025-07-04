@@ -1,6 +1,7 @@
 <template>
   <ion-page>
     <ion-content class="ion-padding">
+      <NavBarComponent/>
       <ion-card>
         <ion-card-header>
           <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
@@ -52,6 +53,7 @@
         </ion-card-content>
       </ion-card>
     </ion-content>
+     <FooterComponent/>
   </ion-page>
 </template>
 
@@ -59,6 +61,8 @@
 import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonText } from '@ionic/vue';
 import axios from 'axios';
 import ApiKeysComponent from '../components/ApiKeysComponent.vue';
+import NavBarComponent from '../components/NavBarComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
 
 export default {
   name: 'ApiKeysPage',
@@ -71,7 +75,9 @@ export default {
     IonCardContent,
     IonButton,
     IonText,
-    ApiKeysComponent
+    ApiKeysComponent,
+    NavBarComponent,
+    FooterComponent
   },
   data() {
     return {
