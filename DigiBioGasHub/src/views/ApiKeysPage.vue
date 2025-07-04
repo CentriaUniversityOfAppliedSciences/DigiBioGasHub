@@ -1,7 +1,7 @@
 <template>
   <ion-page>
+    <NavBarComponent/>
     <ion-content class="ion-padding">
-      <NavBarComponent/>
       <ion-card>
         <ion-card-header>
           <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
