@@ -426,7 +426,8 @@
             "1": "Peruskäyttäjä",
             "2": "Yrityksen ylläpitäjä"
         },
-        "reports":"Raportit"
+        "reports":"Raportit",
+        "sales":"Myynti"
     },
     "admin": {
         "company": {
@@ -494,7 +495,18 @@
         "materials": "Materiaalit",
         "manage_users": "Hallitse käyttäjiä",
         "settings": "Asetukset",
-        "reports": "Raportit"
+        "reports": "Raportit",
+        "certificate":{
+            "certificates": "Sertifikaatit",
+            "companyCertificates": "Yrityksen sertifikaatit",
+            "name": "Sertifikaatin nimi",
+            "type": "Sertifikaatin tyyppi",
+            "addCertificate": "Lisää sertifikaatti",
+            "certificateFile": "Sertifikaattitiedosto",
+            "types":{
+                "1":"Alkuperätodistus"
+            }
+        }
     },
     "filter":{
         "hide":"Piilota",

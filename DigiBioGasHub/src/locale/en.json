@@ -441,7 +441,8 @@
             "1": "User",
             "2": "Administrator"
         },
-        "reports":"Reports"
+        "reports":"Reports",
+        "sales": "Sales"
     },
     "admin": {
         "company": {

@@ -40,6 +40,7 @@ import CompanyAnalyticsPage from '../views/Company/CompanyAnalyticsPage.vue';
 import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
 import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
 import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
+import CertificatesPage from '../views/Admin/CertificatesPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -137,6 +138,13 @@ const routes = [
     path: '/admin/manage-companies',
     name: 'CompaniesPage',
     component: CompaniesPage,
+    beforeEnter: [checkAdmin],
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/admin/certificates',
+    name: 'CertificatesPage',
+    component: CertificatesPage,
     beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },

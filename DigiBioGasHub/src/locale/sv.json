@@ -426,7 +426,8 @@
             "1": "Användare",
             "2": "Administratör"
         },
-        "reports":"Rapporter"
+        "reports":"Rapporter",
+        "sales":"Försäljning"
     },
     "admin": {
         "company": {

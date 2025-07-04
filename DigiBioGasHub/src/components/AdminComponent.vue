@@ -7,6 +7,7 @@
                 <ion-select-option value="companies">{{ $t('admin.company.manageCompanies') }}</ion-select-option>
                 <ion-select-option value="settings">{{ $t('admin.settings') }}</ion-select-option>
                 <ion-select-option value="reports">{{ $t('admin.reports') }}</ion-select-option>
+                <ion-select-option value="certificates">{{ $t('admin.certificate.certificates') }}</ion-select-option>
             </ion-select>
  
 </template>
@@ -44,6 +45,9 @@ export default defineComponent({
             }
             else if (selectedValue === "companies") {
                 this.$router.push('/admin/manage-companies');
+            }
+            else if (selectedValue === "certificates") {
+                this.$router.push('/admin/certificates');
             }
         }
     }
