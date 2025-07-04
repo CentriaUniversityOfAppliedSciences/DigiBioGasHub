@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <NavBarComponent/>
+    <NavBarComponent />
     <ion-content class="ion-padding">
       <ion-card>
         <ion-card-header>
@@ -21,7 +21,7 @@
               {{ showMyApiKey ? 'Hide' : 'Show' }}
             </ion-button>
             <ion-button size="small" fill="clear" @click="copyToClipboard(myApiKey)">
-              Copy
+              {{ copiedMyApiKey ? ' ✔ Copied' : 'Copy' }}
             </ion-button>
           </div>
         </ion-card-content>
@@ -46,14 +46,14 @@
             <ion-button size="small" fill="clear" @click="toggleCompanyKey(idx)">
               {{ company.show ? 'Hide' : 'Show' }}
             </ion-button>
-            <ion-button size="small" fill="clear" @click="copyToClipboard(company.apikey)">
-              Copy
+            <ion-button size="small" fill="clear" @click="copyToClipboard(company.apikey, idx)">
+              {{ company.copied ? ' ✔ Copied' : 'Copy' }}
             </ion-button>
           </div>
         </ion-card-content>
       </ion-card>
     </ion-content>
-     <FooterComponent/>
+    <FooterComponent />
   </ion-page>
 </template>
 
@@ -84,6 +84,7 @@ export default {
       myApiKey: '',
       showMyApiKey: false,
       companyApiKeys: [],
+      copiedMyApiKey: false,
       userId: '',
     };
   },
@@ -105,7 +106,8 @@ export default {
         const response = await axios.get(this.$api_add + '/apikey/company', { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
         this.companyApiKeys = (response.data.companies || []).map(c => ({
           ...c,
-          show: false
+          show: false,
+          copied: false
         }));
       } catch {
         this.companyApiKeys = [];
@@ -119,7 +121,7 @@ export default {
     toggleCompanyKey(idx) {
       this.companyApiKeys[idx].show = !this.companyApiKeys[idx].show;
     },
-    async copyToClipboard(text) {
+    async copyToClipboard(text, index = null) {
       try {
         await navigator.clipboard.writeText(text);
       } catch {
@@ -129,6 +131,18 @@ export default {
         textarea.select();
         document.execCommand('copy');
         document.body.removeChild(textarea);
+      }
+
+      if (index === null) {
+        this.copiedMyApiKey = true;
+        setTimeout(() => {
+          this.copiedMyApiKey = false;
+        }, 3000);
+      } else {
+        this.companyApiKeys[index].copied = true;
+        setTimeout(() => {
+          this.companyApiKeys[index].copied = false;
+        }, 3000);
       }
     }
   }
