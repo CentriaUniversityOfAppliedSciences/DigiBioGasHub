@@ -3,7 +3,10 @@
     <ion-content class="ion-padding">
       <ion-card>
         <ion-card-header>
-          <ion-card-title>My API Key</ion-card-title>
+          <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
+            <span>My API Key</span>
+            <ApiKeysComponent mode="user" @refresh="fetchMyApiKey();" />
+          </ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <div v-if="myApiKey === ''">
@@ -25,7 +28,10 @@
 
       <ion-card>
         <ion-card-header>
-          <ion-card-title>API Keys of Companies I am Associated With</ion-card-title>
+          <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
+            <span>API Keys of Companies I am Associated With</span>
+            <ApiKeysComponent mode="company" @refresh="fetchCompanyApiKeys()" />
+          </ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <div v-if="companyApiKeys.length === 0">
@@ -52,6 +58,7 @@
 <script>
 import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonText } from '@ionic/vue';
 import axios from 'axios';
+import ApiKeysComponent from '../components/ApiKeysComponent.vue';
 
 export default {
   name: 'ApiKeysPage',
@@ -63,7 +70,8 @@ export default {
     IonCardTitle,
     IonCardContent,
     IonButton,
-    IonText
+    IonText,
+    ApiKeysComponent
   },
   data() {
     return {
