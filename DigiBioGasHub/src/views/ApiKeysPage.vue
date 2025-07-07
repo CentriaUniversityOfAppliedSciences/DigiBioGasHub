@@ -18,7 +18,7 @@
               {{ showMyApiKey ? myApiKey : maskedApiKey(myApiKey) }}
             </ion-text>
             <ion-button size="small" fill="clear" @click="showMyApiKey = !showMyApiKey">
-              {{ showMyApiKey ?  $t('apiKeys.hide') : $t('apiKeys.show') }}
+              {{ showMyApiKey ? $t('apiKeys.hide') : $t('apiKeys.show') }}
             </ion-button>
             <ion-button size="small" fill="clear" @click="copyToClipboard(myApiKey)">
               {{ copiedMyApiKey ? $t('apiKeys.copied') : $t('apiKeys.copy') }}
@@ -26,7 +26,7 @@
             <ion-button size="small" fill="clear" color="warning" @click="updateMyApiKey">
               {{ $t('apiKeys.update') }}
             </ion-button>
-            <ion-button size="small" fill="clear" color="danger" @click="deleteMyApiKey">
+            <ion-button size="small" fill="clear" color="danger" @click="confirmDeleteMyApiKey">
               {{ $t('apiKeys.delete') }}
             </ion-button>
           </div>
@@ -58,19 +58,36 @@
             <ion-button size="small" fill="clear" color="warning" @click="updateCompanyApiKey(company.companyID)">
               {{ $t('apiKeys.update') }}
             </ion-button>
-            <ion-button size="small" fill="clear" color="danger" @click="deleteCompanyApiKey(company.companyID)">
+            <ion-button size="small" fill="clear" color="danger" @click="confirmDeleteCompanyApiKey(company.companyID)">
               {{ $t('apiKeys.delete') }}
             </ion-button>
           </div>
         </ion-card-content>
       </ion-card>
+
+      <ion-alert :is-open="showDeleteAlert" :header="$t('apiKeys.deleteConfirmTitle')"
+        :message="$t('apiKeys.deleteConfirmMsg')" :buttons="[
+          {
+            text: $t('apiKeys.cancel'),
+            role: 'cancel',
+            handler: () => {
+              showDeleteAlert = false;
+            }
+          },
+          {
+            text: $t('apiKeys.delete'),
+            role: 'destructive',
+            handler: onDeleteConfirmed
+          }
+        ]" @didDismiss="showDeleteAlert = false" />
+
     </ion-content>
     <FooterComponent />
   </ion-page>
 </template>
 
 <script>
-import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonText } from '@ionic/vue';
+import { IonPage, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonText, IonAlert } from '@ionic/vue';
 import axios from 'axios';
 import ApiKeysComponent from '../components/ApiKeysComponent.vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
@@ -87,6 +104,7 @@ export default {
     IonCardContent,
     IonButton,
     IonText,
+    IonAlert,
     ApiKeysComponent,
     NavBarComponent,
     FooterComponent
@@ -98,6 +116,8 @@ export default {
       companyApiKeys: [],
       copiedMyApiKey: false,
       userId: '',
+      showDeleteAlert: false,
+      deleteTarget: null
     };
   },
   mounted() {
@@ -160,6 +180,26 @@ export default {
           this.companyApiKeys[index].copied = false;
         }, 3000);
       }
+    },
+
+    confirmDeleteMyApiKey() {
+      this.deleteTarget = { type: 'user' };
+      this.showDeleteAlert = true;
+    },
+
+    confirmDeleteCompanyApiKey(companyID) {
+      this.deleteTarget = { type: 'company', companyID };
+      this.showDeleteAlert = true;
+    },
+
+    onDeleteConfirmed() {
+      if (this.deleteTarget?.type === 'user') {
+        this.deleteMyApiKey();
+      } else if (this.deleteTarget?.type === 'company') {
+        this.deleteCompanyApiKey(this.deleteTarget.companyID);
+      }
+      this.showDeleteAlert = false;
+      this.deleteTarget = null;
     },
 
     updateMyApiKey() {
