@@ -6,7 +6,7 @@
         <ion-card-header>
           <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
             <span>My API Key</span>
-            <ApiKeysComponent mode="user" @refresh="fetchMyApiKey();" />
+            <ApiKeysComponent ref="userApiKeys" mode="user" @refresh="fetchMyApiKey();" />
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -23,6 +23,12 @@
             <ion-button size="small" fill="clear" @click="copyToClipboard(myApiKey)">
               {{ copiedMyApiKey ? ' ✔ Copied' : 'Copy' }}
             </ion-button>
+            <ion-button size="small" fill="clear" color="warning" @click="updateMyApiKey">
+              Update
+            </ion-button>
+            <ion-button size="small" fill="clear" color="danger" @click="deleteMyApiKey">
+              Delete
+            </ion-button>
           </div>
         </ion-card-content>
       </ion-card>
@@ -31,7 +37,7 @@
         <ion-card-header>
           <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
             <span>API Keys of Companies I am Associated With</span>
-            <ApiKeysComponent mode="company" @refresh="fetchCompanyApiKeys()" />
+            <ApiKeysComponent ref="companyApiKeys" mode="company" @refresh="fetchCompanyApiKeys()" />
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
@@ -48,6 +54,12 @@
             </ion-button>
             <ion-button size="small" fill="clear" @click="copyToClipboard(company.apikey, idx)">
               {{ company.copied ? ' ✔ Copied' : 'Copy' }}
+            </ion-button>
+            <ion-button size="small" fill="clear" color="warning" @click="updateCompanyApiKey(company.companyID)">
+              Update
+            </ion-button>
+            <ion-button size="small" fill="clear" color="danger" @click="deleteCompanyApiKey(company.companyID)">
+              Delete
             </ion-button>
           </div>
         </ion-card-content>
@@ -101,6 +113,7 @@ export default {
         this.myApiKey = '';
       }
     },
+
     async fetchCompanyApiKeys() {
       try {
         const response = await axios.get(this.$api_add + '/apikey/company', { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
@@ -113,14 +126,17 @@ export default {
         this.companyApiKeys = [];
       }
     },
+
     maskedApiKey(key) {
       const prefix = 'digibio';
       const maskedLength = key.length - prefix.length;
       return prefix + '*'.repeat(maskedLength);
     },
+
     toggleCompanyKey(idx) {
       this.companyApiKeys[idx].show = !this.companyApiKeys[idx].show;
     },
+
     async copyToClipboard(text, index = null) {
       try {
         await navigator.clipboard.writeText(text);
@@ -144,6 +160,22 @@ export default {
           this.companyApiKeys[index].copied = false;
         }, 3000);
       }
+    },
+
+    updateMyApiKey() {
+      this.$refs.userApiKeys.updateMyApiKey();
+    },
+
+    deleteMyApiKey() {
+      this.$refs.userApiKeys.deleteMyApiKey();
+    },
+
+    updateCompanyApiKey(companyID) {
+      this.$refs.companyApiKeys.updateCompanyApiKey(companyID);
+    },
+
+    deleteCompanyApiKey(companyID) {
+      this.$refs.companyApiKeys.deleteCompanyApiKey(companyID);
     }
   }
 };
@@ -159,10 +191,14 @@ export default {
 }
 
 .api-key {
-  word-break: break-all;
+  word-break: break-word;
   font-family: monospace;
   font-size: 1.1em;
   margin: 8px 0;
+  background: rgba(99, 82, 82, 0.233);
+  color: var(--ion-color-dark);
+  padding: 20px 20px;
+  border-radius: 10px;
 }
 
 .company-label {

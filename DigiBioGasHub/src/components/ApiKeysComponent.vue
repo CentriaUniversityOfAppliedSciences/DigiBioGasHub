@@ -71,40 +71,87 @@ export default {
         async generateMyApiKey() {
             this.loadingMyKey = true;
             try {
-                await axios.post(this.$api_add + '/apikey/user/generate', {}, {
-                    headers: { authorization: localStorage.getItem('token') }
-                });
-                this.$emit('refresh');
+                const response = await axios.post(this.$api_add + '/apikey/user/generate', {}, { headers: { authorization: localStorage.getItem('token') }});
+                if (response.data.type === 'result' && response.data.result === 'ok') {
+                    this.$emit('refresh');
+                }
             } finally {
                 this.loadingMyKey = false;
             }
         },
+
+        async updateMyApiKey() {
+            this.loadingMyKey = true;
+            try {
+                const response = await axios.put(this.$api_add + '/apikey/user/update', {}, { headers: { authorization: localStorage.getItem('token') }});
+                if (response.data.type === 'result' && response.data.result === 'ok') {
+                    this.$emit('refresh');
+                }
+            } finally {
+                this.loadingMyKey = false;
+            }
+        },
+
+        async deleteMyApiKey() {
+            this.loadingMyKey = true;
+            try {
+                const response = await axios.delete(this.$api_add + '/apikey/user/delete', { headers: { authorization: localStorage.getItem('token') }});
+                if (response.data.type === 'result' && response.data.result === 'ok') {
+                    this.$emit('refresh');
+                }
+            } finally {
+                this.loadingMyKey = false;
+            }
+        },
+
         openCompanyModal() {
             this.selectedCompanyId = null;
             this.showCompanyModal = true;
             this.fetchCompanies();
         },
+
         async fetchCompanies() {
             try {
-                const res = await axios.post(this.$api_add + '/getverifiedusercompanies', {}, {
-                    headers: { authorization: localStorage.getItem('token') }
-                });
+                const res = await axios.post(this.$api_add + '/getverifiedusercompanies', {}, { headers: { authorization: localStorage.getItem('token') }});
                 this.companies = res.data.message || [];
             } catch {
                 this.companies = [];
             }
         },
+
         async generateCompanyApiKey() {
             if (!this.selectedCompanyId) return;
             this.loadingCompanyKey = true;
             try {
-                await axios.post(this.$api_add + `/apikey/company/generate`, {
-                    companyID: this.selectedCompanyId
-                }, {
-                    headers: { authorization: localStorage.getItem('token') }
-                });
-                this.$emit('refresh');
+                const response = await axios.post(this.$api_add + `/apikey/company/generate`, { companyID: this.selectedCompanyId }, { headers: { authorization: localStorage.getItem('token') }});
+                if (response.data.type === 'result' && response.data.result === 'ok') {
+                    this.$emit('refresh');
+                }
                 this.showCompanyModal = false;
+            } finally {
+                this.loadingCompanyKey = false;
+            }
+        },
+
+        async updateCompanyApiKey(companyID) {
+            this.loadingCompanyKey = true;
+            try {
+                const response = await axios.put(this.$api_add + '/apikey/company/update', { companyID }, { headers: { authorization: localStorage.getItem('token') }});
+                if (response.data.type === 'result' && response.data.result === 'ok') {
+                    this.$emit('refresh');
+                }
+            } finally {
+                this.loadingCompanyKey = false;
+            }
+        },
+
+        async deleteCompanyApiKey(companyID) {
+            this.loadingCompanyKey = true;
+            try {
+                const response = await axios.delete(this.$api_add + '/apikey/company/delete', { headers: { authorization: localStorage.getItem('token') }, data: { companyID } });
+                if (response.data.type === 'result' && response.data.result === 'ok') {
+                    this.$emit('refresh');
+                } 
             } finally {
                 this.loadingCompanyKey = false;
             }
