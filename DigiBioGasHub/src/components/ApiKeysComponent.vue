@@ -1,16 +1,16 @@
 <template>
     <div>
         <ion-button v-if="mode === 'user'" @click="generateMyApiKey" :disabled="loadingMyKey">
-            <ion-spinner v-if="loadingMyKey" name="dots" /> Generate My API Key
+            <ion-spinner v-if="loadingMyKey" name="dots" /> {{ $t('apiKeys.generateMyApiKey') }}
         </ion-button>
         <ion-button v-if="mode === 'company'" @click="openCompanyModal">
-            Generate Company API Key
+             {{ $t('apiKeys.generateCompanyApiKey') }}
         </ion-button>
 
         <ion-modal :is-open="showCompanyModal" @didDismiss="showCompanyModal = false">
             <ion-content class="ion-padding">
                 <ion-item>
-                    <ion-label>Select Company</ion-label>
+                    <ion-label>{{ $t('apiKeys.selectCompany') }}</ion-label>
                     <ion-select v-model="selectedCompanyId" interface="popover">
                         <ion-select-option v-for="company in companies" :key="company.id" :value="company.id">
                             {{ company.name }}
@@ -19,9 +19,9 @@
                 </ion-item>
                 <ion-button expand="block" @click="generateCompanyApiKey"
                     :disabled="!selectedCompanyId || loadingCompanyKey">
-                    <ion-spinner v-if="loadingCompanyKey" name="dots" /> Create
+                    <ion-spinner v-if="loadingCompanyKey" name="dots" /> {{ $t('apiKeys.create') }}
                 </ion-button>
-                <ion-button expand="block" fill="clear" @click="showCompanyModal = false">Cancel</ion-button>
+                <ion-button expand="block" fill="clear" @click="showCompanyModal = false">{{ $t('apiKeys.cancel') }}</ion-button>
             </ion-content>
         </ion-modal>
     </div>

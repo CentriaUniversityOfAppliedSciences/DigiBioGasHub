@@ -600,6 +600,23 @@
         "invalidOrExpired": "Invalid or expired invitation.",
         "sendInvitation": "Send Invitation"
     },
+    "apiKeys": {
+        "myApiKey": "My API Key",
+        "noApiKeyFound": "No API key found. Please generate one.",
+        "hide": "Hide",
+        "show": "Show",
+        "copy": "Copy",
+        "copied": "✔ Copied",
+        "update": "Update",
+        "delete": "Delete",
+        "companyKeysTitle": "API Keys of Companies I am Associated With",
+        "noCompaniesFound": "No associated companies found.",
+        "generateMyApiKey": "Generate My API Key",
+        "generateCompanyApiKey": "Generate Company API Key",
+        "selectCompany": "Select Company",
+        "create": "Create",
+        "cancel": "Cancel"
+    },
     "settings": {
         "filterNote":"Filter settings have been applied. You can change them from",
         "filterSettings": "Settings",

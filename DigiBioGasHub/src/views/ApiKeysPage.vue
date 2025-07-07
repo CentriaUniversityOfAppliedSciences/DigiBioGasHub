@@ -5,29 +5,29 @@
       <ion-card>
         <ion-card-header>
           <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
-            <span>My API Key</span>
+            <span>{{ $t('apiKeys.myApiKey') }}</span>
             <ApiKeysComponent ref="userApiKeys" mode="user" @refresh="fetchMyApiKey();" />
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <div v-if="myApiKey === ''">
-            <ion-text>No API key found. Please generate one.</ion-text>
+            <ion-text>{{ $t('apiKeys.noApiKeyFound') }}</ion-text>
           </div>
           <div v-else class="api-key-row">
             <ion-text color="primary" class="api-key">
               {{ showMyApiKey ? myApiKey : maskedApiKey(myApiKey) }}
             </ion-text>
             <ion-button size="small" fill="clear" @click="showMyApiKey = !showMyApiKey">
-              {{ showMyApiKey ? 'Hide' : 'Show' }}
+              {{ showMyApiKey ?  $t('apiKeys.hide') : $t('apiKeys.show') }}
             </ion-button>
             <ion-button size="small" fill="clear" @click="copyToClipboard(myApiKey)">
-              {{ copiedMyApiKey ? ' ✔ Copied' : 'Copy' }}
+              {{ copiedMyApiKey ? $t('apiKeys.copied') : $t('apiKeys.copy') }}
             </ion-button>
             <ion-button size="small" fill="clear" color="warning" @click="updateMyApiKey">
-              Update
+              {{ $t('apiKeys.update') }}
             </ion-button>
             <ion-button size="small" fill="clear" color="danger" @click="deleteMyApiKey">
-              Delete
+              {{ $t('apiKeys.delete') }}
             </ion-button>
           </div>
         </ion-card-content>
@@ -36,13 +36,13 @@
       <ion-card>
         <ion-card-header>
           <ion-card-title style="display: flex; justify-content: space-between; align-items: center;">
-            <span>API Keys of Companies I am Associated With</span>
+            <span>{{ $t('apiKeys.companyKeysTitle') }}</span>
             <ApiKeysComponent ref="companyApiKeys" mode="company" @refresh="fetchCompanyApiKeys()" />
           </ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <div v-if="companyApiKeys.length === 0">
-            <ion-text>No associated companies found.</ion-text>
+            <ion-text>{{ $t('apiKeys.noCompaniesFound') }}</ion-text>
           </div>
           <div v-for="(company, idx) in companyApiKeys" :key="company.companyId" class="company-api-key-row">
             <div class="company-label">{{ company.companyName }}</div>
@@ -50,16 +50,16 @@
               {{ company.show ? company.apikey : maskedApiKey(company.apikey) }}
             </ion-text>
             <ion-button size="small" fill="clear" @click="toggleCompanyKey(idx)">
-              {{ company.show ? 'Hide' : 'Show' }}
+              {{ company.show ? $t('apiKeys.hide') : $t('apiKeys.show') }}
             </ion-button>
             <ion-button size="small" fill="clear" @click="copyToClipboard(company.apikey, idx)">
-              {{ company.copied ? ' ✔ Copied' : 'Copy' }}
+              {{ company.copied ? $t('apiKeys.copied') : $t('apiKeys.copy') }}
             </ion-button>
             <ion-button size="small" fill="clear" color="warning" @click="updateCompanyApiKey(company.companyID)">
-              Update
+              {{ $t('apiKeys.update') }}
             </ion-button>
             <ion-button size="small" fill="clear" color="danger" @click="deleteCompanyApiKey(company.companyID)">
-              Delete
+              {{ $t('apiKeys.delete') }}
             </ion-button>
           </div>
         </ion-card-content>
