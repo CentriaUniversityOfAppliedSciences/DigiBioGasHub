@@ -39,8 +39,9 @@ import {
     IonSpinner
 } from '@ionic/vue';
 import axios from 'axios';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
     name: 'ApiKeysComponent',
     components: {
         IonButton,
@@ -157,5 +158,5 @@ export default {
             }
         }
     }
-};
+});
 </script>

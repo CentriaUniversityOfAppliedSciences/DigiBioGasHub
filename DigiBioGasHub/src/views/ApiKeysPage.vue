@@ -92,8 +92,9 @@ import axios from 'axios';
 import ApiKeysComponent from '../components/ApiKeysComponent.vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import { defineComponent } from 'vue';
 
-export default {
+export default defineComponent({
   name: 'ApiKeysPage',
   components: {
     IonPage,
@@ -218,7 +219,7 @@ export default {
       this.$refs.companyApiKeys.deleteCompanyApiKey(companyID);
     }
   }
-};
+});
 </script>
 
 <style scoped>
