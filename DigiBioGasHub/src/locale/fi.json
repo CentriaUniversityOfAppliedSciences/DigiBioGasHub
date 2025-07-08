@@ -621,6 +621,26 @@
         "invalidOrExpired": "Virheellinen tai vanhentunut kutsu.",
         "sendInvitation": "Lähetä kutsu"
     },
+    "apiKeys": {
+        "title": "API-avaimet",
+        "myApiKey": "Oma API-avaimeni",
+        "noApiKeyFound": "API-avainta ei löytynyt. Luo uusi API-avain.",
+        "hide": "Piilota",
+        "show": "Näytä",
+        "copy": "Kopioi",
+        "copied": "✔ Kopioitu",
+        "update": "Päivitä",
+        "delete": "Poista",
+        "companyKeysTitle": "Yrityksen API-avaimet",
+        "noCompaniesFound": "Ei yrityksiä löytynyt. Luo uusi yritys tai liity olemassa olevaan yritykseen.",
+        "generateMyApiKey": "Luo Oma API-avain",
+        "generateCompanyApiKey": "Luo Yrityksen API-avain",
+        "selectCompany": "Valitse yritys",
+        "create": "Luo",
+        "cancel": "Peruuta",
+        "deleteConfirmTitle": "Vahvista poisto",
+        "deleteConfirmMsg": "Haluatko varmasti poistaa tämän API-avaimen? Tätä toimintoa ei voi peruuttaa."
+    },
     "settings":{
         "filterNote":"Suodatinasetukset on otettu käyttöön. Voit muuttaa asetuksia",
         "filterSettings": "Asetukset",

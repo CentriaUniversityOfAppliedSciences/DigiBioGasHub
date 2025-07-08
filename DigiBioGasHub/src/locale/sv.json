@@ -621,6 +621,26 @@
         "invalidOrExpired": "Ogiltig eller utgången inbjudan.",
         "sendInvitation": "Skicka inbjudan"
     },
+    "apiKeys": {
+        "title": "API-nycklar",
+        "myApiKey": "Min API-nyckel",
+        "noApiKeyFound": "Ingen API-nyckel hittades. Generera en ny API-nyckel för att använda API:et.",
+        "hide": "Dölj",
+        "show": "Visa",
+        "copy": "Kopiera",
+        "copied": "✔ Kopierad",
+        "update": "Uppdatera",
+        "delete": "Radera",
+        "companyKeysTitle": "Företags API-nycklar",
+        "noCompaniesFound": "Inga företag hittades. Skapa ett företag för att generera en API-nyckel.",
+        "generateMyApiKey": "Generera Min API-nyckel",
+        "generateCompanyApiKey": "Generera Företags API-nyckel",
+        "selectCompany": "Välj företag",
+        "create": "Skapa API-nyckel",
+        "cancel": "Avbryt",
+        "deleteConfirmTitle": "Bekräfta borttagning",
+        "deleteConfirmMsg": "Är du säker på att du vill radera denna API-nyckel? Denna åtgärd kan inte ångras."
+    },
     "settings":{
         "filterNote": "Filterinställningar har aktiverats. Du kan ändra inställningarna",
         "filterSettings": "Filterinställningar",
