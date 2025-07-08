@@ -110,7 +110,7 @@ export default defineComponent({
                 }
             } catch (error) {
                 console.error(error);
-                this.$refs.toastComponent.showToast(this.$t('premium.giftFail'), 2000, 'danger');
+                this.$refs.toastComponent.showToast(this.$t('premium.giftError'), 2000, 'danger');
             }
         }
 
