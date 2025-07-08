@@ -41,6 +41,7 @@ import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
 import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
 import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
 import CertificatesPage from '../views/Admin/CertificatesPage.vue';
+import CompanyCertificatesPage from '../views/Company/CertificatesPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -236,6 +237,25 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
+    path: '/company/certificates/:id',
+    name: 'CompanyCertificates',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: CompanyCertificatesPage,
+    meta: { requiresAuth: true }
+  },
+  {
     path: '/companyoffers:/:id',
     name: 'CompanyOffers',
     beforeEnter: (to, from, next) => {
@@ -271,6 +291,7 @@ const routes = [
       }
     },
     component: CompanyUsersPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/companyanalytics',
@@ -288,24 +309,66 @@ const routes = [
         next('/home')
       }
     },
-    component: CompanyAnalyticsPage
+    component: CompanyAnalyticsPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/companylocations',
     name: 'CompanyLocations',
-    component: CompanyLocationsPage
-
+    component: CompanyLocationsPage,
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    meta: { requiresAuth: true }
   },
   {
     path: '/companylocationregister',
     name: 'CompanyLocationRegister',
-    component: CompanyLocationRegisterComponent
+    component: CompanyLocationRegisterComponent,
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    meta: { requiresAuth: true }
 
   },
   {
     path: '/logisticsregister',
     name: '',
-    component: LogisticsRegisterComponent
+    component: LogisticsRegisterComponent,
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+        next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    meta: { requiresAuth: true }
   },
   {
     path: '/logistics',
@@ -323,7 +386,8 @@ const routes = [
       } else {
         next('/home')
       }
-    }
+    },
+    meta: { requiresAuth: true }
   },
   {
     path: '/profile',

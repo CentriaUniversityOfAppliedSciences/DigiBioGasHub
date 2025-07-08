@@ -510,7 +510,27 @@
         "materials": "Materials",
         "manage_users":"Manage Users",
         "settings": "Settings",
-        "reports": "Reports"
+        "reports": "Reports",
+        "certificate":{
+            "certificates": "Certificates",
+            "companyCertificates": "Company certificates",
+            "name": "Certificate name",
+            "type": "Certificate type",
+            "addCertificate": "Add certificate",
+            "editCertificate": "Edit certificate",
+            "certificateFile": "Certificate file",
+            "deleteConfirmation":"Are you sure you want to delete this certificate? This action cannot be undone.",
+            "nameError": "Certificate name is required.",
+            "descriptionError": "Certificate description is required.",
+            "description":"Certificate description",
+            "typeError": "Certificate type is required.",
+            "types":{
+                "1":"Origin certificate",
+                "2":"Quality certificate",
+                "3":"Environmental certificate",
+                "4":"Other"
+            }
+        }
     },
     "filter":{
         "hide":"Hide Filters",

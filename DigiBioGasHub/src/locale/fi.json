@@ -300,7 +300,17 @@
         "endDateRequired": "Päättymispäivämäärä on pakollinen",
         "visibilityRequired": "Näkyvyys on pakollinen",
         "fillAllRequiredFields": "Täytä kaikki kentät",
-        "fillAllFields":"Täytä kaikki kentät"
+        "fillAllFields":"Täytä kaikki kentät",
+        "registration":{
+            "firstNameRequired": "Etunimi ei voi olla tyhjä.",
+            "lastNameRequired": "Sukunimi ei voi olla tyhjä.",
+            "phoneRequired": "Puhelinnumero ei voi olla tyhjä.",
+            "invalidPhoneNumber":" Puhelinnumero on virheellinen!",
+            "emailRequired": "Sähköposti ei voi olla tyhjä.",
+            "passwordRequired": "Salasana ei voi olla tyhjä.",
+            "weakPassword": "Salasanan pituuden pitää olla vähintään 8 merkkiä.",
+            "unmatchedPassword": "Salasanat eivät täsmää."
+        }
     },
     "contract":{
         "contract": "Sopimus",
@@ -403,6 +413,11 @@
             "haulType": "Kuljetustyyppi",
             "logisticsRegistrationBtn": "Logistiikan rekisteröinti"
            },
+           "locationRegistration": {
+            "location": "Sijainnit",
+            "title": "Sijainnin rekisteröinti",
+            "addLocationBtn": "Lisää sijainti"
+        },
         "addCompany": "Lisää yritys",
         "type": {
             "0":"Palvelun tarjoaja",
@@ -502,9 +517,18 @@
             "name": "Sertifikaatin nimi",
             "type": "Sertifikaatin tyyppi",
             "addCertificate": "Lisää sertifikaatti",
+            "editCertificate": "Muokkaa sertifikaattia",
             "certificateFile": "Sertifikaattitiedosto",
+            "deleteConfirmation":"Haluatko varmasti poistaa tämän sertifikaatin? Toimintoa ei voi peruuttaa.",
+            "nameError": "Sertifikaatin nimi on pakollinen.",
+            "descriptionError": "Sertifikaatin kuvaus on pakollinen.",
+            "description":"Kuvaus",
+            "typeError": "Sertifikaatin tyyppi on pakollinen.",
             "types":{
-                "1":"Alkuperätodistus"
+                "1":"Alkuperätodistus",
+                "2":"Laatusertifikaatti",
+                "3":"Ympäristösertifikaatti",
+                "4":"Muut"
             }
         }
     },
@@ -518,6 +542,17 @@
         "company":"Yritys"
     },
     "chat": {
+        "chatTerms": {
+            "termsModalTitle": "Keskustelun käyttöehdot",
+            "termsTitle": "Käyttöehdot",
+            "termsDescription": "Käyttämällä tätä keskustelualustaa sitoudut noudattamaan sääntöjä ja kunnioittamaan muita käyttäjiä",
+            "privacyTitle": "Tietosuoja",
+            "privacyDescription": "Your messages are stored securely and will not be shared without your consent.",
+            "guidelinesTitle": "Käyttäytymissäännöt",
+            "guidelineRespect": "Kunnioita muita käyttäjiä.",
+            "guidelineNoSpam": "Älä lähetä roskapostia tai mainoksia.",
+            "guidelineNoHate": "Älä julkaise vihapuhetta tai loukkaavaa sisältöä."
+        },
         "admin": {
             "createRoom": "LUO HUONE",
             "deleteRoom": "POISTA HUONE",
@@ -535,7 +570,9 @@
             "saveChanges": "Tallenna muutokset",
             "roomUpdated": "Huone päivitetty onnistuneesti",
             "roomUpdateFailed": "Huoneen päivitys epäonnistui",
-            "leaveRoomConfirmation": "Haluatko varmasti poistua tästä huoneesta? Tämä poistaa sinut huoneesta, mutta et poista huonetta."
+            "leaveRoomConfirmation": "Haluatko varmasti poistua tästä huoneesta? Tämä poistaa sinut huoneesta, mutta et poista huonetta.",
+            "pinMessage": "Kiinnitä viesti",
+            "unpinMessage": "Poista viestin kiinnitys"
         },
         "placeholders": {
             "enterRoomName": "Anna huoneen nimi",
@@ -585,13 +622,31 @@
         "sendInvitation": "Lähetä kutsu"
     },
     "settings":{
-        "filter":"Suodatinasetukset",
-        "chat":"Keskusteluasetukset",
-        "feedstock":"Syötteet",
-        "biogas": "Biokaasu",
-        "logistics": "Logistiikka",
-        "digestate": "Mädätysjäännös",
-        "chatVisibility":"Näy yksityisviestilistalla"
+        "filterNote":"Suodatinasetukset on otettu käyttöön. Voit muuttaa asetuksia",
+        "filterSettings": "Asetukset",
+        "marketplaceFilters":{
+            "filter":"Suodatinasetukset",
+            "chat":"Keskusteluasetukset",
+            "straw": "Olki",
+            "dungSolid": "Kiinteä lanta",
+            "dungLiquid": "Nestemäinen lanta",
+            "compressedBiogas": "Paineistettu biokaasu",
+            "liquidBiogas": "Nestemäinen biokaasu",
+            "feedstock": "Syöte",
+            "biogas": "Biokaasu",
+            "logistics": "Logistiikka",
+            "digestate": "Mädätysjäännös"
+        },
+        "mapFilters": {
+            "map": "Kartan suodattimet",
+            "company": "Yritys",
+            "terminals": "Terminaalit"
+        },
+        "chatSettings": {
+            "chatTitle": "Keskusteluasetukset",
+            "chatVisibility": "Näkyminen yksityisviestilistalla"
+        },
+        "settingsSaved": "Asetukset tallennettu!"
     },
     "landingPage": {
         "appName": "DigiBiogasHubs",
