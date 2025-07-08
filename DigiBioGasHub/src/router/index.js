@@ -40,6 +40,7 @@ import CompanyAnalyticsPage from '../views/Company/CompanyAnalyticsPage.vue';
 import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
 import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
 import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
+import ApiKeysPage from '../views/ApiKeysPage.vue';
 import CertificatesPage from '../views/Admin/CertificatesPage.vue';
 import CompanyCertificatesPage from '../views/Company/CertificatesPage.vue';
 
@@ -407,6 +408,12 @@ const routes = [
     },
     component: ProfilePage,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/api-keys',
+    name: 'ApiKeysPage',
+    component: ApiKeysPage,
+    meta: { requiresAuth: true },
   },
   {
     path: '/settings',

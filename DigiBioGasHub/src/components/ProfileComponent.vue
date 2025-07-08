@@ -22,6 +22,7 @@
                     <ion-button id="deleteUser" color="danger">{{ $t('menu.deleteAccount') }}</ion-button>
                     <ion-button id="changePassword">{{ $t('menu.changePassword') }}</ion-button>
                     <ion-button @click="settings_button">{{ $t("general.settings") }}</ion-button>
+                    <ion-button @click="goToApiKey">{{ $t("apiKeys.title") }}</ion-button>
                 </ion-card-content>
             </ion-card>
             
@@ -169,6 +170,9 @@ export default defineComponent({
         },
         settings_button() {
             this.$router.push({ name: 'Settings' });
+        },
+        goToApiKey() {
+            this.$router.push({ name: 'ApiKeysPage' });
         }
     },
     mounted(){
