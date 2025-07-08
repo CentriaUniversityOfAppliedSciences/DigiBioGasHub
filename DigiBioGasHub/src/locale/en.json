@@ -494,7 +494,8 @@
             "fetchUsersFail": "Unable to get users!",
             "fetchUserFail": "Unable to get user!",
             "editTitle": "Edit User",
-            "pagination": "Results per page"
+            "pagination": "Results per page",
+            "isPremiumUser": "Premium User"
         },
         "material":{
             "name": "Material name",
@@ -599,6 +600,19 @@
         "acceptErrorMessage": "Failed to accept invitation.",
         "invalidOrExpired": "Invalid or expired invitation.",
         "sendInvitation": "Send Invitation"
+    },
+    "premium": {
+        "name": "Name",
+        "giftNow": "Gift",
+        "giftUser": "Gift Premium Subscription",
+        "duration": "Duration",
+        "3months": "3 Months",
+        "6months": "6 Months",
+        "12months": "12 Months",
+        "custom": "Custom Expiration Date",
+        "expirationDate": "Expiration Date",
+        "giftSuccess": "Premium successfully gifted!",
+        "giftError": "Failed to gift premium. Please try again."
     },
     "apiKeys": {
         "title": "API Keys",
