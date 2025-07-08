@@ -29,6 +29,8 @@
             <IonButton @click="submitGift" expand="full" color="primary">{{ $t('premium.giftNow') }}</IonButton>
             <IonButton expand="full" color="light" @click="close">{{ $t('general.cancel') }}</IonButton>
         </ion-content>
+
+        <ToastComponent ref="toastComponent" />
     </IonModal>
 </template>
 
@@ -36,6 +38,7 @@
 import { IonModal, IonItem, IonInput, IonLabel, IonSelect, IonSelectOption, IonDatetime, IonButton, IonContent } from '@ionic/vue';
 import axios from 'axios';
 import { defineComponent } from 'vue';
+import ToastComponent from './ToastComponent.vue';
 
 export default defineComponent({
     name: 'GiftPremiumComponent',
@@ -48,7 +51,8 @@ export default defineComponent({
         IonSelect,
         IonSelectOption,
         IonDatetime,
-        IonButton
+        IonButton,
+        ToastComponent
     },
     props: {
         isOpen: Boolean,
@@ -102,9 +106,11 @@ export default defineComponent({
                 if (response.data.type === 'result' && response.data.result === 'ok') {
                     this.$emit('gifted');
                     this.close();
+                    this.$refs.toastComponent.showToast(this.$t('premium.giftSuccess'), 2000, 'success');
                 }
             } catch (error) {
                 console.error(error);
+                this.$refs.toastComponent.showToast(this.$t('premium.giftFail'), 2000, 'danger');
             }
         }
 
