@@ -300,7 +300,17 @@
         "endDateRequired": "Slutdatum är obligatoriskt",
         "visibilityRequired": "Synlighet är obligatoriskt",
         "fillAllRequiredFields": "Fyll i alla obligatoriska fält",
-        "fillAllFields": "Fyll i alla fält"
+        "fillAllFields": "Fyll i alla fält",
+        "registration":{
+            "firstNameRequired": "Förnamn kan inte vara tomt.",
+            "lastNameRequired": "Efternamn kan inte vara tomt.",
+            "phoneRequired": "Telefonnummer kan inte vara tomt.",
+            "invalidPhoneNumber":"Telefonnummer är ogiltigt!",
+            "emailRequired": "E-postadress kan inte vara tomt.",
+            "passwordRequired": "Lösenord kan inte vara tomt.",
+            "weakPassword": "Lösenordet måste vara minst 8 tecken långt.",
+            "unmatchedPassword": "Lösenorden matchar inte."
+        }
     },
     "contract":{
         "contract": "Avtal",
@@ -402,7 +412,12 @@
             "title": "Registrering av logistik",
             "haulType": "Typ av transport",
             "logisticsRegistrationBtn": "Registrering av logistik"
-           },
+        },
+        "locationRegistration": {
+            "location": "Platser",
+            "title": "Platsregistrering",
+            "addLocationBtn": "Lägg till plats"
+        },
         "addCompany": "Lägg till företag",
         "type": {
             "0":"Tjänsteleverantör",
@@ -426,7 +441,8 @@
             "1": "Användare",
             "2": "Administratör"
         },
-        "reports":"Rapporter"
+        "reports":"Rapporter",
+        "sales":"Försäljning"
     },
     "admin": {
         "company": {
@@ -494,7 +510,27 @@
         "materials": "Material",
         "manage_users": "Hantera användare",
         "settings": "Inställningar",
-        "reports": "Rapporter"
+        "reports": "Rapporter",
+        "certificate":{
+            "certificates": "Sertifikat",
+            "companyCertificates": "Företagssertifikat",
+            "name": "Sertifikatnamn",
+            "type": "Sertifikattyp",
+            "addCertificate": "Lägg till certifikat",
+            "editCertificate": "Redigera certifikat",
+            "certificateFile": "Sertifikatfil",
+            "deleteConfirmation":"Är du säker på att du vill ta bort detta certifikat? Denna åtgärd kan inte ångras.",
+            "nameError": "Sertifikatets namn är obligatoriskt.",
+            "descriptionError": "Sertifikatets beskrivning är obligatorisk.",
+            "description":"Beskrivning",
+            "typeError": "Sertifikatstyp är obligatorisk.",
+            "types":{
+                "1":"Ursprungscertifikat",
+                "2":"Kvalitetscertifikat",
+                "3":"Miljöcertifikat",
+                "4":"Övriga"
+            }
+        }
     },
     "filter":{
         "hide":"Dölj",
@@ -506,6 +542,17 @@
         "company":"Företag"
     },
     "chat": {
+        "chatTerms": {
+            "termsModalTitle": "Chattens villkor",
+            "termsTitle": "Användarvillkor",
+            "termsDescription": "Genom att använda denna chatt godkänner du att följa reglerna och visa respekt för andra.",
+            "privacyTitle": "Integritetspolicy",
+            "privacyDescription": "Dina meddelanden lagras säkert och delas inte utan ditt samtycke.",
+            "guidelinesTitle": "Uppföranderegler",
+            "guidelineRespect": "Visa respekt för andra.",
+            "guidelineNoSpam": "Spamma inte chatten.",
+            "guidelineNoHate": "Undvik hatiskt eller stötande språk."
+        },
         "admin": {
             "createRoom": "SKAPA RUM",
             "deleteRoom": "TA BORT RUM",
@@ -523,7 +570,9 @@
             "saveChanges": "Spara ändringar",
             "roomUpdated": "Rummet har uppdaterats",
             "roomUpdateFailed": "Uppdatering av rummet misslyckades",
-            "leaveRoomConfirmation": "Är du säker på att du vill lämna detta rum? Detta tar bort dig från rummet, men rummet tas inte bort."
+            "leaveRoomConfirmation": "Är du säker på att du vill lämna detta rum? Detta tar bort dig från rummet, men rummet tas inte bort.",
+            "pinMessage": "Fäst meddelande",
+            "unpinMessage": "Avfäst meddelande"
         },
         "placeholders": {
             "enterRoomName": "Ange rumsnamn",
@@ -573,13 +622,31 @@
         "sendInvitation": "Skicka inbjudan"
     },
     "settings":{
-        "filter":"Filterinställningar",
-        "chat":"Chattinställningar",
-        "feedstock":"Insatsvaror",
-        "biogas": "Biogas",
-        "logistics": "Logistik",
-        "digestate": "Rester",
-        "chatVisibility":"Visa i privat chattlista"
+        "filterNote": "Filterinställningar har aktiverats. Du kan ändra inställningarna",
+        "filterSettings": "Filterinställningar",
+        "marketplaceFilters":{
+            "filter":"Filterinställningar",
+            "chat":"Chattinställningar",
+            "straw": "Halm",
+            "dungSolid": "Fast gödsel",
+            "dungLiquid": "Flytande gödsel",
+            "compressedBiogas": "Komprimerad biogas",
+            "liquidBiogas": "Flytande biogas",
+            "feedstock": "Råmaterial",
+            "biogas": "Biogas",
+            "logistics": "Logistik",
+            "digestate": "Restprodukter"
+        },
+        "mapFilters": {
+            "map": "Karta inställningar",
+            "company": "Företag",
+            "terminals": "Terminaler"
+        },
+        "chatSettings": {
+            "chatTitle": "Chattinställningar",
+            "chatVisibility": "Visa i privat chattlista"
+        },
+        "settingsSaved": "Inställningarna har sparats!"
     },
     "landingPage": {
         "appName": "DigiBiogasHubs",

@@ -71,7 +71,8 @@
             <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="openInviteModal"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary"> {{
                 $t('invitations.inviteMembers') }}</ion-button>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showUsers(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="secondary">{{ $t('company.users') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showUsers(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{ $t('company.users') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showCertificates(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{ $t('admin.certificate.certificates') }}</ion-button>
         </ion-card-content>
     </ion-card>
 
@@ -389,6 +390,11 @@ export default defineComponent({
                     companyID: companyID,
                     companyName: companyName,
                 },
+            });
+        },
+        showCertificates(compID) {
+            this.$router.push('/company/certificates/' + compID, {
+                
             });
         },
         showUsers(compID){

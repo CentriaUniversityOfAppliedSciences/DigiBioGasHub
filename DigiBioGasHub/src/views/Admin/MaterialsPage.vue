@@ -5,9 +5,9 @@
             <NavBarComponent />
 
             <MaterialsComponent :materials="myMaterials" @getMaterials="getMaterials" />
-            <FooterComponent />
+            
         </ion-content>
-
+        <FooterComponent />
     </ion-page>
 </template>
 
