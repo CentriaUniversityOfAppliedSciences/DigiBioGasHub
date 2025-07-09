@@ -612,7 +612,11 @@
         "custom": "Custom Expiration Date",
         "expirationDate": "Expiration Date",
         "giftSuccess": "Premium successfully gifted!",
-        "giftError": "Failed to gift premium. Please try again."
+        "giftError": "Failed to gift premium. Please try again.",
+        "cancelSubscription": "Cancel Subscription",
+        "cancelSubscriptionConfirm": "Are you sure you want to cancel your subscription?",
+        "cancelSubscriptionSuccess": "Subscription cancelled successfully!",
+        "cancelSubscriptionFail": "Failed to cancel subscription. Please try again."
     },
     "apiKeys": {
         "title": "API Keys",

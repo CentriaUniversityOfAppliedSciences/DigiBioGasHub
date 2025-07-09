@@ -30,6 +30,7 @@
                         <IonButton @click="editUser(user.id)">{{ $t('general.edit') }}</IonButton>
                         <IonButton color="success" @click="openGiftModal(user)"> {{ $t('premium.giftNow') }}</IonButton>
                         <IonButton color="danger" @click="confirmDelete(user.id)">{{ $t('general.delete') }}</IonButton>
+                        <IonButton v-if="user.isPremiumUser" color="primary" @click="confirmCancleSubscription(user.id)">Cancel Subscription</IonButton>
                     </IonCol>
                 </IonRow>
             </IonGrid>
@@ -104,6 +105,25 @@
                         }
                     }
                 ]"></ion-alert>
+            
+
+            <ion-alert :is-open="showSubscriptionAlert" :header="$t('premium.cancelSubscription')"
+                :message="$t('premium.cancelSubscriptionConfirm')" :buttons="[
+                    {
+                        text: $t('general.cancel'),
+                        role: 'cancel',
+                        handler: () => {
+                            this.showSubscriptionAlert = false;
+                        }
+                    },
+                    {
+                        text: $t('general.confirm'),
+                        handler: () => {
+                            cancelSubscription(userIdToCancel);
+                            this.showSubscriptionAlert = false;
+                        }
+                    }
+                ]"></ion-alert>
 
             <GiftPremiumComponent :isOpen="isGiftModalOpen" :user="selectedGiftUser" @close="closeGiftModal"
                 @gifted="handleGifted" />
@@ -156,6 +176,7 @@ export default {
             totalUsers: 0,
             isModalOpen: false,
             showDeleteAlert: false,
+            showSubscriptionAlert: false,
             editUserData: {
                 id: '',
                 username: '',
@@ -243,6 +264,26 @@ export default {
         },
         closeGiftModal() {
             this.isGiftModalOpen = false;
+        },
+        async confirmCancleSubscription(id) {
+            this.userIdToCancel = id;
+            this.showSubscriptionAlert = true;
+        },
+        async cancelSubscription(id) {
+            try {
+                const url = this.$api_add + `/admin/cancelusersubscription`;
+
+                const response = await axios.post(url, { userID: id }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.result === "ok") {
+                    this.$refs.toastComponent.showToast(this.$t('premium.cancelSubscriptionSuccess'), 2000, 'success');
+                    const user = this.users.find(user => user.id === id);
+                    if (user) {
+                        user.isPremiumUser = false;
+                    }
+                }
+            } catch (error) {
+                this.$refs.toastComponent.showToast(this.$t('premium.cancelSubscriptionFail'), 2000, 'danger');
+            }
         },
 
         confirmDelete(id) {
