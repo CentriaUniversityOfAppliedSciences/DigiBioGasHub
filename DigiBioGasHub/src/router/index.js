@@ -41,6 +41,7 @@ import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
 import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
 import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
 import ApiKeysPage from '../views/ApiKeysPage.vue';
+import SubscriptionPage from '../views/SubscriptionPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -342,6 +343,12 @@ const routes = [
     name: 'ApiKeysPage',
     component: ApiKeysPage,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/subscription',
+    name: 'SubscriptionPage',
+    component: SubscriptionPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/settings',

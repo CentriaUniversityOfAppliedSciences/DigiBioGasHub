@@ -38,10 +38,7 @@ export default defineComponent ({
     methods:{
         getMyUser(){
             axios.post(this.$api_add + '/getuser', {id: this.getUserID()}).then(response => {
-                
                     this.myUser = response.data.message;
-                
-                
             });
         },
         getMyCompanies(){
@@ -67,6 +64,7 @@ export default defineComponent ({
     }   
 })
 </script>
+
 <style scoped>
 .main-content {
     min-height: 75vh;

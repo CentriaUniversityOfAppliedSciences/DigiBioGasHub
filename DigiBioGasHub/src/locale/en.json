@@ -603,6 +603,13 @@
     },
     "premium": {
         "name": "Name",
+        "title": "Premium Subscription",
+        "currentPlan": "Current Plan",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "status": "Status",
+        "noActiveSubscription": "You have no active subscription. Purchase a premium plan to access exclusive features. Tap 'Manage Subscription' below to get started.",
+        "manageSubscription": "Manage Subscription",
         "giftNow": "Gift",
         "giftUser": "Gift Premium Subscription",
         "duration": "Duration",
