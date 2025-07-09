@@ -30,7 +30,7 @@
                         <IonButton @click="editUser(user.id)">{{ $t('general.edit') }}</IonButton>
                         <IonButton color="success" @click="openGiftModal(user)"> {{ $t('premium.giftNow') }}</IonButton>
                         <IonButton color="danger" @click="confirmDelete(user.id)">{{ $t('general.delete') }}</IonButton>
-                        <IonButton v-if="user.isPremiumUser" color="primary" @click="confirmCancleSubscription(user.id)">Cancel Subscription</IonButton>
+                        <IonButton v-if="user.isPremiumUser" color="primary" @click="confirmCancleSubscription(user.id)">{{ $t('premium.cancelSubscription') }}</IonButton>
                     </IonCol>
                 </IonRow>
             </IonGrid>
