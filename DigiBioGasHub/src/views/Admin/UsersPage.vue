@@ -27,10 +27,29 @@
                     <IonCol>{{ user.isPremiumUser }}</IonCol>
                     <IonCol>{{ user.hubID }}</IonCol>
                     <IonCol>
-                        <IonButton @click="editUser(user.id)">{{ $t('general.edit') }}</IonButton>
-                        <IonButton color="success" @click="openGiftModal(user)"> {{ $t('premium.giftNow') }}</IonButton>
-                        <IonButton color="danger" @click="confirmDelete(user.id)">{{ $t('general.delete') }}</IonButton>
-                        <IonButton v-if="user.isPremiumUser" color="primary" @click="confirmCancleSubscription(user.id)">{{ $t('premium.cancelSubscription') }}</IonButton>
+                        <IonButton :id="'action-btn-' + user.id">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </IonButton>
+
+                        <IonPopover v-if="user.id" :trigger="'action-btn-' + user.id" triggerAction="click">
+                            <IonContent>
+                                <IonList>
+                                    <IonItem button @click="editUser(user.id)">
+                                        {{ $t('general.edit') }}
+                                    </IonItem>
+                                    <IonItem button @click="openGiftModal(user)">
+                                        {{ $t('premium.giftNow') }}
+                                    </IonItem>
+                                    <IonItem button @click="confirmDelete(user.id)">
+                                        {{ $t('general.delete') }}
+                                    </IonItem>
+                                    <IonItem button v-if="user.isPremiumUser"
+                                        @click="confirmCancleSubscription(user.id)">
+                                        {{ $t('premium.cancelSubscription') }}
+                                    </IonItem>
+                                </IonList>
+                            </IonContent>
+                        </IonPopover>
                     </IonCol>
                 </IonRow>
             </IonGrid>
@@ -105,7 +124,7 @@
                         }
                     }
                 ]"></ion-alert>
-            
+
 
             <ion-alert :is-open="showSubscriptionAlert" :header="$t('premium.cancelSubscription')"
                 :message="$t('premium.cancelSubscriptionConfirm')" :buttons="[
@@ -130,17 +149,21 @@
 
             <FooterComponent />
         </IonContent>
-
     </IonPage>
 </template>
 
 <script>
-import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput, IonAlert, IonList, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput, IonAlert, IonList, IonSelect, IonSelectOption, IonPopover, IonIcon } from '@ionic/vue';
 import ToastComponent from '../../components/ToastComponent.vue';
 import GiftPremiumComponent from '../../components/GiftPremiumComponent.vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import axios from 'axios';
+import { addIcons } from 'ionicons';
+import { settingsOutline } from 'ionicons/icons';
+addIcons({
+  settingsOutline
+});
 
 export default {
     name: 'UsersPage',
@@ -150,6 +173,8 @@ export default {
         IonGrid,
         IonRow,
         IonCol,
+        IonIcon,
+        IonPopover,
         IonHeader,
         IonButton,
         IonToolbar,
