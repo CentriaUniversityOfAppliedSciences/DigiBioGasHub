@@ -13,7 +13,7 @@
         <ion-content>
 
             <div v-if="subscriptions.length === 0" style="max-width: 90rem; margin: auto;">
-                <ion-button @click="manageSubscription"> {{ $t('premium.manageSubscription') }} </ion-button>
+                <ion-button @click="buySubscription"> {{ $t('premium.buySubscription') }} </ion-button>
                 <ion-card>
                     <ion-card-content>
                         <p>{{ $t('premium.noActiveSubscription') }}</p>
@@ -22,7 +22,7 @@
             </div>
 
             <div v-else style="max-width: 90rem; margin: auto;">
-                <ion-button @click="manageSubscription"> {{ $t('premium.manageSubscription') }} </ion-button>
+                <ion-button @click="buySubscription"> {{ $t('premium.buySubscription') }} </ion-button>
                 <ion-card v-for="(sub, idx) in subscriptions" :key="sub.id">
                     <ion-card-content>
                         <ion-card-title>
@@ -100,8 +100,8 @@ export default defineComponent({
         goBack() {
             this.$router.go(-1);
         },
-        manageSubscription() {
-            this.$router.push({ name: 'ManageSubscription' });
+        buySubscription() {
+            this.$router.push({ name: 'BuySubscriptionPage' });
         },
         confirmCancelSubscription(id) {
             this.subscriptionToCancel = id;

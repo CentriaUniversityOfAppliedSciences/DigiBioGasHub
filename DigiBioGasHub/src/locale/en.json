@@ -608,8 +608,8 @@
         "startDate": "Start Date",
         "endDate": "End Date",
         "status": "Status",
-        "noActiveSubscription": "You have no active subscription. Purchase a premium plan to access exclusive features. Tap 'Manage Subscription' above to get started.",
-        "manageSubscription": "Manage Subscription",
+        "noActiveSubscription": "You have no active subscription. Purchase a premium plan to access exclusive features. Tap 'Buy Subscription' above to get started.",
+        "buySubscription": "Buy Subscription",
         "giftNow": "Gift",
         "giftUser": "Gift Premium Subscription",
         "duration": "Duration",
@@ -623,7 +623,14 @@
         "cancelSubscription": "Cancel Subscription",
         "cancelSubscriptionConfirm": "Are you sure you want to cancel your subscription?",
         "cancelSubscriptionSuccess": "Subscription cancelled successfully!",
-        "cancelSubscriptionFail": "Failed to cancel subscription. Please try again."
+        "cancelSubscriptionFail": "Failed to cancel subscription. Please try again.",
+        "buy": {
+            "buySubscription": "Buy Subscription",
+            "accessFutureOffers": "Access to future offers",
+            "buy": "Buy",
+            "months": "{months} Months",
+            "price": "€{price}"
+        }
     },
     "apiKeys": {
         "title": "API Keys",
