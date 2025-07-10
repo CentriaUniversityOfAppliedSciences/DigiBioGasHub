@@ -10,27 +10,34 @@
             </ion-buttons>
         </ion-toolbar>
 
-        <ion-content style="max-width: 90rem; align-self: center;">
-            <ion-card>
-                <ion-card-content>
-                     <ion-card-title>{{ $t('premium.currentPlan') }}</ion-card-title>
-                    <div v-if="subscriptionDetails">
-                        <p>{{ $t('premium.startDate') }}: {{ subscriptionDetails.subscriptionDate }}</p>
-                        <p>{{ $t('premium.status') }}: {{ subscriptionDetails.status }}</p>
-                        <p>{{ $t('premium.endDate') }}: {{ subscriptionDetails.expirationDate }}</p>
-                    </div>
-                    <div v-else>
+        <ion-content>
+            
+            <div v-if="subscriptions.length === 0" style="max-width: 90rem; margin: auto;">
+                <ion-button @click="manageSubscription"> {{ $t('premium.manageSubscription') }} </ion-button>
+                <ion-card>
+                    <ion-card-content>
                         <p>{{ $t('premium.noActiveSubscription') }}</p>
-                    </div>
-                </ion-card-content>
-            </ion-card>
+                    </ion-card-content>
+                </ion-card>
+            </div>
 
-            <ion-button @click="manageSubscription">
-                {{ $t('premium.manageSubscription') }}
-            </ion-button>
-            <ion-button color="danger" @click="confirmCancelSubscription">
-                {{ $t('premium.cancelSubscription') }}
-            </ion-button>
+            <div v-else style="max-width: 90rem; margin: auto;">
+                <ion-button @click="manageSubscription"> {{ $t('premium.manageSubscription') }} </ion-button>
+                <ion-card v-for="(sub, idx) in subscriptions" :key="sub.id">
+                    <ion-card-content>
+                        <ion-card-title>
+                            {{ $t('premium.currentPlan') }}<span v-if="subscriptions.length > 1"> #{{ idx + 1
+                            }}</span>
+                        </ion-card-title>
+                        <p>{{ $t('premium.startDate') }}: {{ sub.subscriptionDate }}</p>
+                        <p>{{ $t('premium.status') }}: {{ sub.status }}</p>
+                        <p>{{ $t('premium.endDate') }}: {{ sub.expirationDate }}</p>
+                        <ion-button color="danger" @click="confirmCancelSubscription(sub.id)">
+                            {{ $t('premium.cancelSubscription') }}
+                        </ion-button>
+                    </ion-card-content>
+                </ion-card>
+            </div>
 
             <ion-alert :is-open="showSubscriptionCancelAlert" :header="$t('premium.cancelSubscription')"
                 :message="$t('premium.cancelSubscriptionConfirm')" :buttons="[
@@ -48,8 +55,8 @@
                         }
                     }
                 ]"></ion-alert>
+            <FooterComponent />
         </ion-content>
-        <FooterComponent />
     </ion-page>
 </template>
 
@@ -80,8 +87,9 @@ export default defineComponent({
     },
     data() {
         return {
-            subscriptionDetails: null,
-            showSubscriptionCancelAlert: false
+            subscriptions: [],
+            showSubscriptionCancelAlert: false,
+            subscriptionToCancel: null,
         };
     },
     methods: {
@@ -91,32 +99,37 @@ export default defineComponent({
         manageSubscription() {
             this.$router.push({ name: 'ManageSubscription' });
         },
-        confirmCancelSubscription() {
+        confirmCancelSubscription(id) {
+            this.subscriptionToCancel = id;
             this.showSubscriptionCancelAlert = true;
         },
 
         async cancelSubscription() {
+            if (!this.subscriptionToCancel) return;
             try {
-                const response = await axios.post(this.$api_add + '/subscription/cancel');
+                const response = await axios.post(this.$api_add + '/subscription/cancel', { subscriptionID: this.subscriptionToCancel }, { headers: { authorization: localStorage.getItem('token') }, withCredentials: false },);
                 if (response.data.result === 'ok') {
-                    this.subscriptionDetails = null;
+                    this.subscriptions = this.subscriptions.filter(sub => sub.id !== this.subscriptionToCancel);
                     this.$toast.show(this.$t('premium.cancelSuccess'));
-                    this.showSubscriptionCancelAlert = false;
                 } else {
                     this.$toast.show(this.$t('premium.cancelError'));
-                    this.showSubscriptionCancelAlert = false;
                 }
             } catch (error) {
-                console.error('Error cancelling premium:', error);
+                console.error('Error cancelling subscription:', error);
                 this.$toast.show(this.$t('premium.cancelError'));
+            } finally {
+                this.showSubscriptionCancelAlert = false;
+                this.subscriptionToCancel = null;
             }
         },
     },
     async mounted() {
         try {
-            const response = await axios.get(this.$api_add + '/subscription/me');
+            const response = await axios.get(this.$api_add + '/subscription/me', { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.result === 'ok') {
-                this.subscriptionDetails = response.data.message;
+                this.subscriptions = response.data.message;
+            } else {
+                this.$toast.show(this.$t('premium.noActiveSubscription'));
             }
         } catch (error) {
             console.error('Error fetching current plan:', error);
@@ -126,7 +139,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.subscriptionPage {
-    max-width: 90rem;
+ion-button{
+    --margin:auto;
+    --display: block;
+    --max-width: 90rem;
 }
 </style>
