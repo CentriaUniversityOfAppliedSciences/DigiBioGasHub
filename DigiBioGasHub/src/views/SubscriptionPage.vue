@@ -11,7 +11,7 @@
         </ion-toolbar>
 
         <ion-content>
-            
+
             <div v-if="subscriptions.length === 0" style="max-width: 90rem; margin: auto;">
                 <ion-button @click="manageSubscription"> {{ $t('premium.manageSubscription') }} </ion-button>
                 <ion-card>
@@ -27,7 +27,7 @@
                     <ion-card-content>
                         <ion-card-title>
                             {{ $t('premium.currentPlan') }}<span v-if="subscriptions.length > 1"> #{{ idx + 1
-                            }}</span>
+                                }}</span>
                         </ion-card-title>
                         <p>{{ $t('premium.startDate') }}: {{ sub.subscriptionDate }}</p>
                         <p>{{ $t('premium.status') }}: {{ sub.status }}</p>
@@ -55,8 +55,10 @@
                         }
                     }
                 ]"></ion-alert>
-            <FooterComponent />
+
+            <ToastComponent ref="toastComponent" />
         </ion-content>
+        <FooterComponent />
     </ion-page>
 </template>
 
@@ -66,6 +68,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardH
 import FooterComponent from '../components/FooterComponent.vue';
 import axios from 'axios';
 import NavBarComponent from '../components/NavBarComponent.vue';
+import ToastComponent from '../components/ToastComponent.vue';
 export default defineComponent({
     name: 'SubscriptionPage',
     components: {
@@ -83,6 +86,7 @@ export default defineComponent({
         IonButtons,
         IonIcon,
         IonAlert,
+        ToastComponent,
         FooterComponent
     },
     data() {
@@ -110,13 +114,12 @@ export default defineComponent({
                 const response = await axios.post(this.$api_add + '/subscription/cancel', { subscriptionID: this.subscriptionToCancel }, { headers: { authorization: localStorage.getItem('token') }, withCredentials: false },);
                 if (response.data.result === 'ok') {
                     this.subscriptions = this.subscriptions.filter(sub => sub.id !== this.subscriptionToCancel);
-                    this.$toast.show(this.$t('premium.cancelSuccess'));
+                     this.$refs.toastComponent.showToast(this.$t('premium.cancelSubscriptionSuccess'), 2000, 'success');
                 } else {
-                    this.$toast.show(this.$t('premium.cancelError'));
+                    this.$refs.toastComponent.showToast(this.$t('premium.cancelSubscriptionFail'), 2000, 'danger');
                 }
             } catch (error) {
-                console.error('Error cancelling subscription:', error);
-                this.$toast.show(this.$t('premium.cancelError'));
+                this.$refs.toastComponent.showToast(this.$t('premium.cancelSubscriptionFail'), 2000, 'danger');
             } finally {
                 this.showSubscriptionCancelAlert = false;
                 this.subscriptionToCancel = null;
@@ -128,8 +131,6 @@ export default defineComponent({
             const response = await axios.get(this.$api_add + '/subscription/me', { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.result === 'ok') {
                 this.subscriptions = response.data.message;
-            } else {
-                this.$toast.show(this.$t('premium.noActiveSubscription'));
             }
         } catch (error) {
             console.error('Error fetching current plan:', error);
