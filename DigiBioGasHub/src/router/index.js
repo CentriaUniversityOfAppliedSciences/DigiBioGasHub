@@ -43,6 +43,8 @@ import CompanyLocationRegisterComponent from '../components/CompanyLocationRegis
 import ApiKeysPage from '../views/ApiKeysPage.vue';
 import SubscriptionPage from '../views/SubscriptionPage.vue';
 import BuySubscriptionPage from '../views/BuySubscriptionPage.vue';
+import PaymentSuccessPage from '../views/PaymentSuccessPage.vue';
+import PaymentCancelPage from '../views/PaymentCancelPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -355,6 +357,18 @@ const routes = [
     path: '/subscription',
     name: 'BuySubscriptionPage',
     component: BuySubscriptionPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/paymentsuccess',
+    name: 'PaymentSuccess',
+    component: PaymentSuccessPage,
+    meta: { requiresAuth: true }
+  },
+    {
+    path: '/paymentcancel',
+    name: 'PaymentCancel',
+    component: PaymentCancelPage,
     meta: { requiresAuth: true }
   },
   {

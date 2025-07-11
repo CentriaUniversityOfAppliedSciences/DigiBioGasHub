@@ -50,6 +50,7 @@ import { checkmarkOutline } from 'ionicons/icons';
 import { defineComponent } from 'vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
+import axios from 'axios';
 
 export default defineComponent({
     name: 'BuySubscription',
@@ -86,6 +87,18 @@ export default defineComponent({
         };
     },
     methods: {
+        async subscribe(plan) {
+            try {
+                const response = await axios.post(this.$api_add +'/payment/create-checkout-session', { months: plan.months }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+
+                if (response.data?.url) {
+                    window.location.href = response.data.url;
+                }
+            } catch (error) {
+                console.error('Checkout error:', error);
+                this.$toast?.('Something went wrong, please try again.');
+            }
+        }
     }
 });
 </script>
