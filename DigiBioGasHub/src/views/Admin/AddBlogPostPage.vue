@@ -3,8 +3,9 @@
         <NavBarComponent />
         <ion-content :fullscreen="true">
             <AddBlogPostComponent />
-            <FooterComponent />
+            
         </ion-content>
+        <FooterComponent />
     </IonPage>
 </template>
 <script>

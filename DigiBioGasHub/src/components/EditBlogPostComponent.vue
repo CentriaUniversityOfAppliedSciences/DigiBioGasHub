@@ -412,8 +412,10 @@ export default defineComponent({
                     "disableMenuItems": [],
                     "importWord": {
                         "enabled": true,
+                        "maxSize": 1024 * 1024 * 50,
                         "options": {},
-                        "useCustomMethod": true
+                        "useCustomMethod": true,
+                        onCustomImportMethod() {},
                     }
                 },
                 "page": {
