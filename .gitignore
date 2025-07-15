@@ -1,1 +1,7 @@
 DigiBioGasHub/src/components/BKKlinikkaComponent.vue
+docs/public/
+docs/resources/_gen/
+
+hugo.exe
+hugo.linux
+hugo.darwin
