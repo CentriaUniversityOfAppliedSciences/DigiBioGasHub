@@ -630,6 +630,14 @@
             "buy": "Buy",
             "months": "{months} Months",
             "price": "€{price}"
+        },
+        "payment": {
+            "paymentSuccessfull": "Payment Successful",
+            "paymentSuccessInfo": "Thank you for your payment. Your transaction has been completed.",
+            "backToHome": "Back to Home",
+            "paymentCancelled": "Payment Cancelled",
+            "paymentCancelInfo": "Your transaction was not completed. Please try again or contact support.",
+            "tryAgain": "Try Again"
         }
     },
     "apiKeys": {

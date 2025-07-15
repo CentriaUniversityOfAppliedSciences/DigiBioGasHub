@@ -4,9 +4,9 @@
     <ion-content class="ion-padding content-center">
       <div class="cancel-box">
         <ion-icon :icon="closeCircle" class="cancel-icon"></ion-icon>
-        <h2>Payment Cancelled</h2>
-        <p>Your transaction was not completed. Please try again or contact support.</p>
-        <ion-button expand="block" color="danger" @click="goBack">Try Again</ion-button>
+        <h2>{{$t('premium.payment.paymentCancelled')}}</h2>
+        <p>{{$t('premium.payment.paymentCancelInfo')}}</p>
+        <ion-button expand="block" color="danger" @click="goBack">{{$t('premium.payment.tryAgain')}}</ion-button>
       </div>
     </ion-content>
     <FooterComponent />
@@ -37,7 +37,7 @@ export default defineComponent({
   },
   methods: {
     goBack() {
-      this.$router.push('/checkout');
+      this.$router.push('/subscription');
     }
   }
 });

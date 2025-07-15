@@ -4,9 +4,9 @@
     <ion-content class="ion-padding content-center">
       <div class="success-box">
         <ion-icon :icon="checkmarkCircle" class="success-icon"></ion-icon>
-        <h2>Payment Successful</h2>
-        <p>Thank you for your payment. Your transaction has been completed.</p>
-        <ion-button expand="block" color="success" @click="goHome">Back to Home</ion-button>
+        <h2>{{$t('premium.payment.paymentSuccessfull')}}</h2>
+        <p>{{$t('premium.payment.paymentSuccessInfo')}}</p>
+        <ion-button expand="block" color="success" @click="goHome">{{$t('premium.payment.backToHome')}}</ion-button>
       </div>
     </ion-content>
      <FooterComponent />
