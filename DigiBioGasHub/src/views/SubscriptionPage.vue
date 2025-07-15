@@ -29,9 +29,9 @@
                             {{ $t('premium.currentPlan') }}<span v-if="subscriptions.length > 1"> #{{ idx + 1
                                 }}</span>
                         </ion-card-title>
-                        <p>{{ $t('premium.startDate') }}: {{ sub.subscriptionDate }}</p>
+                        <p>{{ $t('premium.startDate') }}: {{ formatDate(sub.subscriptionDate) }}</p>
                         <p>{{ $t('premium.status') }}: {{ sub.status }}</p>
-                        <p>{{ $t('premium.endDate') }}: {{ sub.expirationDate }}</p>
+                        <p>{{ $t('premium.endDate') }}: {{ formatDate(sub.expirationDate) }}</p>
                         <ion-button color="danger" @click="confirmCancelSubscription(sub.id)">
                             {{ $t('premium.cancelSubscription') }}
                         </ion-button>
@@ -97,6 +97,13 @@ export default defineComponent({
         };
     },
     methods: {
+        formatDate(date) {
+            return new Date(date).toLocaleDateString('en-GB', {
+                day: 'numeric',
+                month: 'long',
+                year: 'numeric',
+            });
+        },
         goBack() {
             this.$router.go(-1);
         },
