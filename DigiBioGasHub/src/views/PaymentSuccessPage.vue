@@ -1,5 +1,6 @@
 <template>
   <ion-page>
+    <NavBarComponent />
     <ion-content class="ion-padding content-center">
       <div class="success-box">
         <ion-icon :icon="checkmarkCircle" class="success-icon"></ion-icon>
@@ -8,6 +9,7 @@
         <ion-button expand="block" color="success" @click="goHome">Back to Home</ion-button>
       </div>
     </ion-content>
+     <FooterComponent />
   </ion-page>
 </template>
 
@@ -15,6 +17,8 @@
 import { IonPage, IonContent, IonButton, IonIcon } from '@ionic/vue';
 import { checkmarkCircle } from 'ionicons/icons';
 import { defineComponent } from 'vue';
+import NavBarComponent from '../components/NavBarComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
 
 export default defineComponent({
   name: 'PaymentSuccess',
@@ -22,7 +26,9 @@ export default defineComponent({
     IonPage,
     IonContent,
     IonButton,
-    IonIcon
+    IonIcon,
+    NavBarComponent,
+    FooterComponent
   },
   data() {
     return {

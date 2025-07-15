@@ -1,5 +1,6 @@
 <template>
   <ion-page>
+    <NavBarComponent />
     <ion-content class="ion-padding content-center">
       <div class="cancel-box">
         <ion-icon :icon="closeCircle" class="cancel-icon"></ion-icon>
@@ -8,20 +9,26 @@
         <ion-button expand="block" color="danger" @click="goBack">Try Again</ion-button>
       </div>
     </ion-content>
+    <FooterComponent />
   </ion-page>
 </template>
 
 <script>
 import { IonPage, IonContent, IonButton, IonIcon } from '@ionic/vue';
 import { closeCircle } from 'ionicons/icons';
+import { defineComponent } from 'vue';
+import NavBarComponent from '../components/NavBarComponent.vue';
+import FooterComponent from '../components/FooterComponent.vue';
 
-export default {
+export default defineComponent({
   name: 'PaymentCancelled',
   components: {
     IonPage,
     IonContent,
     IonButton,
-    IonIcon
+    IonIcon,
+    NavBarComponent,
+    FooterComponent
   },
   data() {
     return {
@@ -33,7 +40,7 @@ export default {
       this.$router.push('/checkout');
     }
   }
-};
+});
 </script>
 
 <style scoped>
