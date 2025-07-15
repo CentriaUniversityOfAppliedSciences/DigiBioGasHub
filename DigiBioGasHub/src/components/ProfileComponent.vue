@@ -23,6 +23,7 @@
                     <ion-button id="changePassword">{{ $t('menu.changePassword') }}</ion-button>
                     <ion-button @click="settings_button">{{ $t("general.settings") }}</ion-button>
                     <ion-button @click="goToApiKey">{{ $t("apiKeys.title") }}</ion-button>
+                    <ion-button @click="goToSubscriptionPage">Manage Subscriptions</ion-button>
                 </ion-card-content>
             </ion-card>
             
@@ -31,9 +32,7 @@
             <ion-header>
                 <ion-toolbar>
                     <ion-title>{{ $t('menu.changePassword') }}</ion-title>
-                    
                         <ion-button slot="end" color="danger" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
-                    
                 </ion-toolbar>
             </ion-header>
             <ion-content>
@@ -92,9 +91,7 @@ export default defineComponent({
             phone: String,
             address: String,
             company: String,
-            role: String,
-            
-            
+            role: String
         },
         offers: {
             type: Array,
@@ -173,6 +170,9 @@ export default defineComponent({
         },
         goToApiKey() {
             this.$router.push({ name: 'ApiKeysPage' });
+        },
+        goToSubscriptionPage() {
+            this.$router.push({ name: 'SubscriptionPage' });
         }
     },
     mounted(){

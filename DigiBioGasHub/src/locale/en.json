@@ -495,7 +495,8 @@
             "fetchUsersFail": "Unable to get users!",
             "fetchUserFail": "Unable to get user!",
             "editTitle": "Edit User",
-            "pagination": "Results per page"
+            "pagination": "Results per page",
+            "isPremiumUser": "Premium User"
         },
         "material":{
             "name": "Material name",
@@ -620,6 +621,45 @@
         "acceptErrorMessage": "Failed to accept invitation.",
         "invalidOrExpired": "Invalid or expired invitation.",
         "sendInvitation": "Send Invitation"
+    },
+    "premium": {
+        "name": "Name",
+        "title": "Premium Subscription",
+        "currentPlan": "Current Plan",
+        "startDate": "Start Date",
+        "endDate": "End Date",
+        "status": "Status",
+        "noActiveSubscription": "You have no active subscription. Purchase a premium plan to access exclusive features. Tap 'Buy Subscription' above to get started.",
+        "buySubscription": "Buy Subscription",
+        "giftNow": "Gift",
+        "giftUser": "Gift Premium Subscription",
+        "duration": "Duration",
+        "3months": "3 Months",
+        "6months": "6 Months",
+        "12months": "12 Months",
+        "custom": "Custom Expiration Date",
+        "expirationDate": "Expiration Date",
+        "giftSuccess": "Premium successfully gifted!",
+        "giftError": "Failed to gift premium. Please try again.",
+        "cancelSubscription": "Cancel Subscription",
+        "cancelSubscriptionConfirm": "Are you sure you want to cancel your subscription?",
+        "cancelSubscriptionSuccess": "Subscription cancelled successfully!",
+        "cancelSubscriptionFail": "Failed to cancel subscription. Please try again.",
+        "buy": {
+            "buySubscription": "Buy Subscription",
+            "accessFutureOffers": "Access to future offers",
+            "buy": "Buy",
+            "months": "{months} Months",
+            "price": "€{price}"
+        },
+        "payment": {
+            "paymentSuccessfull": "Payment Successful",
+            "paymentSuccessInfo": "Thank you for your payment. Your transaction has been completed.",
+            "backToHome": "Back to Home",
+            "paymentCancelled": "Payment Cancelled",
+            "paymentCancelInfo": "Your transaction was not completed. Please try again or contact support.",
+            "tryAgain": "Try Again"
+        }
     },
     "apiKeys": {
         "title": "API Keys",

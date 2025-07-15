@@ -14,6 +14,7 @@
                     <IonCol><strong>{{ $t('general.email') }}</strong></IonCol>
                     <IonCol><strong>{{ $t('general.phone') }}</strong></IonCol>
                     <IonCol><strong>{{ $t('admin.users.userlevel') }}</strong></IonCol>
+                    <IonCol><strong>{{ $t('admin.users.isPremiumUser') }}</strong></IonCol>
                     <IonCol><strong>{{ $t('admin.users.hubID') }}</strong></IonCol>
                     <IonCol><strong>{{ $t('admin.users.actions') }}</strong></IonCol>
                 </IonRow>
@@ -23,10 +24,32 @@
                     <IonCol>{{ user.email }}</IonCol>
                     <IonCol>{{ user.phone }}</IonCol>
                     <IonCol>{{ user.userlevel }}</IonCol>
+                    <IonCol>{{ user.isPremiumUser }}</IonCol>
                     <IonCol>{{ user.hubID }}</IonCol>
                     <IonCol>
-                        <IonButton @click="editUser(user.id)">{{ $t('general.edit') }}</IonButton>
-                        <IonButton color="danger" @click="confirmDelete(user.id)">{{ $t('general.delete') }}</IonButton>
+                        <IonButton :id="'action-btn-' + user.id">
+                            <ion-icon name="settings-outline"></ion-icon>
+                        </IonButton>
+
+                        <IonPopover v-if="user.id" :trigger="'action-btn-' + user.id" triggerAction="click">
+                            <IonContent>
+                                <IonList>
+                                    <IonItem button @click="editUser(user.id)">
+                                        {{ $t('general.edit') }}
+                                    </IonItem>
+                                    <IonItem button @click="openGiftModal(user)">
+                                        {{ $t('premium.giftNow') }}
+                                    </IonItem>
+                                    <IonItem button @click="confirmDelete(user.id)">
+                                        {{ $t('general.delete') }}
+                                    </IonItem>
+                                    <IonItem button v-if="user.isPremiumUser"
+                                        @click="confirmCancleSubscription(user.id)">
+                                        {{ $t('premium.cancelSubscription') }}
+                                    </IonItem>
+                                </IonList>
+                            </IonContent>
+                        </IonPopover>
                     </IonCol>
                 </IonRow>
             </IonGrid>
@@ -101,18 +124,46 @@
                         }
                     }
                 ]"></ion-alert>
+
+
+            <ion-alert :is-open="showSubscriptionAlert" :header="$t('premium.cancelSubscription')"
+                :message="$t('premium.cancelSubscriptionConfirm')" :buttons="[
+                    {
+                        text: $t('general.cancel'),
+                        role: 'cancel',
+                        handler: () => {
+                            this.showSubscriptionAlert = false;
+                        }
+                    },
+                    {
+                        text: $t('general.confirm'),
+                        handler: () => {
+                            cancelSubscription(userIdToCancel);
+                            this.showSubscriptionAlert = false;
+                        }
+                    }
+                ]"></ion-alert>
+
+            <GiftPremiumComponent :isOpen="isGiftModalOpen" :user="selectedGiftUser" @close="closeGiftModal"
+                @gifted="handleGifted" />
+
             <FooterComponent />
         </IonContent>
-
     </IonPage>
 </template>
 
 <script>
-import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput, IonAlert, IonList, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonPage, IonContent, IonGrid, IonRow, IonCol, IonHeader, IonButton, IonToolbar, IonTitle, IonModal, IonItem, IonLabel, IonInput, IonAlert, IonList, IonSelect, IonSelectOption, IonPopover, IonIcon } from '@ionic/vue';
 import ToastComponent from '../../components/ToastComponent.vue';
+import GiftPremiumComponent from '../../components/GiftPremiumComponent.vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import axios from 'axios';
+import { addIcons } from 'ionicons';
+import { settingsOutline } from 'ionicons/icons';
+addIcons({
+  settingsOutline
+});
 
 export default {
     name: 'UsersPage',
@@ -122,6 +173,8 @@ export default {
         IonGrid,
         IonRow,
         IonCol,
+        IonIcon,
+        IonPopover,
         IonHeader,
         IonButton,
         IonToolbar,
@@ -136,6 +189,7 @@ export default {
         IonSelect,
         ToastComponent,
         NavBarComponent,
+        GiftPremiumComponent,
         FooterComponent,
     },
 
@@ -147,6 +201,7 @@ export default {
             totalUsers: 0,
             isModalOpen: false,
             showDeleteAlert: false,
+            showSubscriptionAlert: false,
             editUserData: {
                 id: '',
                 username: '',
@@ -155,7 +210,9 @@ export default {
                 phone: '',
                 userlevel: '',
                 hubID: ''
-            }
+            },
+            selectedGiftUser: null,
+            isGiftModalOpen: false
         };
     },
 
@@ -221,6 +278,37 @@ export default {
                 this.$refs.toastComponent.showToast(this.$t('account.updateFailMessage'), 2000, 'danger');
             }
             this.closeModal();
+        },
+
+        openGiftModal(user) {
+            this.selectedGiftUser = user;
+            this.isGiftModalOpen = true;
+        },
+        handleGifted() {
+            this.isGiftModalOpen = false;
+        },
+        closeGiftModal() {
+            this.isGiftModalOpen = false;
+        },
+        async confirmCancleSubscription(id) {
+            this.userIdToCancel = id;
+            this.showSubscriptionAlert = true;
+        },
+        async cancelSubscription(id) {
+            try {
+                const url = this.$api_add + `/admin/cancelusersubscription`;
+
+                const response = await axios.post(url, { userID: id }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                if (response.data.result === "ok") {
+                    this.$refs.toastComponent.showToast(this.$t('premium.cancelSubscriptionSuccess'), 2000, 'success');
+                    const user = this.users.find(user => user.id === id);
+                    if (user) {
+                        user.isPremiumUser = false;
+                    }
+                }
+            } catch (error) {
+                this.$refs.toastComponent.showToast(this.$t('premium.cancelSubscriptionFail'), 2000, 'danger');
+            }
         },
 
         confirmDelete(id) {

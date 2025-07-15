@@ -41,6 +41,10 @@ import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
 import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
 import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
 import ApiKeysPage from '../views/ApiKeysPage.vue';
+import SubscriptionPage from '../views/SubscriptionPage.vue';
+import BuySubscriptionPage from '../views/BuySubscriptionPage.vue';
+import PaymentSuccessPage from '../views/PaymentSuccessPage.vue';
+import PaymentCancelPage from '../views/PaymentCancelPage.vue';
 import CertificatesPage from '../views/Admin/CertificatesPage.vue';
 import CompanyCertificatesPage from '../views/Company/CertificatesPage.vue';
 
@@ -414,6 +418,30 @@ const routes = [
     name: 'ApiKeysPage',
     component: ApiKeysPage,
     meta: { requiresAuth: true },
+  },
+  {
+    path: '/mysubscription',
+    name: 'SubscriptionPage',
+    component: SubscriptionPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/subscription',
+    name: 'BuySubscriptionPage',
+    component: BuySubscriptionPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/paymentsuccess',
+    name: 'PaymentSuccess',
+    component: PaymentSuccessPage,
+    meta: { requiresAuth: true }
+  },
+    {
+    path: '/paymentcancel',
+    name: 'PaymentCancel',
+    component: PaymentCancelPage,
+    meta: { requiresAuth: true }
   },
   {
     path: '/settings',
