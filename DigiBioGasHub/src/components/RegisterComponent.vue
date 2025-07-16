@@ -264,16 +264,18 @@ export default defineComponent({
 </script>
 
 <style scoped>
-ion-grid{
+ion-grid {
     max-width: 90rem;
 }
 
 ion-item {
     --background: none;
+    margin-bottom: 3px;
 }
 
 .label {
     font-size: 1.5rem;
+    margin-bottom: 5px;
 }
 
 ion-input {
