@@ -4,6 +4,10 @@
             <ion-row class="ion-justify-content-center ion-padding-horizontal">
                 <ion-col size="12" size-md="8">
 
+                    <p class="required-note">
+                        {{ $t('validation.requiredField') }}
+                    </p>
+
                     <ion-item class="ion-margin-bottom">
                         <ion-label position="stacked" class="label">
                             {{ $t('account.firstName') }}<span class="required-asterisk">*</span>
@@ -264,8 +268,22 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
 ion-grid {
     max-width: 90rem;
+}
+
+.required-note {
+    padding: 0.6rem;
+    border-radius: 10px;
+    color: var(--color);
+    background-color: transparent;
+    text-align: center;
+    border: 2px solid var(--ion-color-warning);
+    max-width: 25rem;
+    margin: auto;
+    margin-bottom: 1.5rem;
+    margin-top:1.5rem;
 }
 
 ion-item {

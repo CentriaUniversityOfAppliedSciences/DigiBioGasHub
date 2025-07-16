@@ -11,6 +11,10 @@
                 <ion-card-content>
                     <ion-list>
 
+                        <p class="required-note">
+                            {{ $t('validation.requiredField') }}
+                        </p>
+
                         <ion-item>
                             <ion-icon :icon="icons.location" slot="start" />
                             <ion-label position="stacked" class="label">
@@ -27,7 +31,7 @@
                             </ion-label>
                             <ion-select v-model="company.companyType" :placeholder="$t('general.industry')">
                                 <ion-select-option v-if="isAdmin" value="0">{{ $t('company.type.0')
-                                }}</ion-select-option>
+                                    }}</ion-select-option>
                                 <ion-select-option value="1">{{ $t('company.type.1') }}</ion-select-option>
                                 <ion-select-option value="2">{{ $t('company.type.2') }}</ion-select-option>
                                 <ion-select-option value="3">{{ $t('company.type.3') }}</ion-select-option>
@@ -226,6 +230,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.required-note {
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: var(--color);
+    background-color: transparent;
+    text-align: center;
+    border: 2px solid var(--ion-color-warning);
+    max-width: 18rem;
+    margin: auto;
+    margin-bottom: 1.5rem;
+}
+
 .error {
     color: red;
     font-size: 0.9em;

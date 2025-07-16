@@ -12,6 +12,10 @@
             <ion-content>
                 <ion-card-content>
 
+                    <p class="required-note">
+                        {{ $t('validation.requiredField') }}
+                    </p>
+
                     <ion-item>
                         <ion-label position="stacked" class="label">
                             {{ $t('menu.company') }} <span class="required-asterisk">*</span>
@@ -47,7 +51,8 @@
                         <ion-label position="stacked" class="label">
                             {{ $t('product.name') }} <span class="required-asterisk">*</span>
                         </ion-label>
-                        <ion-input required v-model="selectedMaterialName" :placeholder="$t('product.chooseMaterial')":disabled="true"></ion-input>
+                        <ion-input required v-model="selectedMaterialName" :placeholder="$t('product.chooseMaterial')"
+                            :disabled="true"></ion-input>
                         <p v-if="hasError('selectedMaterialName')" class="error">{{ errors.selectedMaterialName }}</p>
                     </ion-item>
 
@@ -128,7 +133,7 @@
                         </ion-label>
                         <ion-select v-model="logisticType">
                             <ion-select-option value="1">{{ $t('product.logistic.includedInPrice')
-                            }}</ion-select-option>
+                                }}</ion-select-option>
                             <ion-select-option value="2">{{ $t('product.logistic.freeToPickup') }}</ion-select-option>
                             <ion-select-option value="3">{{ $t('product.logistic.agreedupon') }}</ion-select-option>
 
@@ -364,6 +369,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.required-note {
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: var(--color);
+    background-color: transparent;
+    text-align: center;
+    border: 2px solid var(--ion-color-warning);
+    max-width: 18rem;
+    margin: auto;
+    margin-bottom: 1.5rem;
+}
+
 .error {
     color: red;
     font-size: 0.9em;

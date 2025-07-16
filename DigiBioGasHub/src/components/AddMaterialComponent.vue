@@ -11,7 +11,11 @@
         <ion-content>
             <ion-card>
                 <ion-card-content>
-                    
+
+                    <p class="required-note">
+                        {{ $t('validation.requiredField') }}
+                    </p>
+
                     <ion-item>
                         <ion-label position="stacked" class="label">
                             {{ $t('admin.material.name') }}<span class="required-asterisk">*</span>
@@ -150,6 +154,19 @@ export default defineComponent({
 </script>
 
 <style scoped>
+
+.required-note {
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: var(--color);
+    background-color: transparent;
+    text-align: center;
+    border: 2px solid var(--ion-color-warning);
+    max-width: 18rem;
+    margin: auto;
+    margin-bottom: 1.5rem;
+}
+
 ion-item {
     --background: none;
     margin-bottom: 3px;
