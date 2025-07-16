@@ -71,7 +71,7 @@ export default defineComponent({
                 });
 
                 if (response.data.result === 'ok') {
-                    this.ToastComponent.methods.showToast(this.$t('account.loginSuccess'), 2000, 'success');
+                    this.ToastComponent.methods.showToast(this.$t('account.loginSuccess'), 3000, 'success');
 
                     localStorage.setItem('token', response.data.token);
 
@@ -83,10 +83,10 @@ export default defineComponent({
                     const redirectPath = this.$route.query.redirect || '/home';
                     this.$router.push(redirectPath);
                 } else {
-                    this.ToastComponent.methods.showToast(this.$t('account.loginCredentialsFail'), 2000, 'danger');
+                    this.ToastComponent.methods.showToast(this.$t('account.loginCredentialsFail'), 3000, 'danger');
                 }
             } catch (error) {
-                this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 2000, 'danger');
+                this.ToastComponent.methods.showToast(this.$t('account.loginFail'), 3000, 'danger');
             }
         },
         async register() {

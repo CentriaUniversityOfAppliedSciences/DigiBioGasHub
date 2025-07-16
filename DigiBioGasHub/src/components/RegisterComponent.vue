@@ -174,13 +174,13 @@ export default defineComponent({
             }).then(response => {
                 if (response.status === 200) {
                     // Registration successful
-                    this.$refs.toastComponent.showToast(this.$t('account.registerSuccess'), 2000, 'success');
+                    this.$refs.toastComponent.showToast(this.$t('account.registerSuccess'), 4000, 'success');
                     const redirectPath = this.$route.query.redirect || '/login';
 
                     this.$router.push(redirectPath);
                 }
             }).catch(error => {
-                this.$refs.toastComponent.showToast(this.$t('account.registerFail'), 2000, 'danger');
+                this.$refs.toastComponent.showToast(this.$t('account.registerFail'), 4000, 'danger');
             });
         },
         validateFirstName(ev) {
