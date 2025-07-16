@@ -2,7 +2,7 @@
     <div>
         <ion-header>
             <ion-toolbar>
-                <ion-title>Offer</ion-title>
+                <ion-title>{{ $t('filter.offer') }}</ion-title>
                 <ion-buttons slot="end">
                     <ion-button @click="$emit('close')">
                         <ion-icon name="close"></ion-icon>

@@ -36,6 +36,9 @@ export default defineComponent({
     props: {
         propA: [Object]
     },
+    emits: [
+        'offer_click'
+    ],
     setup() {
         const mapElement = ref(null)
         useGeographic();
@@ -62,6 +65,7 @@ export default defineComponent({
             }),
             vectorSource: null,
             vectorLayer: null,
+            product: null
         }
     },
     methods: {
@@ -93,7 +97,7 @@ export default defineComponent({
                                 anchor: [0.5, 0.5],
                                 anchorXUnits: 'fraction',
                                 anchorYUnits: 'fraction',
-                                src: '../public/assets/company2.svg',
+                                src: '/assets/company2.svg',
                                 scale: 0.05,
                             })
                         })
@@ -145,12 +149,24 @@ export default defineComponent({
         this.map.on('click', (evt) => {
             const feature = this.map.forEachFeatureAtPixel(evt.pixel, (feat) => feat)
             if (feature && feature.get("type") === 'Offer') {
-                this.$router.push({
+                /*this.$router.push({
                     name: 'Product Offer',
                     params: {
                         id: feature.get('offerID')
                     }
-                })
+                })*/
+                this.$emit('offer_click', {
+                    id: feature.get('offerID'),
+                    name: feature.get('name'),
+                    location: feature.get('location'),
+                    info: feature.get('info')
+                });
+            }
+            else if (feature && feature.get("type") === 'Plant') {
+                const url = feature.get('info');
+                if (url && typeof url === 'string' && url.startsWith('http')) {
+                    window.open(url, '_blank');
+                }
             }
         });
 

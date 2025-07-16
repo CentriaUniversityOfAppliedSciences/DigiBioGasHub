@@ -8,24 +8,27 @@
                         <FilterComponent :filtersData=fData :dataToFilter=originalData @filtered-data="updateData" />
                     </IonCol>
                     <IonCol>
-                        <MapComponent :propA="markerData" />
+                        <MapComponent :propA="markerData" @offer_click="openModal" />
                     </IonCol>
                 </IonRow>
             </IonGrid>
             <FooterComponent />
         </IonContent>
-
+        <ion-modal :is-open="isModalOpen" @didDismiss="closeModal">
+            <OfferPage :productId="product.id" @close="closeModal" />
+        </ion-modal>
     </IonPage>
 </template>
 
 <script>
-import { IonPage, IonContent, IonCheckbox, IonRow, IonCol, IonGrid } from '@ionic/vue'
+import { IonPage, IonContent, IonCheckbox, IonRow, IonCol, IonGrid, IonModal } from '@ionic/vue'
 import MapComponent from '../components/MapComponent.vue'
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import FilterComponent from '../components/FilterComponent.vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
+import OfferPage from './OfferPage.vue';
 
 export default defineComponent({
     name: 'MapPage',
@@ -39,7 +42,7 @@ export default defineComponent({
         IonCheckbox,
         IonRow,
         IonCol,
-        IonGrid
+        IonGrid, OfferPage, IonModal
     },
     data() {
         return {
@@ -49,9 +52,19 @@ export default defineComponent({
             location: [],
             type: [],
             terminals: [],
+            isModalOpen: false,
+            product: null
         }
     },
     methods: {
+        closeModal() {
+            this.isModalOpen = false;
+        },
+        openModal(product) {
+            console.log("openModal", product);
+            this.product = product;
+            this.isModalOpen = true;
+        },
         fillFilters() {
             this.fData = [{ label: this.$t('filter.farm'), value: 'Farm' }, { label: this.$t('filter.offer'), value: 'Offer' }, { label: this.$t('filter.plant'), value: 'Plant' }, { label: this.$t('filter.company'), value: 'Company' }, { label: this.$t('company.logistics.terminalsMenuButton'), value: 'Terminal' }];
         },
@@ -64,8 +77,8 @@ export default defineComponent({
                 { coords: [22.846, 62.792], color: 'red', name: 'Test 1', location: 'Seinäjoki', type: 'Farm', info: 'Testing functionality', category: 'Farm', id: 1 },
                 //{coords:[22.846,62.992],color:'green', name: 'Test 2', location: 'Seinäjoki', type: 'Offer', info: 'Testing functionality', category: 'Offer'},
                 { coords: [25.336759, 63.741336], color: 'orange', name: 'Haapajärven ammattiopisto biokaasulaitos', location: 'Haapajärvi', type: 'Plant', info: 'https://www.youtube.com/watch?v=TM48FjCIvZ8', address: "Erkkiläntie 1, 85800 Haapajärvi", category: 'Plant', id: 1 },
-                { coords: [21.763391742, 63.133012353], color: 'orange', name: 'Ab Stormossen Oy', location: 'Kokkola', type: 'Plant', info: 'http://www.stormossen.fi/Etusivu', address: "Stormossenintie 56, 66530 Koivulahti", category: 'Plant', id: 2 },
-                { coords: [22.607776, 63.420134], color: 'orange', name: 'Jepuan Biokaasu Oy', location: 'Jepua', type: 'Plant', info: 'http://www.jeppobiogas.fi/kotisivu/', address: "Läntinen Jepuantie 288, 66850 JEPUA", category: 'Plant', id: 3 },
+                { coords: [21.763391742, 63.133012353], color: 'orange', name: 'Ab Stormossen Oy', location: 'Kokkola', type: 'Plant', info: 'http://www.stormossen.fi', address: "Stormossenintie 56, 66530 Koivulahti", category: 'Plant', id: 2 },
+                { coords: [22.607776, 63.420134], color: 'orange', name: 'Jepuan Biokaasu Oy', location: 'Jepua', type: 'Plant', info: 'http://www.jeppobiogas.fi', address: "Läntinen Jepuantie 288, 66850 JEPUA", category: 'Plant', id: 3 },
                 { coords: [23.067012, 63.868811], color: 'orange', name: 'Pohjanmaan Biokaasu Oy', location: 'Kokkola', type: 'Plant', info: 'https://www.ekorosk.fi/fi/yritykset/tietoa/pohjanmaan-biokaasu/', address: "Hopeakivenlahdentie 50 B, 67900 KOKKOLA", category: 'Plant', id: 4 },
 
 
@@ -115,7 +128,7 @@ export default defineComponent({
                         return {
                             coords: [loc.longitude, loc.latitude],
                             location: loc.city,
-                            name: loc.companyName,
+                            name: loc.name,
                             icon: 'building',
                             category: 'Company',
                             type: 'Company',

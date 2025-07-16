@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <ion-content>
         <umo-editor ref="editorRef" v-bind="options" @save="onSave" @changed="onChanged"></umo-editor>
-    </div>
+    </ion-content>
 </template>
 
 <script>
@@ -11,11 +11,13 @@ import axios from 'axios';
 import { onBeforeRouteLeave } from 'vue-router';
 import { useEventListener } from '@vueuse/core';
 import { jwtDecode } from '../router/index';
+import { IonContent } from '@ionic/vue';
 
 export default defineComponent({
     name: 'EditBlogPostComponent',
     components: {
         UmoEditor,
+        IonContent
     },
     props: {
         postID: {

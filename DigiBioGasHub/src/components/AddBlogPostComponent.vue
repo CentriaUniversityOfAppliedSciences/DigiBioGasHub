@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <ion-content>
     <umo-editor ref="editorRef" v-bind="options" @save="onSave"></umo-editor>
-  </div>
+  </ion-content>
 </template>
 
 <script>
@@ -10,11 +10,13 @@ import { UmoEditor } from '@umoteam/editor';
 import axios from 'axios';
 import defaultImage from '../assets/DBH-logo-cc.png';
 import { jwtDecode } from '../router/index';
+import { IonContent } from '@ionic/vue';
 
 export default defineComponent({
   name: 'AddBlogPostComponent',
   components: {
     UmoEditor,
+    IonContent
   },
   setup() {
     const editorRef = ref(null);
