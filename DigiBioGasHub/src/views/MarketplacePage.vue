@@ -4,22 +4,28 @@
         <ion-content>
             <div class="page-container">
                 <div class="top-parts">
-                    <div class="add-offer-top-container">
-                        <ion-button color="success" id="addOffer">
-                            {{ $t('offers.addOffer') }}
-                        </ion-button>
-                    </div>
-                    <ion-note v-if="filter" class="filter-note">
-                        {{ $t('settings.filterNote') }}&nbsp;<a href="/settings"> {{ $t('settings.filterSettings') }}</a>.
+                    <p v-if="filter" class="filter-note">
+                        {{ $t('settings.filterNote') }}&nbsp;<a href="/settings"> {{ $t('settings.filterSettings')
+                            }}</a>.
                         <ion-icon name="close-circle-outline" class="close-icon" @click="filter = false"></ion-icon>
-                    </ion-note>
+                    </p>
                 </div>
                 <ion-grid class="main-grid">
-                    <ion-row class="responsive-row">
+                    <ion-row>
+                        <ion-col size="12" size-lg="3">
+                            <ion-button color="success" id="addOffer">
+                                {{ $t('offers.addOffer') }}
+                            </ion-button>
+                        </ion-col>
+                        <ion-col size="12" size-lg="9"></ion-col>
+                    </ion-row>
+
+                    <ion-row>
                         <ion-col size="12" size-lg="3">
                             <FilterComponent :filtersData="filtersData" :dataToFilter="products"
                                 @filtered-data="updateData" />
                         </ion-col>
+
                         <ion-col size="12" size-lg="9" class="listing-col">
                             <ion-row>
                                 <ion-col v-for="product in currentProducts" :key="product.id" size="12" size-sm="6"
@@ -136,22 +142,17 @@ export default defineComponent({
     flex-wrap: wrap;
     margin-top: 16px;
 }
-.add-offer-top-container {
-    width: 280px;
-    margin: 16px;
-    flex: 0 0 auto;
-}
 
 #addOffer {
     width: 100%;
 }
 
-ion-button{
+ion-button {
     --border-radius: 10px;
 }
 
 .filter-note {
-    background: rgba(255,255,0,0.2);
+    background: rgba(255, 255, 0, 0.2);
     border: 1px solid #f1c40f;
     padding: 1rem 1rem;
     border-radius: 5px;
@@ -159,6 +160,8 @@ ion-button{
     color: var(--color);
     display: flex;
     align-items: center;
+    margin: auto;
+    margin-bottom: 5px;
 }
 
 .close-icon {
