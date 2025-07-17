@@ -156,14 +156,14 @@ ion-button{
     padding: 1rem 1rem;
     border-radius: 5px;
     font-size: 1rem;
-    color: white;
+    color: var(--color);
     display: flex;
     align-items: center;
 }
 
 .close-icon {
     font-size: 1.5rem;
-    color: #f1c40f;
+    color: var(--color);
     cursor: pointer;
     margin-left: 10px;
     justify-content: center;
