@@ -88,7 +88,7 @@
                         <ion-checkbox v-model="disabled"></ion-checkbox>
                     </ion-item>
 
-                    <ion-button :disabled="!disabled" expand="block" @click="register">
+                    <ion-button :disabled="!disabled" color="success" @click="register">
                         {{ $t('forms.register') }}
                     </ion-button>
 
@@ -270,7 +270,20 @@ export default defineComponent({
 <style scoped>
 
 ion-grid {
-    max-width: 90rem;
+    max-width: 50rem;
+    margin-top: 1rem;
+}
+
+ion-col {
+    box-shadow: 1px 4px 10px rgba(0, 0, 0, 0.384);
+    background-color: var(--ion-color-light);
+    border-radius: 06px;
+}
+
+ion-button {
+    margin: 1rem auto;
+    display: block;
+    max-width: 13rem;
 }
 
 .required-note {
@@ -283,7 +296,7 @@ ion-grid {
     max-width: 25rem;
     margin: auto;
     margin-bottom: 1.5rem;
-    margin-top:1.5rem;
+    margin-top: 1.5rem;
 }
 
 ion-item {
