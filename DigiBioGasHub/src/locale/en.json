@@ -170,7 +170,8 @@
         "loginPasswordFail": "Password is invalid.",
         "loginCredentialsFail": "Invalid username or password",
         "registerSuccess": "Registration successful. You can now login with your credentials.",
-        "registerFail": "Registration failed"
+        "registerFail": "Registration failed",
+        "haveAnAccount": "Already have an account?"
     },
     "forms":{
         "helper":{

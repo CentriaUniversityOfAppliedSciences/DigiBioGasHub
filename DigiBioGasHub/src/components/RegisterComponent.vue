@@ -91,7 +91,7 @@
                     <ion-button :disabled="!disabled" color="success" @click="register">
                         {{ $t('forms.register') }}
                     </ion-button>
-
+                    <ion-text color="primary" @click="goToLogin"> {{ $t('account.haveAnAccount') }}</ion-text>
                 </ion-col>
             </ion-row>
         </ion-grid>
@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton, IonCheckbox } from '@ionic/vue';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonGrid, IonRow, IonCol, IonItem, IonLabel, IonInput, IonButton, IonCheckbox, IonText } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import ToastComponent from './ToastComponent.vue';
@@ -119,6 +119,7 @@ export default defineComponent({
         IonItem,
         IonLabel,
         IonInput,
+        IonText,
         IonButton,
         IonCheckbox,
         ToastComponent
@@ -262,6 +263,9 @@ export default defineComponent({
                     el.classList.add('ion-touched');
                 }
             });
+        },
+        goToLogin() {
+             this.$router.push("/login");
         }
     }
 });
@@ -280,10 +284,19 @@ ion-col {
     border-radius: 06px;
 }
 
-ion-button {
+ion-button,
+ion-text {
     margin: 1rem auto;
     display: block;
     max-width: 13rem;
+    text-align: center;
+}
+
+ion-button:hover,
+ion-text:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-in-out;
+    cursor: pointer;
 }
 
 .required-note {
