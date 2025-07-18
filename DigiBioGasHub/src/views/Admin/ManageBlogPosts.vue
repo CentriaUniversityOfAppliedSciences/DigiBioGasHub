@@ -21,9 +21,15 @@
                   </ion-card-header>
                   <ion-card-content>
                     <div class="button-group">
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{ $t('admin.blogpost.reviewEdit') }}</ion-button>
-                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">{{ $t('admin.blogpost.unpublish') }}</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('general.delete') }}</ion-button>
+                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{
+                        $t('admin.blogpost.reviewEdit') }}</ion-button>
+                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">{{
+                        $t('admin.blogpost.unpublish') }}</ion-button>
+                      <ion-button @click="preview(post)">
+                        {{ $t('general.preview') }}
+                      </ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
+                        $t('general.delete') }}</ion-button>
                     </div>
                   </ion-card-content>
                 </ion-card>
@@ -46,9 +52,15 @@
                   </ion-card-header>
                   <ion-card-content>
                     <div class="button-group">
-                      <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish') }}</ion-button>
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{ $t('admin.blogpost.reviewEdit') }}</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('general.delete') }}</ion-button>
+                      <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish')
+                        }}</ion-button>
+                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{
+                        $t('admin.blogpost.reviewEdit') }}</ion-button>
+                      <ion-button @click="preview(post)">
+                        {{ $t('general.preview') }}
+                      </ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
+                        $t('general.delete') }}</ion-button>
                     </div>
                   </ion-card-content>
                 </ion-card>
@@ -69,12 +81,32 @@
                     <ion-card-title>{{ post.title }}</ion-card-title>
                   </ion-card-header>
                   <ion-card-content>
-                    <div class="button-group">
-                      <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish') }}</ion-button>
-                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">{{ $t('admin.blogpost.unpublish') }}</ion-button>
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{ $t('admin.blogpost.reviewEdit') }}</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('general.delete') }}</ion-button>
-                    </div>
+                    <ion-button :id="'manage-btn-' + post.postID" expand="block">
+                      {{ $t('general.manage') }}
+                    </ion-button>
+
+                    <ion-popover :key="post.postID" :trigger="'manage-btn-' + post.postID" triggerAction="click"
+                      size="auto" :dismiss-on-select="true" :show-backdrop="false">
+                      <ion-content class="ion-padding">
+                        <ion-list>
+                          <ion-item button @click="confirmPublish(post.postID)">
+                            {{ $t('admin.blogpost.publish') }}
+                          </ion-item>
+                          <ion-item button @click="confirmUnpublish(post.postID)">
+                            {{ $t('admin.blogpost.unpublish') }}
+                          </ion-item>
+                          <ion-item button @click="editPost(post.postID, post.title)">
+                            {{ $t('admin.blogpost.reviewEdit') }}
+                          </ion-item>
+                          <ion-item button @click="preview(post)">
+                            {{ $t('general.preview') }}
+                          </ion-item>
+                          <ion-item button @click="confirmDelete(post.postID)">
+                            {{ $t('general.delete') }}
+                          </ion-item>
+                        </ion-list>
+                      </ion-content>
+                    </ion-popover>
                   </ion-card-content>
                 </ion-card>
               </ion-col>
@@ -84,8 +116,8 @@
       </ion-grid>
 
       <!-- Delete Confirmation Alert -->
-      <ion-alert :is-open="showDeleteAlert" :header= "$t('admin.blogpost.confirmDelete')" :message="$t('admin.blogpost.cofirmDeleteMessage')"
-        :buttons="[
+      <ion-alert :is-open="showDeleteAlert" :header="$t('admin.blogpost.confirmDelete')"
+        :message="$t('admin.blogpost.cofirmDeleteMessage')" :buttons="[
           {
             text: $t('general.cancel'),
             role: 'cancel',
@@ -103,8 +135,8 @@
         ]"></ion-alert>
 
       <!-- Publish Confirmation Alert -->
-      <ion-alert :is-open="showPublishAlert" :header= "$t('admin.blogpost.confirmPublish')" :message="$t('admin.blogpost.confirmPublishMessage')"
-         :buttons="[
+      <ion-alert :is-open="showPublishAlert" :header="$t('admin.blogpost.confirmPublish')"
+        :message="$t('admin.blogpost.confirmPublishMessage')" :buttons="[
           {
             text: $t('general.cancel'),
             role: 'cancel',
@@ -122,8 +154,8 @@
         ]"></ion-alert>
 
       <!-- Unpublish Confirmation Alert -->
-      <ion-alert :is-open="showUnpublishAlert" :header= "$t('admin.blogpost.confirmUnpublish')" :message="$t('admin.blogpost.confirmUnpublsihMessage')"
-       :buttons="[
+      <ion-alert :is-open="showUnpublishAlert" :header="$t('admin.blogpost.confirmUnpublish')"
+        :message="$t('admin.blogpost.confirmUnpublsihMessage')" :buttons="[
           {
             text: $t('general.cancel'),
             role: 'cancel',
@@ -144,14 +176,13 @@
       <FooterComponent />
 
     </ion-content>
-    
-  
+
   </ion-page>
 </template>
 
 <script>
 
-import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonImg, IonAlert } from '@ionic/vue';
+import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonImg, IonAlert, IonPopover, IonList, IonItem, IonLabel, IonSelect, IonSelectOption } from '@ionic/vue';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
@@ -175,6 +206,12 @@ export default defineComponent({
     IonButton,
     IonImg,
     IonAlert,
+    IonList,
+    IonItem,
+    IonPopover,
+    IonLabel,
+    IonSelect,
+    IonSelectOption,
     ToastComponent,
     EditBlogPostPage,
     NavBarComponent,
@@ -271,6 +308,11 @@ export default defineComponent({
       } catch (error) {
         console.error('Error deleting post:', error);
       }
+    },
+
+    preview(post) {
+      const link = `/admin/blog-preview/${post.postID}/${slugify(post.title, { lower: true, strict: true })}`;
+      this.$router.push(link);
     },
 
     async fetchPosts() {
