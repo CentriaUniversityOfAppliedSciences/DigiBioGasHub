@@ -55,19 +55,19 @@
                     </div>
                 </div>
 
-                    <div id="messageInputContainer">
-                        <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
-                            rows="1" style="overflow:hidden; resize:none; height:auto"
-                            @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
+                <div id="messageInputContainer">
+                    <textarea id="message" v-model="newMessage" :placeholder="$t('chat.placeholders.enterMessage')"
+                        rows="1" style="overflow:hidden; resize:none; height:auto"
+                        @keydown.enter.exact.prevent="sendMessage" @keydown.enter.shift @input="
                             $event.target.style.height = 'auto';
                         $event.target.style.height = $event.target.scrollHeight + 'px';
                         " ref="messageInput"></textarea>
-                        <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
-                    </div>
+                    <button id="sendBtn" @click="sendMessage">{{ $t('chat.send') }}</button>
                 </div>
+            </div>
 
-                <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')"
-                    :message="$t('chat.deleteMessage')" :buttons="[
+            <ion-alert :is-open="showDeleteAlert" :header="$t('chat.confirmDelete')" :message="$t('chat.deleteMessage')"
+                :buttons="[
                     {
                         text: $t('general.cancel'),
                         role: 'cancel',
@@ -94,7 +94,7 @@
                 {{ errorMessage }}
                 <br />
                 <a v-if="errorMessage === $t('chat.chatDisabledMessage')" href="/settings">{{ $t('chat.goToSettings')
-                    }}</a>
+                }}</a>
             </div>
         </ion-content>
     </IonPage>
@@ -157,11 +157,11 @@ export default defineComponent({
             editedMessage: "",
             showDeleteAlert: false,
             messageToDelete: null,
-            limit:50,
-            before: null,   
-            socket:null,
-            allLoaded:false,
-            loadingMore:false,
+            limit: 50,
+            before: null,
+            socket: null,
+            allLoaded: false,
+            loadingMore: false,
             hasError: false,
             errorMessageKey: null,
             dropdownVisible: null
@@ -218,7 +218,7 @@ export default defineComponent({
 
             this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, async (response) => {
                 if (response.status === "success") {
-                    await this.loadMessages(true); 
+                    await this.loadMessages(true);
                 } else {
                     this.hasError = true;
                     this.errorMessageKey = 'chat.invalidUrlMessage';
@@ -234,10 +234,10 @@ export default defineComponent({
             }
         },
 
-        async loadMessages(initial=false){
-            if(this.loadingMore || this.allLoaded) return;
+        async loadMessages(initial = false) {
+            if (this.loadingMore || this.allLoaded) return;
 
-            this.loadingMore=true;
+            this.loadingMore = true;
 
             try {
                 const response = await axios.post(this.$chat_server_add + `/privateChat/${this.privateRoomId}`, {
@@ -247,8 +247,8 @@ export default defineComponent({
 
                 const newMessages = response.data;
 
-                if(newMessages.length < this.limit){
-                    this.allLoaded=true;
+                if (newMessages.length < this.limit) {
+                    this.allLoaded = true;
                 }
 
                 if (newMessages.length > 0) {
@@ -256,7 +256,7 @@ export default defineComponent({
                     this.messages.unshift(...newMessages);
                 }
                 this.$nextTick(() => {
-                    if(initial){
+                    if (initial) {
                         this.scrollToBottom();
                     } else {
                         const container = this.$refs.messagesContainer;
@@ -265,10 +265,10 @@ export default defineComponent({
                         }
                     }
                 });
-            } catch(error) {
+            } catch (error) {
                 console.error("Failed to load more messages:", error);
             } finally {
-                this.loadingMore=false;
+                this.loadingMore = false;
             }
         },
 
@@ -394,11 +394,11 @@ export default defineComponent({
             }
         },
         handleScroll() {
-        const container = this.$refs.messagesContainer;
-        if (container && container.scrollTop <= 50) {
-            this.loadMessages();
-        }
-    },
+            const container = this.$refs.messagesContainer;
+            if (container && container.scrollTop <= 50) {
+                this.loadMessages();
+            }
+        },
     },
 });
 </script>
@@ -519,10 +519,11 @@ export default defineComponent({
     border-top-left-radius: 4px;
 }
 
-.sender-items{
+.sender-items {
     color: #b9bbbe;
     font-size: 0.9rem;
 }
+
 .edited-marker {
     font-size: 0.75rem;
     color: #b9bbbe;
@@ -575,17 +576,17 @@ export default defineComponent({
 
 button {
     background: none;
-    color: gainsboro; 
+    color: gainsboro;
     border: none;
     cursor: pointer;
     font-size: 0.8rem;
 }
 
 .edit-textarea {
-    background-color: #40444b; 
+    background-color: #40444b;
     color: white;
     border-radius: 10px;
-    border: 1px solid #7289da;  
+    border: 1px solid #7289da;
     padding: 8px;
     max-width: 100%;
 }
@@ -593,7 +594,7 @@ button {
 #messageInputContainer {
     display: flex;
     padding: 10px;
-    background-color: #2f3136; 
+    background-color: #2f3136;
     position: sticky;
     bottom: 0;
     z-index: 10;

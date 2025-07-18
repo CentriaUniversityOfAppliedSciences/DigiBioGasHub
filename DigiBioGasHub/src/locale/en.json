@@ -172,7 +172,8 @@
         "loginPasswordFail": "Password is invalid.",
         "loginCredentialsFail": "Invalid username or password",
         "registerSuccess": "Registration successful. You can now login with your credentials.",
-        "registerFail": "Registration failed"
+        "registerFail": "Registration failed",
+        "haveAnAccount": "Already have an account?"
     },
     "forms":{
         "helper":{
@@ -303,6 +304,7 @@
         "visibilityRequired": "Please select a visibility option.",
         "fillAllRequiredFields": "Please fill in all required fields.",
         "fillAllFields":"All fields are required. Please fill in all fields.",
+        "requiredField": "Note: Fields marked with * are required!",
         "registration":{
             "firstNameRequired": "Firstname cannot be empty.",
             "lastNameRequired": "Lastname cannot be empty.",
