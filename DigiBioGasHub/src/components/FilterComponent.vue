@@ -1,28 +1,25 @@
 <template>
     <div class="filter-component">
         <div class="filter-box">
-        <ion-button @click="toggleVisibility">
-            <ion-icon :icon="isCardVisible ? 'filter-sharp' : 'filter-sharp'" slot="start" style="margin-right: 5px;"></ion-icon>
-            {{ isCardVisible ? $t('filter.hide')  :  $t('filter.show')  }}
-        </ion-button>
+            <ion-button @click="toggleVisibility">
+                <ion-icon :icon="isCardVisible ? 'filter-sharp' : 'filter-sharp'" slot="start"
+                    style="margin-right: 5px;"></ion-icon>
+                {{ isCardVisible ? $t('filter.hide') : $t('filter.show') }}
+            </ion-button>
 
-        <ion-card v-if="isCardVisible">
-            <ion-list>
-                <div v-for="category in filtersData" :key="category.value">
-                    
-                    <ion-item :key="category.value">
-                        <ion-checkbox
-                            slot="start"
-                            v-model="selectedFilters[category.value]"
-                            :value="category.value"
-                            :key="category.value"
-                        />
-                        <ion-label style="margin-left: 8px;">{{ category.label }}</ion-label>
-                    </ion-item>
-                </div>
-            </ion-list>
-        </ion-card>
-    </div>
+            <ion-card v-if="isCardVisible">
+                <ion-list>
+                    <div v-for="category in filtersData" :key="category.value">
+
+                        <ion-item :key="category.value">
+                            <ion-checkbox slot="start" v-model="selectedFilters[category.value]" :value="category.value"
+                                :key="category.value" />
+                            <ion-label style="margin-left: 8px;">{{ category.label }}</ion-label>
+                        </ion-item>
+                    </div>
+                </ion-list>
+            </ion-card>
+        </div>
     </div>
 </template>
 
@@ -46,10 +43,22 @@ export default defineComponent({
         const selectedFilters = ref({});
         const isCardVisible = ref(true);
         const isWide = ref(true);
-        props.filtersData.forEach(cat => {
-                selectedFilters.value[cat.value] = false;
-        })
-        
+
+        const initializeFilters = () => {
+            selectedFilters.value = {};
+            props.filtersData.forEach(cat => {
+                selectedFilters.value[cat.value] = cat.checked || false;
+            });
+        };
+
+        watch(
+            () => props.filtersData,
+            () => {
+                initializeFilters();
+            },
+            { immediate: true, deep: true }
+        );
+
         watch(
             selectedFilters,
             () => {
@@ -57,13 +66,13 @@ export default defineComponent({
                     .filter(item => {
                         return Object.keys(selectedFilters.value).some(key => {
                             item.category = item.category.toString();
-                            if(selectedFilters.value[key] && item.category === key){
+                            if (selectedFilters.value[key] && item.category === key) {
                                 return selectedFilters.value[key] && item.category === key
                             }
-                            else{
+                            else {
                                 return Object.keys(selectedFilters.value).every(key => !selectedFilters.value[key])
                             }
-                            
+
                         })
                     })
                 emit('filtered-data', filtered)
@@ -87,26 +96,26 @@ export default defineComponent({
             toggleWidth
         }
     }
-    
+
 })
 </script>
 
 <style scoped>
 .filter-component {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .filter-box {
-  width: 100%;
-  background-color: var(--ion-color-light);
-  padding: 0.8rem;
-  border-radius: 1rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
+    width: 100%;
+    background-color: var(--ion-color-light);
+    padding: 0.8rem;
+    border-radius: 1rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 
@@ -121,12 +130,12 @@ ion-button {
 }
 
 ion-checkbox {
-  --size: 24px; 
-  --border-radius: 5px; 
-  --background: var(--ion-color-primary); 
-  --background-checked: var(--ion-color-primary-shade); 
-  --border-color: var(--ion-color-primary);
-  --border-width: 2px; 
+    --size: 24px;
+    --border-radius: 5px;
+    --background: var(--ion-color-primary);
+    --background-checked: var(--ion-color-primary-shade);
+    --border-color: var(--ion-color-primary);
+    --border-width: 2px;
 }
 
 ion-button:hover {
@@ -163,5 +172,4 @@ ion-item {
 ion-item:hover {
     background-color: var(--ion-color-step-50);
 }
-
 </style>

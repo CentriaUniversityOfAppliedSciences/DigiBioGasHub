@@ -22,7 +22,7 @@
 
                     <ion-row>
                         <ion-col size="12" size-lg="3">
-                            <FilterComponent :filtersData="filtersData" :dataToFilter="products"
+                            <FilterComponent :filtersData="filtersData" :dataToFilter="products" 
                                 @filtered-data="updateData" />
                         </ion-col>
 
@@ -72,7 +72,8 @@ export default defineComponent({
             ],
             currentProducts: [],
             filtersData: [],
-            filter: false
+            filter: false,
+            appliedFilter: {}
         }
     },
     methods: {
@@ -85,7 +86,10 @@ export default defineComponent({
                 if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
                     this.products = response.data.message;
                     this.currentProducts = response.data.message;
+                    this.appliedFilter = response.data.appliedFilter || {};
                     this.filter = response.data.filtered === true;
+
+                    this.refreshFilters();
                 }
             });
         },
@@ -97,9 +101,9 @@ export default defineComponent({
             const materialTypes = this.$i18n.messages[this.$i18n.locale].material.type;
             if (typeof materialTypes === 'object' && !Array.isArray(materialTypes)) {
                 Object.entries(materialTypes).forEach(([key, value]) => {
-                    if (!this.filtersData.find(f => f.value === key)) {
-                        this.filtersData.push({ label: value, value: key });
-                    }
+                    const normalized = value.toLowerCase().replace(/\s+/g, '');
+                    const isSelected = !!this.appliedFilter[normalized];
+                    this.filtersData.push({ label: value, value: key, checked: isSelected });
                 });
             } else {
                 console.error('Invalid material.type format in i18n configuration');
@@ -119,7 +123,6 @@ export default defineComponent({
     mounted() {
         this.currentProducts = this.products;
         this.getProducts();
-        this.refreshFilters();
     }
 
 })
