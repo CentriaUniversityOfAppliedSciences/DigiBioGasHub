@@ -7,22 +7,36 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-grid class="main-grid">
+      <!--ion-grid class="main-grid"-->
        
         <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
-        <ion-row>
-          <ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3">
+        <!--ion-row-->
+        <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
+          <ion-button @click="goOffers">{{ $t("general.allOffers") }}</ion-button>
+        </div>
+        <swiper style= '--swiper-pagination-bullet-size: 25px'  :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2" :space-between="10">
+          <!--ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3"-->
+          <swiper-slide v-for="product in products" :key="product.id">
             <ListingComponent :product="product" :isMarketplace="true" />
-          </ion-col>
-        </ion-row>
+          </swiper-slide>
+          <!--/ion-col-->
+        </swiper>
+        <!--/ion-row-->
         <h2 style="margin: 20px ;">{{ $t("general.latestArticles") }}</h2>
-        <ion-row>
-          <ion-col style="padding: 10px;" size="12" size-sm="12" size-md="6" v-for="article in articles"
-            :key="article.title">
-            <BlogListingComponent class="blog-card" :article="article" />
-          </ion-col>
-        </ion-row>
-      </ion-grid>
+        <!--ion-row-->
+        <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
+          <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
+        </div>
+        <swiper style= '--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2" :space-between="10">
+          <!--ion-col style="padding: 10px;" size="12" size-sm="12" size-md="6" v-for="article in articles"
+            :key="article.title"-->
+            <swiper-slide style="padding: 10px;" v-for="article in articles" :key="article.title">
+              <BlogListingComponent class="blog-card" :article="article" />
+            </swiper-slide>
+          <!--/ion-col-->
+        <!--/ion-row-->
+        </swiper>
+      <!--/ion-grid-->
       <div v-if="KllComponent && chatboxVisible" :style="chatboxStyle">
         <button @click="toggleChatboxSize" style="position: absolute; top: 5px; right: 70px; width: 3vw; max-width:20px ; z-index: 1001;">
           {{ chatboxLarge ? '🗗' : '🗖' }}
@@ -45,19 +59,24 @@
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow, IonFooter } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow, IonFooter, IonButton } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import BlogListingComponent from '../components/BlogListingComponent.vue';
 import ListingComponent from '../components/ListingComponent.vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import { Navigation, Pagination } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
 
 import axios from 'axios';
 import slugify from 'slugify';
 
 export default defineComponent({
   name: 'HomePage',
-  components: { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent, IonFooter },
+  components: { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent, IonFooter, Swiper, SwiperSlide },
   data() {
     return {
       KllComponent: null,
@@ -72,6 +91,15 @@ export default defineComponent({
 
       ]
     }
+  },
+  setup(){
+    const onSwiper = (swiper) => {
+      console.log(swiper);
+    };
+    const onSlideChange = () => {
+      console.log('slide change');
+    };
+    return { onSwiper, onSlideChange, modules:[ Navigation, Pagination] };
   },
   computed: {
     chatboxStyle() {
@@ -111,6 +139,12 @@ export default defineComponent({
     },
     closeChatbox() {
       this.chatboxVisible = false;
+    },
+    goOffers() {
+      this.$router.push('/marketplace');
+    },
+    goArticles() {
+      this.$router.push('/articles');
     },
     getProducts() {
 
