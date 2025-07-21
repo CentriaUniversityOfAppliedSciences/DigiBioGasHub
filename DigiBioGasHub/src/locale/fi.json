@@ -651,6 +651,7 @@
         "cancelSubscriptionConfirm": "Haluatko varmasti peruuttaa tilauksesi?",
         "cancelSubscriptionSuccess": "Tilaus peruutettu onnistuneesti!",
         "cancelSubscriptionFail": "Tilauksen peruutus epäonnistui. Yritä uudelleen.",
+        "manage_subscriptions":"Hallitse tilauksia",
         "buy": {
             "buySubscription": "Osta tilaus",
             "accessFutureOffers": "Pääsy tuleviin tarjouksiin",

@@ -651,6 +651,7 @@
         "cancelSubscriptionConfirm": "Are you sure you want to cancel your subscription?",
         "cancelSubscriptionSuccess": "Subscription cancelled successfully!",
         "cancelSubscriptionFail": "Failed to cancel subscription. Please try again.",
+        "manage_subscriptions":"Manage Subscriptions",
         "buy": {
             "buySubscription": "Buy Subscription",
             "accessFutureOffers": "Access to future offers",

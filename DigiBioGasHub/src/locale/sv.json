@@ -651,6 +651,7 @@
         "cancelSubscriptionConfirm": "Är du säker på att du vill avbryta din prenumeration?",
         "cancelSubscriptionSuccess": "Prenumerationen har avbrutits.",
         "cancelSubscriptionFail": "Det gick inte att avbryta prenumerationen. Försök igen.",
+        "manage_subscriptions":"Hantera Prenumerationer",
         "buy": {
             "buySubscription": "Köp Prenumeration",
             "accessFutureOffers": "Tillgång till framtida erbjudanden",
