@@ -69,7 +69,7 @@
                 </div>
 
                 <div id="chatBox" ref="messagesContainer">
-                    <div v-if="messages.length === 0" class="message">
+                    <div v-if="messages.length === 0" class="nomessage">
                         {{ $t('chat.noMessages') }}
                     </div>
                     <div v-for="message in messages" :key="message.timestamp" class="message">
@@ -498,10 +498,11 @@ export default defineComponent({
     max-width: 90rem;
 }
 
-.message {
+.nomessage {
     display: flex;
     align-items: flex-start;
     gap: 10px;
+    color: #ffffff;
 }
 
 .avatar {
