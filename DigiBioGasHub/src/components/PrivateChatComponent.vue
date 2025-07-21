@@ -14,7 +14,7 @@
             </ion-header>
             <div id="chatContainer">
                 <div id="chatBox" ref="messagesContainer">
-                    <div v-if="messages.length === 0" class="message">
+                    <div v-if="messages.length === 0" class="nomessage">
                         {{ $t('chat.noMessages') }}
                     </div>
                     <div v-for="message in messages" :key="message._id"
@@ -422,6 +422,13 @@ export default defineComponent({
     gap: 10px;
     width: 100%;
     max-width: 90rem;
+}
+
+.nomessage {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #ffffff;
 }
 
 .own-message {

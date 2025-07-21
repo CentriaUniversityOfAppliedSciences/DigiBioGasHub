@@ -47,6 +47,7 @@ import PaymentSuccessPage from '../views/PaymentSuccessPage.vue';
 import PaymentCancelPage from '../views/PaymentCancelPage.vue';
 import CertificatesPage from '../views/Admin/CertificatesPage.vue';
 import CompanyCertificatesPage from '../views/Company/CertificatesPage.vue';
+import BlogPreview from '../views/Admin/BlogPreview.vue';
 
 export function jwtDecode(token) {
   try {
@@ -138,6 +139,13 @@ const routes = [
     name: 'ManageBlogPosts',
     component: ManageBlogPosts,
     beforeEnter: [checkAdmin] ,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/admin/blog-preview/:postID/:title',
+    name: 'BlogPreview',
+    component: BlogPreview,
+    beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },
   {

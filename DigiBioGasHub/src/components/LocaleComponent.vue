@@ -1,20 +1,17 @@
 <template>
-
-        <ion-item>
-            
-            <ion-select v-model="selectedLanguage" @ionChange="changeLanguage($event)" >
-                <ion-select-option value="en">English</ion-select-option>
-                <ion-select-option value="fi">Suomi</ion-select-option>
-                <ion-select-option value="sv">Svenska</ion-select-option>
-            </ion-select>
-        </ion-item>
-
+    <ion-item>
+        <ion-select v-model="selectedLanguage" @ionChange="changeLanguage($event)">
+            <ion-select-option value="en">English</ion-select-option>
+            <ion-select-option value="fi">Suomi</ion-select-option>
+            <ion-select-option value="sv">Svenska</ion-select-option>
+        </ion-select>
+    </ion-item>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
-import { useI18n } from 'vue-i18n';
+import { defineComponent } from 'vue';
 import { IonItem, IonSelect, IonSelectOption } from '@ionic/vue';
+import axios from 'axios';
 
 export default defineComponent({
     name: 'LocaleComponent',
@@ -24,10 +21,8 @@ export default defineComponent({
         IonSelectOption,
     },
     setup() {
-        
 
         return {
-          
         };
     },
     data() {
@@ -36,18 +31,22 @@ export default defineComponent({
         };
     },
     methods: {
-        changeLanguage(event) {
+        async changeLanguage(event) {
             this.selectedLanguage = event.detail.value;
             localStorage.setItem('selectedLanguage', this.selectedLanguage);
             this.$i18n.locale = this.selectedLanguage;
+            try {
+                await axios.post(this.$api_add + "/language", { language: this.selectedLanguage }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false })
+            } catch (error) {
+                console.error('Failed to save language to the database:', error);
+            }
         },
         checkLanguage() {
             if (localStorage.getItem('selectedLanguage')) {
                 this.selectedLanguage = localStorage.getItem('selectedLanguage');
                 this.$i18n.locale = this.selectedLanguage;
-            } 
+            }
         },
-
     },
     mounted() {
         this.checkLanguage();
@@ -55,6 +54,3 @@ export default defineComponent({
 });
 </script>
 
-<style scoped>
-/* Add any styles you need here */
-</style>

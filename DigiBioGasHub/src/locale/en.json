@@ -115,7 +115,9 @@
         "feedback": "Feedback",
         "settings": "Settings",
         "companies": "Companies",
-        "add_company": "Add company"
+        "add_company": "Add company",
+        "preview": "Preview",
+        "manage": "Manage"
     },
     "footer":{
         "KP": "/assets/kp-eng.jpg",
