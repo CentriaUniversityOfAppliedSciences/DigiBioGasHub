@@ -115,7 +115,9 @@
         "feedback": "Palaute",
         "settings": "Asetukset",
         "companies": "Yritykset",
-        "add_company": "Lisää yritys"
+        "add_company": "Lisää yritys",
+        "preview": "Esikatselu",
+        "manage": "Hallitse"
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -172,7 +174,8 @@
         "loginPasswordFail": "Salasana on virheellinen",
         "loginCredentialsFail": "Käyttäjätunnus tai salasana on virheellinen",
         "registerSuccess": "Rekisteröinti onnistui. Voit nyt kirjautua sisään tunnuksillasi.",
-        "registerFail": "Rekisteröinti epäonnistui"
+        "registerFail": "Rekisteröinti epäonnistui",
+        "haveAnAccount": "Onko sinulla jo tili?"
     },
     "forms":{
         "helper":{
@@ -303,6 +306,7 @@
         "visibilityRequired": "Näkyvyys on pakollinen",
         "fillAllRequiredFields": "Täytä kaikki kentät",
         "fillAllFields":"Täytä kaikki kentät",
+        "requiredField": "Huom: *-merkillä varustetut kentät ovat pakollisia!",
         "registration":{
             "firstNameRequired": "Etunimi ei voi olla tyhjä.",
             "lastNameRequired": "Sukunimi ei voi olla tyhjä.",
@@ -497,7 +501,8 @@
             "fetchUsersFail": "Käyttäjien haku epäonnistui!",
             "fetchUserFail": "Käyttäjän haku epäonnistui!",
             "editTitle": "Muokkaa käyttäjää",
-            "pagination": "Tuloksia per sivu"
+            "pagination": "Tuloksia per sivu",
+            "isPremiumUser": "Premium-käyttäjä"
         },
         "material":{
             "name": "Materiaalin nimi",
@@ -622,6 +627,45 @@
         "acceptErrorMessage": "Kutsun hyväksyminen epäonnistui.",
         "invalidOrExpired": "Virheellinen tai vanhentunut kutsu.",
         "sendInvitation": "Lähetä kutsu"
+    },
+    "premium": {
+        "name": "Nimi",
+        "title": "Premium-tilaus",
+        "currentPlan": "Nykyinen suunnitelma",
+        "startDate": "Aloituspäivämäärä",
+        "endDate": "Loppupäivämäärä",
+        "status": "Status",
+        "noActiveSubscription": "Sinulla ei ole aktiivista tilausta. Osta premium-suunnitelma päästäksesi käsiksi eksklusiivisiin ominaisuuksiin. Napauta 'Osta tilaus' aloittaaksesi.",
+        "buySubscription": "Osta tilaus",
+        "giftNow": "Lahjoita",
+        "giftUser": "Lahjoita Premium-tilaus",
+        "duration": "Kesto",
+        "3months": "3 kuukautta",
+        "6months": "6 kuukautta",
+        "12months": "12 kuukautta",
+        "custom": "Mukautettu päättymispäivä",
+        "expirationDate": "Päättymispäivä",
+        "giftSuccess": "Premium lahjoitettu onnistuneesti!",
+        "giftError": "Premiumin lahjoitus epäonnistui. Yritä uudelleen.",
+        "cancelSubscription": "Peruuta tilaus",
+        "cancelSubscriptionConfirm": "Haluatko varmasti peruuttaa tilauksesi?",
+        "cancelSubscriptionSuccess": "Tilaus peruutettu onnistuneesti!",
+        "cancelSubscriptionFail": "Tilauksen peruutus epäonnistui. Yritä uudelleen.",
+        "buy": {
+            "buySubscription": "Osta tilaus",
+            "accessFutureOffers": "Pääsy tuleviin tarjouksiin",
+            "buy": "Osta",
+            "months": "{months} kuukautta",
+            "price": "{price} €"
+        },
+        "payment": {
+            "paymentSuccessfull": "Maksu onnistui",
+            "paymentSuccessInfo": "Kiitos maksustasi. Maksutapahtuma on suoritettu.",
+            "backToHome": "Takaisin etusivulle",
+            "paymentCancelled": "Maksu peruutettu",
+            "paymentCancelInfo": "Maksutapahtumaa ei suoritettu loppuun. Yritä uudelleen tai ota yhteyttä tukeen.",
+            "tryAgain": "Yritä uudelleen"
+        }
     },
     "apiKeys": {
         "title": "API-avaimet",

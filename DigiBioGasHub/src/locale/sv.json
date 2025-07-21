@@ -115,7 +115,9 @@
         "feedback": "Feedback",
         "settings": "Inställningar",
         "companies": "Företag",
-        "add_company": "Lägg till företag"
+        "add_company": "Lägg till företag",
+        "preview": "Förhandsgranska",
+        "manage": "Hantera"
     },
     "footer":{
         "KP": "src/assets/kp.jpg",
@@ -172,7 +174,8 @@
         "loginPasswordFail": "Lösenordet är ogiltigt.",
         "loginCredentialsFail": "Ogiltigt användarnamn eller lösenord",
         "registerSuccess": "Registrering lyckades. Du kan nu logga in med dina uppgifter.",
-        "registerFail": "Registrering misslyckades"
+        "registerFail": "Registrering misslyckades",
+        "haveAnAccount": "Har du redan ett konto?"
     },
     "forms":{
         "helper":{
@@ -303,6 +306,7 @@
         "visibilityRequired": "Synlighet är obligatoriskt",
         "fillAllRequiredFields": "Fyll i alla obligatoriska fält",
         "fillAllFields": "Fyll i alla fält",
+        "requiredField": "Obs! Fält markerade med * är obligatoriska!",
         "registration":{
             "firstNameRequired": "Förnamn kan inte vara tomt.",
             "lastNameRequired": "Efternamn kan inte vara tomt.",
@@ -497,7 +501,8 @@
             "fetchUsersFail": "Hämtning av användare misslyckades!",
             "fetchUserFail": "Hämtning av användare misslyckades!",
             "editTitle": "Redigera användare",
-            "pagination": "Resultat per sida"
+            "pagination": "Resultat per sida",
+            "isPremiumUser": "Premium-användare"
         },
         "material":{
             "name": "Materialnamn",
@@ -622,6 +627,45 @@
         "acceptErrorMessage": "Det gick inte att acceptera inbjudan.",
         "invalidOrExpired": "Ogiltig eller utgången inbjudan.",
         "sendInvitation": "Skicka inbjudan"
+    },
+    "premium": {
+        "name": "Namn",
+        "title": "Premium Prenumeration",
+        "currentPlan": "Nuvarande Plan",
+        "startDate": "Startdatum",
+        "endDate": "Slutdatum",
+        "status": "Status",
+        "noActiveSubscription": "Du har ingen aktiv prenumeration. Köp en premiumplan för att få tillgång till exklusiva funktioner. Tryck på 'Köp Prenumeration' ovan för att komma igång.",
+        "buySubscription": "Köp Prenumeration",
+        "giftNow": "Ge bort",
+        "giftUser": "Ge bort Premium Prenumeration",
+        "duration": "Varaktighet",
+        "3months": "3 Månader",
+        "6months": "6 Månader",
+        "12months": "12 Månader",
+        "custom": "Anpassat utgångsdatum",
+        "expirationDate": "Utgångsdatum",
+        "giftSuccess": "Premium har framgångsrikt givits bort!",
+        "giftError": "Det gick inte att ge bort premium. Försök igen.",
+        "cancelSubscription": "Avbryt Prenumeration",
+        "cancelSubscriptionConfirm": "Är du säker på att du vill avbryta din prenumeration?",
+        "cancelSubscriptionSuccess": "Prenumerationen har avbrutits.",
+        "cancelSubscriptionFail": "Det gick inte att avbryta prenumerationen. Försök igen.",
+        "buy": {
+            "buySubscription": "Köp Prenumeration",
+            "accessFutureOffers": "Tillgång till framtida erbjudanden",
+            "buy": "Köp",
+            "months": "{months} Månader",
+            "price": "€{price}"
+        },
+        "payment": {
+            "paymentSuccessfull": "Betalning genomförd",
+            "paymentSuccessInfo": "Tack för din betalning. Din transaktion har slutförts.",
+            "backToHome": "Tillbaka till Hem",
+            "paymentCancelled": "Betalning avbruten",
+            "paymentCancelInfo": "Din transaktion slutfördes inte. Försök igen eller kontakta support.",
+            "tryAgain": "Försök igen"
+        }
     },
     "apiKeys": {
         "title": "API-nycklar",
