@@ -30,7 +30,7 @@
                             <ion-row>
                                 <ion-col v-for="product in currentProducts" :key="product.id" size="12" size-sm="6"
                                     size-md="4" size-lg="4">
-                                    <ListingComponent v-if="product" :product="product" :isMarketplace="true" />
+                                    <ListingComponent v-if="product" :product="product" :isMarketplace="true" @updateOffers="getOffers"/>
                                 </ion-col>
                             </ion-row>
                         </ion-col>

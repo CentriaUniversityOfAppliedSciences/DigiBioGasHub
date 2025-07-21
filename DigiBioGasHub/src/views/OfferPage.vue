@@ -41,6 +41,7 @@ export default defineComponent({
         }
 
     },
+    emits:['updateOffers'],
     methods: {
         getOffer() {
             axios.post(this.$api_add + '/getoffersbyid', { id: this.productId }).then(response => {
