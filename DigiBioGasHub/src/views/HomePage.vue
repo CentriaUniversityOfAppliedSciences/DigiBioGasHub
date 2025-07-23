@@ -7,36 +7,24 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <!--ion-grid class="main-grid"-->
-       
         <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
-        <!--ion-row-->
         <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
           <ion-button @click="goOffers">{{ $t("general.allOffers") }}</ion-button>
         </div>
-        <swiper style= '--swiper-pagination-bullet-size: 25px'  :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2" :space-between="10">
-          <!--ion-col v-for="product in products" :key="product.id" size="12" size-sm="6" size-md="4" size-lg="3"-->
+        <swiper style= '--swiper-pagination-bullet-size: 25px'  :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2.5" :space-between="10">
           <swiper-slide v-for="product in products" :key="product.id">
             <ListingComponent :product="product" :isMarketplace="true" />
           </swiper-slide>
-          <!--/ion-col-->
         </swiper>
-        <!--/ion-row-->
         <h2 style="margin: 20px ;">{{ $t("general.latestArticles") }}</h2>
-        <!--ion-row-->
         <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
           <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
         </div>
         <swiper style= '--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2" :space-between="10">
-          <!--ion-col style="padding: 10px;" size="12" size-sm="12" size-md="6" v-for="article in articles"
-            :key="article.title"-->
             <swiper-slide style="padding: 10px;" v-for="article in articles" :key="article.title">
               <BlogListingComponent class="blog-card" :article="article" />
             </swiper-slide>
-          <!--/ion-col-->
-        <!--/ion-row-->
         </swiper>
-      <!--/ion-grid-->
       <div v-if="KllComponent && chatboxVisible" :style="chatboxStyle">
         <button @click="toggleChatboxSize" style="position: absolute; top: 5px; right: 70px; width: 3vw; max-width:20px ; z-index: 1001;">
           {{ chatboxLarge ? '🗗' : '🗖' }}

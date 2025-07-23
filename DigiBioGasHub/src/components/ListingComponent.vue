@@ -31,7 +31,7 @@
     </ion-card>
 
     <ion-modal :is-open="isModalOpen" @didDismiss="closeModal">
-        <OfferPage :productId="product.id" @close="closeModal" />
+        <OfferPage :productId="product.id" @close="closeModal" @updateOffers="updateOffers" />
     </ion-modal>
 </template>
 
@@ -75,6 +75,7 @@ export default {
             isModalOpen: false
         };
     },
+    emits: ['updateOffers'],
     mounted() {
     },
     methods: {
@@ -90,6 +91,9 @@ export default {
             } else {
                 return this.product.fileLink;
             }
+        },
+        updateOffers() {
+            this.$emit('updateOffers');
         },
         getMaterialTypeTranslation(type) {
             return this.$t(`material.type.${type}`);
