@@ -125,9 +125,11 @@ export default defineComponent({
             }
         },
         getImageSource(o){
-            if (o != null) {
-                
+            if (o != null && o.fileLink != null && o.fileLink != undefined && o.fileLink != "") {
                 return o.fileLink;
+            }
+            else if (o != null && o.Material != null) {
+                return this.$t('material.placeholder.' + o.Material.type);
             }
             else{
                 return "";
