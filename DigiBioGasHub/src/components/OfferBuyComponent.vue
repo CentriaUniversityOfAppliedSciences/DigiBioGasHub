@@ -7,7 +7,8 @@
         <ion-card-content>
             <ion-item>
                 <ion-select v-model="buy.companyID">
-                    <ion-select-option v-for="company in companies" :key="company.Company.id" :value="company.Company.id">
+                    <ion-select-option v-for="company in companies" :key="company.Company.id"
+                        :value="company.Company.id">
                         {{ company.Company.name }}
                     </ion-select-option>
                 </ion-select>
@@ -15,7 +16,9 @@
             <ion-item>
                 <ion-input type="number" v-model="buy.amount" :max="offer.availableAmount"></ion-input>
                 <ion-label slot="end">{{ getUnitTypeTranslation(offer.unit) }}</ion-label>
-                <ion-label slot="start">{{ $t('product.productDetails.amount') }}</ion-label>
+                <ion-label slot="start">{{ $t('product.productDetails.amount') }} <i style="color: gray;"> ({{
+                    $t('product.productDetails.available') }}:
+                        {{ offer.availableAmount }} {{ getUnitTypeTranslation(offer.unit) }}) </i></ion-label>
             </ion-item>
             <ion-item>
                 <ion-label>{{ $t('product.productDetails.price') }}</ion-label>
@@ -28,7 +31,7 @@
     </ion-card>
 </template>
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonButton, IonInput, IonLabel, IonItem, modalController, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonImg, IonButton, IonInput, IonLabel, IonItem, modalController, IonSelect, IonSelectOption, IonNote } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import ToastComponent from './ToastComponent.vue';
 import axios from 'axios';
@@ -44,6 +47,7 @@ export default defineComponent({
         IonButton,
         IonInput,
         IonItem,
+        IonNote,
         IonLabel,
         IonSelect,
         IonSelectOption
@@ -95,7 +99,7 @@ export default defineComponent({
         },
         buyOffer() {
             console.log(this.buy.amount, this.offer.amount, this.offer.availableAmount);
-            console.log(typeof(this.buy.amount), typeof(this.offer.availableAmount));
+            console.log(typeof (this.buy.amount), typeof (this.offer.availableAmount));
             if (parseFloat(this.buy.amount) == 0) {
                 this.ToastComponent.methods.showToast(this.$t('product.error.product_buy_zero_amount'), 2000, 'danger');
                 return;
