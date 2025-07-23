@@ -16,6 +16,7 @@
 import { IonPage, IonContent, IonGrid, IonRow, IonCol } from '@ionic/vue'
 
 import { ref, defineComponent } from 'vue'
+import { useRoute } from 'vue-router'
 import { useGeographic } from 'ol/proj'
 import VectorLayer from 'ol/layer/Vector'
 import VectorSource from 'ol/source/Vector'
@@ -41,8 +42,9 @@ export default defineComponent({
     ],
     setup() {
         const mapElement = ref(null)
+        const route = useRoute()
         useGeographic();
-        return { mapElement }
+        return { mapElement, route }
     },
     data() {
         return {
@@ -122,17 +124,25 @@ export default defineComponent({
     },
     mounted() {
         this.map = this.$refs.regionMap.map;
-
         this.vectorSource = new VectorSource({});
         this.vectorLayer = new VectorLayer({ source: this.vectorSource });
         this.map.addLayer(this.vectorLayer);
+
+        const { lat, lng, name, type, info } = this.$route.query
+
+        if (lat && lng) {
+            this.map.getView().setCenter([parseFloat(lng), parseFloat(lat)]);
+            this.map.getView().setZoom(15);
+        }
+
         this.addMarkers();
         // create overlay
         const container = document.createElement('div')
 
-        container.style.backgroundColor = '#fff'
+        container.style.backgroundColor = '#ffffff'
         container.style.padding = '4px'
         container.style.border = '1px solid #333'
+        container.style.color = '#000000'
         this.hoverOverlay = new Overlay({ element: container, offset: [10, 0] })
         this.map.addOverlay(this.hoverOverlay)
 
