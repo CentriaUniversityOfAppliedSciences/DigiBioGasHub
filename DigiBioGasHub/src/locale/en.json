@@ -220,7 +220,8 @@
             "delivered": "Delivered",
             "yes": "Yes",
             "no": "No",
-            "amount": "Amount"
+            "amount": "Amount",
+            "available": "Available"
         },
         "image": "Image",
         "material": "Material",
