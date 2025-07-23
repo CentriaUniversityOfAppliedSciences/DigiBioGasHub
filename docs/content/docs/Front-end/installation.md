@@ -15,7 +15,11 @@ ShowCodeCopyButtons: true
 2. Change directory to project folder
 3. Run npm install
 4. Create .env file, check the needed values from below.
-5. Run in dev mode or build for production
+5. Run in dev mode (ionic serve) or build for production (ionic build --prod)
+
+NOTE! You need to change memory limit for nodejs to be able to build the project 
+export NODE_OPTIONS=--max_old_space_size=8192
+
 ```
 git clone https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub.git
 cd DigiBioGasHub

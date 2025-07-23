@@ -16,8 +16,7 @@ toc: true
 4. install minio
 5. start docker with "docker compose up"
 
-On first run the backend server will create an superadmin user (username:admin, password:admin) and a default hub for the system.
-Change the admin password!!!
+On first run the backend server will create an superadmin user and a default hub for the system. Username and password for the superadmin are set in .env. Change the superadmin password!!!  
 
 ```
 git clone https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend.git
@@ -31,20 +30,24 @@ SERVER_PORT=28765
 POSTGRES_USER=username
 POSTGRES_DB=database
 POSTGRES_PASSWORD=password
-DB_HOST=localhost 
-DB_PORT=5432 
+DB_HOST=localhost
+DB_PORT=5432
 JWT_KEY=your-secret-jwt-key 
-MML_API_KEY=your-mml-api-key https://www.maanmittauslaitos.fi/en/rajapinnat/api-avaimen-ohje 
+MML_API_KEY=your-mml-api-key #https://www.maanmittauslaitos.fi/en/rajapinnat/api-avaimen-ohje 
 MINIO_ROOT_USER=your-minio-user 
 MINIO_ROOT_PASSWORD=your-minio-password 
 MINIO_DEV=false 
 MINIO_ADDRESS=your_address_for_minio
 EMAIL_SENDER=sender_email_smtp_username
 EMAIL_PASS=sender_email_smtp_password 
-SERVER_ADDRESS=address_to_frontend 
+SERVER_ADDRESS=address_to_frontend  
+HUB_NAME=name_of_your_hub  
+HUB_ORIGIN=url_address_of_your_hub  #(local dev is ionic address http://localhost:8100)  
+HUB_ADMIN_USER=username_for_default_admin  
+HUB_ADMIN_PASS=password_for_default_admin    
 ```
 
-Install min.io (https://github.com/minio/minio) file storage
+Install min.io (https://github.com/minio/minio) file storage  
 for Ubuntu
 ```
 wget https://dl.min.io/server/minio/release/linux-amd64/minio
@@ -62,4 +65,4 @@ cp minio.service /etc/systemd/system/minio.service
 systemctl enable minio.service
 systemctl start minio.service
 ```
-open port on firewall or vm settings 
+if necessary open port on firewall or vm settings 
