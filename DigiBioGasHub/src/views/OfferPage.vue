@@ -11,7 +11,7 @@
             </ion-toolbar>
         </ion-header>
         <ion-content class="main-content">
-            <OfferComponent :offer="offers" @updateOffers="updateOffers" />
+            <OfferComponent :offer="offers" @updateOffers="updateOffers"  @close="$emit('close')" />
         </ion-content>
     </div>
 </template>

@@ -97,7 +97,7 @@ export default defineComponent({
             modalController: modalController,
         }
     },
-    emits: ['updateOffers'],
+    emits: ['updateOffers', 'close'],
     mounted(){
     },
     methods: {
@@ -176,6 +176,7 @@ export default defineComponent({
                         info: `${loc.address}, ${loc.city}`,
                     }
                 });
+                 this.$emit('close');
             } else {
                 console.warn('Location coordinates not found');
             }
