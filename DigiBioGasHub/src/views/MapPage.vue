@@ -178,7 +178,7 @@ export default defineComponent({
                         if (off.Locations.length > 0) {
                             return {
                                 coords: [off.Locations[0].longitude, off.Locations[0].latitude],
-                                location: off.Company.city,
+                                location: off.Locations[0].city,
                                 name: off.description,
                                 color: 'green',
                                 category: 'Offer',
