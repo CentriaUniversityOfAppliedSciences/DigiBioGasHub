@@ -470,7 +470,13 @@
             "verifyFail": "Unable to verify company!",
             "unverifyFail": "Unable to unverify company!",
             "disableFail": "Unable to disable company!",
-            "noCompanies": "No companies yet!"
+            "noCompanies": "No companies yet!",
+            "userlevel":{
+                "role": "Role",
+                "companyMember": "Company Member",
+                "premiumCompanyMember": "Company Premium Member",
+                "companyAdmin": "Company Admin"
+            }
         },
         "blogpost":{
             "blogs": "Blog posts",
