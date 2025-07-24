@@ -12,8 +12,12 @@
                 <ion-segment-button value="unverified">{{ $t('admin.company.unverified') }}</ion-segment-button>
                 <ion-segment-button value="disabled">{{ $t('admin.company.disabled') }}</ion-segment-button>
             </ion-segment>
+            
+            <div v-if="filteredCompanies.length === 0" style="text-align:center; margin-top:2em;">
+                {{ $t('admin.company.noCompanies') }}
+            </div>
 
-            <ion-list>
+            <ion-list v-else>
                 <ion-item v-for="company in filteredCompanies" :key="company.id" @click="openCompanyModal(company)"
                     style="cursor: pointer;">
                     <ion-label>
@@ -21,9 +25,9 @@
                         <p>{{ company.city }}</p>
                     </ion-label>
                 </ion-item>
-            </ion-list> 
+            </ion-list>
         </ion-content>
-        
+
         <ion-modal :is-open="isReviewOpen" @didDismiss="isReviewOpen = false">
             <ion-header>
                 <ion-toolbar>
