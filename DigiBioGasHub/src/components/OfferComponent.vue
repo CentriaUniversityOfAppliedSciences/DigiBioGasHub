@@ -13,7 +13,10 @@
             <div class="offer-detail">
                 <p><strong>{{ $t('product.logistic.type') }}:</strong> {{ getCargoTypeTranslation(offer.cargoType) }}
                 </p>
-                <p><strong>{{ $t('product.productDetails.location') }}:</strong> {{ parseLocation(offer.Locations) }}
+                <p><strong>{{ $t('product.productDetails.location') }}:</strong> <span @click="goToMap(offer)"
+                        class="location-link clickable">
+                        {{ parseLocation(offer.Locations) }}
+                    </span>
                 </p>
                 <p><strong>{{ $t('product.productDetails.amount') }}:</strong> {{ offer.availableAmount }} {{
                     getUnitAmountTranslation(offer.unit) }}</p>
@@ -159,8 +162,25 @@ export default defineComponent({
         },
         updateOffers() {
             this.$emit('updateOffers');  
+        },
+        goToMap(offer) {
+            const loc = offer?.Locations?.[0];
+            if (loc?.latitude && loc?.longitude) {
+                this.$router.push({
+                    path: '/map',
+                    query: {
+                        lat: loc.latitude,
+                        lng: loc.longitude,
+                        name: offer.description || 'Selected Location',
+                        type: 'Offer',
+                        info: `${loc.address}, ${loc.city}`,
+                    }
+                });
+            } else {
+                console.warn('Location coordinates not found');
+            }
         }
-    }, 
+    },
 });
 </script>
 
@@ -171,6 +191,12 @@ ion-card {
 ion-img {
     width: 100%;
     height: auto;
+}
+
+.location-link.clickable {
+  color: var(--ion-color-primary);
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .offer-card {
