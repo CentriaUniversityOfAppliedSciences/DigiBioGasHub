@@ -147,7 +147,8 @@ export default defineComponent({
             this.type = '';
         },
         getCertificateTypes() {
-            var types = this.$i18n.messages[this.$i18n.locale]?.admin?.certificate?.types;
+            let locale = this.i18n.global.locale.value
+            var types = this.i18n.global.messages.value[locale]?.admin?.certificate?.types;
             var keys = Object.keys(types);
             var values = Object.values(types);
             for (let i = 0; i < keys.length; i++) {

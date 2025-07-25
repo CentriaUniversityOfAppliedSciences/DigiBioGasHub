@@ -114,7 +114,8 @@ export default defineComponent({
         }
     },
     mounted() {
-        const materialTypes = this.$i18n.messages[this.$i18n.locale]?.material?.type;
+        let locale = this.i18n.global.locale.value
+        const materialTypes = this.i18n.global.messages.value[locale]?.material?.type;
         if (typeof materialTypes === 'object' && !Array.isArray(materialTypes)) {
             this.materialTypes = materialTypes;
         } else {
