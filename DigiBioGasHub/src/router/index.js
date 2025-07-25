@@ -48,6 +48,7 @@ import PaymentCancelPage from '../views/PaymentCancelPage.vue';
 import CertificatesPage from '../views/Admin/CertificatesPage.vue';
 import CompanyCertificatesPage from '../views/Company/CertificatesPage.vue';
 import BlogPreview from '../views/Admin/BlogPreview.vue';
+import NotFoundPage from '../views/NotFoundPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -558,7 +559,12 @@ const routes = [
   path : '/terms-of-service',
   name: 'ToSPage',
   component: ToSPage
-}
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: NotFoundPage
+  }
 ]
 
 const router = createRouter({
