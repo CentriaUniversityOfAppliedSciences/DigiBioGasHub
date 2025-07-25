@@ -52,9 +52,11 @@ const messages = {
   sv: sv,
 };
 const i18n = createI18n({
+  legacy: false,
   locales: ['fi', 'en', 'sv'],
   fallbackLocale: 'fi',
   locale: 'fi',
+  allowComposition: true,
   messages,
 });
 let api_add = import.meta.env.VITE_BACKEND_ADDRESS;

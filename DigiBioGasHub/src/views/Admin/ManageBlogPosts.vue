@@ -117,7 +117,7 @@
 
       <!-- Delete Confirmation Alert -->
       <ion-alert :is-open="showDeleteAlert" :header="$t('admin.blogpost.confirmDelete')"
-        :message="$t('admin.blogpost.cofirmDeleteMessage')" :buttons="[
+        :message="$t('admin.blogpost.confirmDeleteMessage')" :buttons="[
           {
             text: $t('general.cancel'),
             role: 'cancel',
@@ -155,7 +155,7 @@
 
       <!-- Unpublish Confirmation Alert -->
       <ion-alert :is-open="showUnpublishAlert" :header="$t('admin.blogpost.confirmUnpublish')"
-        :message="$t('admin.blogpost.confirmUnpublsihMessage')" :buttons="[
+        :message="$t('admin.blogpost.confirmUnpublishMessage')" :buttons="[
           {
             text: $t('general.cancel'),
             role: 'cancel',

@@ -220,7 +220,8 @@
             "delivered": "Toimitettu",
             "yes": "Kyllä",
             "no": "Ei",
-            "amount": "Määrä"
+            "amount": "Määrä",
+            "available": "Saatavilla"
         },
         "image": "Kuva",
         "material": "Materiaali",
@@ -481,8 +482,8 @@
             "confirmPublish": "Vahvista julkaisu",
             "confirmUnpublish": "Vahvista julkaisun poisto",
             "confirmPublishMessage": "Haluatko varmasti julkaista tämän artikkelin?",
-            "confirmUnpublsihMessage": "Haluatko varmasti poistaa tämän artikkelin julkaisun?",
-            "cofirmDeleteMessage": "Haluatko varmasti poistaa tämän artikkelin pysyvästi? Tätä toimintoa ei voi peruuttaa!",
+            "confirmUnpublishMessage": "Haluatko varmasti poistaa tämän artikkelin julkaisun?",
+            "confirmDeleteMessage": "Haluatko varmasti poistaa tämän artikkelin pysyvästi? Tätä toimintoa ei voi peruuttaa!",
             "publishSuccess":"Artikkeli julkaistu onnistuneesti!",
             "unpublishSuccess": "Artikkelin julkaisu poistettu onnistuneesti!",
             "deleteSuccess": "Artikkeli poistettu onnistuneesti!",
@@ -536,7 +537,9 @@
                 "2":"Laatusertifikaatti",
                 "3":"Ympäristösertifikaatti",
                 "4":"Muut"
-            }
+            },
+            "chooseCertificate": "Valitse sertifikaatti",
+            "selectCompany": "Valitse yritys!"
         }
     },
     "filter":{

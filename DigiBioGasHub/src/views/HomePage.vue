@@ -48,7 +48,7 @@
 
 <script>
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow, IonFooter, IonButton } from '@ionic/vue';
-import { defineComponent } from 'vue';
+import { defineComponent, shallowRef } from 'vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import BlogListingComponent from '../components/BlogListingComponent.vue';
@@ -82,10 +82,8 @@ export default defineComponent({
   },
   setup(){
     const onSwiper = (swiper) => {
-      console.log(swiper);
     };
     const onSlideChange = () => {
-      console.log('slide change');
     };
     return { onSwiper, onSlideChange, modules:[ Navigation, Pagination] };
   },
@@ -111,7 +109,7 @@ export default defineComponent({
     if (import.meta.env.VITE_ENABLE_BIOKAASUKLINIKKA === 'true') {
       try{
         const module = await import("../components/BKKlinikkaComponent.vue");
-        this.KllComponent = module.default;
+        this.KllComponent = shallowRef(module.default);
       }
       catch (error) {
         console.error("Error during component creation:", error);

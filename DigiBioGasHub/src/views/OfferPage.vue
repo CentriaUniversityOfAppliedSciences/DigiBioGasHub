@@ -11,7 +11,7 @@
             </ion-toolbar>
         </ion-header>
         <ion-content class="main-content">
-            <OfferComponent :offer="offers" @updateOffers="updateOffers"  @close="$emit('close')" />
+            <OfferComponent :offer="offers" :certificates="companyCertificates" @updateOffers="updateOffers"  @close="$emit('close')" />
         </ion-content>
     </div>
 </template>
@@ -37,7 +37,8 @@ export default defineComponent({
     },
     data() {
         return {
-            offers: {}
+            offers: {},
+            companyCertificates: [],
         }
 
     },
@@ -48,6 +49,11 @@ export default defineComponent({
                 this.offers = response.data.message;
             });
         },
+        getCertificates(){
+            axios.post(this.$api_add + '/getOfferCertificate', { offerID: this.productId }).then(response => {
+                this.companyCertificates = response.data.message;
+            });
+        },
         updateOffers() {
             this.getOffer();
             this.$emit('updateOffers');
@@ -55,6 +61,7 @@ export default defineComponent({
     },
     mounted() {
         this.getOffer();
+        this.getCertificates();
     }
 })
 </script>

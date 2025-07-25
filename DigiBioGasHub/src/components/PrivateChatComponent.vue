@@ -125,7 +125,7 @@ import LocaleComponent from "./LocaleComponent.vue";
 
 addIcons({
     "arrow-back": arrowBack,
-    "ellipsis-vertical-sharp": ellipsisVerticalCircleSharp
+    "ellipsis-vertical-sharp2": ellipsisVerticalCircleSharp
 });
 
 
