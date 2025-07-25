@@ -18,6 +18,12 @@
                 <p><strong>{{ $t('product.productDetails.amount') }}:</strong> {{ offer.availableAmount }} {{
                     getUnitAmountTranslation(offer.unit) }}</p>
                 <p><strong>{{ $t('product.productDetails.price') }}:</strong> {{ offer.price }} €</p>
+                <p v-if="certificates.length > 0"><strong>{{ $t('admin.certificate.certificates') }}:</strong></p>
+                <ul v-if="certificates.length > 0">
+                    <li v-for="(certificate, index) in certificates" :key="index">
+                        {{ certificate.CompanyCertificate.name }} - {{ certificate.CompanyCertificate.description }}
+                    </li>
+                </ul>
             </div>
         </ion-card-content>
 
@@ -87,6 +93,10 @@ export default defineComponent({
         offer: {
             type: Object,
             required: true,  
+        },
+        certificates: {
+            type: Array,
+            required: false,
         }
     },
     data() {

@@ -20,7 +20,7 @@
                         <ion-label position="stacked" class="label">
                             {{ $t('menu.company') }} <span class="required-asterisk">*</span>
                         </ion-label>
-                        <ion-select required v-model="companyID" :placeholder="$t('product.chooseCompany')">
+                        <ion-select required v-model="companyID" :placeholder="$t('product.chooseCompany')" @ionChange="getCompanyCertificates">
                             <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.id">{{ comp.name
                                 }}</ion-select-option>
                             <p v-if="hasError('companyID')" class="error">{{ errors.companyID }}</p>
@@ -168,6 +168,15 @@
                         </ion-select>
                         <p v-if="hasError('visibility')" class="error">{{ errors.visibility }}</p>
                     </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked" class="label">
+                            {{ $t('admin.certificate.certificates') }}
+                        </ion-label>
+                        <ion-label v-if="companyCertificates.length === 0">{{ $t('admin.certificate.selectCompany') }}</ion-label>
+                        <ion-select v-model="selectedCertificates" :multiple="true" :placeholder="$t('admin.certificate.chooseCertificate')">
+                            <ion-select-option v-for="cert in companyCertificates" :key="cert.name" :value="cert.id">{{ cert.name }}</ion-select-option>
+                        </ion-select>
+                    </ion-item>
 
                     <ion-button expand="full" @click="addProduct">{{ $t('product.submit') }}</ion-button>
                 </ion-card-content>
@@ -236,7 +245,9 @@ export default defineComponent({
             address: '',
             zipcode: '',
             city: '',
-            errors: {}
+            errors: {},
+            companyCertificates: [],
+            selectedCertificates: []
         };
     },
     methods: {
@@ -313,7 +324,7 @@ export default defineComponent({
             try {
 
                 var url = this.$api_add + "/createoffer";
-                axios.post(url, { "image64": this.image64, "imageName": this.imageName, "type": this.type, "materialID": this.material, "companyID": this.companyID, "locationID": "1", "unit": this.unit, "price": this.price, "amount": this.quantity, "startDate": this.startDate, "endDate": this.endDate, "visibility": this.visibility, "cargoType": this.logisticType, "description": this.description, "address": this.address, "city": this.city, "zipcode": this.zipcode }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                axios.post(url, { "certificates":this.selectedCertificates,"image64": this.image64, "imageName": this.imageName, "type": this.type, "materialID": this.material, "companyID": this.companyID, "locationID": "1", "unit": this.unit, "price": this.price, "amount": this.quantity, "startDate": this.startDate, "endDate": this.endDate, "visibility": this.visibility, "cargoType": this.logisticType, "description": this.description, "address": this.address, "city": this.city, "zipcode": this.zipcode }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                     if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined) {
                         this.modalController.dismiss();
                         this.$refs.toast.showToast(this.$t('product.successMessage'), 2000, 'success');
@@ -334,6 +345,14 @@ export default defineComponent({
                 if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
                     this.materials = response.data.message;
 
+                }
+            });
+        },
+        getCompanyCertificates() {
+            var url = this.$api_add + "/company/getcertificates";
+            axios.post(url, { "companyID": this.companyID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
+                    this.companyCertificates = response.data.message;
                 }
             });
         },
@@ -364,6 +383,7 @@ export default defineComponent({
     mounted() {
         this.getMaterials();
         this.getUserCompanies();
+        this.getCompanyCertificates();
     }
 });
 </script>
