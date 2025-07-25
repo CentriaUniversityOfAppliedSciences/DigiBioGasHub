@@ -771,7 +771,13 @@
             "joinNowText": " Join now and make the most of the opportunities in the biogas business!"
         }
     },
-    "gdpr":{
+    "notfound": {
+        "message": "This is not the webpage you are looking for.",
+        "goHome": "Go Home",
+        "funderLogoAlt": "Funder Logo",
+        "centerLogoAlt": "DigiBioGasHubs Logo"
+    },
+    "gdpr": {
         "docTitle":"Privacy Notice",
         "title":"Privacy Notice",
         "createdDate":"Created: 18.6.2025",
