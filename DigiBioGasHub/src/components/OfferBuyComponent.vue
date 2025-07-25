@@ -98,8 +98,6 @@ export default defineComponent({
             }
         },
         buyOffer() {
-            console.log(this.buy.amount, this.offer.amount, this.offer.availableAmount);
-            console.log(typeof (this.buy.amount), typeof (this.offer.availableAmount));
             if (parseFloat(this.buy.amount) == 0) {
                 this.ToastComponent.methods.showToast(this.$t('product.error.product_buy_zero_amount'), 2000, 'danger');
                 return;

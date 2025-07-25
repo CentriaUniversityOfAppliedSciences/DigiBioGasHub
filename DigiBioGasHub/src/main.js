@@ -57,7 +57,7 @@ const i18n = createI18n({
   fallbackLocale: 'fi',
   locale: 'fi',
   allowComposition: true,
-  messages,
+  messages:messages,
 });
 let api_add = import.meta.env.VITE_BACKEND_ADDRESS;
 let chat_server_add = import.meta.env.VITE_CHATSERVER; 
@@ -78,6 +78,9 @@ const app = createApp(App)
 
   app.config.globalProperties.$cube_add = cube_add;
   app.provide('$cube_add', cube_add);
+
+  app.config.globalProperties.i18n = i18n;
+  app.provide('i18n', i18n);
 
 router.isReady().then(() => {
   app.mount('#app');
