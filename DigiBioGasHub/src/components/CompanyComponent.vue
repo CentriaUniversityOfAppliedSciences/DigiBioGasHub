@@ -12,6 +12,13 @@
                     <ion-icon :icon="icons.location" slot="start" />
                     <ion-input :disabled="companyEdit" v-model="company.name">{{ $t('general.name') }}</ion-input>
                 </ion-item>
+
+                <ion-item>
+                    <ion-icon :icon="icons.location" slot="start" />
+                    <ion-input :disabled="companyEdit" :value="getUserLevelText(companyData.userlevel)"> {{
+                        $t('admin.company.userlevel.role') }}</ion-input>
+                </ion-item>
+
                 <ion-item>
                     <ion-icon :icon="icons.location" slot="start" />
                     <!--<ion-input :disabled="companyEdit" v-model="company.companyType">{{ $t('company.type.'+company.companyType) }}</ion-input>-->
@@ -56,23 +63,32 @@
                     <ion-input :disabled="companyEdit" v-model="company.web">{{ $t('company.website') }}</ion-input>
                 </ion-item>
             </ion-list>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showEditAlert = true" :disabled="company.companyStatus === 0" color="warning">{{
-                $t('menu.edit') }}</ion-button>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="confirmDelete(company.id)" id="deleteCompany" :disabled="company.companyStatus === 0"
-                color="danger">{{ $t('menu.delete') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showEditAlert = true"
+                :disabled="company.companyStatus === 0" color="warning">{{
+                    $t('menu.edit') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="confirmDelete(company.id)"
+                id="deleteCompany" :disabled="company.companyStatus === 0" color="danger">{{ $t('menu.delete')
+                }}</ion-button>
             <ion-button @click="goToOffers(company.id)"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
-                $t('company.offers') }}</ion-button>
-            <ion-button  v-if="companyData.userlevel === '23' || userLevel === '99'" @click="goToInsertCompanyLocations(company.id, company.name)"
-                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{ $t('company.locationRegistration.location') }}</ion-button>
+                    $t('company.offers') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'"
+                @click="goToInsertCompanyLocations(company.id, company.name)"
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
+                    $t('company.locationRegistration.location') }}</ion-button>
             <ion-button v-if="company.companyType === 5" @click="goToLogisticsRegister(company.id, company.name)"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
-                $t('company.logistics.terminalsMenuButton') }}</ion-button>
+                    $t('company.logistics.terminalsMenuButton') }}</ion-button>
             <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="openInviteModal"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary"> {{
-                $t('invitations.inviteMembers') }}</ion-button>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showUsers(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{ $t('company.users') }}</ion-button>
-            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showCertificates(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{ $t('admin.certificate.certificates') }}</ion-button>
+                    $t('invitations.inviteMembers') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="showUsers(company.id)"
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
+                    $t('company.users') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'"
+                @click="showCertificates(company.id)"
+                :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
+                    $t('admin.certificate.certificates') }}</ion-button>
         </ion-card-content>
     </ion-card>
 
@@ -99,9 +115,8 @@
         </ion-content>
     </ion-modal>
 
-    <ion-alert :is-open="showEditAlert" :header= "$t('general.warning')" :message="$t('company.editWarning')"
-        :buttons="[
-            {
+    <ion-alert :is-open="showEditAlert" :header="$t('general.warning')" :message="$t('company.editWarning')" :buttons="[
+        {
                 text: $t('general.cancel'),
                 role: 'cancel',
                 handler: () => {
@@ -130,6 +145,11 @@
                 <ion-item>
                     <ion-label position="stacked">{{ $t('general.name') }}</ion-label>
                     <ion-input v-model="editableCompany.name"></ion-input>
+                </ion-item>
+
+                <ion-item>
+                    <ion-label position="stacked">{{ $t('admin.company.userlevel.role') }}</ion-label>
+                    <ion-input :value="getUserLevelText(companyData.userlevel)" disabled></ion-input>
                 </ion-item>
 
                 <ion-item>
@@ -245,12 +265,10 @@ export default defineComponent({
     },
     props: {
         company: Object,
-        companyData: Object, 
+        companyData: Object,
     },
     emits: ['companyDeleted', 'companyUpdated'],
     setup() {
-    
-
         const icons = {
             location: locationOutline,
             phone: callOutline,
@@ -275,7 +293,7 @@ export default defineComponent({
             companyEdit: true,
             isInviteModalOpen: false,
             isEditModalOpen: false,
-            editableCompany: {...this.company }, 
+            editableCompany: { ...this.company },
             inviteEmail: '',
             alertButtons: [
                 {
@@ -299,7 +317,7 @@ export default defineComponent({
     },
     methods: {
         openEditModal() {
-            this.editableCompany = JSON.parse(JSON.stringify(this.company)); 
+            this.editableCompany = JSON.parse(JSON.stringify(this.company));
             this.isEditModalOpen = true;
         },
         closeEditModal() {
@@ -307,26 +325,26 @@ export default defineComponent({
         },
         confirmDelete(compID) {
             this.alertController
-            .create({
-                header: this.$t('company.deleteCompany'),
-                buttons: [
-                    {
-                        text: this.$t('general.cancel'),
-                        role: 'cancel',
-                        cssClass: 'secondary',
-                    },
-                    {
-                        text: this.$t('general.yes'),
-                        handler: () => {
-                            this.deleteCompany(compID);
+                .create({
+                    header: this.$t('company.deleteCompany'),
+                    buttons: [
+                        {
+                            text: this.$t('general.cancel'),
+                            role: 'cancel',
+                            cssClass: 'secondary',
                         },
-                    },
-                ],
-            })
-            .then(alert => alert.present());
+                        {
+                            text: this.$t('general.yes'),
+                            handler: () => {
+                                this.deleteCompany(compID);
+                            },
+                        },
+                    ],
+                })
+                .then(alert => alert.present());
         },
-        saveCompany(){
-            
+        saveCompany() {
+
             Object.assign(this.company, this.editableCompany);
             this.isEditModalOpen = false;
             var url = this.$api_add + "/updatecompany";
@@ -350,12 +368,12 @@ export default defineComponent({
                 }
             })
         },
-        deleteCompany(compID){
+        deleteCompany(compID) {
             var url = this.$api_add + "/deletecompany";
             axios.post(url,
-            {
-                id: compID
-            },{
+                {
+                    id: compID
+                }, {
                 headers: { 'authorization': localStorage.getItem('token') },
                 withCredentials: false
             }).then((response) => {
@@ -365,13 +383,25 @@ export default defineComponent({
             });
         },
         getCompanyTypeTranslation(type) {
-             
+
             return this.$t(`company.type.${type}`);
         },
         goToOffers(companyID) {
-            this.$router.push('/companyoffers/'+companyID, {
-                
+            this.$router.push('/companyoffers/' + companyID, {
+
             });
+        },
+        getUserLevelText(userlevel) {
+            switch (userlevel) {
+                case "20":
+                    return this.$t('admin.company.userlevel.companyMember');
+                case "21":
+                    return this.$t('admin.company.userlevel.premiumCompanyMember');
+                case "23":
+                    return this.$t('admin.company.userlevel.companyAdmin');
+                default:
+                    return '';
+            }
         },
         goToInsertCompanyLocations(companyID, companyName) {
             this.$router.push({
@@ -382,7 +412,7 @@ export default defineComponent({
                 },
             });
         },
-        
+
         goToLogisticsRegister(companyID, companyName) {
             this.$router.push({
                 path: '/logistics',
@@ -394,12 +424,12 @@ export default defineComponent({
         },
         showCertificates(compID) {
             this.$router.push('/company/certificates/' + compID, {
-                
+
             });
         },
-        showUsers(compID){
-            this.$router.push('/companyusers/'+compID, {
-                
+        showUsers(compID) {
+            this.$router.push('/companyusers/' + compID, {
+
             });
         },
         openInviteModal() {

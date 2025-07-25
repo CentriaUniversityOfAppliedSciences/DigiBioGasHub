@@ -469,7 +469,14 @@
             "confirmDelete": "Are you sure you want to permanently delete this company? This action cannot be undone!",
             "verifyFail": "Unable to verify company!",
             "unverifyFail": "Unable to unverify company!",
-            "disableFail": "Unable to disable company!"
+            "disableFail": "Unable to disable company!",
+            "noCompanies": "No companies yet!",
+            "userlevel":{
+                "role": "Role",
+                "companyMember": "Company Member",
+                "premiumCompanyMember": "Company Premium Member",
+                "companyAdmin": "Company Admin"
+            }
         },
         "blogpost":{
             "blogs": "Blog posts",
