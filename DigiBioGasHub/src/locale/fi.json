@@ -469,7 +469,14 @@
             "confirmDelete": "Haluatko varmasti poistaa tämän yrityksen pysyvästi? Tätä toimintoa ei voi peruuttaa!",
             "verifyFail": "Yrityksen vahvistaminen epäonnistui!",
             "unverifyFail": "Yrityksen vahvistuksen poistaminen epäonnistui!",
-            "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!"
+            "disableFail": "Yrityksen poistaminen käytöstä epäonnistui!",
+            "noCompanies": "Ei vielä yrityksiä!",
+            "userlevel":{
+                "role": "Rooli",
+                "companyMember": "Yrityksen jäsen",
+                "premiumCompanyMember": "Yrityksen premium-jäsen",
+                "companyAdmin": "Yrityksen ylläpitäjä"
+            }
         },
         "blogpost":{
             "blogs": "Julkaisut",
@@ -763,6 +770,12 @@
         "joinNowSection": {
             "joinNowText": "Liity nyt mukaan ja ota kaikki irti biokaasuliiketoiminnan mahdollisuuksista!"
         }
+    },
+    "notfound": {
+        "message": "Tämä ei ole etsimäsi verkkosivu.",
+        "goHome": "Siirry etusivulle",
+        "funderLogoAlt": "Rahoittajan logo",
+        "centerLogoAlt": "DigiBioGasHubs-logo"
     },
     "gdpr":{
 			"docTitle":"Tietosuojailmoitus",

@@ -469,7 +469,14 @@
             "confirmDelete": "Är du säker på att du vill ta bort detta företag permanent? Denna åtgärd kan inte ångras!",
             "verifyFail": "Verifiering av företaget misslyckades!",
             "unverifyFail": "Borttagning av verifiering misslyckades!",
-            "disableFail": "Inaktivering av företaget misslyckades!"
+            "disableFail": "Inaktivering av företaget misslyckades!",
+            "noCompanies": "Inga företag ännu!",
+            "userlevel":{
+                "role": "Roll",
+                "companyMember": "Företagsmedlem",
+                "premiumCompanyMember": "Premium företagsmedlem",
+                "companyAdmin": "Företagsadministratör"
+            }
         },
         "blogpost":{
             "blogs": "Inlägg",
@@ -763,6 +770,12 @@
         "joinNowSection": {
             "joinNowText": "Gå med nu och ta vara på alla möjligheter inom biogasbranschen!"
         }
+    },
+    "notfound": {
+        "message": "Detta är inte webbsidan du letar efter.",
+        "goHome": "Gå till startsidan",
+        "funderLogoAlt": "Finansiärens logotyp",
+        "centerLogoAlt": "DigiBioGasHubs logotyp"
     },
     "gdpr": {
         "docTitle": "Integritetspolicy",
