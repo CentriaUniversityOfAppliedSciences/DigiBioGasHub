@@ -499,7 +499,10 @@
             "deleteFail": "Borttagning misslyckades!",
             "fetchingPostFailed": "Inga artiklar hittades!",
             "reviewEdit": "Granska och redigera",
-            "addPost": "Lägg till artikel"
+            "addPost": "Lägg till artikel",
+            "addFromFile": "Lägg till artikel från pdf-fil",
+            "title": "Titel",
+            "filePosts": "Artiklar från PDF"
         },
         "users": {
             "title": "Användare",

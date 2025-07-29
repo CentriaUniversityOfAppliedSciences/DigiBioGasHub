@@ -499,7 +499,10 @@
             "deleteFail": "Poisto epäonnistui!",
             "fetchingPostFailed": "Artikkeleita ei löydy!",
             "reviewEdit": "Tarkista ja muokkaa",
-            "addPost": "Lisää artikkeli"
+            "addPost": "Lisää artikkeli",
+            "addFromFile": "Lisää artikkeli pdf-tiedostosta",
+            "title": "Otsikko",
+            "filePosts": "Tiedostosta lisätyt artikkelit"
         },
         "users": {
             "title": "Käyttäjät",

@@ -6,6 +6,8 @@
         <ion-row>
           <ion-col>
             <ion-button @click="addPost">{{ $t('admin.blogpost.addPost') }}</ion-button>
+            <ion-button @click="addFromFile">{{ $t('admin.blogpost.addFromFile') }}</ion-button>
+            
           </ion-col>
         </ion-row>
         <!-- Published Section -->
@@ -113,6 +115,30 @@
             </ion-row>
           </ion-col>
         </ion-row>
+        <!-- File Posts Section -->
+        <ion-row>
+          <ion-col>
+            <h2>{{ $t('admin.blogpost.filePosts') }}</h2>
+            <ion-row>
+              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in filePosts" :key="post.postID">
+                <ion-card class="blog-card">
+                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
+                  <ion-card-header>
+                    <ion-card-title>{{ post.title }}</ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <div class="button-group">
+                      <ion-button @click="preview(post)">
+                        {{ $t('general.preview') }}
+                      </ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('general.delete') }}</ion-button>
+                    </div>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-col>
+        </ion-row>
       </ion-grid>
 
       <!-- Delete Confirmation Alert -->
@@ -171,7 +197,7 @@
             }
           }
         ]"></ion-alert>
-
+      <ion-alert :is-open="showAddFromFileAlert" :buttons="addfilebuttons" :inputs="addfileinputs"></ion-alert>
       <ToastComponent ref="toastComponent" />
       <FooterComponent />
 
@@ -222,13 +248,109 @@ export default defineComponent({
       publishedPosts: [],
       unpublishedPosts: [],
       draftPosts: [],
+      filePosts: [],
+      pdfFileImage64: '',
       showDeleteAlert: false,
       showPublishAlert: false,
       showUnpublishAlert: false,
+      showAddFromFileAlert: false,
+      addfilebuttons: [
+        {
+          text: this.$t('general.cancel'),
+          role: 'cancel',
+          handler: () => {
+            this.showAddFromFileAlert = false;
+          }
+        },
+        {
+          text: this.$t('general.upload'),
+          handler: () => {
+            const titleInput = document.getElementById('titlePdfInput');
+            const fileInput = document.getElementById('filePdfInput');
+            const imageInput = document.getElementById('imagePdfInput');
+
+            if (fileInput && fileInput.files.length > 0) {
+              this.processImg(imageInput.files[0]).then((ans) => {
+                console.log("ans", ans);
+                console.log("pdfFileImage64", this.pdfFileImage64);
+                this.handleFileUpload({ title: titleInput.value, target: fileInput, image: this.pdfFileImage64 });
+              });
+              //this.handleFileUpload({ title: titleInput.value, target: fileInput, image: imageInput });
+            }
+            this.showAddFromFileAlert = false;
+          }
+        }
+      ],
+      addfileinputs: [
+        {
+          name:"title",
+          type: 'text',
+          id: 'titlePdfInput',
+          placeholder: this.$t('admin.blogpost.title'),
+          value: ''
+        },
+        {
+          name: 'image',
+          type: 'file',
+          id: 'imagePdfInput',
+          accept: 'image/*',
+          placeholder: this.$t('general.image'),
+          value: ''
+        },
+        {
+          name: 'file',
+          type: 'file',
+          id: 'filePdfInput',
+          accept: '.pdf',
+          placeholder: this.$t('admin.blogpost.addFromFile')
+        }
+      ],
       postIdToDelete: null
     };
   },
   methods: {
+    addFromFile() {
+      this.showAddFromFileAlert = true;
+      
+    },
+    handleFileUpload(event) {
+      const fileInput = event.target;
+      const imageInput = event.image;
+      if (fileInput.files.length > 0) {
+        const file = fileInput.files[0];
+        const title = event.title;
+        const formData = new FormData();
+        formData.append('file', file);
+        formData.append('title', title);
+        formData.append('image', imageInput);
+
+        this.uploadFile(formData);
+      } else {
+        this.$refs.toastComponent.showToast(this.$t('admin.blogpost.noFileSelected'), 2000, 'danger');
+      }
+    },
+    uploadFile(fileData){
+      const url = this.$api_add + '/admin/createblogpostfile';
+      axios.post(url, fileData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'authorization': localStorage.getItem('token')
+        },
+        withCredentials: false
+      })
+        .then(response => {
+          if (response.data.result === 'ok') {
+            this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadSuccess'), 2000, 'success');
+            this.fetchPosts();
+          } else {
+            this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadFail'), 2000, 'danger');
+          }
+        })
+        .catch(error => {
+          console.error('Error uploading file:', error);
+          this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadFail'), 2000, 'danger');
+        });
+    },
     editPost(postId, title) {
       window.location.href = `/admin/edit-blog-post/${postId}/${slugify(title, { lower: true, strict: true })}`;
     },
@@ -324,12 +446,27 @@ export default defineComponent({
           this.publishedPosts = posts.filter(post => post.blogPostType === 1);
           this.unpublishedPosts = posts.filter(post => post.blogPostType === 0);
           this.draftPosts = posts.filter(post => post.blogPostType === 2);
+          this.filePosts = posts.filter(post => post.blogPostType === 3);
         }
       } catch (error) {
         console.error('Error fetching posts:', error);
         this.$refs.toastComponent.showToast(this.$t('admin.blogpost.fetchingPostFailed'), 2000, 'danger');
       }
-    }
+    },
+    async processImg(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          this.pdfFileImage64 = reader.result;
+          console.log('Image processed:', this.pdfFileImage64);
+          resolve(this.pdfFileImage64);
+        };
+        reader.onerror = (e) => {
+          reject(e);
+        };
+        reader.readAsDataURL(file);
+      });
+    },
   },
   mounted() {
     this.fetchPosts();

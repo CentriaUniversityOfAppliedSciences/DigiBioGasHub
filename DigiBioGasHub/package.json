@@ -21,6 +21,7 @@
     "@cubejs-client/vue3": "^1.3.23",
     "@ionic/vue": "8.5.3",
     "@ionic/vue-router": "8.5.3",
+    "@tato30/vue-pdf": "^1.11.4",
     "@umoteam/editor": "^6.1.1",
     "apexcharts": "^4.7.0",
     "axios": "^1.8.4",
@@ -35,10 +36,10 @@
     "socket.io-client": "^4.8.1",
     "swiper": "^11.2.10",
     "vue": "^3.5.13",
-    "vue-i18n": "11.1.3",
+    "vue-i18n": "^11.1.11",
     "vue-router": "^4.5.0",
     "vue3-apexcharts": "^1.8.0",
-    "vue3-openlayers": "11.5.0"
+    "vue3-openlayers": "^11.6.2"
   },
   "devDependencies": {
     "@capacitor/cli": "7.2.0",

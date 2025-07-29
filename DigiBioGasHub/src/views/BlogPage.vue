@@ -36,7 +36,11 @@ export default defineComponent({
             try {
                 const url = this.$api_add + "/getblogpost";
                 const response = await axios.post(url, { "postID": this.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
-                this.content = response.data.message.content;
+                if (response.data.message.blogPostType === 3 || response.data.message.blogPostType === '3') {
+                    this.content = response.data.message.link;
+                } else {
+                    this.content = response.data.message.content;
+                }
             } catch (error) {
                 if (error.response && error.response.status === 404) {
                     this.errorMessage = error.response.data.message || 'Blog post not found';

@@ -499,7 +499,10 @@
             "deleteFail": "Unable to delete!",
             "fetchingPostFailed": "Cannot find blog posts!",
             "reviewEdit": "Review and Edit",
-            "addPost": "Add blog post"
+            "addPost": "Add blog post",
+            "addFromFile": "Add blog post from pdf-file",
+            "title": "Title",
+            "filePosts": "Articles from PDF"
         },
         "users": {
             "title": "Users",
