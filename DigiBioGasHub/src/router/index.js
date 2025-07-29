@@ -41,6 +41,7 @@ import AnalyticsPage from '../views/Admin/AnalyticsPage.vue';
 import CompanyLocationsPage from '../views/Company/CompanyLocationsPage.vue';
 import CompanyLocationRegisterComponent from '../components/CompanyLocationRegisterComponent.vue';
 import ApiKeysPage from '../views/ApiKeysPage.vue';
+import PricingInfoPage from '../views/PricingInfoPage.vue';
 import SubscriptionPage from '../views/SubscriptionPage.vue';
 import BuySubscriptionPage from '../views/BuySubscriptionPage.vue';
 import PaymentSuccessPage from '../views/PaymentSuccessPage.vue';
@@ -211,6 +212,11 @@ const routes = [
     name: 'Marketplace',
     component: MarketplacePage,
     meta: { requiresAuth: true }
+  },
+  {
+    path: '/pricing',
+    name: 'PriceInfoPage',
+    component: PricingInfoPage
   },
   {
     path: '/contractHistory/:id',
