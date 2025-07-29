@@ -117,7 +117,8 @@
         "companies": "Companies",
         "add_company": "Add company",
         "preview": "Preview",
-        "manage": "Manage"
+        "manage": "Manage",
+        "pricing": "Pricing"
     },
     "footer":{
         "KP": "/assets/kp-eng.jpg",
@@ -697,6 +698,30 @@
         "cancel": "Cancel",
         "deleteConfirmTitle": "Delete API Key",
         "deleteConfirmMsg": "Are you sure you want to delete this API key?"
+    },
+    "pricing": {
+        "choosePlan": "Choose the best plan for your needs",
+        "free": "Free",
+        "freePrice": "€0/month",
+        "basicFeatures": "Basic features",
+        "limitedSupport": "Limited support",
+        "communityAccess": "Community access",
+        "joinFree": "Join for free",
+        "premium3Title": "Premium 3 Months",
+        "premium3Price": "€9.99",
+        "premium6Title": "Premium 6 Months",
+        "premium6Price": "€16.99",
+        "premium12Title": "Premium 12 Months",
+        "premium12Price": "€23.99",
+        "allFreeFeatures": "All Free features",
+        "prioritySupport": "Priority support",
+        "advancedAnalytics": "Advanced analytics",
+        "earlyAccess": "Early access to new features",
+        "choose3Months": "Choose 3 Months",
+        "choose6Months": "Choose 6 Months",
+        "choose12Months": "Choose 12 Months",
+        "recommended": "Recommended",
+        "saveUpTo": "Save up to {percent}%"
     },
     "settings": {
         "filterNote":"Filter settings have been applied. You can change them from",
