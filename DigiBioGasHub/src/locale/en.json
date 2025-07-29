@@ -550,14 +550,22 @@
             "selectCompany": "Select company!"
         }
     },
-    "filter":{
-        "hide":"Hide Filters",
-        "show":"Show Filters",
-        "width":"Toggle width",
-        "farm":"Farm",
-        "offer":"Offer",
-        "plant":"Biogas Plant",
-        "company":"Company"
+    "filter": {
+        "hide": "Hide Filters",
+        "show": "Show Filters",
+        "width": "Toggle width",
+        "farm": "Farm",
+        "offer": "Offer",
+        "plant": "Biogas Plant",
+        "company": "Company",
+        "advanced": "Advanced Filter",
+        "sortBy": "Sort By",
+        "priceHighLow": "Price: High to Low",
+        "priceLowHigh": "Price: Low to High",
+        "amountHighLow": "Amount: High to Low",
+        "amountLowHigh": "Amount: Low to High",
+        "apply": "Apply",
+        "cancel": "Cancel"
     },
     "chat": {
         "chatTerms": {

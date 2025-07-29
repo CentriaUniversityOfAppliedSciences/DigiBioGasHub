@@ -9,7 +9,38 @@
                             }}</a>.
                         <ion-icon name="close-circle-outline" class="close-icon" @click="filter = false"></ion-icon>
                     </p>
+
+                    <ion-button class="advanced-filter-btn" color="primary" @click="showAdvancedFilter = true">
+                        {{ $t('filter.advanced') }}
+                    </ion-button>
                 </div>
+                <ion-modal :is-open="showAdvancedFilter" @didDismiss="showAdvancedFilter = false">
+                    <div class="advanced-filter-modal">
+                        <h3>{{ $t('filter.sortBy') }}</h3>
+                        <ion-radio-group v-model="selectedSort">
+                            <ion-item>
+                                <ion-label>{{ $t('filter.priceHighLow') }}</ion-label>
+                                <ion-radio slot="start" value="priceDesc"></ion-radio>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>{{ $t('filter.priceLowHigh') }}</ion-label>
+                                <ion-radio slot="start" value="priceAsc"></ion-radio>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>{{ $t('filter.amountHighLow') }}</ion-label>
+                                <ion-radio slot="start" value="amountDesc"></ion-radio>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label>{{ $t('filter.amountLowHigh') }}</ion-label>
+                                <ion-radio slot="start" value="amountAsc"></ion-radio>
+                            </ion-item>
+                        </ion-radio-group>
+                        <ion-button expand="block" color="success" @click="applySort">{{ $t('filter.apply')
+                            }}</ion-button>
+                        <ion-button expand="block" fill="clear" color="medium" @click="showAdvancedFilter = false">{{
+                            $t('filter.cancel') }}</ion-button>
+                    </div>
+                </ion-modal>
                 <ion-grid class="main-grid">
                     <ion-row>
                         <ion-col size="12" size-lg="3">
@@ -22,7 +53,7 @@
 
                     <ion-row>
                         <ion-col size="12" size-lg="3">
-                            <FilterComponent :filtersData="filtersData" :dataToFilter="products" 
+                            <FilterComponent :filtersData="filtersData" :dataToFilter="products"
                                 @filtered-data="updateData" />
                         </ion-col>
 
@@ -30,7 +61,8 @@
                             <ion-row>
                                 <ion-col v-for="product in currentProducts" :key="product.id" size="12" size-sm="6"
                                     size-md="4" size-lg="4">
-                                    <ListingComponent v-if="product" :product="product" :isMarketplace="true" @updateOffers="getOffers"/>
+                                    <ListingComponent v-if="product" :product="product" :isMarketplace="true"
+                                        @updateOffers="getOffers" />
                                 </ion-col>
                             </ion-row>
                         </ion-col>
@@ -51,7 +83,7 @@ import FilterComponent from '../components/FilterComponent.vue'
 import FooterComponent from '../components/FooterComponent.vue'
 import ListingComponent from '../components/ListingComponent.vue'
 import AddOfferComponent from '../components/AddOfferComponent.vue'
-import { IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton, IonModal, IonNote, IonIcon } from '@ionic/vue'
+import { IonPage, IonContent, IonCol, IonGrid, IonRow, IonButton, IonModal, IonNote, IonIcon, IonRadioGroup, IonItem, IonLabel, IonRadio } from '@ionic/vue'
 import axios from 'axios'
 import { addIcons } from 'ionicons'
 import { closeCircleOutline } from 'ionicons/icons'
@@ -60,7 +92,26 @@ addIcons({
 })
 export default defineComponent({
     name: 'MarketplacePage',
-    components: { NavBarComponent, FooterComponent, IonPage, IonContent, IonNote, IonIcon, IonCol, IonGrid, IonRow, ListingComponent, FilterComponent, IonButton, IonModal, AddOfferComponent },
+    components: {
+        NavBarComponent,
+        FooterComponent,
+        IonPage,
+        IonContent,
+        IonNote,
+        IonIcon,
+        IonCol,
+        IonGrid,
+        IonRow,
+        IonRadioGroup,
+        IonItem,
+        IonLabel,
+        IonRadio,
+        ListingComponent,
+        FilterComponent,
+        IonButton,
+        IonModal,
+        AddOfferComponent
+    },
     setup() {
         return {
         }
@@ -73,12 +124,33 @@ export default defineComponent({
             currentProducts: [],
             filtersData: [],
             filter: false,
-            appliedFilter: {}
+            appliedFilter: {},
+            showAdvancedFilter: false,
+            selectedSort: ''
         }
     },
     methods: {
         updateData(data) {
             this.currentProducts = data;
+        },
+        applySort() {
+            let sorted = [...this.currentProducts];
+            switch (this.selectedSort) {
+                case 'priceDesc':
+                    sorted.sort((a, b) => b.price - a.price);
+                    break;
+                case 'priceAsc':
+                    sorted.sort((a, b) => a.price - b.price);
+                    break;
+                case 'amountDesc':
+                    sorted.sort((a, b) => b.amount - a.amount);
+                    break;
+                case 'amountAsc':
+                    sorted.sort((a, b) => a.amount - b.amount);
+                    break;
+            }
+            this.currentProducts = sorted;
+            this.showAdvancedFilter = false;
         },
         getProducts() {
             var url = this.$api_add + "/getoffers";
@@ -101,7 +173,7 @@ export default defineComponent({
             let locale = this.i18n.global.locale.value
             //const materialTypes = this.$i18n.messages[this.$i18n.locale].material.type;
             const materialTypes = this.i18n.global.messages.value[locale].material.type
-            
+
             if (typeof materialTypes === 'object' && !Array.isArray(materialTypes)) {
                 Object.entries(materialTypes).forEach(([key, value]) => {
                     const normalized = value.toLowerCase().replace(/\s+/g, '');
@@ -176,5 +248,21 @@ ion-button {
     cursor: pointer;
     margin-left: 10px;
     justify-content: center;
+}
+
+.advanced-filter-modal {
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    min-width: 250px;
+    align-items: stretch;
+    color: black;
+}
+
+.advanced-filter-btn {
+    margin-left: auto;
 }
 </style>
