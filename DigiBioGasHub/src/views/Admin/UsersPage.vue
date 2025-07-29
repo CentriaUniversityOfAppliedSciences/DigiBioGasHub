@@ -24,7 +24,7 @@
                     <IonCol>{{ user.email }}</IonCol>
                     <IonCol>{{ user.phone }}</IonCol>
                     <IonCol>{{ user.userlevel }}</IonCol>
-                    <IonCol>{{ user.isPremiumUser }}</IonCol>
+                    <IonCol><span v-if="user.isPremiumUser">{{ user.isPremiumUser }} {{ parseTime(user.Subscriptions[0].expirationDate) }}</span><span v-else>{{ user.isPremiumUser }}</span></IonCol>
                     <IonCol>{{ user.hubID }}</IonCol>
                     <IonCol>
                         <IonButton :id="'action-btn-' + user.id">
@@ -223,6 +223,14 @@ export default {
     },
 
     methods: {
+        parseTime(dateString) {
+            const date = new Date(dateString);
+            return this.$t('product.endTime') + " " + date.toLocaleDateString(this.$i18n.locale, {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            });
+        },
         async fetchUsers() {
             try {
                 const url = this.$api_add + "/admin/getlimitedusers";
