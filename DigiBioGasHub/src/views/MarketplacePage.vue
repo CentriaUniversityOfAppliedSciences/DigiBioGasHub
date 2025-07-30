@@ -9,11 +9,8 @@
                             }}</a>.
                         <ion-icon name="close-circle-outline" class="close-icon" @click="filter = false"></ion-icon>
                     </p>
-
-                    <ion-button class="advanced-filter-btn" color="primary" @click="showAdvancedFilter = true">
-                        {{ $t('filter.advanced') }}
-                    </ion-button>
                 </div>
+
                 <ion-modal :is-open="showAdvancedFilter" @didDismiss="showAdvancedFilter = false">
                     <div class="advanced-filter-modal">
                         <h3>{{ $t('filter.sortBy') }}</h3>
@@ -72,7 +69,13 @@
                                 {{ $t('offers.addOffer') }}
                             </ion-button>
                         </ion-col>
-                        <ion-col size="12" size-lg="9"></ion-col>
+
+                        <ion-col size="12" size-lg="9" class="ion-text-end">
+                            <ion-button color="primary" @click="showAdvancedFilter = true">
+                                {{ $t('filter.advanced') }}
+                            </ion-button>
+                        </ion-col>
+
                     </ion-row>
 
                     <ion-row>
