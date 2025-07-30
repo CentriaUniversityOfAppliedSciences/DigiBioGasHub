@@ -6,7 +6,7 @@
                 <div class="top-parts">
                     <p v-if="filter" class="filter-note">
                         {{ $t('settings.filterNote') }}&nbsp;<a href="/settings"> {{ $t('settings.filterSettings')
-                        }}</a>.
+                            }}</a>.
                         <ion-icon name="close-circle-outline" class="close-icon" @click="filter = false"></ion-icon>
                     </p>
 
@@ -35,8 +35,32 @@
                                 <ion-radio slot="start" value="amountAsc"></ion-radio>
                             </ion-item>
                         </ion-radio-group>
+
+                        <h3 style="margin-top:1.5rem;">{{ $t('filter.dateSort') }}</h3>
+                        <ion-radio-group v-model="selectedSort" class="sort-radio-group">
+                            <ion-item class="sort-radio-item">
+                                <ion-label>{{ $t('filter.newest') }}</ion-label>
+                                <ion-radio slot="start" value="newest"></ion-radio>
+                            </ion-item>
+                            <ion-item class="sort-radio-item">
+                                <ion-label>{{ $t('filter.oldest') }}</ion-label>
+                                <ion-radio slot="start" value="oldest"></ion-radio>
+                            </ion-item>
+                            <ion-item class="sort-radio-item">
+                                <ion-label>{{ $t('filter.latest3months') }}</ion-label>
+                                <ion-radio slot="start" value="latest3months"></ion-radio>
+                            </ion-item>
+                            <ion-item class="sort-radio-item">
+                                <ion-label>{{ $t('filter.latest6months') }}</ion-label>
+                                <ion-radio slot="start" value="latest6months"></ion-radio>
+                            </ion-item>
+                            <ion-item class="sort-radio-item">
+                                <ion-label>{{ $t('filter.latest12months') }}</ion-label>
+                                <ion-radio slot="start" value="latest12months"></ion-radio>
+                            </ion-item>
+                        </ion-radio-group>
                         <ion-button expand="block" color="success" @click="applySort">{{ $t('filter.apply')
-                        }}</ion-button>
+                            }}</ion-button>
                         <ion-button expand="block" fill="clear" color="medium" @click="showAdvancedFilter = false">{{
                             $t('filter.cancel') }}</ion-button>
                     </div>
@@ -118,9 +142,7 @@ export default defineComponent({
     },
     data() {
         return {
-            products: [
-
-            ],
+            products: [],
             currentProducts: [],
             filtersData: [],
             filter: false,
@@ -135,19 +157,59 @@ export default defineComponent({
         },
         applySort() {
             let sorted = [...this.currentProducts];
+            const now = new Date();
             switch (this.selectedSort) {
                 case 'priceDesc':
                     sorted.sort((a, b) => Number(b.price) - Number(a.price));
                     break;
+
                 case 'priceAsc':
                     sorted.sort((a, b) => Number(a.price) - Number(b.price));
                     break;
+
                 case 'amountDesc':
                     sorted.sort((a, b) => Number(b.availableAmount) - Number(a.availableAmount));
                     break;
+
                 case 'amountAsc':
                     sorted.sort((a, b) => Number(a.availableAmount) - Number(b.availableAmount));
                     break;
+
+                case 'newest':
+                    sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    break;
+
+                case 'oldest':
+                    sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+                    break;
+
+                case 'latest3months':
+                    sorted = sorted.filter(item => {
+                        const created = new Date(item.createdAt);
+                        const threeMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+                        return created >= threeMonthsAgo;
+                    });
+                    sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    break;
+
+                case 'latest6months':
+                    sorted = sorted.filter(item => {
+                        const created = new Date(item.createdAt);
+                        const sixMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 6, now.getDate());
+                        return created >= sixMonthsAgo;
+                    });
+                    sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    break;
+
+                case 'latest12months':
+                    sorted = sorted.filter(item => {
+                        const created = new Date(item.createdAt);
+                        const twelveMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 12, now.getDate());
+                        return created >= twelveMonthsAgo;
+                    });
+                    sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+                    break;
+
             }
             this.currentProducts = sorted;
             this.showAdvancedFilter = false;
@@ -202,6 +264,7 @@ export default defineComponent({
 
 })
 </script>
+
 <style scoped>
 .page-container {
     max-width: 90rem;
@@ -255,15 +318,17 @@ ion-button {
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
 }
 
 .sort-radio-group {
     margin-bottom: 1.5rem;
 }
 
-ion-item{
-    --background:none;
+ion-item {
+    --background: none;
 }
+
 .sort-radio-item {
     background: var(--ion-item-background, var(--ion-card-background, #f7f9fa));
     border-radius: 12px;
