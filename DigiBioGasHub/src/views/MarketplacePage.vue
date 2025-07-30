@@ -6,7 +6,7 @@
                 <div class="top-parts">
                     <p v-if="filter" class="filter-note">
                         {{ $t('settings.filterNote') }}&nbsp;<a href="/settings"> {{ $t('settings.filterSettings')
-                            }}</a>.
+                        }}</a>.
                         <ion-icon name="close-circle-outline" class="close-icon" @click="filter = false"></ion-icon>
                     </p>
 
@@ -17,26 +17,26 @@
                 <ion-modal :is-open="showAdvancedFilter" @didDismiss="showAdvancedFilter = false">
                     <div class="advanced-filter-modal">
                         <h3>{{ $t('filter.sortBy') }}</h3>
-                        <ion-radio-group v-model="selectedSort">
-                            <ion-item>
+                        <ion-radio-group v-model="selectedSort" class="sort-radio-group">
+                            <ion-item class="sort-radio-item">
                                 <ion-label>{{ $t('filter.priceHighLow') }}</ion-label>
                                 <ion-radio slot="start" value="priceDesc"></ion-radio>
                             </ion-item>
-                            <ion-item>
+                            <ion-item class="sort-radio-item">
                                 <ion-label>{{ $t('filter.priceLowHigh') }}</ion-label>
                                 <ion-radio slot="start" value="priceAsc"></ion-radio>
                             </ion-item>
-                            <ion-item>
+                            <ion-item class="sort-radio-item">
                                 <ion-label>{{ $t('filter.amountHighLow') }}</ion-label>
                                 <ion-radio slot="start" value="amountDesc"></ion-radio>
                             </ion-item>
-                            <ion-item>
+                            <ion-item class="sort-radio-item">
                                 <ion-label>{{ $t('filter.amountLowHigh') }}</ion-label>
                                 <ion-radio slot="start" value="amountAsc"></ion-radio>
                             </ion-item>
                         </ion-radio-group>
                         <ion-button expand="block" color="success" @click="applySort">{{ $t('filter.apply')
-                            }}</ion-button>
+                        }}</ion-button>
                         <ion-button expand="block" fill="clear" color="medium" @click="showAdvancedFilter = false">{{
                             $t('filter.cancel') }}</ion-button>
                     </div>
@@ -137,16 +137,16 @@ export default defineComponent({
             let sorted = [...this.currentProducts];
             switch (this.selectedSort) {
                 case 'priceDesc':
-                    sorted.sort((a, b) => b.price - a.price);
+                    sorted.sort((a, b) => Number(b.price) - Number(a.price));
                     break;
                 case 'priceAsc':
-                    sorted.sort((a, b) => a.price - b.price);
+                    sorted.sort((a, b) => Number(a.price) - Number(b.price));
                     break;
                 case 'amountDesc':
-                    sorted.sort((a, b) => b.amount - a.amount);
+                    sorted.sort((a, b) => Number(b.availableAmount) - Number(a.availableAmount));
                     break;
                 case 'amountAsc':
-                    sorted.sort((a, b) => a.amount - b.amount);
+                    sorted.sort((a, b) => Number(a.availableAmount) - Number(b.availableAmount));
                     break;
             }
             this.currentProducts = sorted;
@@ -252,17 +252,32 @@ ion-button {
 
 .advanced-filter-modal {
     padding: 2rem;
-    background: #ffffff;
     border-radius: 1rem;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    min-width: 250px;
-    align-items: stretch;
-    color: black;
 }
 
-.advanced-filter-btn {
-    margin-left: auto;
+.sort-radio-group {
+    margin-bottom: 1.5rem;
+}
+
+ion-item{
+    --background:none;
+}
+.sort-radio-item {
+    background: var(--ion-item-background, var(--ion-card-background, #f7f9fa));
+    border-radius: 12px;
+    box-shadow: 0 2px 8px var(--ion-box-shadow-color, rgba(60, 60, 60, 0.07));
+    padding: 1rem 1.2rem;
+    display: flex;
+    align-items: center;
+    margin-top: 1rem;
+    transition: box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    cursor: pointer;
+    border: 1px solid var(--ion-border-color, #e0e0e0);
+}
+
+.sort-radio-item:hover {
+    box-shadow: 0 4px 16px var(--ion-box-shadow-color, rgba(60, 60, 60, 0.12));
 }
 </style>
