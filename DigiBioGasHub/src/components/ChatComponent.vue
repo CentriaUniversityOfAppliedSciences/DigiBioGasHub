@@ -100,21 +100,30 @@
                                 <div style="white-space:pre-wrap;">{{ message.message }}</div>
                                 <div v-if="isOwnMessage(message) || isAdmin()">
                                     <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
-                                        @click="toggleDropdown(message._id)"></ion-icon>
+                                        :id="'dropdown-trigger-' + message._id"></ion-icon>
 
-                                    <div v-if="dropdownVisible === message._id" class="dropdown-menu">
-                                        <button v-if="isOwnMessage(message)" @click="startEdit(message)">
-                                            {{ $t('general.edit') }}
-                                        </button>
-                                        <button v-if="isOwnMessage(message) || isAdmin()"
-                                            @click="confirmDelete(message)">
-                                            {{ $t('general.delete') }}
-                                        </button>
-                                        <button v-if="isAdmin()" @click="togglePin(message)">
-                                            {{ message.pinned ? $t('chat.admin.unpinMessage') :
-                                            $t('chat.admin.pinMessage') }}
-                                        </button>
-                                    </div>
+                                    <ion-popover :trigger="'dropdown-trigger-' + message._id" trigger-action="click"
+                                        side="bottom" alignment="end" size="auto">
+                                        <ion-list lines="none">
+                                            <ion-item v-if="isOwnMessage(message)" button @click="startEdit(message)">
+                                                {{ $t('general.edit') }}
+                                            </ion-item>
+
+                                            <ion-item v-if="isOwnMessage(message) || isAdmin()" button
+                                                @click="confirmDelete(message)">
+                                                {{ $t('general.delete') }}
+                                            </ion-item>
+
+                                            <ion-item v-if="isAdmin()" button @click="togglePin(message)">
+                                                {{
+                                                    message.pinned
+                                                        ? $t('chat.admin.unpinMessage')
+                                                        : $t('chat.admin.pinMessage')
+                                                }}
+                                            </ion-item>
+                                        </ion-list>
+                                    </ion-popover>
+
                                 </div>
                             </div>
                         </div>
@@ -192,7 +201,10 @@ import {
     IonInput,
     IonAlert,
     IonIcon,
-    IonModal
+    IonModal,
+    IonPopover,
+    IonList,
+    popoverController
 } from "@ionic/vue";
 import axios from "axios";
 import getSocket from "../socket";
@@ -224,7 +236,9 @@ export default defineComponent({
         IonItem,
         IonInput,
         IonAlert,
-        IonModal
+        IonModal,
+        IonPopover,
+        IonList
     },
     data() {
         return {
@@ -243,7 +257,6 @@ export default defineComponent({
             hasMoreMessages: true,
             hasError: false,
             pinnedMessages: [],
-            dropdownVisible: null,
             showTermsModal: false,
             showPinned: true
         };
@@ -422,7 +435,7 @@ export default defineComponent({
                 this.scrollToBottom();
             });
         },
-        togglePin(message) {
+        async togglePin(message) {
             const event = message.pinned ? "unpinMessage" : "pinMessage";
             this.socket.emit(event, { _id: message._id, roomId: this.roomId });
 
@@ -430,9 +443,8 @@ export default defineComponent({
             if (index !== -1) {
                 this.messages[index].pinned = !message.pinned;
             }
-        },
-        toggleDropdown(messageId) {
-            this.dropdownVisible = this.dropdownVisible === messageId ? null : messageId;
+
+            await popoverController.dismiss();
         },
         isOwnMessage(message) {
             return message.userId === this.decodedToken.id;
@@ -440,11 +452,12 @@ export default defineComponent({
         isAdmin() {
             return this.decodedToken.userlevel == 99;
         },
-        startEdit(message) {
+        async startEdit(message) {
 
             if (message.userId === this.decodedToken.id) {
                 this.editingMessageId = message._id;
                 this.editedMessage = message.message;
+                await popoverController.dismiss();
             } else {
                 console.error("Unauthorized: You can only edit your own messages.");
             }
@@ -507,29 +520,29 @@ export default defineComponent({
 }
 
 .pinned-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 20px;
-  background-color: #202225;
-  color: #ffffff;
-  font-weight: bold;
-  cursor: pointer;
-  user-select: none;
-  border-bottom: 1px solid #2f3136;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #202225;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid #2f3136;
 }
 
 .toggle-icon {
-  margin-left: auto;
-  font-size: 0.9rem;
-  opacity: 0.6;
+    margin-left: auto;
+    font-size: 0.9rem;
+    opacity: 0.6;
 }
 
 .pinned-messages-list {
-  max-height: 240px;
-  overflow-y: auto;
-  background-color: #2f3136;
-  padding: 10px 0;
+    max-height: 240px;
+    overflow-y: auto;
+    background-color: #2f3136;
+    padding: 10px 0;
 }
 
 .pinned-message {
@@ -610,12 +623,12 @@ export default defineComponent({
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+    transition: opacity 0.2s ease;
 }
 
 .fade-enter-from,
 .fade-leave-to {
-  opacity: 0;
+    opacity: 0;
 }
 
 
@@ -696,35 +709,6 @@ export default defineComponent({
 
 .message:hover .message-options-icon {
     visibility: visible;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 30px;
-    right: 20px;
-    background-color: #202225;
-    border-radius: 4px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    z-index: 10;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-}
-
-.dropdown-menu button {
-    background: none;
-    color: #dcddde;
-    border: none;
-    text-align: left;
-    padding: 6px 10px;
-    font-size: 0.9rem;
-    cursor: pointer;
-}
-
-.dropdown-menu button:hover {
-    background-color: #5865f2;
-    color: white;
 }
 
 .edit-textarea {
