@@ -22,8 +22,16 @@ export default function getSocket() {
         });
 
         socket.on("connect_error", (err) => {
-            localStorage.removeItem("token");
-            router.push("/welcome");
+            const code = err && err.data && err.data.code;
+            const message = err && err.message;
+
+            if (code === "INVALID_TOKEN" || code === "NO_TOKEN" ||
+                (typeof message === "string" && (message.includes("Invalid token") || message.includes("No token")))) {
+                console.warn("Auth failure from chat socket:", code || message);
+                localStorage.removeItem("token");
+                router.push("/welcome");
+                return;
+            }
         });
 
     }
