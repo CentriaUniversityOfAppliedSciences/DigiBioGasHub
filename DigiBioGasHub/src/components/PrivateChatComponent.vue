@@ -22,8 +22,8 @@
                         <div class="avatar">{{ message.senderName.charAt(0).toUpperCase() }}</div>
                         <div class="message-bubble">
                             <div class="sender-time-wrapper">
-                                <b class="sender-items">{{ message.senderName }}</b>
-                                <span class="sender-items">{{ formatTimestamp(message.timestamp) }}</span>
+                                <span class="sender-items">{{ isOwnMessage(message) ? "" : message.senderName }}</span>
+                                <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                             </div>
                             <div class="message-content-wrapper">
                                 <div class="message-content">
@@ -36,17 +36,22 @@
                                     <div v-else>
                                         <div style="white-space:pre-wrap;">{{ message.message }}</div>
                                         <div v-if="isOwnMessage(message)">
-                                            <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
-                                                @click="toggleDropdown(message._id)"></ion-icon>
+                                            <ion-icon :id="'dropdown-trigger-' + message._id"
+                                                name="ellipsis-vertical-sharp" class="message-options-icon"></ion-icon>
 
-                                            <div v-if="dropdownVisible === message._id" class="dropdown-menu">
-                                                <button v-if="isOwnMessage(message)" @click="startEdit(message)">
-                                                    {{ $t('general.edit') }}
-                                                </button>
-                                                <button v-if="isOwnMessage(message)" @click="confirmDelete(message)">
-                                                    {{ $t('general.delete') }}
-                                                </button>
-                                            </div>
+                                            <ion-popover :trigger="'dropdown-trigger-' + message._id"
+                                                trigger-action="click" side="bottom" alignment="end" size="auto">
+                                                <ion-list lines="none">
+                                                    <ion-item v-if="isOwnMessage(message)" button
+                                                        @click="startEdit(message)">
+                                                        {{ $t('general.edit') }}
+                                                    </ion-item>
+                                                    <ion-item v-if="isOwnMessage(message)" button
+                                                        @click="confirmDelete(message)">
+                                                        {{ $t('general.delete') }}
+                                                    </ion-item>
+                                                </ion-list>
+                                            </ion-popover>
                                         </div>
                                     </div>
                                 </div>
@@ -94,7 +99,7 @@
                 {{ errorMessage }}
                 <br />
                 <a v-if="errorMessage === $t('chat.chatDisabledMessage')" href="/settings">{{ $t('chat.goToSettings')
-                }}</a>
+                    }}</a>
             </div>
         </ion-content>
     </IonPage>
@@ -111,12 +116,15 @@ import {
     IonButton,
     IonInput,
     IonAlert,
-    IonIcon
+    IonIcon,
+    IonList,
+    IonItem,
+    IonPopover,
+    popoverController
 } from "@ionic/vue";
 import axios from "axios";
 import getsocket from "../socket";
 import { jwtDecode } from "../router";
-import { Buffer } from "buffer";
 import NavBarComponent from "./NavBarComponent.vue";
 import { defineComponent } from "vue";
 import { addIcons } from "ionicons";
@@ -143,11 +151,13 @@ export default defineComponent({
         IonButton,
         IonInput,
         IonAlert,
+        IonPopover,
+        IonList,
+        IonItem,
         LocaleComponent
     },
     data() {
         return {
-            privateRoomId: null,
             recipientId: null,
             recipientName: "",
             messages: [],
@@ -163,8 +173,7 @@ export default defineComponent({
             allLoaded: false,
             loadingMore: false,
             hasError: false,
-            errorMessageKey: null,
-            dropdownVisible: null
+            errorMessageKey: null
         };
     },
     computed: {
@@ -201,7 +210,7 @@ export default defineComponent({
             const token = localStorage.getItem("token");
             this.decodedToken = jwtDecode(token);
 
-            const response = await axios.post(this.$chat_server_add + '/getchatusers');
+            const response = await axios.post(this.$chat_server_add + '/getchatusers', {}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             const currentUser = response.data.find(user => user.id === this.decodedToken.id);
 
             if (!currentUser) {
@@ -211,12 +220,10 @@ export default defineComponent({
             }
 
             const senderId = this.decodedToken.id;
-            const privateRoomId = [senderId, this.recipientId].sort().join("_");
-            this.privateRoomId = privateRoomId;
 
             this.setupsocketListeners();
 
-            this.socket.emit("joinPrivateChat", { senderId, recipientId: this.recipientId, }, async (response) => {
+            this.socket.emit("joinPrivateChat", { recipientId: this.recipientId }, async (response) => {
                 if (response.status === "success") {
                     await this.loadMessages(true);
                 } else {
@@ -240,10 +247,7 @@ export default defineComponent({
             this.loadingMore = true;
 
             try {
-                const response = await axios.post(this.$chat_server_add + `/privateChat/${this.privateRoomId}`, {
-                    before: this.before,
-                    limit: this.limit
-                });
+                const response = await axios.post(this.$chat_server_add + `/privateChat`, { recipientId: this.recipientId, before: this.before, limit: this.limit }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 
                 const newMessages = response.data;
 
@@ -325,18 +329,10 @@ export default defineComponent({
 
             if (!this.newMessage.trim()) return;
 
-            const senderId = this.decodedToken.id;
-            const senderName = Buffer.from(this.decodedToken.name, 'latin1').toString("utf-8");
-            const privateRoomId = this.privateRoomId;
-
             const messageData = {
-                senderId,
                 recipientId: this.recipientId,
                 recipientName: this.recipientName,
-                senderUsername: this.decodedToken.username,
-                senderName,
                 message: this.newMessage,
-                privateRoomId,
             };
 
             this.socket.emit("sendPrivateMessage", messageData);
@@ -349,9 +345,10 @@ export default defineComponent({
                 this.scrollToBottom();
             });
         },
-        startEdit(message) {
+        async startEdit(message) {
             this.editingMessageId = message._id;
             this.editedMessage = message.message;
+            await popoverController.dismiss();
         },
         cancelEdit() {
             this.editingMessageId = null;
@@ -362,7 +359,7 @@ export default defineComponent({
 
             const updatedMessage = {
                 _id: message._id,
-                privateRoomId: this.privateRoomId,
+                recipientId: this.recipientId,
                 message: this.editedMessage,
             };
 
@@ -373,16 +370,14 @@ export default defineComponent({
             this.messageToDelete = message;
             this.showDeleteAlert = true;
         },
-        deleteMessage(message) {
+        async deleteMessage(message) {
             const messageData = {
                 id: message._id,
-                privateRoomId: this.privateRoomId,
+                recipientId: this.recipientId,
             };
 
             this.socket.emit("deletePrivateMessage", messageData);
-        },
-        toggleDropdown(messageId) {
-            this.dropdownVisible = this.dropdownVisible === messageId ? null : messageId;
+            await popoverController.dismiss();
         },
         isOwnMessage(message) {
             return message.senderId === this.decodedToken.id;
@@ -527,8 +522,13 @@ export default defineComponent({
 }
 
 .sender-items {
-    color: #b9bbbe;
-    font-size: 0.9rem;
+    color: #f8f9fa;
+    font-size: 1rem;
+}
+
+.timestamp {
+   font-size: 0.75rem;
+   color: #72767d;
 }
 
 .edited-marker {
@@ -540,45 +540,27 @@ export default defineComponent({
 
 .message-options-icon {
     position: absolute;
-    top: 15px;
-    right: 0;
+    left: -20px;
+    top: 0.4px;
+    font-size: 1.4rem;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
     cursor: pointer;
     color: #b9bbbe;
+    padding: 6px;
+    margin-top: 7px;
+    margin-left: -10px;
+    background: transparent;
 }
 
 .message-options-icon:hover {
     color: #ffffff;
 }
 
-.dropdown-menu {
-    position: absolute;
-    top: 30px;
-    right: -15px;
-    width: 100px;
-    height: 100px;
-    justify-content: center;
-    align-items: center;
-    background-color: #40444b;
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.dropdown-menu button {
-    background: none;
-    color: #ffffff;
-    border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    text-align: left;
-}
-
-.dropdown-menu button:hover {
-    background-color: #7289da;
+.own-message:hover .message-options-icon {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 button {
