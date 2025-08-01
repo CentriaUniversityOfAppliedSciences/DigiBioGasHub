@@ -166,6 +166,7 @@
                         role: 'cancel',
                         handler: () => {
                             showDeleteAlert = false;
+                            popoverController.dismiss();
                         }
                     },
                     {
@@ -361,7 +362,7 @@ export default defineComponent({
             this.loadingOlderMessages = true;
             const oldestTimestamp = this.messages[0].timestamp;
             try {
-                const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, { limit: 50, oldestTimestamp });
+                const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, { limit: 50, oldestTimestamp }, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
                 const newMessages = response.data;
                 if (newMessages.length === 0) {
                     this.hasMoreMessages = false;
@@ -377,7 +378,7 @@ export default defineComponent({
 
         async fetchPinnedMessages() {
             try {
-                const response = await axios.get(`${this.$chat_server_add}/pinnedMessages/${this.roomId}`);
+                const response = await axios.get(`${this.$chat_server_add}/pinnedMessages/${this.roomId}`, {}, { headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
                 this.pinnedMessages = response.data;
             } catch (error) {
                 console.error("Failed to fetch pinned messages:", error);

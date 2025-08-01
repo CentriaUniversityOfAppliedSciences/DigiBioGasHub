@@ -251,9 +251,7 @@ export default defineComponent({
 
     async fetchUserRooms() {
       try {
-        const response = await axios.post(this.$chat_server_add + "/getrooms", {
-          userId: this.decodedToken.id,
-        });
+        const response = await axios.post(this.$chat_server_add + "/getrooms", { userId: this.decodedToken.id}, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
 
         this.joinedRooms = response.data.joinedRooms;
         this.unjoinedRooms = response.data.unjoinedRooms;
@@ -271,10 +269,7 @@ export default defineComponent({
 
     async createRoom() {
       try {
-        const response = await axios.post(this.$chat_server_add + "/rooms", {
-          name: this.newRoom.name,
-          description: this.newRoom.description
-        });
+        const response = await axios.post(this.$chat_server_add + "/rooms", { name: this.newRoom.name, description: this.newRoom.description }, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
         if (response.status === 201) {
           this.unjoinedRooms.push(response.data);
           this.showModal = false;
@@ -298,10 +293,7 @@ export default defineComponent({
     // update room name and description
     async updateRoom(roomId) {
       try {
-        const response = await axios.put(this.$chat_server_add + `/room/${roomId}`, {
-          name: this.editRoom.name,
-          description: this.editRoom.description
-        });
+        const response = await axios.put(this.$chat_server_add + `/room/${roomId}`, { name: this.editRoom.name, description: this.editRoom.description }, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
         if (response.status === 200) {
           const list = this.currentRoomList === "joined" ? this.joinedRooms : this.unjoinedRooms;
           const index = list.findIndex(r => r.roomId === roomId);
@@ -328,7 +320,7 @@ export default defineComponent({
     async deleteRoom(roomId) {
       try {
         console.log("Deleting room with ID:", roomId);
-        const response = await axios.delete(this.$chat_server_add + `/room/${roomId}`);
+        const response = await axios.delete(this.$chat_server_add + `/room/${roomId}`, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
         if (response.status === 200) {
           if (this.currentRoomList === "joined") {
             this.joinedRooms = this.joinedRooms.filter(room => room.roomId !== roomId);
