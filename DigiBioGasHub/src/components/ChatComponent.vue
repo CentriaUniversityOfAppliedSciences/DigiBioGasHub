@@ -278,10 +278,8 @@ export default defineComponent({
             this.decodedToken = jwtDecode(token);
         }
 
-        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle, userId: this.decodedToken.id }, (response) => {
-            if (response.status === "success") {
-                console.log("Joined room successfully");
-            } else {
+        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle}, (response) => {
+            if (response.status !== "success") {
                 this.hasError = true;
                 console.error("Failed to join room:", response.message);
             }
@@ -436,7 +434,7 @@ export default defineComponent({
                 this.scrollToBottom();
             });
         },
-        async togglePin(message) {
+        togglePin(message) {
             const event = message.pinned ? "unpinMessage" : "pinMessage";
             this.socket.emit(event, { _id: message._id, roomId: this.roomId });
 
@@ -445,7 +443,7 @@ export default defineComponent({
                 this.messages[index].pinned = !message.pinned;
             }
 
-            await popoverController.dismiss();
+            popoverController.dismiss().catch(() => {});
         },
         isOwnMessage(message) {
             return message.userId === this.decodedToken.id;

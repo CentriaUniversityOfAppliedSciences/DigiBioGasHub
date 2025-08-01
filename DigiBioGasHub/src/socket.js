@@ -17,6 +17,12 @@ export default function getSocket() {
         // });
 
         socket.on("unauthorized", (msg) => {
+            localStorage.removeItem("token");
+            router.push("/welcome");
+        });
+
+        socket.on("connect_error", (err) => {
+            localStorage.removeItem("token");
             router.push("/welcome");
         });
 
