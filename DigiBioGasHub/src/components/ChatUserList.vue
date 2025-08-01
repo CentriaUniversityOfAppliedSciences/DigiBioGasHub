@@ -90,9 +90,7 @@ export default defineComponent({
         async fetchUsers() {
             try {
 
-                const response = await axios.post(this.$chat_server_add + "/userlists", {
-                    currentUserId: this.decodedToken.id,
-                });
+                const response = await axios.post(this.$chat_server_add + "/userlists", { currentUserId: this.decodedToken.id},{ headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
                 this.users = response.data;
 
             } catch (error) {

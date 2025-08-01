@@ -16,7 +16,7 @@
                 </ion-toolbar>
             </ion-header>
 
-            <ion-modal  v-if="showTermsModal" :is-open="true" :can-dismiss="false">
+            <ion-modal v-if="showTermsModal" :is-open="true" :can-dismiss="false">
                 <ion-header>
                     <ion-toolbar>
                         <ion-title>{{ $t('chat.chatTerms.termsModalTitle') }}</ion-title>
@@ -43,18 +43,29 @@
 
             <div id="chatContainer">
                 <div v-if="pinnedMessages.length > 0" id="pinnedMessagesContainer">
-                    <div v-for="(message, index) in pinnedMessages" :key="message._id" class="pinned-message">
-                        <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
-                        <div class="message-content">
-                            <b>{{ message.name }}</b>
-                            <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
-                            <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
-                            <div style="white-space:pre-wrap;">{{ message.message }}</div>
-                            <div class="message-actions">
-                                <button v-if="isAdmin()" @click="togglePin(message)">{{ $t('chat.admin.unpinMessage') }}</button>
+                    <div class="pinned-header" @click="showPinned = !showPinned">
+                        📌 {{ $t('chat.pinnedMessages') }}
+                        <span class="toggle-icon">{{ showPinned ? '▲' : '▼' }}</span>
+                    </div>
+
+                    <transition name="fade">
+                        <div v-show="showPinned" class="pinned-messages-list">
+                            <div v-for="(message, index) in pinnedMessages" :key="message._id" class="pinned-message">
+                                <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
+                                <div class="message-content">
+                                    <b>{{ message.name }}</b>
+                                    <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+                                    <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                                    <div style="white-space:pre-wrap;">{{ message.message }}</div>
+                                    <div class="message-actions">
+                                        <button v-if="isAdmin()" @click="togglePin(message)">
+                                            {{ $t('chat.admin.unpinMessage') }}
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    </transition>
                     <div class="pinned-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="40" height="40"
                             color="#000000" fill="#ef233c">
@@ -75,33 +86,44 @@
                     <div v-for="message in messages" :key="message.timestamp" class="message">
                         <div class="avatar">{{ message.name.charAt(0).toUpperCase() }}</div>
                         <div class="message-content">
-                            <b>{{ message.name }}</b>
-                            <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
-                            <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                            <div class="message-content-header">
+                                <b>{{ message.name }}</b>
+                                <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
+                                <span v-if="message.isEdited" class="edited-marker">({{ $t('chat.edited') }})</span>
+                            </div>
                             <div v-if="editingMessageId === message._id">
                                 <textarea v-model="editedMessage" @keyup.enter.exact="saveEdit(message)"
                                     @keyup.enter.shift.prevent rows="4" class="edit-textarea"></textarea>
                                 <button @click="cancelEdit">{{ $t('general.cancel') }}</button>
                             </div>
-                            <div v-else>
+                            <div v-else class="message-content-body">
                                 <div style="white-space:pre-wrap;">{{ message.message }}</div>
                                 <div v-if="isOwnMessage(message) || isAdmin()">
                                     <ion-icon name="ellipsis-vertical-sharp" class="message-options-icon"
-                                        @click="toggleDropdown(message._id)"></ion-icon>
+                                        :id="'dropdown-trigger-' + message._id"></ion-icon>
 
-                                    <div v-if="dropdownVisible === message._id" class="dropdown-menu">
-                                        <button v-if="isOwnMessage(message)" @click="startEdit(message)">
-                                            {{ $t('general.edit') }}
-                                        </button>
-                                        <button v-if="isOwnMessage(message) || isAdmin()"
-                                            @click="confirmDelete(message)">
-                                            {{ $t('general.delete') }}
-                                        </button>
-                                        <button v-if="isAdmin()" @click="togglePin(message)">
-                                            {{ message.pinned ? $t('chat.admin.unpinMessage') :
-                                            $t('chat.admin.pinMessage') }}
-                                        </button>
-                                    </div>
+                                    <ion-popover :trigger="'dropdown-trigger-' + message._id" trigger-action="click"
+                                        side="bottom" alignment="end" size="auto">
+                                        <ion-list lines="none">
+                                            <ion-item v-if="isOwnMessage(message)" button @click="startEdit(message)">
+                                                {{ $t('general.edit') }}
+                                            </ion-item>
+
+                                            <ion-item v-if="isOwnMessage(message) || isAdmin()" button
+                                                @click="confirmDelete(message)">
+                                                {{ $t('general.delete') }}
+                                            </ion-item>
+
+                                            <ion-item v-if="isAdmin()" button @click="togglePin(message)">
+                                                {{
+                                                    message.pinned
+                                                        ? $t('chat.admin.unpinMessage')
+                                                        : $t('chat.admin.pinMessage')
+                                                }}
+                                            </ion-item>
+                                        </ion-list>
+                                    </ion-popover>
+
                                 </div>
                             </div>
                         </div>
@@ -144,6 +166,7 @@
                         role: 'cancel',
                         handler: () => {
                             showDeleteAlert = false;
+                            popoverController.dismiss();
                         }
                     },
                     {
@@ -179,7 +202,10 @@ import {
     IonInput,
     IonAlert,
     IonIcon,
-    IonModal
+    IonModal,
+    IonPopover,
+    IonList,
+    popoverController
 } from "@ionic/vue";
 import axios from "axios";
 import getSocket from "../socket";
@@ -196,7 +222,7 @@ addIcons({
 });
 
 
-export default defineComponent({ 
+export default defineComponent({
     name: "ChatComponent",
     components: {
         IonPage,
@@ -211,7 +237,9 @@ export default defineComponent({
         IonItem,
         IonInput,
         IonAlert,
-        IonModal
+        IonModal,
+        IonPopover,
+        IonList
     },
     data() {
         return {
@@ -227,11 +255,11 @@ export default defineComponent({
             decodedToken: null,
             socket: null,
             loadingOlderMessages: false,
-            hasMoreMessages:true,
+            hasMoreMessages: true,
             hasError: false,
             pinnedMessages: [],
-            dropdownVisible: null,
             showTermsModal: false,
+            showPinned: true
         };
     },
     async mounted() {
@@ -250,17 +278,15 @@ export default defineComponent({
             this.decodedToken = jwtDecode(token);
         }
 
-        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle, userId: this.decodedToken.id  }, (response) => {
-            if (response.status === "success") {
-                console.log("Joined room successfully");
-            } else {
+        this.socket.emit("joinRoom", { roomId: this.roomId, roomName: this.roomTitle}, (response) => {
+            if (response.status !== "success") {
                 this.hasError = true;
                 console.error("Failed to join room:", response.message);
             }
         });
 
         try {
-            const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50});
+            const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, { limit: 50 });
             this.messages = response.data;
 
             this.$nextTick(() => {
@@ -328,13 +354,13 @@ export default defineComponent({
             localStorage.setItem("chatTermsModalShown", "true");
         },
 
-        async loadOlderMessages (){
+        async loadOlderMessages() {
 
-            if(this.loadingOlderMessages || !this.hasMoreMessages) return;
+            if (this.loadingOlderMessages || !this.hasMoreMessages) return;
             this.loadingOlderMessages = true;
             const oldestTimestamp = this.messages[0].timestamp;
             try {
-                const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, {limit: 50, oldestTimestamp});
+                const response = await axios.post(this.$chat_server_add + `/chat/${this.roomId}`, { limit: 50, oldestTimestamp }, {headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
                 const newMessages = response.data;
                 if (newMessages.length === 0) {
                     this.hasMoreMessages = false;
@@ -350,7 +376,7 @@ export default defineComponent({
 
         async fetchPinnedMessages() {
             try {
-                const response = await axios.get(`${this.$chat_server_add}/pinnedMessages/${this.roomId}`);
+                const response = await axios.get(`${this.$chat_server_add}/pinnedMessages/${this.roomId}`, {}, { headers:{ 'authorization':localStorage.getItem('token') }, withCredentials: false});
                 this.pinnedMessages = response.data;
             } catch (error) {
                 console.error("Failed to fetch pinned messages:", error);
@@ -416,9 +442,8 @@ export default defineComponent({
             if (index !== -1) {
                 this.messages[index].pinned = !message.pinned;
             }
-        },
-        toggleDropdown(messageId) {
-            this.dropdownVisible = this.dropdownVisible === messageId ? null : messageId;
+
+            popoverController.dismiss().catch(() => {});
         },
         isOwnMessage(message) {
             return message.userId === this.decodedToken.id;
@@ -426,11 +451,12 @@ export default defineComponent({
         isAdmin() {
             return this.decodedToken.userlevel == 99;
         },
-        startEdit(message) {
+        async startEdit(message) {
 
             if (message.userId === this.decodedToken.id) {
                 this.editingMessageId = message._id;
                 this.editedMessage = message.message;
+                await popoverController.dismiss();
             } else {
                 console.error("Unauthorized: You can only edit your own messages.");
             }
@@ -455,8 +481,9 @@ export default defineComponent({
             this.showDeleteAlert = true;
             this.messageToDelete = message;
         },
-        deleteMessage(message) {
+        async deleteMessage(message) {
             this.socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
+            await popoverController.dismiss();
         },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;
@@ -481,28 +508,148 @@ export default defineComponent({
     flex-direction: column;
     height: 90vh;
     align-items: center;
-    background-color: #2d3036;
-
+    background-color: #2c2f33;
 }
+
+#pinnedMessagesContainer {
+    width: 100%;
+    max-width: 90rem;
+    padding: 10px 0;
+    background-color: #2f3136;
+    border-bottom: 1px solid #202225;
+}
+
+.pinned-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background-color: #202225;
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid #2f3136;
+}
+
+.toggle-icon {
+    margin-left: auto;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+.pinned-messages-list {
+    max-height: 240px;
+    overflow-y: auto;
+    background-color: #2f3136;
+    padding: 10px 0;
+}
+
+.pinned-message {
+    display: flex;
+    gap: 12px;
+    padding: 10px 20px;
+    background-color: rgba(67, 181, 129, 0.1);
+    border-left: 4px solid #43b581;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    position: relative;
+}
+
+.pinned-message .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #7289da;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.1em;
+    color: white;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.pinned-message .message-content {
+    color: #dcddde;
+    font-size: 0.95rem;
+}
+
+.pinned-message .message-content b {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.pinned-message .timestamp {
+    font-size: 0.75rem;
+    color: #72767d;
+    margin-left: 8px;
+}
+
+.pinned-message .edited-marker {
+    font-size: 0.75rem;
+    color: #72767d;
+    font-style: italic;
+    margin-left: 8px;
+}
+
+.pinned-message .message-content>div {
+    margin-top: 2px;
+    white-space: pre-wrap;
+}
+
+.pinned-message .message-actions button {
+    background: none;
+    color: #43b581;
+    border: none;
+    font-size: 0.85rem;
+    cursor: pointer;
+}
+
+.pinned-message .message-actions button:hover {
+    color: #ffffff;
+    background-color: #43b58133;
+    border-radius: 3px;
+}
+
+.pinned-icon {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
 
 #chatBox {
     flex: 1;
-    padding: 10px;
-    padding-bottom: 30px;
     overflow-y: auto;
-    background-color: #2f3136;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    padding: 20px 0;
     width: 100%;
     max-width: 90rem;
+    background-color: #2f3136;
 }
 
-.nomessage {
+.message {
     display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    color: #ffffff;
+    gap: 12px;
+    padding: 14px 20px;
+    position: relative;
+}
+
+.message:hover {
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .avatar {
@@ -514,149 +661,84 @@ export default defineComponent({
     justify-content: center;
     align-items: center;
     font-size: 1.2em;
-    color: #ffffff;
-    font-weight: bold;
+    color: white;
+    flex-shrink: 0;
 }
 
 .message-content {
-    background-color: #40444b;
-    padding: 10px;
-    border-radius: 8px;
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+.message-content-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+}
+
+.message-content-header b {
     color: #ffffff;
-    max-width: 70%;
-    position: relative;
+    font-weight: 600;
+}
+
+.timestamp {
+    font-size: 0.75rem;
+    color: #72767d;
+}
+
+.edited-marker {
+    font-size: 0.75rem;
+    color: #72767d;
+    font-style: italic;
+}
+
+.message-content-body {
+    white-space: pre-wrap;
+    color: #dcddde;
 }
 
 .message-options-icon {
     position: absolute;
-    top: 12px;
-    right: 0;
+    top: 10px;
+    right: 20px;
     cursor: pointer;
     color: #b9bbbe;
+    visibility: hidden;
 }
 
-.message-options-icon:hover {
-    color: #ffffff;
+.message:hover .message-options-icon {
+    visibility: visible;
 }
 
-.dropdown-menu {
-    position: absolute;
-    top: 30px;
-    right: -15px;
+.edit-textarea {
     background-color: #40444b;
-    border-radius: 5px;
-    padding: 5px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-}
-
-.dropdown-menu button {
-    background: none;
-    color: #ffffff;
+    color: white;
     border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    text-align: left;
-}
-
-.dropdown-menu button:hover {
-    background-color: #7289da;
-}
-
-button {
-    background: none;
-    color: gainsboro;
-}
-
-.message-content b {
-    color: #7289da;
-}
-
-.timestamp {
-    font-size: 0.8em;
-    color: #b9bbbe;
-    margin: 0 5px 0 5px;
+    border-radius: 4px;
+    padding: 8px;
+    font-size: 0.95rem;
+    width: 100%;
 }
 
 #messageInputContainer {
     display: flex;
-    padding: 10px;
+    padding: 10px 20px;
     background-color: #2f3136;
     position: sticky;
     bottom: 0;
-    z-index: 10;
     width: 100%;
     max-width: 90rem;
+    border-top: 1px solid #202225;
 }
 
 #message {
     flex: 1;
     padding: 10px;
+    background-color: #40444b;
     border: none;
-    border-radius: 5px;
-    margin-right: 10px;
-    background-color: #40444b;
-    color: #ffffff;
-}
-
-.edit-textarea {
-  background-color: white;
-  color: black;
-  max-width: 70%;
-}
-
-#pinnedMessagesContainer {
-    position: relative;
-    width: 100%;
-    max-width: 90rem;
-    padding: 10px;
-    margin-top: 10px;
-    background-color: #316632;
-    border-radius: 10px;
-    box-sizing: border-box;
-    max-height: 18rem; 
-    overflow-y: auto;
-}
-
-.pinned-icon {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-}
-
-.pinned-message {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    padding: 5px;
-    border-radius: 10px;
-}
-
-.pinned-message .message-content {
-    max-width: 70%;
-}
-
-.pinned-message .message-actions button {
-    background: none;
-    color: white; 
-    cursor: pointer;
-}
-
-@media (prefers-color-scheme: dark) {
-  .edit-textarea {
-    background-color: #40444b;
+    border-radius: 4px;
     color: white;
-  }
-}
-
-.edited-marker {
-    font-size: 0.8em;
-    color: #b9bbbe;
-    margin: 0 5px 0 0;
-    font-style: italic;
 }
 
 #message:focus {
@@ -665,16 +747,23 @@ button {
 }
 
 #sendBtn {
-    padding: 10px 20px;
+    margin-left: 10px;
+    padding: 10px 16px;
+    background-color: #5865f2;
+    color: white;
     border: none;
-    border-radius: 5px;
-    background-color: #7289da;
-    color: #ffffff;
+    border-radius: 4px;
+    font-weight: bold;
     cursor: pointer;
 }
 
 #sendBtn:hover {
-    background-color: #5b6eae;
+    background-color: #4752c4;
+}
+
+.nomessage {
+    padding: 10px 20px;
+    color: #72767d;
 }
 
 #chatBox::-webkit-scrollbar {
