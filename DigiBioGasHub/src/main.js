@@ -62,6 +62,7 @@ const i18n = createI18n({
 let api_add = import.meta.env.VITE_BACKEND_ADDRESS;
 let chat_server_add = import.meta.env.VITE_CHATSERVER; 
 let cube_add = import.meta.env.VITE_CUBE_ADDRESS;
+let use_payment = import.meta.env.VITE_USE_PAYMENT;
 const app = createApp(App)
   .use(IonicVue)
 
@@ -81,6 +82,9 @@ const app = createApp(App)
 
   app.config.globalProperties.i18n = i18n;
   app.provide('i18n', i18n);
+
+  app.config.globalProperties.$use_payment = use_payment;
+  app.provide('$use_payment', use_payment);
 
 router.isReady().then(() => {
   app.mount('#app');

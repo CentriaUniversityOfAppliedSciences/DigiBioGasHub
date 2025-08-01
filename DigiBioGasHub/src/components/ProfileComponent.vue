@@ -23,7 +23,7 @@
                     <ion-button id="changePassword">{{ $t('menu.changePassword') }}</ion-button>
                     <ion-button @click="settings_button">{{ $t("general.settings") }}</ion-button>
                     <ion-button @click="goToApiKey">{{ $t("apiKeys.title") }}</ion-button>
-                    <ion-button @click="goToSubscriptionPage">{{ $t('premium.manage_subscriptions') }}</ion-button>
+                    <ion-button v-if="use_payment == 'true'" @click="goToSubscriptionPage">{{ $t('premium.manage_subscriptions') }}</ion-button>
                 </ion-card-content>
             </ion-card>
             
@@ -109,6 +109,7 @@ export default defineComponent({
             newPassword: '',
             repeatPassword: '',
             EditUser: true,
+            use_payment: this.$use_payment
         };
     },
     methods: {

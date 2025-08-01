@@ -8,7 +8,7 @@
                     
                         <li class="menu-item"><a href="/privacy-policy">{{ $t('general.PrivacyPolicy') }}</a></li>
 
-                        <li class="menu-item"><a href="/pricing">{{ $t('general.pricing') }}</a></li>
+                        <li v-if="use_payment == 'true'" class="menu-item"><a href="/pricing">{{ $t('general.pricing') }}</a></li>
 
                         <li class="menu-item"><a href="https://link.webropolsurveys.com/S/941E350F901601ED" target="_blank">{{ $t('general.feedback') }}</a></li>
 
@@ -61,7 +61,12 @@ export default {
         
 
         
-    }
+    },
+    data() {
+        return {
+            use_payment: this.$use_payment
+        };
+    },
 };
 </script>
 

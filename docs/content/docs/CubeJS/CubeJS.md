@@ -1,6 +1,6 @@
 ---
 weight: 601
-title: "CubeJS"
+title: "CubeJS/Analytics"
 description: ""
 icon: "article"
 date: "2025-08-01T07:14:23Z"

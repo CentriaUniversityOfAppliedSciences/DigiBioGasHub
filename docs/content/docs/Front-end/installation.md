@@ -33,6 +33,7 @@ ShowCodeCopyButtons: true
     VITE_CHATSOCKET=https://address_to_server
     VITE_ENABLE_BIOKAASUKLINIKKA=false #true only if BKKlinikkaComponent.vue file exists
     VITE_CUBE_ADDRESS=https://address_to_server/analytics
+    VITE_USE_PAYMENT=false
     ```
 6. Start frontend. Run in dev mode (ionic serve) or build for production
     ```

@@ -12,7 +12,7 @@
                     <img src="../assets/DBH-logo.png" style="height: 50px;" alt="center-logo" class="center-logo" />
                 </div>
                 <div class="nav-right">
-                    <ion-button fill="clear" style="color: white;" size="small" @click="goToPricing">{{ $t('general.pricing') }}</ion-button>
+                    <ion-button v-if="use_payment == 'true'" fill="clear" style="color: white;" size="small" @click="goToPricing">{{ $t('general.pricing') }}</ion-button>
                     <ion-button fill="clear" style="color: white;" size="small" @click="goToLogin">{{ $t('general.login') }}</ion-button>
                     <ion-button fill="solid" size="small" color="primary" @click="goToSignup">{{
                         $t('landingPage.signupButton') }}</ion-button>
@@ -240,7 +240,8 @@ export default defineComponent({
     data() {
         return {
             isMobile: false,
-            showMenu: false
+            showMenu: false,
+            use_payment: this.$use_payment
         };
     },
     methods: {

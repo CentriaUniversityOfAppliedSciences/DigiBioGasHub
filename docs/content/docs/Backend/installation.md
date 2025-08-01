@@ -55,7 +55,13 @@ toc: true
     HUB_NAME=name_of_your_hub  #default hub created on first start
     HUB_ORIGIN=url_address_of_your_hub  #(local dev is ionic address http://localhost:8100)  
     HUB_ADMIN_USER=username_for_default_admin  #needs to be email e.g. admin@admin.fi
-    HUB_ADMIN_PASS=password_for_default_admin  #needs to be atleast 8 char long  
+    HUB_ADMIN_PASS=password_for_default_admin  #needs to be atleast 8 char long
+    USE_PAYMENT=false
+    STRIPE_SECRET_KEY=sk_ #leave like this if you do not have stripe account
+    STRIPE_WEBHOOK_SECRET=whsec_ #leave like this if you do not have stripe account
+    THREE_MONTHS_SUBSCRIPTION_PRICE=price_ #leave like this if you do not have stripe account
+    SIX_MONTHS_SUBSCRIPTION_PRICE=price_ #leave like this if you do not have stripe account
+    TWELVE_MONTHS_SUBSCRIPTION_PRICE=price_ #leave like this if you do not have stripe account
     ```
 
 8. Move out of DigiBioGasHub-backend folder
@@ -93,3 +99,75 @@ toc: true
 
 On first run the backend server will create an superadmin user and a default hub for the system. Username and password for the superadmin are set in .env. Change the superadmin password!!! 
 It might be necessary to open port on firewall or vm settings to access backend
+
+
+## Payment Integration (Optional)
+
+Integrate Stripe payments into your backend by following these steps. Note!! If you wish to use Stripe payment system, set environment variable VITE_USE_PAYMENT=true in frontend and USE_PAYMENT=true in backend
+
+---
+
+### 1. Set Up Stripe
+1. Create an account on **[Stripe](https://stripe.com)**.  
+2. In the Stripe dashboard, obtain your **Stripe Secret Key** (`STRIPE_SECRET_KEY`).
+3. Create product and get the **stripe price ids** (`THREE_MONTHS_SUBSCRIPTION_PRICE, SIX_MONTHS_SUBSCRIPTION_PRICE, TWELVE_MONTHS_SUBSCRIPTION_PRICE`).
+4. Update backend environment variables
+---
+
+### 2. Configure Stripe Webhook
+1. In your Stripe dashboard, create a **Webhook Endpoint**.  
+2. Subscribe the endpoint to these events:  
+   - `checkout.session.completed`  
+   - `checkout.session.expired`  
+3. Set the **Destination URL** to  
+
+   ```
+   https://your-domain/webhook
+   ```
+4. Obtain your **Stripe webhook secret** (`STRIPE_WEBHOOK_SECRET`)
+
+   > When testing locally, replace `your-domain` with your **ngrok** URL (see next section).
+5. Update backend environment variables
+---
+
+### 3. Local Development with ngrok
+If you are running the application on your local machine:
+
+1. Sign up for a free account at **[ngrok](https://ngrok.com)**.  
+2. Install ngrok.
+3. On a free ngrok account, you can reserve one static domain.Go to the "Domains" section in your ngrok dashboard and reserve a subdomain.
+4. Authenticate ngrok with your authtoken:
+
+   ```bash
+   ngrok config add-authtoken $YOUR_AUTHTOKEN
+   ```
+
+---
+
+### 4. Configure `traffic-policy.yml`
+1. Open the file `traffic-policy.yml`.  
+2. Set the `Origin` to your ngrok URL, e.g.:
+
+   ```yaml
+   Origin:  https://hawk.ngrok-free.app
+   ```
+
+---
+
+### 5. Start ngrok with Traffic Policy
+Navigate to the directory containing `traffic-policy.yml`, then run:
+
+```bash
+ngrok http --url=your-ngrok-domain 28765 --traffic-policy-file traffic-policy.yml
+```
+
+- `28765` is the local port your application listens on-adjust if necessary.  
+
+---
+
+> **Reminder**  
+> After ngrok is running, update your Stripe webhook's destination URL to match the active ngrok URL whenever it changes. e.g.:
+
+   ```yaml
+     https://hawk.ngrok-free.app/webhook
+   ```
