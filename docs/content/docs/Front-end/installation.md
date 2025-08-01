@@ -1,5 +1,5 @@
 ---
-weight: 999
+weight: 402
 title: "Installation"
 description: ""
 icon: "article"
@@ -13,28 +13,33 @@ ShowCodeCopyButtons: true
 
 1. Clone the repository
 2. Change directory to project folder
-3. Run npm install
-4. Create .env file, check the needed values from below.
-5. Run in dev mode (ionic serve) or build for production (ionic build --prod)
+3. Install nodeJS modules from npm
+    ```
+    git clone https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub.git
+    cd DigiBioGasHub
+    npm install --legacy-peer-deps
+    ```
 
-NOTE! You need to change memory limit for nodejs to be able to build the project 
+4. Create .env file
+5. Create missing file (Biokaasuklinikka chatbot is not part of this project)
+    ```
+    nano .env
+    touch src/components/BKKlinikkaComponent.vue
+    ```
+    .env file contents
+    ```
+    VITE_BACKEND_ADDRESS=https://address_to_server/api
+    VITE_CHATSERVER=https://address_to_server/chatserver
+    VITE_CHATSOCKET=https://address_to_server
+    VITE_ENABLE_BIOKAASUKLINIKKA=false #true only if BKKlinikkaComponent.vue file exists
+    VITE_CUBE_ADDRESS=https://address_to_server/analytics
+    ```
+6. Start frontend. Run in dev mode (ionic serve) or build for production
+    ```
+    ionic serve #development
+    ionic build --prod #build production site
+    ```
+NOTE! You need to change memory limit for nodejs to be able to build the project
+```  
 export NODE_OPTIONS=--max_old_space_size=8192
-
-```
-git clone https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub.git
-cd DigiBioGasHub
-npm install
-nano .env
-ionic serve
-ionic build --prod
-```
-
-## ENV file
-Add .env file to the root of the project and type the following inside:
-```
-VITE_BACKEND_ADDRESS=https://address_to_server/api
-VITE_CHATSERVER=https://address_to_server/chatserver
-VITE_CHATSOCKET=https://address_to_server
-VITE_ENABLE_BIOKAASUKLINIKKA=false #true only if BKKlinikkaComponent.vue file exists
-VITE_CUBE_ADDRESS=https://address_to_server/analytics
 ```

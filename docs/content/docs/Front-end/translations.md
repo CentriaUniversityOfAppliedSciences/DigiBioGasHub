@@ -1,11 +1,11 @@
 ---
-weight: 999
+weight: 403
 title: "Translations"
 description: ""
 icon: "article"
 date: "2025-07-14T12:57:03Z"
 lastmod: "2025-07-14T12:57:03Z"
-draft: true
+draft: false
 toc: true
 ---
 

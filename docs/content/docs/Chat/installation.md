@@ -13,7 +13,7 @@ toc: true
 2. Change directory to project folder
 3. add .env file into server folder
 4. install mongodb (https://www.mongodb.com/) (tested with mongodb community server 8.0)
-5. install modules from npm
+5. install modules from npm 
 ```
 git clone https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHubs-Chat-Server.git
 cd DigiBioGasHubs-Chat-Server

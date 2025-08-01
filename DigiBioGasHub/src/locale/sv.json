@@ -117,7 +117,8 @@
         "companies": "Företag",
         "add_company": "Lägg till företag",
         "preview": "Förhandsgranska",
-        "manage": "Hantera"
+        "manage": "Hantera",
+        "pricing": "Prissättning"
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -559,7 +560,21 @@
         "farm":"Gård",
         "offer":"Erbjudande",
         "plant":"Biogasanläggning",
-        "company":"Företag"
+        "company":"Företag",
+        "advanced": "Avancerad filtrering",
+        "sortBy": "Sortera efter pris eller mängd",
+        "priceHighLow": "Pris: Högst först",
+        "priceLowHigh": "Pris: Lägst först",
+        "amountHighLow": "Mängd: Mest först",
+        "amountLowHigh": "Mängd: Minst först",
+        "dateSort": "Sortera efter datum",
+        "newest": "Nyast först",
+        "oldest": "Äldst först",
+        "latest3months": "Senaste 3 månaderna",
+        "latest6months": "Senaste 6 månaderna",
+        "latest12months": "Senaste 12 månaderna",
+        "apply": "Tillämpa",
+        "cancel": "Avbryt"
     },
     "chat": {
         "chatTerms": {
@@ -700,6 +715,30 @@
         "cancel": "Avbryt",
         "deleteConfirmTitle": "Bekräfta borttagning",
         "deleteConfirmMsg": "Är du säker på att du vill radera denna API-nyckel? Denna åtgärd kan inte ångras."
+    },
+    "pricing": {
+        "choosePlan": "Välj den bästa planen för dina behov",
+        "free": "Gratis",
+        "freePrice": "€0/månad",
+        "basicFeatures": "Grundläggande funktioner",
+        "limitedSupport": "Begränsad support",
+        "communityAccess": "Community access",
+        "joinFree": "Gå med gratis",
+        "premium3Title": "Premium 3 månader",
+        "premium3Price": "€9.99",
+        "premium6Title": "Premium 6 månader",
+        "premium6Price": "€16.99",
+        "premium12Title": "Premium 12 månader",
+        "premium12Price": "€23.99",
+        "allFreeFeatures": "All Gratis funktioner",
+        "prioritySupport": "Prioriterad support",
+        "advancedAnalytics": "Avancerad analys",
+        "earlyAccess": "Tidig tillgång till nya funktioner",
+        "choose3Months": "Välj 3 månader",
+        "choose6Months": "Välj 6 månader",
+        "choose12Months": "Välj 12 månader",
+        "recommended": "Rekommenderad",
+        "saveUpTo": "Spara upp till {percent}%"
     },
     "settings":{
         "filterNote": "Filterinställningar har aktiverats. Du kan ändra inställningarna",

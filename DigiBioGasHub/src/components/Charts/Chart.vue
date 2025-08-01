@@ -39,11 +39,11 @@ export default {
     }
   },
   mounted() {
-    console.log("Chart loading init", this.loading);
+    //console.log("Chart loading init", this.loading);
   },
   watch:{
     loading: function(newValue) {
-      console.log("Chart loading changed", newValue);
+      //console.log("Chart loading changed", newValue);
     }
   },
   computed: {
@@ -54,6 +54,7 @@ export default {
           var y = [];
           var s = a.series;
           for (var i = 0; i < s.length; i++) {
+            if (s[i].value == null) s[i].value = 0;
             y.push(s[i].value);
           }
           series.push({

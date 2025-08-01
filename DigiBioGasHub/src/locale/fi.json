@@ -117,7 +117,8 @@
         "companies": "Yritykset",
         "add_company": "Lisää yritys",
         "preview": "Esikatselu",
-        "manage": "Hallitse"
+        "manage": "Hallitse",
+        "pricing": "Hinnoittelu"
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -559,7 +560,21 @@
         "farm":"Maatila",
         "offer":"Tarjous",
         "plant":"Biokaasulaitos",
-        "company":"Yritys"
+        "company":"Yritys",
+        "advanced": "Tarkennettu suodatus",
+        "sortBy": "Järjestä hinnan tai määrän mukaan",
+        "priceHighLow": "Hinta: Suurin ensin",
+        "priceLowHigh": "Hinta: Pienin ensin",
+        "amountHighLow": "Määrä: Suurin ensin",
+        "amountLowHigh": "Määrä: Pienin ensin",
+        "dateSort": "Järjestä päivämäärän mukaan",
+        "newest": "Uusimmat ensin",
+        "oldest": "Vanhimmat ensin",
+        "latest3months": "Viimeiset 3 kuukautta",
+        "latest6months": "Viimeiset 6 kuukautta",
+        "latest12months": "Viimeiset 12 kuukautta",
+        "apply": "Käytä",
+        "cancel": "Peruuta"
     },
     "chat": {
         "chatTerms": {
@@ -700,6 +715,30 @@
         "cancel": "Peruuta",
         "deleteConfirmTitle": "Vahvista poisto",
         "deleteConfirmMsg": "Haluatko varmasti poistaa tämän API-avaimen? Tätä toimintoa ei voi peruuttaa."
+    },
+    "pricing": {
+        "choosePlan": "Valitse paras suunnitelma tarpeisiisi",
+        "free": "Ilmainen",
+        "freePrice": "0 €/kuukausi",
+        "basicFeatures": "Perusominaisuudet",
+        "limitedSupport": "Rajoitettu tuki",
+        "communityAccess": "Yhteisön käyttöoikeus",
+        "joinFree": "Liity ilmaiseksi",
+        "premium3Title": "Premium 3 kuukautta",
+        "premium3Price": "9,99 €",
+        "premium6Title": "Premium 6 kuukautta",
+        "premium6Price": "16,99 €",
+        "premium12Title": "Premium 12 kuukautta",
+        "premium12Price": "23,99 €",
+        "allFreeFeatures": "Kaikki ilmaiset ominaisuudet",
+        "prioritySupport": "Etusijalla oleva tuki",
+        "advancedAnalytics": "Edistyneet analytiikat",
+        "earlyAccess": "Ennakkopääsy uusiin ominaisuuksiin",
+        "choose3Months": "Valitse 3 kuukautta",
+        "choose6Months": "Valitse 6 kuukautta",
+        "choose12Months": "Valitse 12 kuukautta",
+        "recommended": "Suositeltu",
+        "saveUpTo": "Säästä jopa {percent}%"
     },
     "settings":{
         "filterNote":"Suodatinasetukset on otettu käyttöön. Voit muuttaa asetuksia",
