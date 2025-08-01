@@ -22,7 +22,8 @@
                         <div class="avatar">{{ message.senderName.charAt(0).toUpperCase() }}</div>
                         <div class="message-bubble">
                             <div class="sender-time-wrapper">
-                                <span class="sender-items">{{ formatTimestamp(message.timestamp) }}</span>
+                                <span class="sender-items">{{ isOwnMessage(message) ? "" : message.senderName }}</span>
+                                <span class="timestamp">{{ formatTimestamp(message.timestamp) }}</span>
                             </div>
                             <div class="message-content-wrapper">
                                 <div class="message-content">
@@ -447,7 +448,7 @@ export default defineComponent({
     max-width: 100%;
 }
 
-/* .sender-time-wrapper {
+.sender-time-wrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
@@ -455,9 +456,9 @@ export default defineComponent({
     color: #b9bbbe;
     margin-bottom: 4px;
     align-items: center;
-} */
+}
 
-/* .message-content-wrapper {
+.message-content-wrapper {
     display: inline-block;
     max-width: 100%;
 }
@@ -469,7 +470,7 @@ export default defineComponent({
     color: #b9bbbe;
     margin-bottom: 4px;
     gap: 8px;
-} */
+}
 
 .own-message .sender-time {
     justify-content: flex-end;
@@ -521,8 +522,13 @@ export default defineComponent({
 }
 
 .sender-items {
-    color: #b9bbbe;
-    font-size: 0.9rem;
+    color: #f8f9fa;
+    font-size: 1rem;
+}
+
+.timestamp {
+   font-size: 0.75rem;
+   color: #72767d;
 }
 
 .edited-marker {
