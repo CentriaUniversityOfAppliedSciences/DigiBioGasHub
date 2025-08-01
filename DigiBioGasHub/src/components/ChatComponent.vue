@@ -481,8 +481,9 @@ export default defineComponent({
             this.showDeleteAlert = true;
             this.messageToDelete = message;
         },
-        deleteMessage(message) {
+        async deleteMessage(message) {
             this.socket.emit("deleteMessage", { id: message._id, roomId: message.roomId });
+            await popoverController.dismiss();
         },
         scrollToBottom() {
             const container = this.$refs.messagesContainer;
