@@ -20,14 +20,9 @@ export default defineComponent({
         IonSelect,
         IonSelectOption,
     },
-    setup() {
-
-        return {
-        };
-    },
     data() {
         return {
-            selectedLanguage: '',
+            selectedLanguage: 'fi',
         };
     },
     methods: {
@@ -53,4 +48,3 @@ export default defineComponent({
     },
 });
 </script>
-
