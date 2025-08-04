@@ -2,16 +2,19 @@
     <ion-page>
         <ion-content>
             <NavBarComponent />
-
-            <ion-button @click="showAdvanced = true" style="z-index: 20004;">
-                Advanced Search
-            </ion-button>
-
+            <ion-toolbar>
+                <ion-buttons slot="end" style="margin-right: 2rem;">
+                    <ion-button @click="showAdvanced = true">
+                        {{ $t("premium.filters") }} &nbsp;<ion-icon name="filter-circle-outline"
+                            style="height: 30px;width: 30px;"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
             <ion-grid class="main-grid">
                 <ion-row class="ion-align-items-start">
                     <ion-col>
                         <div v-if="Object.keys(groupedFilteredContracts).length === 0" class="no-results">
-                            <p>No contracts in selected date range.</p>
+                            <p> {{ $t("premium.noContractsInSelectedRange") }}</p>
                         </div>
                         <div v-for="(contracts, key) in groupedFilteredContracts" :key="key">
                             <h2 class="month-heading">{{ formatMonthYear(key) }}</h2>
@@ -29,28 +32,29 @@
             <ion-modal :is-open="showAdvanced" @did-dismiss="onModalClose">
                 <ion-header>
                     <ion-toolbar>
-                        <ion-title>Advanced Search</ion-title>
+                        <ion-title>{{ $t("premium.advancedSearch") }}</ion-title>
                         <ion-buttons slot="end">
-                            <ion-button @click="closeModal">Close</ion-button>
+                            <ion-button @click="closeModal">{{ $t("general.close") }}</ion-button>
                         </ion-buttons>
                     </ion-toolbar>
                 </ion-header>
                 <ion-content>
                     <ion-item class="ion-padding">
-                        <ion-label>Start Date</ion-label>
+                        <ion-label>{{ $t("premium.startDate") }}</ion-label>
                         <ion-datetime :value="startDate" @ionChange="e => (startDate = e.detail.value)"
                             display-format="DD/MM/YYYY HH:mm" picker-format="DD MM YYYY HH mm"
                             show-default-timezone></ion-datetime>
                     </ion-item>
                     <ion-item class="ion-padding">
-                        <ion-label>End Date</ion-label>
+                        <ion-label>{{ $t("premium.endDate") }}</ion-label>
                         <ion-datetime :value="endDate" @ionChange="e => (endDate = e.detail.value)"
                             display-format="DD/MM/YYYY HH:mm" picker-format="DD MM YYYY HH mm"
                             show-default-timezone></ion-datetime>
                     </ion-item>
                     <div style="display:flex; gap:0.5rem;" class="ion-padding">
-                        <ion-button expand="block" @click="applyFilter">Apply</ion-button>
-                        <ion-button expand="block" fill="outline" @click="clearFilter">Clear</ion-button>
+                        <ion-button expand="block" @click="applyFilter">{{ $t("premium.apply") }}</ion-button>
+                        <ion-button expand="block" fill="outline" @click="clearFilter">{{ $t("premium.reset")
+                            }}</ion-button>
                     </div>
                 </ion-content>
             </ion-modal>
@@ -60,12 +64,15 @@
     </ion-page>
 </template>
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonInput, IonButton, IonGrid, IonRow, IonCol, IonModal, IonButtons, IonDatetime, } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonList, IonItem, IonLabel, IonInput, IonButton, IonGrid, IonRow, IonCol, IonModal, IonButtons, IonDatetime, IonIcon, } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import ContractListing from '../components/ContractListing.vue';
+import { addIcons } from 'ionicons';
+import { filterCircleOutline } from 'ionicons/icons';
+addIcons({ filterCircleOutline });
 
 export default defineComponent({
     name: 'ContractsPage',
@@ -89,7 +96,8 @@ export default defineComponent({
         ContractListing,
         IonGrid,
         IonRow,
-        IonCol
+        IonCol,
+        IonIcon
     },
     data() {
         return {
@@ -132,7 +140,6 @@ export default defineComponent({
     mounted() {
         this.getContracts();
     },
-
     methods: {
         getContracts() {
             let url = this.$api_add + "/contracts";
@@ -189,7 +196,12 @@ export default defineComponent({
 });
 
 </script>
+
 <style scoped>
+ion-toolbar {
+    --background: none;
+}
+
 .month-heading {
     text-align: center;
     margin-top: 2rem;
@@ -197,8 +209,7 @@ export default defineComponent({
 }
 
 .no-results {
-    text-align: center;
-    padding: 1rem;
+    text-align: center;padding: 1rem;
     font-style: italic;
 }
 </style>

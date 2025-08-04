@@ -681,6 +681,11 @@
         "cancelSubscriptionSuccess": "Subscription cancelled successfully!",
         "cancelSubscriptionFail": "Failed to cancel subscription. Please try again.",
         "manage_subscriptions":"Manage Subscriptions",
+        "advancedSearch": "Advanced Search",
+        "noContractsInSelectedRange": "No contracts found in the selected date range.",
+        "filters": "Filters",
+        "apply":"Apply",
+        "reset":"Reset",
         "buy": {
             "buySubscription": "Buy Subscription",
             "accessFutureOffers": "Access to future offers",
