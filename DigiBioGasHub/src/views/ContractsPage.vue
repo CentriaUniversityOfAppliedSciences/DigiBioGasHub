@@ -2,7 +2,7 @@
     <ion-page>
         <ion-content>
             <NavBarComponent />
-            <ion-toolbar>
+            <ion-toolbar v-if="isPremium">
                 <ion-buttons slot="end" style="margin-right: 2rem;">
                     <ion-button @click="showAdvanced = true">
                         {{ $t("premium.filters") }} &nbsp;<ion-icon name="filter-circle-outline"
@@ -29,7 +29,7 @@
                 </ion-row>
             </ion-grid>
 
-            <ion-modal :is-open="showAdvanced" @did-dismiss="onModalClose">
+            <ion-modal v-if="isPremium" :is-open="showAdvanced" @did-dismiss="onModalClose">
                 <ion-header>
                     <ion-toolbar>
                         <ion-title>{{ $t("premium.advancedSearch") }}</ion-title>
@@ -54,7 +54,7 @@
                     <div style="display:flex; gap:0.5rem;" class="ion-padding">
                         <ion-button expand="block" @click="applyFilter">{{ $t("premium.apply") }}</ion-button>
                         <ion-button expand="block" fill="outline" @click="clearFilter">{{ $t("premium.reset")
-                            }}</ion-button>
+                        }}</ion-button>
                     </div>
                 </ion-content>
             </ion-modal>
@@ -106,6 +106,7 @@ export default defineComponent({
             endDate: null,
             showAdvanced: false,
             activeFilter: { start: null, end: null },
+            isPremium: false,
         };
     },
     computed: {
@@ -147,6 +148,8 @@ export default defineComponent({
             axios.post(url, {}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                 if (response.data.type = "result" && response.data.result == "ok") {
                     this.contracts = response.data.message;
+                    const buyer = this.contracts[0]?.User;
+                    this.isPremium = buyer?.isPremiumUser === true
                 }
             });
         },
@@ -209,7 +212,8 @@ ion-toolbar {
 }
 
 .no-results {
-    text-align: center;padding: 1rem;
+    text-align: center;
+    padding: 1rem;
     font-style: italic;
 }
 </style>
