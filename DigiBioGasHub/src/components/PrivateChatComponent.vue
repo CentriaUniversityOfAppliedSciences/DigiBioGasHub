@@ -497,7 +497,7 @@ export default defineComponent({
 
 .message-content {
     display: inline-block;
-    padding: 12px 20px;
+    padding: 9px 10px;
     border-radius: 18px;
     font-size: 0.95rem;
     line-height: 1.4;
