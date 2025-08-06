@@ -691,6 +691,11 @@
         "cancelSubscriptionSuccess": "Tilaus peruutettu onnistuneesti!",
         "cancelSubscriptionFail": "Tilauksen peruutus epäonnistui. Yritä uudelleen.",
         "manage_subscriptions":"Hallitse tilauksia",
+        "advancedSearch": "Tarkennettu haku",
+        "noContractsInSelectedRange": "Valitulla aikavälillä ei löytynyt sopimuksia.",
+        "filters": "Suodattimet",
+        "apply":"Käytä",
+        "reset":"Nollaa",
         "buy": {
             "buySubscription": "Osta tilaus",
             "accessFutureOffers": "Pääsy tuleviin tarjouksiin",

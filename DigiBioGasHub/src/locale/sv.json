@@ -691,6 +691,11 @@
         "cancelSubscriptionSuccess": "Prenumerationen har avbrutits.",
         "cancelSubscriptionFail": "Det gick inte att avbryta prenumerationen. Försök igen.",
         "manage_subscriptions":"Hantera Prenumerationer",
+        "advancedSearch": "Avancerad Sökning",
+        "noContractsInSelectedRange": "Inga kontrakt hittades inom det valda datumintervallet.",
+        "filters": "Filter",
+        "apply":"Tillämpa",
+        "reset":"Återställ",
         "buy": {
             "buySubscription": "Köp Prenumeration",
             "accessFutureOffers": "Tillgång till framtida erbjudanden",
