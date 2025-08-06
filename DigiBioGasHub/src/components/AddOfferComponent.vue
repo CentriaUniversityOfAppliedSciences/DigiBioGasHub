@@ -61,9 +61,7 @@
                             {{ $t('product.offerTypes') }} <span class="required-asterisk">*</span>
                         </ion-label>
                         <ion-select required v-model="type" :placeholder="$t('product.chooseType')">
-                            <ion-select-option value="1">{{ $t('product.type.offer') }}</ion-select-option>
-                            <ion-select-option value="2">{{ $t('product.type.demand') }}</ion-select-option>
-                            <ion-select-option value="3">{{ $t('product.type.auction') }}</ion-select-option>
+                            <ion-select-option v-for="offerType in offerTypes" :key="offerType.key" :value="offerType.key">{{ offerType.value }}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
@@ -172,7 +170,8 @@
                         <ion-label position="stacked" class="label">
                             {{ $t('admin.certificate.certificates') }}
                         </ion-label>
-                        <ion-label v-if="companyCertificates.length === 0">{{ $t('admin.certificate.selectCompany') }}</ion-label>
+                        <ion-label v-if="!companyID">{{ $t('admin.certificate.selectCompany') }}</ion-label>
+                        <ion-label v-else-if="companyCertificates.length === 0">{{ $t('admin.certificate.nocertificates_available') }}</ion-label>
                         <ion-select v-model="selectedCertificates" :multiple="true" :placeholder="$t('admin.certificate.chooseCertificate')">
                             <ion-select-option v-for="cert in companyCertificates" :key="cert.name" :value="cert.id">{{ cert.name }}</ion-select-option>
                         </ion-select>
@@ -238,6 +237,7 @@ export default defineComponent({
             visibility: "1",
             materials: [],
             material: "",
+            offerTypes: [],
             startDate: new Date().toISOString(),
             endDate: new Date().toISOString(),
             selectedMaterialId: null,
@@ -251,7 +251,14 @@ export default defineComponent({
         };
     },
     methods: {
-
+        getOfferTypes() {
+            let locale = this.i18n.global.locale.value
+            const offerTypes = this.i18n.global.messages.value[locale]?.product?.typenum;
+            for (const k in offerTypes) {
+                offerTypes[k] = { key: k, value: offerTypes[k] };
+            }
+            this.offerTypes = offerTypes;
+        },
         validateForm() {
             this.errors = {};
 
@@ -384,6 +391,7 @@ export default defineComponent({
         this.getMaterials();
         this.getUserCompanies();
         this.getCompanyCertificates();
+        this.getOfferTypes();
     }
 });
 </script>

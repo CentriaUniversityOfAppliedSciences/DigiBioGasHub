@@ -235,13 +235,15 @@
         "type": {
             "offer": "Tarjous",
             "demand": "Kysyntä",
-            "auction": "Huutokauppa"
+            "auction": "Huutokauppa",
+            "other": "Muu"
         },
         "typenum":{
             "0": "Palvelu",
             "1": "Tarjous",
             "2": "Kysyntä",
-            "3": "Huutokauppa"
+            "3": "Huutokauppa",
+            "4": "Muu"
         },
         "desc": "Kuvaus",
         "price": {
@@ -351,7 +353,10 @@
             "4":"Paineistettu biokaasu",
             "5":"Nestemäinen biokaasu",
             "6":"Syöte",
-            "7":"Mädätysjäännös"
+            "7":"Mädätysjäännös",
+            "8":"Infrastruktuuri- ja laitospalvelut",
+            "9":"Konsultointi/Neuvonta",
+            "10":"Muu"
         },
         "placeholder":{
             "0": "/placeholders/unknown.png",
@@ -361,14 +366,18 @@
             "4": "/placeholders/biogas.jpeg",
             "5": "/placeholders/liquid-biogas.jpeg",
             "6": "/placeholders/feed.jpeg",
-            "7": "/placeholders/digestate.jpeg"
+            "7": "/placeholders/digestate.jpeg",
+            "8": "/placeholders/service.jpeg",
+            "9": "/placeholders/consulting.jpeg",
+            "10": "/placeholders/other.png"
         }
     },
     "unit":{
         "amount":{
-            "0":"not available",
+            "0":"ei saatavilla",
             "1":"kg",
-            "2":"m3"
+            "2":"m3",
+            "3":"muu"
         }
     },
     "offers":{
@@ -550,7 +559,8 @@
                 "4":"Muut"
             },
             "chooseCertificate": "Valitse sertifikaatti",
-            "selectCompany": "Valitse yritys!"
+            "selectCompany": "Valitse yritys!",
+            "nocertificates_available": "Yrityksellä ei ole sertifikaatteja"
         }
     },
     "filter":{

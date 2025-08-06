@@ -235,13 +235,15 @@
             "type": {
                 "offer": "Erbjudande",
                 "demand": "Efterfrågan",
-                "auction": "Auktion"
+                "auction": "Auktion",
+                "other": "Annat"
             },
             "typenum":{
                 "0":"Tjänst",
                 "1":"Erbjudande",
                 "2":"Efterfrågan",
-                "3":"Auktion"
+                "3":"Auktion",
+                "4":"Annat"
             },
             "desc": "Beskrivning",
             "price": {
@@ -351,7 +353,10 @@
             "4":"komprimerad biogas",
             "5":"flytande biogas",
             "6":"råmaterial",
-            "7":"restprodukter"
+            "7":"restprodukter",
+            "8":"Infrastruktur- och anläggningstjänster",
+            "9":"konsulttjänster",
+            "10":"övrigt"
         },
         "placeholder":{
             "0": "/placeholders/unknown.png",
@@ -361,14 +366,18 @@
             "4": "/placeholders/biogas.jpeg",
             "5": "/placeholders/liquid-biogas.jpeg",
             "6": "/placeholders/feed.jpeg",
-            "7": "/placeholders/digestate.jpeg"
+            "7": "/placeholders/digestate.jpeg",
+            "8": "/placeholders/service.jpeg",
+            "9": "/placeholders/consulting.jpeg",
+            "10": "/placeholders/other.png"
         }
     },
     "unit":{
         "amount":{
-            "0":"not available",
+            "0":"inte tillgänglig",
             "1":"kg",
-            "2":"m3"
+            "2":"m3",
+            "3":"annat"
         }
     },
     "offers": {
@@ -550,7 +559,8 @@
                 "4":"Övriga"
             },
             "chooseCertificate": "Välj certifikat",
-            "selectCompany": "Välj företag!"
+            "selectCompany": "Välj företag!",
+            "nocertificates_available": "Inga certifikat tillgängliga för detta företag"
         }
     },
     "filter":{

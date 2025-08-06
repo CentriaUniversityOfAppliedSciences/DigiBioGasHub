@@ -235,13 +235,15 @@
         "type": {
             "offer": "Offer",
             "demand": "Demand",
-            "auction": "Auction"
+            "auction": "Auction",
+            "other": "Other"
         },
         "typenum": {
             "0": "Service",
             "1": "Offer",
             "2": "Demand",
-            "3": "Auction"
+            "3": "Auction",
+            "4": "Other"
         },
         "desc": "Description",
         "price": {
@@ -351,7 +353,10 @@
                 "4":"compressed biogas",
                 "5":"liquid biogas",
                 "6":"feedstock",
-                "7":"digestate"
+                "7":"digestate",
+                "8":"Infrastructure and plant services",
+                "9":"consulting/advisory",
+                "10":"other"
             },
         "placeholder":{
             "0": "/placeholders/unknown.png",
@@ -361,14 +366,18 @@
             "4": "/placeholders/biogas.jpeg",
             "5": "/placeholders/liquid-biogas.jpeg",
             "6": "/placeholders/feed.jpeg",
-            "7": "/placeholders/digestate.jpeg"
+            "7": "/placeholders/digestate.jpeg",
+            "8": "/placeholders/service.jpeg",
+            "9": "/placeholders/consulting.jpeg",
+            "10": "/placeholders/other.png"
         }
         },
         "unit":{
             "amount":{
                 "0":"not available",
                 "1":"kg",
-                "2":"m3"
+                "2":"m3",
+                "3":"other"
             }
         },
     "offers": {
@@ -550,7 +559,8 @@
                 "4":"Other"
             },
             "chooseCertificate": "Choose certificate",
-            "selectCompany": "Select company!"
+            "selectCompany": "Select company!",
+            "nocertificates_available": "No certificates available for this company"
         }
     },
     "filter": {
