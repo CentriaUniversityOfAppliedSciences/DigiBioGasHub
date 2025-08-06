@@ -53,30 +53,37 @@ import NotFoundPage from '../views/NotFoundPage.vue';
 
 export function jwtDecode(token) {
   try {
-      return JSON.parse(atob(token.split('.')[1]));
+    return JSON.parse(atob(token.split('.')[1]));
   } catch (e) {
-      return null;
+    return null;
   }
 }
 function checkAdmin(to, from, next) {
-  let token = localStorage.getItem('token')
-      if (token) {
-        if (jwtDecode(token).userlevel === 99) {
-        next()
-        }
-        else {
-          next('/home')
-        }
-      } else {
-        next('/home')
-      }
+  const token = localStorage.getItem('token');
+  let isAdmin = false;
+
+  if (token) {
+    try {
+      isAdmin = jwtDecode(token).userlevel === 99;
+    } catch (err) {
+      console.warn('Invalid token:', err);
+    }
+  } 
+
+  if (!isAdmin) {
+    to.matched[0].components = { default: NotFoundPage };
+  }
+
+  next();
 }
+
+
 
 function checkUser(to, from, next) {
   let token = localStorage.getItem('token')
   if (token) {
     if (jwtDecode(token).userlevel >= 1) {
-    next()
+      next()
     }
     else {
       next('/home')
@@ -140,7 +147,7 @@ const routes = [
     path: '/admin/manage-blog-post',
     name: 'ManageBlogPosts',
     component: ManageBlogPosts,
-    beforeEnter: [checkAdmin] ,
+    beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },
   {
@@ -168,7 +175,7 @@ const routes = [
     path: '/blog/:postID/:title',
     name: 'Blog',
     component: BlogPage,
-    meta: { requiresAuth: true  }
+    meta: { requiresAuth: true }
   },
   {
     path: '/articles',
@@ -190,7 +197,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -226,7 +233,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -244,7 +251,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -263,7 +270,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -282,7 +289,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -301,7 +308,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -320,7 +327,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -340,7 +347,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -359,7 +366,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -379,7 +386,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -398,7 +405,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -416,7 +423,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -452,7 +459,7 @@ const routes = [
     component: PaymentSuccessPage,
     meta: { requiresAuth: true }
   },
-    {
+  {
     path: '/paymentcancel',
     name: 'PaymentCancel',
     component: PaymentCancelPage,
@@ -465,7 +472,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -484,7 +491,7 @@ const routes = [
       let token = localStorage.getItem('token')
       if (token) {
         if (jwtDecode(token).userlevel >= 1) {
-        next()
+          next()
         }
         else {
           next('/home')
@@ -527,44 +534,44 @@ const routes = [
     path: '/chat',
     name: 'ChatPageView',
     component: ChatPageView,
-    beforeEnter:[checkUser],
+    beforeEnter: [checkUser],
     meta: { requiresAuth: true }
   },
   {
     path: "/chat/:roomId/:roomTitle",
     name: "Chat",
     component: ChatComponent,
-    beforeEnter:[checkUser],
+    beforeEnter: [checkUser],
     meta: { requiresAuth: true }
   },
   {
     path: "/privateChat",
     name: "ChatUserList",
     component: ChatUserList,
-    beforeEnter:[checkUser],
+    beforeEnter: [checkUser],
     meta: { requiresAuth: true }
-},
-{
+  },
+  {
     path: "/privateChat/:recipientId/:recipientName",
     name: "PrivateChat",
     component: PrivateChatComponent,
-    beforeEnter:[checkUser],
+    beforeEnter: [checkUser],
     meta: { requiresAuth: true }
-},
-{
-  path: "/join-company/:companyId/:invitationId",
-  name: "JoinCompanyPage",
-  component: JoinCompanyPage
-},
-{
-  path: '/privacy-policy',
-  name: 'GDPRPage',
-  component: GDPRPage
-},
-{
-  path : '/terms-of-service',
-  name: 'ToSPage',
-  component: ToSPage
+  },
+  {
+    path: "/join-company/:companyId/:invitationId",
+    name: "JoinCompanyPage",
+    component: JoinCompanyPage
+  },
+  {
+    path: '/privacy-policy',
+    name: 'GDPRPage',
+    component: GDPRPage
+  },
+  {
+    path: '/terms-of-service',
+    name: 'ToSPage',
+    component: ToSPage
   },
   {
     path: '/:pathMatch(.*)*',
