@@ -144,10 +144,11 @@ export default {
 
 <style scoped>
 .offer-card {
-    max-width: 360px;
+    max-width: 310px;
     width: 100%;
     border-radius: 12px;
     overflow: hidden;
+    transition: max-width 0.3s ease;
 }
 
 .offer-thumbnail {
@@ -214,4 +215,23 @@ ion-item {
     --padding-start: 0;
     --inner-border-width: 0;
 }
+
+@media (max-width: 480px) {
+  .offer-card {
+    max-width: 260px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .offer-card {
+    max-width: 340px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .offer-card {
+    max-width: 650px;
+  }
+}
+
 </style>

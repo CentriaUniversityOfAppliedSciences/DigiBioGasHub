@@ -59,10 +59,11 @@ export default defineComponent({
 
 <style scoped>
 .article-card {
-  max-width: 360px;
+  max-width: 310px;
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
+  transition: max-width 0.3s ease;
 }
 
 .article-thumbnail {
@@ -110,5 +111,23 @@ export default defineComponent({
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
+}
+
+@media (max-width: 480px) {
+  .offer-card {
+    max-width: 260px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .article-card {
+    max-width: 340px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .article-card {
+    max-width: 650px;
+  }
 }
 </style>

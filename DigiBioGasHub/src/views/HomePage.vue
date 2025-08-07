@@ -7,32 +7,81 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-        <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
-        <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
-          <ion-button @click="goOffers">{{ $t("general.allOffers") }}</ion-button>
-        </div>
-        <swiper style= '--swiper-pagination-bullet-size: 25px'  :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2.5" :space-between="10">
-          <swiper-slide v-for="product in products" :key="product.id">
-            <ListingComponent :product="product" :isMarketplace="true" />
-          </swiper-slide>
-        </swiper>
-        <h2 style="margin: 20px ;">{{ $t("general.latestArticles") }}</h2>
-        <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
-          <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
-        </div>
-        <swiper style= '--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2" :space-between="10">
-            <swiper-slide style="padding: 10px;" v-for="article in articles" :key="article.title">
-              <BlogListingComponent class="blog-card" :article="article" />
-            </swiper-slide>
-        </swiper>
+      <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
+      <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
+        <ion-button @click="goOffers">{{ $t("general.allOffers") }}</ion-button>
+      </div>
+      <swiper style='--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }"
+        :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper"
+        @slideChange="onSlideChange" :breakpoints="{
+          0: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          480: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          768: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 25,
+          },
+          1280: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          }
+        }" :space-between="10">
+        <swiper-slide v-for="product in products" :key="product.id">
+          <ListingComponent :product="product" :isMarketplace="true" />
+        </swiper-slide>
+      </swiper>
+      <h2 style="margin: 20px ;">{{ $t("general.latestArticles") }}</h2>
+      <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
+        <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
+      </div>
+      <swiper style='--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }"
+        :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper"
+        @slideChange="onSlideChange" :breakpoints="{
+          0: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          480: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          768: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 25,
+          },
+          1280: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          }
+        }" :space-between="10">
+        <swiper-slide style="padding: 10px;" v-for="article in articles" :key="article.title">
+          <BlogListingComponent class="blog-card" :article="article" />
+        </swiper-slide>
+      </swiper>
       <div v-if="KllComponent && chatboxVisible" :style="chatboxStyle">
-        <button @click="toggleChatboxSize" style="position: absolute; top: 5px; right: 70px; width: 3vw; max-width:20px ; z-index: 1001;">
+        <button @click="toggleChatboxSize"
+          style="position: absolute; top: 5px; right: 70px; width: 3vw; max-width:20px ; z-index: 1001;">
           {{ chatboxLarge ? '🗗' : '🗖' }}
         </button>
-        <button @click="toggleChatbox" style="position: absolute; top: 5px; right: 45px; width: 3vw; max-width:20px ; z-index: 1001;">
+        <button @click="toggleChatbox"
+          style="position: absolute; top: 5px; right: 45px; width: 3vw; max-width:20px ; z-index: 1001;">
           {{ chatboxMinimized ? '▲' : '▼' }}
         </button>
-        <button @click="closeChatbox" style="position: absolute; top: 5px; right: 20px; width: 3vw; max-width:20px ; z-index: 1001;">
+        <button @click="closeChatbox"
+          style="position: absolute; top: 5px; right: 20px; width: 3vw; max-width:20px ; z-index: 1001;">
           ✖
         </button>
         <div v-if="chatboxMinimized" style="padding: 10px; text-align: center;">
@@ -80,12 +129,12 @@ export default defineComponent({
       ]
     }
   },
-  setup(){
+  setup() {
     const onSwiper = (swiper) => {
     };
     const onSlideChange = () => {
     };
-    return { onSwiper, onSlideChange, modules:[ Navigation, Pagination] };
+    return { onSwiper, onSlideChange, modules: [Navigation, Pagination] };
   },
   computed: {
     chatboxStyle() {
@@ -107,7 +156,7 @@ export default defineComponent({
   },
   async created() {
     if (import.meta.env.VITE_ENABLE_BIOKAASUKLINIKKA === 'true') {
-      try{
+      try {
         const module = await import("../components/BKKlinikkaComponent.vue");
         this.KllComponent = shallowRef(module.default);
       }
@@ -171,11 +220,11 @@ export default defineComponent({
     },
 
     extractAbstract(htmlContent) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            const firstParagraph = doc.querySelector('p');
-            return firstParagraph ? firstParagraph.textContent.substring(0, 200) + '...' : '';
-        }
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
+      const firstParagraph = doc.querySelector('p');
+      return firstParagraph ? firstParagraph.textContent.substring(0, 200) + '...' : '';
+    }
 
   },
   mounted() {
@@ -221,6 +270,7 @@ export default defineComponent({
   text-align: center;
 
 }
+
 .main-grid {
   min-height: 75vh;
 }
