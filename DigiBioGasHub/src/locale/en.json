@@ -248,7 +248,7 @@
         },
         "desc": "Description",
         "price": {
-            "offer": "Offer",
+            "pricePerUnit": "Price per unit ( in € )",
             "demand": "Ask for offers",
             "auction": "Auction"
         },

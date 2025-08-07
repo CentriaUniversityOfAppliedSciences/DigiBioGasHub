@@ -100,7 +100,7 @@
 
                     <ion-item>
                         <ion-label position="stacked" class="label">
-                            {{ $t('product.price.offer') }} <span class="required-asterisk">*</span>
+                            {{ $t('product.price.pricePerUnit') }} <span class="required-asterisk">*</span>
                         </ion-label>
                         <ion-input required type="number" v-model="price" min="0"></ion-input>
                         <p v-if="hasError('price')" class="error">{{ errors.price }}</p>
