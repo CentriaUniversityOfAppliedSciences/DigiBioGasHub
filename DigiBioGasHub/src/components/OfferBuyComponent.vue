@@ -21,8 +21,13 @@
                         {{ offer.availableAmount }} {{ getUnitTypeTranslation(offer.unit) }}) </i></ion-label>
             </ion-item>
             <ion-item>
-                <ion-label>{{ $t('product.productDetails.price') }}</ion-label>
+                <ion-label> {{ $t('product.productDetails.pricePerUnit', { unit: getUnitTypeTranslation(offer.unit) })
+                }}</ion-label>
                 <ion-label type="number" v-model="buy.price">{{ offer.price }}</ion-label>
+            </ion-item>
+            <ion-item>
+                <ion-label slot="start">{{ $t('product.productDetails.total') }}: </ion-label>
+                <ion-label slot="end">{{ totalPrice }} €</ion-label>
             </ion-item>
             <ion-item>
                 <ion-button expand="full" @click="buyOffer">{{ $t('product.buy') }}</ion-button>
@@ -72,6 +77,13 @@ export default defineComponent({
             modalController: modalController,
             companies: [],
             companyID: null,
+        }
+    },
+    computed: {
+        totalPrice() {
+            const amount = parseFloat(this.buy.amount) || 0;
+            const price = parseFloat(this.offer.price) || 0;
+            return (amount * price).toFixed(2);
         }
     },
     mounted() {
@@ -133,3 +145,10 @@ export default defineComponent({
 });
 
 </script>
+
+<style scoped>
+/* .total-label {
+  color: gray;
+  font-size: 14px;
+} */
+</style>
