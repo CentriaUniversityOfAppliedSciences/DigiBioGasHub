@@ -213,6 +213,7 @@
     "product": {
         "productDetails": {
             "title": "Product Details",
+            "description": "Description",
             "type": "Type",
             "price": "Price",
             "location": "Location",

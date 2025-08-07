@@ -8,7 +8,7 @@
             </ion-text>
 
             <ion-text class="offer-subtitle">
-                <small>Type: {{ getMaterialTypeTranslation(product.Material.type) }}</small>
+                <small>{{ $t('product.productDetails.type') }}: {{ getMaterialTypeTranslation(product.Material.type) }}</small>
             </ion-text>
 
             <ion-text class="offer-description">
