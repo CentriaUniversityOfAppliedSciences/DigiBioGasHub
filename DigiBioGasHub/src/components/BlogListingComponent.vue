@@ -1,91 +1,114 @@
 <template>
-  <ion-card class="blog-card">
-    <ion-card-content class="blog-card-content">
-      <img class="blog-card-img" :src="article.picture" alt="article picture" />
-      <ion-card-title class="blog-card-title">{{ article.title }}</ion-card-title>
-      <ion-card-subtitle class="blog-card-date">{{ article.date }}</ion-card-subtitle>
-      <p class="blog-card-abstract">{{ article.abstract }}</p>
-      <ion-item>
-        <ion-button @click="openArticle(article.link)">{{ $t('general.read_more') }}</ion-button>
-      </ion-item>
+  <ion-card class="article-card">
+    <ion-img class="article-thumbnail" :src="article.picture" alt="Article Image" />
+
+    <ion-card-content class="article-content">
+      <ion-text class="article-title">
+        <h2>{{ article.title }}</h2>
+      </ion-text>
+
+      <ion-text class="article-date">
+        <small>{{ article.date }}</small>
+      </ion-text>
+
+      <ion-text class="article-description">
+        <p>{{ article.abstract }}</p>
+      </ion-text>
+
+      <ion-button fill="clear" size="small" @click="openArticle(article.link)">
+        {{ $t('general.read_more') }}
+      </ion-button>
     </ion-card-content>
   </ion-card>
 </template>
 
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonButton } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonButton, IonText, IonImg } from '@ionic/vue';
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-    name: 'BlogListingComponent',
-    components: {
-        IonCard,
-        IonCardHeader,
-        IonCardTitle,
-        IonCardSubtitle,
-        IonCardContent,
-        IonItem,
-        IonButton
-    },
-    props: {
-        article: {
-            title: String,
-            abstract: String,
-            picture: String,
-            link: String,
-            date: String,
-        }
-    },
-    methods: {
-        openArticle(link) {
-            window.open(link, '_blank');
-        }
+  name: 'BlogListingComponent',
+  components: {
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonItem,
+    IonText,
+    IonImg,
+    IonButton
+  },
+  props: {
+    article: {
+      title: String,
+      abstract: String,
+      picture: String,
+      link: String,
+      date: String,
     }
+  },
+  methods: {
+    openArticle(link) {
+      window.open(link, '_blank');
+    }
+  }
 });
 
 </script>
 
 <style scoped>
-.blog-card {
-  border-radius: 8px;
-  height: 100%;
-  width: 100%;      
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.article-card {
+  max-width: 360px;
+  width: 100%;
+  border-radius: 12px;
   overflow: hidden;
-  transition: transform 0.3s, box-shadow 0.3s;
-  margin-bottom: 20px;
 }
 
-.blog-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.blog-card-img {
-  width: 300px;
-  height: 300px;
+.article-thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
+  background-color: #f1f1f1;
 }
 
-.blog-card-content {
-  padding: 20px;
+.article-content {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.blog-card-title {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 0 0 10px;
+.article-title h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--ion-color-light-contrast);
+  max-height: 2.4em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.blog-card-abstract {
-  font-size: 14px;
-  color: #666;
-  margin: 0 0 15px;
+.article-date small {
+  font-size: 1rem;
+  color: var(--ion-color-medium-tint);
 }
 
-.blog-card-date {
-  font-size: 12px;
-  color: #999;
+.article-description p {
+  font-size: 0.95rem;
+  color: var(--td-gray-color-5);
+  line-height: 1.4;
+  max-height: 2.8em;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
 }
-
 </style>
