@@ -101,7 +101,7 @@ export default defineComponent({
 
 .article-description p {
   font-size: 0.95rem;
-  color: var(--td-gray-color-5);
+  color: var(--ion-color-medium-tint);
   line-height: 1.4;
   max-height: 2.8em;
   display: -webkit-box;
