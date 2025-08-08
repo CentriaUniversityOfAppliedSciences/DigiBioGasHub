@@ -46,7 +46,7 @@
         <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
       </div>
       <swiper v-if="articles.length > 0"
-        style='--swiper-pagination-bullet-size: 15px; --swiper-pagination-bullet-inactive-color: var(--ion-color-light-contrast); margin-top: 1rem;'
+        style='--swiper-pagination-bullet-size: 15px; --swiper-pagination-bullet-inactive-color: var(--ion-color-light-contrast);'
         :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true"
         :modules="modules" :autoplay="{ delay: 3000, disableOnInteraction: false }" @swiper="onSwiper"
         @slideChange="onSlideChange" :breakpoints="{
@@ -289,6 +289,7 @@ export default defineComponent({
 .main-grid {
   min-height: 75vh;
 }
+
 .chat-box {
   position: fixed;
   bottom: 20px;
@@ -324,7 +325,7 @@ export default defineComponent({
 }
 
 @media (min-width: 1200px) {
-   .chatcont {
+  .chatcont {
     height: 70% !important;
   }
 }
