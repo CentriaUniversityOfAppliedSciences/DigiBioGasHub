@@ -11,8 +11,8 @@
       <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
         <ion-button @click="goOffers">{{ $t("general.allOffers") }}</ion-button>
       </div>
-      <swiper style='--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }"
-        :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper"
+      <swiper v-if="products.length > 0" style='--swiper-pagination-bullet-size: 15px; --swiper-pagination-bullet-inactive-color: var(--ion-color-light-contrast);' :pagination="{ dynamicBullets: true, clickable: true }"
+        :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" :autoplay="{ delay: 3000, disableOnInteraction: false }" @swiper="onSwiper"
         @slideChange="onSlideChange" :breakpoints="{
           0: {
             slidesPerView: 2,
@@ -43,8 +43,8 @@
       <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
         <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
       </div>
-      <swiper style='--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }"
-        :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper"
+      <swiper v-if="articles.length > 0" style='--swiper-pagination-bullet-size: 15px; --swiper-pagination-bullet-inactive-color: var(--ion-color-light-contrast); margin-top: 1rem;' :pagination="{ dynamicBullets: true, clickable: true }"
+        :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" :autoplay="{ delay: 3000, disableOnInteraction: false }" @swiper="onSwiper"
         @slideChange="onSlideChange" :breakpoints="{
           0: {
             slidesPerView: 2,
@@ -103,7 +103,7 @@ import FooterComponent from '../components/FooterComponent.vue';
 import BlogListingComponent from '../components/BlogListingComponent.vue';
 import ListingComponent from '../components/ListingComponent.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
@@ -120,13 +120,9 @@ export default defineComponent({
       chatboxMinimized: false,
       chatboxVisible: true,
       chatboxLarge: false,
-      products: [
-
-      ],
+      products: [],
       currentProducts: [],
-      articles: [
-
-      ]
+      articles: []
     }
   },
   setup() {
@@ -134,7 +130,7 @@ export default defineComponent({
     };
     const onSlideChange = () => {
     };
-    return { onSwiper, onSlideChange, modules: [Navigation, Pagination] };
+    return { onSwiper, onSlideChange, modules: [Navigation, Pagination, Autoplay] };
   },
   computed: {
     chatboxStyle() {
