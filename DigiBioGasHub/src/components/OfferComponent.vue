@@ -3,7 +3,6 @@
         <ion-img :src="getImageSource(offer)" class="offer-img" />
 
         <ion-card-header>
-            <ion-card-title class="offer-title">{{ offer.description }}</ion-card-title>
             <ion-card-subtitle class="offer-subtitle">
                 {{ getOfferTypeTranslation(offer.type) }} - {{ getOfferCategoryTranslation(offer.category) }}
             </ion-card-subtitle>
@@ -11,6 +10,7 @@
 
         <ion-card-content>
             <div class="offer-detail">
+                <p><strong>{{ $t('product.productDetails.description') }}:</strong> {{ offer.description }}</p>
                 <p><strong>{{ $t('product.logistic.type') }}:</strong> {{ getCargoTypeTranslation(offer.cargoType) }}
                 </p>
                 <p><strong>{{ $t('product.productDetails.location') }}:</strong> <span @click="goToMap(offer)"

@@ -213,8 +213,10 @@
     "product": {
         "productDetails": {
             "title": "Product Details",
+            "description": "Description",
             "type": "Type",
-            "price": "Price",
+            "pricePerUnit": "Price per {unit}",
+            "price":"Price /unit",
             "location": "Location",
             "offerValidFrom": "Offer Valid From",
             "pickUpNeeded": "Pick Up Needed",
@@ -222,7 +224,8 @@
             "yes": "Yes",
             "no": "No",
             "amount": "Amount",
-            "available": "Available"
+            "available": "Available",
+            "total": "Total"
         },
         "image": "Image",
         "material": "Material",
@@ -247,7 +250,7 @@
         },
         "desc": "Description",
         "price": {
-            "offer": "Offer",
+            "pricePerUnit": "Price per unit ( in € )",
             "demand": "Ask for offers",
             "auction": "Auction"
         },
