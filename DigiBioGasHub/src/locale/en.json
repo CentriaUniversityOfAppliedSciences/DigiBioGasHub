@@ -216,7 +216,7 @@
             "description": "Description",
             "type": "Type",
             "pricePerUnit": "Price per {unit}",
-            "price":"Price /unit",
+            "price":"Price per unit",
             "location": "Location",
             "offerValidFrom": "Offer Valid From",
             "pickUpNeeded": "Pick Up Needed",
@@ -250,7 +250,7 @@
         },
         "desc": "Description",
         "price": {
-            "pricePerUnit": "Price per unit ( in € )",
+            "pricePerUnit": "Price per unit (€)",
             "demand": "Ask for offers",
             "auction": "Auction"
         },
