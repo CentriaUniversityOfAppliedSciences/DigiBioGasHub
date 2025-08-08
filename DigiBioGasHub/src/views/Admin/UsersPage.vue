@@ -326,12 +326,12 @@ export default {
 
         async deleteUser(id) {
             try {
-                const url = this.$api_add + `/deleteuser`
+                const url = this.$api_add + `/admin/deleteuser`
 
                 const response = await axios.delete(url, { data: { id: id }, headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.result === "ok") {
                     this.$refs.toastComponent.showToast(this.$t('account.deleteAccountSuccess'), 2000, 'success');
-                    this.users = this.users.filter(user => user.id !== id);
+                    //this.users = this.users.filter(user => user.id !== id);
                 }
             } catch (error) {
                 console.error(error);
