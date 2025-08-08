@@ -214,7 +214,9 @@
         "productDetails": {
             "title": "Tuotetiedot",
             "type": "Tyyppi",
-            "price": "Hinta",
+            "price": "Hinta per yksikkö",
+            "description": "Kuvaus",
+            "pricePerUnit": "Hinta per {unit}",
             "location": "Sijainti",
             "offerValidFrom": "Tarjous voimassa alkaen",
             "pickUpNeeded": "Nouto tarvitaan",
@@ -222,7 +224,8 @@
             "yes": "Kyllä",
             "no": "Ei",
             "amount": "Määrä",
-            "available": "Saatavilla"
+            "available": "Saatavilla",
+            "total": "Kokonais"
         },
         "image": "Kuva",
         "material": "Materiaali",
@@ -247,6 +250,7 @@
         },
         "desc": "Kuvaus",
         "price": {
+            "pricePerUnit": "Yksikköhinta (€)",
             "offer": "Tarjoushinta",
             "demand": "Pyyntihinta",
             "auction": "Huutokauppahinta"

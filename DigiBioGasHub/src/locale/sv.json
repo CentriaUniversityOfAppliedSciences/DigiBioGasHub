@@ -214,7 +214,9 @@
         "productDetails": {
             "title": "Produktdetaljer",
             "type": "Typ",
-            "price": "Pris",
+            "price": "Pris per enhet",
+            "description": "Beskrivning",
+            "pricePerUnit": "Pris per {unit}",
             "location": "Plats",
             "offerValidFrom": "Erbjudandet gäller från",
             "pickUpNeeded": "Hämtning behövs",
@@ -222,68 +224,70 @@
             "yes": "Ja",
             "no": "Nej",
             "amount": "Mängd",
-            "available": "Tillgänglig"
+            "available": "Tillgänglig",
+            "total": "Total"
         },
-            "image": "Bild",
-            "material": "Material",
-            "chooseMaterial": "Välj material",
-            "chooseCompany": "Välj företag",
-            "name": "Produktnamn",
-            "offerTypes": "Offertyper",
-            "chooseType": "Välj typ",
-            "buy": "Köp",
-            "type": {
-                "offer": "Erbjudande",
-                "demand": "Efterfrågan",
-                "auction": "Auktion",
-                "other": "Annat"
-            },
-            "typenum":{
-                "0":"Tjänst",
-                "1":"Erbjudande",
-                "2":"Efterfrågan",
-                "3":"Auktion",
-                "4":"Annat"
-            },
-            "desc": "Beskrivning",
-            "price": {
-                "offer": "Erbjudande",
-                "demand": "Begärt",
-                "auction": "Auktions"
-            },
-            "quantity": "Antal",
-            "unit": "Enhet",
-            "logistic": {
-                "type": "Logistik",
-                "includedInPrice": "Ingår i priset",
-                "freeToPickup": "Gratis att hämta",
-                "agreedupon": "Bestäms"
-            },
-            "logisticType": {
-                "0": "Ingen logistik",
-                "1": "Ingår i priset",
-                "2": "Gratis att hämta",
-                "3": "Bestäms"
-            },
-            "endTime": "Sluttid",
-            "time": "Tid",
-            "submit": "Skicka",
-            "visibility": {
-                "info": "Synlighet",
-                "chooseVisibility": "Välj synlighet",
-                "public": "Offentlig",
-                "private": "Privat"
-            },
-            "openlink": "Information",
-            "error":{
-                "product_buy_over_amount": "Mängden överskrider det erbjudna beloppet",
-                "product_buy_zero_amount": "Mängden kan inte vara noll"
-            },
-            "buySuccess":" Produkten har köpts",
-            "successMessage": "Produkten har lagts till",
-            "errorMessage": "Det gick inte att lägga till produkten. Kontrollera uppgifterna och försök igen.",
-            "invalidCompany": "Ogiltigt eller overifierat företag! Vänligen välj ett giltigt företag.",
-            "contract_history":"Avtalshistorik"
+        "image": "Bild",
+        "material": "Material",
+        "chooseMaterial": "Välj material",
+        "chooseCompany": "Välj företag",
+        "name": "Produktnamn",
+        "offerTypes": "Offertyper",
+        "chooseType": "Välj typ",
+        "buy": "Köp",
+        "type": {
+            "offer": "Erbjudande",
+            "demand": "Efterfrågan",
+            "auction": "Auktion",
+            "other": "Annat"
+        },
+        "typenum": {
+            "0": "Tjänst",
+            "1": "Erbjudande",
+            "2": "Efterfrågan",
+            "3": "Auktion",
+            "4": "Annat"
+        },
+        "desc": "Beskrivning",
+        "price": {
+            "pricePerUnit": "Pris per enhet (€)",
+            "offer": "Erbjudande",
+            "demand": "Begärt",
+            "auction": "Auktions"
+        },
+        "quantity": "Antal",
+        "unit": "Enhet",
+        "logistic": {
+            "type": "Logistik",
+            "includedInPrice": "Ingår i priset",
+            "freeToPickup": "Gratis att hämta",
+            "agreedupon": "Bestäms"
+        },
+        "logisticType": {
+            "0": "Ingen logistik",
+            "1": "Ingår i priset",
+            "2": "Gratis att hämta",
+            "3": "Bestäms"
+        },
+        "endTime": "Sluttid",
+        "time": "Tid",
+        "submit": "Skicka",
+        "visibility": {
+            "info": "Synlighet",
+            "chooseVisibility": "Välj synlighet",
+            "public": "Offentlig",
+            "private": "Privat"
+        },
+        "openlink": "Information",
+        "error": {
+            "product_buy_over_amount": "Mängden överskrider det erbjudna beloppet",
+            "product_buy_zero_amount": "Mängden kan inte vara noll"
+        },
+        "buySuccess": " Produkten har köpts",
+        "successMessage": "Produkten har lagts till",
+        "errorMessage": "Det gick inte att lägga till produkten. Kontrollera uppgifterna och försök igen.",
+        "invalidCompany": "Ogiltigt eller overifierat företag! Vänligen välj ett giltigt företag.",
+        "contract_history": "Avtalshistorik"
     },
     "validation":{
         "companyRegistration":{
