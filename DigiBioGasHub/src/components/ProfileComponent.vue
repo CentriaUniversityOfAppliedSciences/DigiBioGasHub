@@ -1,59 +1,82 @@
 <template>
-    <ion-page>
-        <ion-content>
-            <ion-card class="profile-card">
-                <ion-card-header>
-                    <ion-card-title>{{ $t('menu.profile')}}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-list>
-                        <ion-item>
-                            <ion-input :label="$t('account.name')" :disabled="EditUser" v-model="user.name"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-input :label="$t('account.email')" :disabled="EditUser" v-model="user.email"></ion-input>
-                        </ion-item>
-                        <ion-item>
-                            <ion-input :label="$t('account.phone')" :disabled="EditUser" v-model="user.phone"></ion-input>
-                        </ion-item>
-                    </ion-list>
-                    <ion-button @click="toggleEditUser" color="warning">{{ $t('menu.edit') }}</ion-button>
-                    <ion-button @click="saveUser" color="success">{{ $t('menu.save') }}</ion-button>
-                    <ion-button id="deleteUser" color="danger">{{ $t('menu.deleteAccount') }}</ion-button>
-                    <ion-button id="changePassword">{{ $t('menu.changePassword') }}</ion-button>
-                    <ion-button @click="settings_button">{{ $t("general.settings") }}</ion-button>
-                    <ion-button @click="goToApiKey">{{ $t("apiKeys.title") }}</ion-button>
-                    <ion-button v-if="use_payment == 'true'" @click="goToSubscriptionPage">{{ $t('premium.manage_subscriptions') }}</ion-button>
-                </ion-card-content>
-            </ion-card>
-            
+    <ion-grid fixed>
+        <ion-row>
+
+            <ion-col size="12" size-md="3">
+                <div class="profile-actions">
+                    <div class="action-link" @click="toggleEditUser">{{ $t('menu.edit') }}</div>
+                    <div class="action-link" @click="saveUser">{{ $t('menu.save') }}</div>
+                    <div class="action-link" @click="settings_button">{{ $t('general.settings') }}</div>
+                    <div class="action-link" @click="goToApiKey">{{ $t('apiKeys.title') }}</div>
+                    <div v-if="use_payment == 'true'" class="action-link" @click="goToSubscriptionPage">
+                        {{ $t('premium.manage_subscriptions') }}
+                    </div>
+                    <div class="action-link" id="changePassword">{{ $t('menu.changePassword') }}</div>
+                    <div class="action-link danger" id="deleteUser">{{ $t('menu.deleteAccount') }}</div>
+                </div>
+            </ion-col>
+
+            <ion-col size="12" size-md="9">
+                <ion-card class="profile-card">
+                    <ion-card-content>
+
+                        <div class="profile-header ion-text-center">
+                            <ion-avatar class="profile-avatar">
+                                <div class="avatar-text">
+                                    {{ user.name ? user.name.charAt(0).toUpperCase() : '?' }}
+                                </div>
+                            </ion-avatar>
+                            <h2>{{ user.name }}</h2>
+                            <p>{{ user.email }}</p>
+                        </div>
+
+                        <ion-list lines="inset">
+                            <ion-item>
+                                <ion-label position="stacked">{{ $t('account.name') }}</ion-label>
+                                <ion-input :disabled="EditUser" v-model="user.name"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="stacked">{{ $t('account.email') }}</ion-label>
+                                <ion-input :disabled="EditUser" v-model="user.email"></ion-input>
+                            </ion-item>
+                            <ion-item>
+                                <ion-label position="stacked">{{ $t('account.phone') }}</ion-label>
+                                <ion-input :disabled="EditUser" v-model="user.phone"></ion-input>
+                            </ion-item>
+                        </ion-list>
+
+                    </ion-card-content>
+                </ion-card>
+            </ion-col>
+
+        </ion-row>
+    </ion-grid>
+
+    <ion-modal trigger="changePassword">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>{{ $t('menu.changePassword') }}</ion-title>
+                <ion-button slot="end" color="danger" @click="modalController.dismiss()">{{ $t('general.close')
+                }}</ion-button>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content class="ion-padding">
+            <ion-input :label="$t('account.oldPassword')" type="password"></ion-input>
+            <ion-input :label="$t('account.newPassword')" type="password"></ion-input>
+            <ion-input :label="$t('account.newPasswordRepeat')" type="password"></ion-input>
+            <ion-button expand="block" @click="changePassword()">{{ $t('menu.save') }}</ion-button>
         </ion-content>
-        <ion-modal trigger="changePassword">
-            <ion-header>
-                <ion-toolbar>
-                    <ion-title>{{ $t('menu.changePassword') }}</ion-title>
-                        <ion-button slot="end" color="danger" @click="modalController.dismiss()">{{ $t('general.close') }}</ion-button>
-                </ion-toolbar>
-            </ion-header>
-            <ion-content>
-                <ion-input :label="$t('account.oldPassword')" type="password"></ion-input>
-                <ion-input :label="$t('account.newPassword')" type="password"></ion-input>
-                <ion-input :label="$t('account.newPasswordRepeat')" type="password"></ion-input>
-                <ion-button @click="changePassword()">{{ $t('menu.save') }}</ion-button>
-            </ion-content>
-        </ion-modal>
-        <ion-alert
-        trigger="deleteUser"
-        :header="$t('menu.delete')"
-        :message="$t('account.deleteUser')"
-        :buttons="[{text: $t('general.cancel'), role: 'cancel'}, {text: $t('general.ok'), handler: deleteUser}]"
-        ></ion-alert>
-    </ion-page>
+    </ion-modal>
+
+    <ion-alert trigger="deleteUser" :header="$t('account.deleteAccount')" :message="$t('account.deleteAccountConfirm')"
+        :buttons="[{ text: $t('general.cancel'), role: 'cancel' }, { text: $t('general.yes'), handler: deleteUser }]">
+    </ion-alert>
+
 </template>
 
 <script>
 import { defineComponent } from 'vue';
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonInput, IonButton, IonModal, modalController, IonAlert } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonList, IonItem, IonLabel, IonInput, IonButton, IonModal, modalController, IonAlert, IonAvatar, IonCol, IonRow, IonGrid } from '@ionic/vue';
 import AddOfferComponent from './AddOfferComponent.vue';
 import AddCompanyComponent from './AddCompanyComponent.vue';
 import axios from 'axios';
@@ -79,7 +102,11 @@ export default defineComponent({
         AddOfferComponent,
         IonModal,
         AddCompanyComponent,
-        IonAlert
+        IonAlert,
+        IonCol,
+        IonRow,
+        IonGrid,
+        IonAvatar
     },
     setup() {
         return { modalController };
@@ -97,7 +124,7 @@ export default defineComponent({
             type: Array,
             required: true
         },
-        company:{
+        company: {
             type: Array,
             required: true
         }
@@ -132,7 +159,7 @@ export default defineComponent({
             });
         },
         deleteUser() {
-            axios.post(this.$api_add + '/deleteuser',{id: this.getUserID()}).then(response =>{
+            axios.post(this.$api_add + '/deleteuser', { id: this.getUserID() }).then(response => {
                 if (response.data.result === 'ok') {
                     this.ToastComponent.methods.showToast(this.$t('account.deleteSuccess'), 2000, 'success');
                     localStorage.removeItem('token');
@@ -144,12 +171,12 @@ export default defineComponent({
                 this.ToastComponent.methods.showToast(this.$t('account.deleteFail'), 2000, 'danger');
             })
         },
-        getUserID(){
+        getUserID() {
             let token = localStorage.getItem('token');
             let decoded = JSON.parse(atob(token.split('.')[1]));
             return decoded.id;
         },
-        changePassword(){
+        changePassword() {
             axios.post(this.$api_add + '/changepassword', {
                 id: this.getUserID(),
                 currPassword: this.currPassword,
@@ -176,23 +203,64 @@ export default defineComponent({
             this.$router.push({ name: 'SubscriptionPage' });
         }
     },
-    mounted(){
-        if(this.company){
+    mounted() {
+        if (this.company) {
             this.isInCompany = false;
         }
     }
-    
+
 });
 </script>
 
 <style scoped>
-ion-card {
-    margin: 20px;
+.profile-actions {
+    display: flex;
+    flex-direction: column;
 }
+
+.action-link {
+    padding: 12px 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--ion-color-primary);
+    cursor: pointer;
+    transition: color 0.2s ease;
+}
+
+.action-link:last-child {
+    border-bottom: none;
+}
+
+.action-link:hover {
+    color: var(--ion-color-primary-shade);
+}
+
+.action-link.danger {
+    color: var(--ion-color-danger);
+}
+
 .profile-card {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
-    margin-bottom: 15px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.profile-header {
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    background-color: var(--ion-color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.avatar-text {
+    color: white;
+    font-size: 48px;
+    font-weight: bold;
 }
 </style>
