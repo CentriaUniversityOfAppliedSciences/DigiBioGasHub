@@ -225,7 +225,9 @@
             "no": "Ei",
             "amount": "Määrä",
             "available": "Saatavilla",
-            "total": "Kokonais"
+            "total": "Kokonais",
+            "noVerifiedCompaniesToBuyOffer": "Vahvistettuja yrityksiä ei ole saatavilla tarjouksen ostamiseen. Luo yritys tai odota vahvistusta, jos yrityksesi ei ole vielä vahvistettu.",
+            "companyManagement": "Yritysten hallinta"
         },
         "image": "Kuva",
         "material": "Materiaali",
@@ -384,7 +386,9 @@
             "3":"muu"
         }
     },
-    "offers":{
+    "offers": {
+        "noCompaniesToCreateOffer": "Vahvistettuja yrityksiä ei ole saatavilla tarjouksen tekemiseen. Luo yritys tai odota vahvistusta, jos yrityksesi ei ole vielä vahvistettu.",
+        "companyManagement": "Yritysten hallinta",
         "addOffer": "Lisää tarjous",
         "editOffer": "Muokkaa tarjousta",
         "deleteOffer": "Poista tarjous"
@@ -427,7 +431,7 @@
         "editWarning": "Varoitus: Muokkaat vahvistamatonta yritystä. Jos tallennat muutokset, yritys lähetetään uudelleen hyväksyttäväksi.",
         "waiting_approval": "Huomautus: Kaikki alla luetellut yritykset odottavat hyväksyntää!",
         "rejected": "Huomautus: Kaikki alla luetellut yritykset on hylätty! Muokkaa yritystietojasi ja lähetä ne uudelleen hyväksyttäväksi.",
-        "noCompanies": "Ei vielä yrityksiä! Voit luoda oman yrityksen klikkaamalla ‘Lisää yritys’ tai odottaa hyväksyntää, jos yrityksesi on vahvistamattomien listalla.",
+        "noCompanies": "Ei vielä yhtään yritystä! Voit luoda oman yrityksen napsauttamalla “Lisää yritys” oikeasta yläkulmasta tai odottaa hyväksyntää, jos yrityksesi on vahvistamattomien listalla.",
         "noRejectedCompanies": "Jippii! Ei vielä yhtään hylättyä yritystä!",
         "logisticsRegistration": {
             "title": "Logistiikan rekisteröinti",

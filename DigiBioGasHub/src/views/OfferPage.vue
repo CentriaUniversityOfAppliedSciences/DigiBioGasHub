@@ -52,7 +52,7 @@ export default defineComponent({
         }
 
     },
-    emits: ['updateOffers'],
+    emits: ['updateOffers', 'close'],
     methods: {
         getOffer() {
             axios.post(this.$api_add + '/getoffersbyid', { id: this.productId }).then(response => {

@@ -82,7 +82,7 @@ export default {
             isModalOpen: false
         };
     },
-    emits: ['updateOffers'],
+    emits: ['updateOffers', 'close'],
     mounted() {
     },
     methods: {

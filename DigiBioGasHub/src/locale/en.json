@@ -216,7 +216,7 @@
             "description": "Description",
             "type": "Type",
             "pricePerUnit": "Price per {unit}",
-            "price":"Price per unit",
+            "price": "Price per unit",
             "location": "Location",
             "offerValidFrom": "Offer Valid From",
             "pickUpNeeded": "Pick Up Needed",
@@ -225,7 +225,9 @@
             "no": "No",
             "amount": "Amount",
             "available": "Available",
-            "total": "Total"
+            "total": "Total",
+            "noVerifiedCompaniesToBuyOffer": "No verified companies are available to buy an offer. Please create a company or wait for verification if your company is not yet verified.",
+            "companyManagement": "Company Management"
         },
         "image": "Image",
         "material": "Material",
@@ -384,6 +386,8 @@
             }
         },
     "offers": {
+        "noCompaniesToCreateOffer": "No verified companies are available to create an offer. Please create a company or wait for verification if your company has not yet been verified.",
+        "companyManagement": "Company Management",
         "addOffer": "Add offer",
         "editOffer": "Edit offer",
         "deleteOffer": "Delete offer"
@@ -426,7 +430,7 @@
         "editWarning": "If you edit this company, it will need to be verified again. Are you sure?",
         "waiting_approval": "Note: All the companies listed below are waiting for approval!",
         "rejected": "Note: All the companies listed below have been rejected! Please edit your company information and resubmit for approval.",
-        "noCompanies": "No companies yet! You can create your own company by clicking 'Add Company' or wait for approval if your company is in the unverified list",
+        "noCompanies": "No companies yet! You can create your own company by clicking 'Add Company' in the top right, or wait for approval if your company is in the unverified list",
         "noRejectedCompanies": "Yahoo! No rejected companies yet!",
         "logisticsRegistration": {
             "title": "Logistics Registration",

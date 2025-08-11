@@ -4,7 +4,13 @@
             <ion-card-title>{{ offer.Material.name }}</ion-card-title>
             <ion-card-subtitle> {{ getMaterialTypeTranslation(offer.Material.type) }}</ion-card-subtitle>
         </ion-card-header>
-        <ion-card-content>
+        <ion-card-content v-if="companies.length == 0">
+            <p class="required-note">
+                {{ $t('product.productDetails.noVerifiedCompaniesToBuyOffer') }}
+                <a href="/company">{{ $t('product.productDetails.companyManagement') }}</a>
+            </p>
+        </ion-card-content>
+        <ion-card-content v-else>
             <ion-item>
                 <ion-select v-model="buy.companyID">
                     <ion-select-option v-for="company in companies" :key="company.Company.id"
@@ -17,12 +23,12 @@
                 <ion-input type="number" v-model="buy.amount" :max="offer.availableAmount"></ion-input>
                 <ion-label slot="end">{{ getUnitTypeTranslation(offer.unit) }}</ion-label>
                 <ion-label slot="start">{{ $t('product.productDetails.amount') }} <i style="color: gray;"> ({{
-                    $t('product.productDetails.available') }}:
+                        $t('product.productDetails.available') }}:
                         {{ offer.availableAmount }} {{ getUnitTypeTranslation(offer.unit) }}) </i></ion-label>
             </ion-item>
             <ion-item>
                 <ion-label> {{ $t('product.productDetails.pricePerUnit', { unit: getUnitTypeTranslation(offer.unit) })
-                }}</ion-label>
+                    }}</ion-label>
                 <ion-label type="number" v-model="buy.price">{{ offer.price }}</ion-label>
             </ion-item>
             <ion-item>
@@ -151,4 +157,17 @@ export default defineComponent({
   color: gray;
   font-size: 14px;
 } */
+
+ .required-note {
+    padding: 0.5rem;
+    border-radius: 10px;
+    color: var(--color);
+    background-color: transparent;
+    text-align: center;
+    border: 2px solid var(--ion-color-warning);
+    max-width: 18rem;
+    margin: auto;
+    margin-bottom: 1.5rem;
+}
+
 </style>

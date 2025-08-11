@@ -225,7 +225,9 @@
             "no": "Nej",
             "amount": "Mängd",
             "available": "Tillgänglig",
-            "total": "Total"
+            "total": "Total",
+            "noVerifiedCompaniesToBuyOffer": "Inga verifierade företag finns tillgängliga för att köpa ett erbjudande. Skapa ett företag eller vänta på verifiering om ditt företag ännu inte är verifierat.",
+            "companyManagement": "Företagshantering"
         },
         "image": "Bild",
         "material": "Material",
@@ -385,6 +387,8 @@
         }
     },
     "offers": {
+        "noCompaniesToCreateOffer": "Inga verifierade företag finns tillgängliga för att skapa ett erbjudande. Skapa ett företag eller vänta på verifiering om ditt företag ännu inte är verifierat.",
+        "companyManagement": "Företagshantering",
         "addOffer": "Lägg till erbjudande",
         "editOffer": "Redigera erbjudande",
         "deleteOffer": "Radera erbjudande"
@@ -427,7 +431,7 @@
         "editWarning": "Varning: Du redigerar ett företag som inte är verifierat. Om du sparar ändringarna kommer företaget att skickas för godkännande igen.",
         "waiting_approval": "Obs: Alla företag som listas nedan väntar på godkännande!",
         "rejected": "Obs: Alla företag som listas nedan har avvisats! Vänligen redigera din företagsinformation och skicka in den på nytt för godkännande.",
-        "noCompanies": "Inga företag ännu! Du kan skapa ditt eget företag genom att klicka på ”Lägg till företag” eller vänta på godkännande om ditt företag finns i den obekräftade listan",
+        "noCompanies": "Inga företag ännu! Du kan skapa ditt eget företag genom att klicka på “Lägg till företag” uppe till höger, eller vänta på godkännande om ditt företag finns i listan över overifierade.",
         "noRejectedCompanies": "Yahoo! Inga avvisade företag ännu!",
         "logisticsRegistration": {
             "title": "Registrering av logistik",
