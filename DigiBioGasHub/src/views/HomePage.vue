@@ -100,7 +100,7 @@
             style="position: absolute; top: 5px; right: 20px; width: 3vw; max-width:20px ; z-index: 1001;">
             ✖
           </button>
-          <div v-if="chatboxMinimized" style="padding: 10px; text-align: center;">
+          <div v-if="chatboxMinimized" style="padding: 10px; text-align: center; color:var(--background)">
             <!-- Static header shown when minimized -->
             <strong>Biokaasuklinikka</strong>
           </div>
@@ -158,7 +158,7 @@ export default defineComponent({
         bottom: '2%',
         right: '2%',
         width: this.chatboxLarge ? '90vw' : '50vw',
-        height: this.chatboxMinimized ? '40px' : (this.chatboxLarge ? '80vh' : '50%'),
+        height: this.chatboxMinimized ? '40px !important' : (this.chatboxLarge ? '80vh' : '50%'),
         zIndex: 1000,
         background: '#fff',
         border: '1px solid #ccc',
