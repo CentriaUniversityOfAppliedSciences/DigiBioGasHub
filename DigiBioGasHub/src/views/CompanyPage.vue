@@ -108,7 +108,6 @@ export default defineComponent({
     },
     computed: {
         filteredCompanies() {
-            console.log("companies:", this.companies);
             return this.companies.filter(c =>
                 (this.selectedSegment === 'verified' && c.Company.companyStatus === 1) ||
                 (this.selectedSegment === 'unverified' && c.Company.companyStatus === 0) ||
