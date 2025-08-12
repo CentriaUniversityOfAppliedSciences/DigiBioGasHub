@@ -5,7 +5,6 @@
             <ion-col size="12" size-md="3">
                 <div class="profile-actions">
                     <div class="action-link" @click="toggleEditUser">{{ $t('menu.edit') }}</div>
-                    <div class="action-link" @click="saveUser">{{ $t('menu.save') }}</div>
                     <div class="action-link" @click="settings_button">{{ $t('general.settings') }}</div>
                     <div class="action-link" @click="goToApiKey">{{ $t('apiKeys.title') }}</div>
                     <div v-if="use_payment == 'true'" class="action-link" @click="goToSubscriptionPage">
@@ -33,17 +32,22 @@
                         <ion-list lines="inset">
                             <ion-item>
                                 <ion-label position="stacked">{{ $t('account.name') }}</ion-label>
-                                <ion-input :disabled="EditUser" v-model="user.name"></ion-input>
+                                <ion-input :disabled="EditUser" v-model="editableUser.name"></ion-input>
                             </ion-item>
                             <ion-item>
                                 <ion-label position="stacked">{{ $t('account.email') }}</ion-label>
-                                <ion-input :disabled="EditUser" v-model="user.email"></ion-input>
+                                <ion-input :disabled="EditUser" v-model="editableUser.email"></ion-input>
                             </ion-item>
                             <ion-item>
                                 <ion-label position="stacked">{{ $t('account.phone') }}</ion-label>
-                                <ion-input :disabled="EditUser" v-model="user.phone"></ion-input>
+                                <ion-input :disabled="EditUser" v-model="editableUser.phone"></ion-input>
                             </ion-item>
                         </ion-list>
+
+                        <div v-if="!EditUser" class="edit-buttons" style="margin-top: 1rem; display: flex; gap: 1rem;">
+                            <ion-button color="primary" @click="saveUser" :disabled="!hasChanges">{{ $t('menu.save') }}</ion-button>
+                            <ion-button color="medium" @click="cancelEdit">{{ $t('general.cancel') }}</ion-button>
+                        </div>
 
                     </ion-card-content>
                 </ion-card>
@@ -72,6 +76,8 @@
         :buttons="[{ text: $t('general.cancel'), role: 'cancel' }, { text: $t('general.yes'), handler: deleteUser }]">
     </ion-alert>
 
+    <ToastComponent ref="toastComponent" />
+
 </template>
 
 <script>
@@ -80,6 +86,7 @@ import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonCard, IonCardH
 import AddOfferComponent from './AddOfferComponent.vue';
 import AddCompanyComponent from './AddCompanyComponent.vue';
 import axios from 'axios';
+import ToastComponent from './ToastComponent.vue';
 
 
 export default defineComponent({
@@ -106,7 +113,8 @@ export default defineComponent({
         IonCol,
         IonRow,
         IonGrid,
-        IonAvatar
+        IonAvatar,
+        ToastComponent
     },
     setup() {
         return { modalController };
@@ -136,26 +144,46 @@ export default defineComponent({
             newPassword: '',
             repeatPassword: '',
             EditUser: true,
+            editableUser: { ...this.user },
             use_payment: this.$use_payment
         };
     },
+    watch: {
+        user(newUser) {
+            this.editableUser = { ...newUser };
+        }
+    },
+    computed: {
+        hasChanges() {
+            return (
+                this.editableUser.name !== this.user.name ||
+                this.editableUser.email !== this.user.email ||
+                this.editableUser.phone !== this.user.phone
+            );
+        }
+    },
     methods: {
         toggleEditUser() {
-            this.EditUser = !this.EditUser;
+            this.EditUser = false;
+        },
+        cancelEdit() {
+            this.editableUser = { ...this.user };
+            this.EditUser = true;
         },
         saveUser() {
             axios.post(this.$api_add + '/updateuser', {
-                name: this.user.name,
-                email: this.user.email,
-                phone: this.user.phone,
+                name: this.editableUser.name,
+                email: this.editableUser.email,
+                phone: this.editableUser.phone,
             }).then(response => {
                 if (response.data.result === 'ok') {
-                    this.ToastComponent.methods.showToast(this.$t('account.saveSuccess'), 2000, 'success');
+                    this.EditUser = true;
+                    this.$refs.toastComponent.showToast(this.$t('account.updateSuccess'), 2000, 'success');
                 } else {
-                    this.ToastComponent.methods.showToast(this.$t('account.saveFail'), 2000, 'danger');
+                    this.$refs.toastComponent.showToast(this.$t('account.updateFail'), 2000, 'danger');
                 }
             }).catch(error => {
-                this.ToastComponent.methods.showToast(this.$t('account.saveFail'), 2000, 'danger');
+                this.ToastComponent.methods.showToast(this.$t('account.updateFail'), 2000, 'danger');
             });
         },
         deleteUser() {
