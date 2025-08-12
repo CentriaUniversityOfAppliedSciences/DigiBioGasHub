@@ -2,7 +2,7 @@
     <ion-page style="overflow-y: auto;">
         <NavBarComponent />
         <ion-content class="main-content">
-            <ProfileComponent :user="myUser" :offers="myOffers" :company="myCompanies.Company"/>
+            <ProfileComponent :user="myUser" :offers="myOffers" :company="myCompanies"/>
         </ion-content>
         <FooterComponent />
     </ion-page>

@@ -299,6 +299,7 @@
             "companyEmailRequired": "Sähköposti on pakollinen."
         },
         "invalidEmail": "Sähköposti on virheellinen.",
+        "nameRequired": "Nimi on pakollinen",
         "companyRequired": "Yritys on pakollinen",
         "materialRequired": "Materiaali on pakollinen",
         "materialNameRequired": "Nimi on pakollinen",
