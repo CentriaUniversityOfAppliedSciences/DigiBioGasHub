@@ -299,6 +299,7 @@
             "companyEmailRequired": "E-postadress är obligatorisk." 
         },
         "invalidEmail": "Ogiltig e-postadress.",
+        "nameRequired": "Namn krävs",
         "companyRequired": "Företag är obligatoriskt",
         "materialRequired": "Material är obligatoriskt",
         "materialNameRequired": "Namn är obligatoriskt",

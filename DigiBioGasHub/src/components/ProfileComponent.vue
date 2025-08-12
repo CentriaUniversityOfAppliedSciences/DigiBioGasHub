@@ -45,7 +45,8 @@
                         </ion-list>
 
                         <div v-if="!EditUser" class="edit-buttons" style="margin-top: 1rem; display: flex; gap: 1rem;">
-                            <ion-button color="primary" @click="saveUser" :disabled="!hasChanges">{{ $t('menu.save') }}</ion-button>
+                            <ion-button color="primary" @click="saveUser" :disabled="!hasChanges">{{ $t('menu.save')
+                                }}</ion-button>
                             <ion-button color="medium" @click="cancelEdit">{{ $t('general.cancel') }}</ion-button>
                         </div>
 
@@ -61,7 +62,7 @@
             <ion-toolbar>
                 <ion-title>{{ $t('menu.changePassword') }}</ion-title>
                 <ion-button slot="end" color="danger" @click="modalController.dismiss()">{{ $t('general.close')
-                }}</ion-button>
+                    }}</ion-button>
             </ion-toolbar>
         </ion-header>
         <ion-content class="ion-padding">
@@ -171,6 +172,28 @@ export default defineComponent({
             this.EditUser = true;
         },
         saveUser() {
+
+            const name = this.editableUser.name ? this.editableUser.name.trim() : '';
+            const email = this.editableUser.email ? this.editableUser.email.trim() : '';
+            const phone = this.editableUser.phone ? this.editableUser.phone.trim() : '';
+
+            if (!name) {
+                this.$refs.toastComponent.showToast(this.$t('validation.nameRequired'), 2000, 'danger');
+                return;
+            }
+
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                this.$refs.toastComponent.showToast(this.$t('validation.invalidEmail'), 2000, 'danger');
+                return;
+            }
+
+            const phonePattern = /^\+?\d{7,15}$/;
+            if (!phonePattern.test(phone)) {
+                this.$refs.toastComponent.showToast(this.$t('validation.registration.invalidPhoneNumber'), 2000, 'danger');
+                return;
+            }
+
             axios.post(this.$api_add + '/updateuser', {
                 name: this.editableUser.name,
                 email: this.editableUser.email,
