@@ -470,6 +470,18 @@
         "reports":"Raportit",
         "sales":"Myynti"
     },
+    "posts": {
+        "addPost": "Lisää blogikirjoitus",
+        "uploadPdf": "Lataa PDF",
+        "published": "Julkaistu",
+        "unpublished": "Ei julkaistu",
+        "draft": "Luonnos",
+        "file": "Tiedosto",
+        "posts": "Julkaisut",
+        "noPosts": "Ei julkaisuja.",
+        "loading": "Ladataan...",
+        "unknown": "Tuntematon"
+    },
     "admin": {
         "company": {
             "manageCompanies": "Hallitse yrityksiä",

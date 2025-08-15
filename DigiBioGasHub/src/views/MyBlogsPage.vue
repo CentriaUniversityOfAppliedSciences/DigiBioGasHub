@@ -5,28 +5,28 @@
             <div class="layout">
                 <div class="sidebar">
                     <ion-button expand="block" color="primary" @click="addPost">
-                        Add Blog Post
+                          {{ $t('posts.addPost') }}
                     </ion-button>
                     <ion-button expand="block" fill="outline" color="medium" @click="uploadPdf">
-                        Upload PDF
+                         {{ $t('posts.uploadPdf') }}
                     </ion-button>
 
                     <div class="menu">
                         <ion-item button :class="{ active: selectedType === 1 }" @click="changeType(1)">
                             <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
-                            Published
+                            {{ $t('posts.published') }}
                         </ion-item>
                         <ion-item button :class="{ active: selectedType === 0 }" @click="changeType(0)">
                             <ion-icon name="close-circle" slot="start" color="danger"></ion-icon>
-                            Unpublished
+                            {{ $t('posts.unpublished') }}
                         </ion-item>
                         <ion-item button :class="{ active: selectedType === 2 }" @click="changeType(2)">
                             <ion-icon name="create" slot="start" color="warning"></ion-icon>
-                            Draft
+                            {{ $t('posts.draft') }}
                         </ion-item>
                         <ion-item button :class="{ active: selectedType === 3 }" @click="changeType(3)">
                             <ion-icon name="document" slot="start" color="primary"></ion-icon>
-                            Files
+                            {{ $t('posts.file') }}
                         </ion-item>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                 <div class="content-area">
                     <ion-header>
                         <ion-toolbar>
-                            <ion-title size="large">{{ typeLabel(selectedType) }} Posts</ion-title>
+                            <ion-title size="large">{{ typeLabel(selectedType) }}  {{ $t('posts.posts') }}</ion-title>
                         </ion-toolbar>
                     </ion-header>
 
@@ -43,7 +43,7 @@
                     </div>
 
                     <div v-else-if="posts.length === 0" class="empty-state">
-                        No posts found.
+                        {{ $t('posts.noPosts') }}
                     </div>
 
                     <div v-else class="cards">
@@ -150,12 +150,12 @@ export default defineComponent({
         },
         typeLabel(type) {
             const map = {
-                0: 'Unpublished',
-                1: 'Published',
-                2: 'Draft',
-                3: 'File'
+                0: this.$t('posts.unpublished'),
+                1: this.$t('posts.published'),
+                2: this.$t('posts.draft'),
+                3: this.$t('posts.file')
             }
-            return map[type] || 'Unknown'
+            return map[type] || this.$t('posts.unknown')
         },
         getBadgeColor(type) {
             if (type === 1) return 'success'

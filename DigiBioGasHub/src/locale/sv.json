@@ -470,6 +470,18 @@
         "reports":"Rapporter",
         "sales":"Försäljning"
     },
+    "posts": {
+        "addPost": "Lägg till bloggpost",
+        "uploadPdf": "Ladda upp PDF",
+        "published": "Publicerad",
+        "unpublished": "Ej publicerad",
+        "draft": "Utkast",
+        "file": "Fil",
+        "posts": "Inlägg",
+        "noPosts": "Inga inlägg hittades.",
+        "loading": "Laddar...",
+        "unknown": "Okänd"
+    },
     "admin": {
         "company": {
             "manageCompanies": "Hantera företag",

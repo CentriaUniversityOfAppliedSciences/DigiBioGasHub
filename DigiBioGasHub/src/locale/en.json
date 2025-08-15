@@ -469,6 +469,18 @@
         "reports":"Reports",
         "sales": "Sales"
     },
+    "posts": {
+        "addPost": "Add Blog Post",
+        "uploadPdf": "Upload PDF",
+        "published": "Published",
+        "unpublished": "Unpublished",
+        "draft": "Draft",
+        "file": "File",
+        "posts": "Posts",
+        "noPosts": "No posts found.",
+        "loading": "Loading...",
+        "unknown": "Unknown"
+    },
     "admin": {
         "company": {
             "manageCompanies": "Companies",
