@@ -118,8 +118,6 @@ export default defineComponent({
         async fetchPosts(type) {
             try {
                 this.loading = true;
-                this.posts = [];
-
                 const response = await axios.post(this.$api_add + "/blogs/myblogs", { type: type }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 
                 if (response.data.type === "result" && response.data.result === "ok" && response.data.message.length > 0) {
@@ -163,7 +161,9 @@ export default defineComponent({
             if (type === 2) return 'warning'
             if (type === 3) return 'primary'
         },
-        addPost() { },
+        addPost() {
+            window.location.href = '/admin/add-blog-post';
+        },
         uploadPdf() { },
         viewPost(post) { },
         unpublishPost(post) { }
