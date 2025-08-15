@@ -50,6 +50,7 @@ import CertificatesPage from '../views/Admin/CertificatesPage.vue';
 import CompanyCertificatesPage from '../views/Company/CertificatesPage.vue';
 import BlogPreview from '../views/Admin/BlogPreview.vue';
 import NotFoundPage from '../views/NotFoundPage.vue';
+import MyBlogsPage from '../views/MyBlogsPage.vue';
 
 export function jwtDecode(token) {
   try {
@@ -128,12 +129,17 @@ const routes = [
     beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },
-
+  {
+    path: '/my-blogs',
+    name: 'MyBlogsPage',
+    component: MyBlogsPage,
+    meta: { requiresAuth: true }
+  },
   {
     path: '/admin/add-blog-post',
     name: 'AddBlogPost',
     component: AddBlogPostPage,
-    beforeEnter: [checkAdmin],
+    // beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },
   {
