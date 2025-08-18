@@ -476,10 +476,13 @@
         "unpublished": "Unpublished",
         "draft": "Draft",
         "file": "File",
+        "rejected": "Rejected",
         "posts": "Posts",
         "noPosts": "No posts found.",
         "loading": "Loading...",
-        "unknown": "Unknown"
+        "unknown": "Unknown",
+        "unpublish":"Unpublish",
+        "edit":"Edit"
     },
     "admin": {
         "company": {
@@ -513,6 +516,7 @@
             "published":"Published",
             "unpublished": "Unpublished",
             "drafts": "Drafts",
+            "rejectPost": "Reject",
             "publish": "publish",
             "unpublish": "unpublish",
             "confirmDelete": "Confirm Delete",

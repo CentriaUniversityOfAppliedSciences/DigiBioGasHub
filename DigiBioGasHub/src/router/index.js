@@ -136,17 +136,15 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/admin/add-blog-post',
+    path: '/blog/add-blog-post',
     name: 'AddBlogPost',
     component: AddBlogPostPage,
-    // beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },
   {
-    path: '/admin/edit-blog-post/:postID/:title',
+    path: '/blog/edit-blog-post/:postID/:title',
     name: 'EditBlogPostPage',
     component: EditBlogPostPage,
-    beforeEnter: [checkAdmin],
     meta: { requiresAuth: true }
   },
   {

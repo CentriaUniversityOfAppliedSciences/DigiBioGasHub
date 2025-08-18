@@ -376,7 +376,7 @@ export default defineComponent({
       this.showPublishAlert = true;
     },
     addPost() {
-      window.location.href = '/admin/add-blog-post';
+      window.location.href = '/blog/add-blog-post';
     },
     publishPost(postId) {
       try {
