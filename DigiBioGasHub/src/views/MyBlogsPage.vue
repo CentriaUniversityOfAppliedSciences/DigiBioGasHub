@@ -47,7 +47,7 @@
                     </div>
 
                     <div v-else class="cards">
-                        <BlogListingComponent v-for="post in posts" :key="post.id" :article="posts" />
+                        <BlogListingComponent v-for="post in posts" :key="post.id" :article="post" />
                     </div>
                 </div>
             </div>
