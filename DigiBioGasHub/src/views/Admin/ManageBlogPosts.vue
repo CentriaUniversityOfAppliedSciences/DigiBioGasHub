@@ -7,7 +7,6 @@
           <ion-col>
             <ion-button @click="addPost">{{ $t('admin.blogpost.addPost') }}</ion-button>
             <ion-button @click="addFromFile">{{ $t('admin.blogpost.addFromFile') }}</ion-button>
-            
           </ion-col>
         </ion-row>
         <!-- Published Section -->
@@ -23,13 +22,13 @@
                   </ion-card-header>
                   <ion-card-content>
                     <div class="button-group">
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{
-                        $t('admin.blogpost.reviewEdit') }}</ion-button>
                       <ion-button @click="confirmUnpublish(post.postID)" expand="block">{{
                         $t('admin.blogpost.unpublish') }}</ion-button>
                       <ion-button @click="preview(post)">
                         {{ $t('general.preview') }}
                       </ion-button>
+                      <ion-button @click="rejectPost(post.postID)" color="danger" expand="block">{{
+                        $t('admin.blogpost.rejectPost') }}</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
                         $t('general.delete') }}</ion-button>
                     </div>
@@ -55,12 +54,12 @@
                   <ion-card-content>
                     <div class="button-group">
                       <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish')
-                        }}</ion-button>
-                      <ion-button @click="editPost(post.postID, post.title)" expand="block">{{
-                        $t('admin.blogpost.reviewEdit') }}</ion-button>
+                      }}</ion-button>
                       <ion-button @click="preview(post)">
                         {{ $t('general.preview') }}
                       </ion-button>
+                      <ion-button @click="rejectPost(post.postID)" color="danger" expand="block">{{
+                        $t('admin.blogpost.rejectPost') }}</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
                         $t('general.delete') }}</ion-button>
                     </div>
@@ -72,7 +71,7 @@
         </ion-row>
 
         <!-- Draft Section -->
-        <ion-row>
+        <!-- <ion-row>
           <ion-col>
             <h2>{{ $t('admin.blogpost.drafts') }}</h2>
             <ion-row>
@@ -114,7 +113,7 @@
               </ion-col>
             </ion-row>
           </ion-col>
-        </ion-row>
+        </ion-row> -->
         <!-- File Posts Section -->
         <ion-row>
           <ion-col>
@@ -131,7 +130,10 @@
                       <ion-button @click="preview(post)">
                         {{ $t('general.preview') }}
                       </ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{ $t('general.delete') }}</ion-button>
+                        <ion-button @click="rejectPost(post.postID)" color="danger" expand="block">{{
+                        $t('admin.blogpost.rejectPost') }}</ion-button>
+                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
+                        $t('general.delete') }}</ion-button>
                     </div>
                   </ion-card-content>
                 </ion-card>
@@ -283,7 +285,7 @@ export default defineComponent({
       ],
       addfileinputs: [
         {
-          name:"title",
+          name: "title",
           type: 'text',
           id: 'titlePdfInput',
           placeholder: this.$t('admin.blogpost.title'),
@@ -311,7 +313,7 @@ export default defineComponent({
   methods: {
     addFromFile() {
       this.showAddFromFileAlert = true;
-      
+
     },
     handleFileUpload(event) {
       const fileInput = event.target;
@@ -329,7 +331,7 @@ export default defineComponent({
         this.$refs.toastComponent.showToast(this.$t('admin.blogpost.noFileSelected'), 2000, 'danger');
       }
     },
-    uploadFile(fileData){
+    uploadFile(fileData) {
       const url = this.$api_add + '/admin/createblogpostfile';
       axios.post(url, fileData, {
         headers: {
@@ -351,8 +353,22 @@ export default defineComponent({
           this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadFail'), 2000, 'danger');
         });
     },
-    editPost(postId, title) {
-      window.location.href = `/admin/edit-blog-post/${postId}/${slugify(title, { lower: true, strict: true })}`;
+    rejectPost(postId) {
+      try {
+        const url = this.$api_add + `/admin/rejectpost`;
+        axios.post(url, { "postID": postId }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false })
+          .then(response => {
+            if (response.data.result === 'ok') {
+              this.fetchPosts();
+              this.$refs.toastComponent.showToast(this.$t('admin.blogpost.rejectSuccess'), 2000, 'success');
+            }
+          })
+          .catch(error => {
+            this.$refs.toastComponent.showToast(this.$t('admin.blogpost.rejectFail'), 2000, 'danger');
+          });
+      } catch (error) {
+        console.error('Error rejecting post:', error);
+      }
     },
 
     confirmPublish(postId) {
