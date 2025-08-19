@@ -58,14 +58,14 @@
                                     <ion-button size="small" color="primary" @click="viewPost(post)">
                                         {{ $t('general.view') }}
                                     </ion-button>
-                                    <ion-button size="small" color="warning" @click="unpublishPost(post)">
+                                    <ion-button size="small" color="warning" @click="confirmUnpublish(post)">
                                         {{ $t('posts.unpublish') }}
                                     </ion-button>
                                     <ion-button size="small" color="tertiary"
                                         @click="editPost(post.postID, post.title)">
                                         {{ $t('general.edit') }}
                                     </ion-button>
-                                    <ion-button size="small" color="danger" @click="deletePost(post)">
+                                    <ion-button size="small" color="danger" @click="confirmDelete(post)">
                                         {{ $t('general.delete') }}
                                     </ion-button>
                                 </template>
@@ -79,7 +79,7 @@
                                         @click="editPost(post.postID, post.title)">
                                         {{ $t('general.edit') }}
                                     </ion-button>
-                                    <ion-button size="small" color="danger" @click="deletePost(post)">
+                                    <ion-button size="small" color="danger" @click="confirmDelete(post)">
                                         {{ $t('general.delete') }}
                                     </ion-button>
                                 </template>
@@ -90,10 +90,10 @@
                                         @click="editPost(post.postID, post.title)">
                                         {{ $t('general.edit') }}
                                     </ion-button>
-                                    <ion-button size="small" color="success" @click="sendForReview(post)">
-                                        {{ $t('general.send') }}
+                                    <ion-button size="small" color="success" @click="confirmSendForReview(post)">
+                                        {{ $t('posts.sendForReview') }}
                                     </ion-button>
-                                    <ion-button size="small" color="danger" @click="deletePost(post)">
+                                    <ion-button size="small" color="danger" @click="confirmDelete(post)">
                                         {{ $t('general.delete') }}
                                     </ion-button>
                                 </template>
@@ -103,7 +103,7 @@
                                     <ion-button size="small" color="primary" @click="viewPost(post)">
                                         {{ $t('general.view') }}
                                     </ion-button>
-                                    <ion-button size="small" color="danger" @click="deletePost(post)">
+                                    <ion-button size="small" color="danger" @click="confirmDelete(post)">
                                         {{ $t('general.delete') }}
                                     </ion-button>
                                 </template>
@@ -117,7 +117,7 @@
                                         @click="editPost(post.postID, post.title)">
                                         {{ $t('general.edit') }}
                                     </ion-button>
-                                    <ion-button size="small" color="danger" @click="deletePost(post)">
+                                    <ion-button size="small" color="danger" @click="confirmDelete(post)">
                                         {{ $t('general.delete') }}
                                     </ion-button>
                                 </template>
@@ -127,6 +127,62 @@
                 </div>
             </div>
         </ion-content>
+
+        <!-- Send For Review Alert -->
+        <ion-alert :is-open="showSendForReviewAlert" :header="$t('posts.confirmSendForReview')"
+            :message="$t('posts.cconfirmSendForReviewMessage')" :buttons="[
+                {
+                    text: $t('general.cancel'),
+                    role: 'cancel',
+                    handler: () => {
+                        this.showSendForReviewAlert = false;
+                    }
+                },
+                {
+                    text: $t('posts.send'),
+                    handler: () => {
+                        sendForReview(postIdToSendForReview);
+                        this.showSendForReviewAlert = false;
+                    }
+                }
+            ]"></ion-alert>
+
+        <!-- Delete Confirmation Alert -->
+        <ion-alert :is-open="showDeleteAlert" :header="$t('posts.confirmDelete')"
+            :message="$t('posts.confirmDeleteMessage')" :buttons="[
+                {
+                    text: $t('general.cancel'),
+                    role: 'cancel',
+                    handler: () => {
+                        this.showDeleteAlert = false;
+                    }
+                },
+                {
+                    text: $t('general.delete'),
+                    handler: () => {
+                        deletePost(postIdToDelete);
+                        this.showDeleteAlert = false;
+                    }
+                }
+            ]"></ion-alert>
+
+        <ion-alert :is-open="showUnpublishAlert" :header="$t('posts.confirmUnpublish')"
+            :message="$t('posts.confirmUnpublishMessage')" :buttons="[
+                {
+                    text: $t('general.cancel'),
+                    role: 'cancel',
+                    handler: () => {
+                        this.showUnpublishAlert = false;
+                    }
+                },
+                {
+                    text: $t('posts.unpublish'),
+                    handler: () => {
+                        unpublishPost(postIdToUnpublish);
+                        this.showUnpublishAlert = false;
+                    }
+                }
+            ]"></ion-alert>
 
         <ion-alert :is-open="showAddFromFileAlert" :buttons="addfilebuttons" :inputs="addfileinputs"></ion-alert>
     </ion-page>
@@ -182,6 +238,11 @@ export default defineComponent({
             selectedType: 1,
             posts: [],
             loading: false,
+            pdfFileImage64: '',
+            showDeleteAlert: false,
+            showSendForReviewAlert: false,
+            showUnpublishAlert: false,
+            postIdToDelete: null,
             showAddFromFileAlert: false,
             addfilebuttons: [
                 {
@@ -343,8 +404,14 @@ export default defineComponent({
             const link = `/blog/${post.postID}/${slugify(post.title, { lower: true, strict: true })}`;
             this.$router.push(link);
         },
-        async sendForReview(post) {
-            const response = await axios.post(this.$api_add + "/blog/sendforreview", { postID: post.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+
+        confirmSendForReview(post) {
+            this.postIdToSendForReview = post.postID;
+            this.showSendForReviewAlert = true;
+        },
+
+        async sendForReview(postID) {
+            const response = await axios.post(this.$api_add + "/blog/sendforreview", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
                 console.log("Success review send")
                 this.fetchPosts(2)
@@ -353,14 +420,27 @@ export default defineComponent({
         editPost(postId, title) {
             window.location.href = `/blog/edit-blog-post/${postId}/${slugify(title, { lower: true, strict: true })}`;
         },
-        async unpublishPost(post) {
-            const response = await axios.post(this.$api_add + "/blog/unpublishreq", { postID: post.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+
+        confirmUnpublish(post) {
+            this.postIdToUnpublish = post.postID;
+            this.showUnpublishAlert = true;
+        },
+
+        async unpublishPost(postID) {
+            const response = await axios.post(this.$api_add + "/blog/unpublishreq", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
                 this.fetchPosts(1)
             }
         },
-        async deletePost(post) {
-            const response = await axios.post(this.$api_add + "/blog/deleteblogpost", { postID: post.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+
+        confirmDelete(post) {
+            console.log("Post", post)
+            this.postIdToDelete = post.postID;
+            this.showDeleteAlert = true;
+        },
+
+        async deletePost(postID) {
+            const response = await axios.post(this.$api_add + "/blog/deleteblogpost", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
                 this.fetchPosts(1)
             }

@@ -27,7 +27,7 @@
                       <ion-button @click="preview(post)">
                         {{ $t('general.preview') }}
                       </ion-button>
-                      <ion-button @click="rejectPost(post.postID)" color="danger" expand="block">{{
+                      <ion-button @click="confirmReject(post.postID)" color="danger" expand="block">{{
                         $t('admin.blogpost.rejectPost') }}</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
                         $t('general.delete') }}</ion-button>
@@ -54,11 +54,11 @@
                   <ion-card-content>
                     <div class="button-group">
                       <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish')
-                      }}</ion-button>
+                        }}</ion-button>
                       <ion-button @click="preview(post)">
                         {{ $t('general.preview') }}
                       </ion-button>
-                      <ion-button @click="rejectPost(post.postID)" color="danger" expand="block">{{
+                      <ion-button @click="confirmReject(post.postID)" color="danger" expand="block">{{
                         $t('admin.blogpost.rejectPost') }}</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
                         $t('general.delete') }}</ion-button>
@@ -130,7 +130,7 @@
                       <ion-button @click="preview(post)">
                         {{ $t('general.preview') }}
                       </ion-button>
-                        <ion-button @click="rejectPost(post.postID)" color="danger" expand="block">{{
+                      <ion-button @click="confirmReject(post.postID)" color="danger" expand="block">{{
                         $t('admin.blogpost.rejectPost') }}</ion-button>
                       <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
                         $t('general.delete') }}</ion-button>
@@ -199,6 +199,26 @@
             }
           }
         ]"></ion-alert>
+
+      <!-- Reject Confirmation Alert -->
+      <ion-alert :is-open="showRejectAlert" :header="$t('admin.blogpost.confirmReject')"
+        :message="$t('admin.blogpost.confirmRejectMessage')" :buttons="[
+          {
+            text: $t('general.cancel'),
+            role: 'cancel',
+            handler: () => {
+              this.showRejectAlert = false;
+            }
+          },
+          {
+            text: $t('admin.blogpost.rejectPost'),
+            handler: () => {
+              rejectPost(postIdToReject);
+              this.showRejectAlert = false;
+            }
+          }
+        ]"></ion-alert>
+
       <ToastComponent ref="toastComponent" />
       <FooterComponent />
 
@@ -254,10 +274,17 @@ export default defineComponent({
       showDeleteAlert: false,
       showPublishAlert: false,
       showUnpublishAlert: false,
+      showRejectAlert: false,
       postIdToDelete: null
     };
   },
   methods: {
+
+    confirmReject(postId) {
+      this.postIdToReject = postId;
+      this.showRejectAlert = true;
+    },
+
     rejectPost(postId) {
       try {
         const url = this.$api_add + `/admin/rejectpost`;
