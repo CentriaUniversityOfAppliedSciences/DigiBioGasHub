@@ -7,7 +7,7 @@
                     <ion-button expand="block" color="primary" @click="addPost">
                         {{ $t('posts.addPost') }}
                     </ion-button>
-                    <ion-button expand="block" fill="outline" color="medium" @click="uploadPdf">
+                    <ion-button expand="block" fill="outline" color="medium" @click="addFromFile">
                         {{ $t('posts.uploadPdf') }}
                     </ion-button>
 
@@ -127,6 +127,8 @@
                 </div>
             </div>
         </ion-content>
+
+        <ion-alert :is-open="showAddFromFileAlert" :buttons="addfilebuttons" :inputs="addfileinputs"></ion-alert>
     </ion-page>
 </template>
 
@@ -145,7 +147,8 @@ import {
     IonPage,
     IonTitle,
     IonToolbar,
-    IonSpinner
+    IonSpinner,
+    IonAlert
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import axios from 'axios'
@@ -168,6 +171,7 @@ export default defineComponent({
         IonCardHeader,
         IonCardTitle,
         IonBadge,
+        IonAlert,
         IonCardContent,
         IonSpinner,
         BlogListingComponent,
@@ -177,7 +181,59 @@ export default defineComponent({
         return {
             selectedType: 1,
             posts: [],
-            loading: false
+            loading: false,
+            showAddFromFileAlert: false,
+            addfilebuttons: [
+                {
+                    text: this.$t('general.cancel'),
+                    role: 'cancel',
+                    handler: () => {
+                        this.showAddFromFileAlert = false;
+                    }
+                },
+                {
+                    text: this.$t('general.upload'),
+                    handler: () => {
+                        const titleInput = document.getElementById('titlePdfInput');
+                        const fileInput = document.getElementById('filePdfInput');
+                        const imageInput = document.getElementById('imagePdfInput');
+
+                        if (fileInput && fileInput.files.length > 0) {
+                            this.processImg(imageInput.files[0]).then((ans) => {
+                                console.log("ans", ans);
+                                console.log("pdfFileImage64", this.pdfFileImage64);
+                                this.handleFileUpload({ title: titleInput.value, target: fileInput, image: this.pdfFileImage64 });
+                            });
+                            //this.handleFileUpload({ title: titleInput.value, target: fileInput, image: imageInput });
+                        }
+                        this.showAddFromFileAlert = false;
+                    }
+                }
+            ],
+            addfileinputs: [
+                {
+                    name: "title",
+                    type: 'text',
+                    id: 'titlePdfInput',
+                    placeholder: this.$t('admin.blogpost.title'),
+                    value: ''
+                },
+                {
+                    name: 'image',
+                    type: 'file',
+                    id: 'imagePdfInput',
+                    accept: 'image/*',
+                    placeholder: this.$t('general.image'),
+                    value: ''
+                },
+                {
+                    name: 'file',
+                    type: 'file',
+                    id: 'filePdfInput',
+                    accept: '.pdf',
+                    placeholder: this.$t('admin.blogpost.addFromFile')
+                }
+            ],
         }
     },
     mounted() {
@@ -242,8 +298,46 @@ export default defineComponent({
         addPost() {
             window.location.href = '/blog/add-blog-post';
         },
-        uploadPdf() {
+        addFromFile() {
+            this.showAddFromFileAlert = true;
+        },
+        handleFileUpload(event) {
+            const fileInput = event.target;
+            const imageInput = event.image;
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const title = event.title;
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('title', title);
+                formData.append('image', imageInput);
 
+                this.uploadFile(formData);
+            } else {
+                this.$refs.toastComponent.showToast(this.$t('admin.blogpost.noFileSelected'), 2000, 'danger');
+            }
+        },
+        uploadFile(fileData) {
+            const url = this.$api_add + '/blog/createblogpostfile';
+            axios.post(url, fileData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'authorization': localStorage.getItem('token')
+                },
+                withCredentials: false
+            })
+                .then(response => {
+                    if (response.data.result === 'ok') {
+                        this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadSuccess'), 2000, 'success');
+                        this.fetchPosts(1);
+                    } else {
+                        this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadFail'), 2000, 'danger');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error uploading file:', error);
+                    this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadFail'), 2000, 'danger');
+                });
         },
         viewPost(post) {
             const link = `/blog/${post.postID}/${slugify(post.title, { lower: true, strict: true })}`;
@@ -270,7 +364,21 @@ export default defineComponent({
             if (response.data.type === "result" && response.data.result === "ok") {
                 this.fetchPosts(1)
             }
-        }
+        },
+        async processImg(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => {
+                    this.pdfFileImage64 = reader.result;
+                    console.log('Image processed:', this.pdfFileImage64);
+                    resolve(this.pdfFileImage64);
+                };
+                reader.onerror = (e) => {
+                    reject(e);
+                };
+                reader.readAsDataURL(file);
+            });
+        },
     }
 })
 </script>
