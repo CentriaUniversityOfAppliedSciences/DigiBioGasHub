@@ -17,7 +17,7 @@
                             {{ $t('posts.published') }}
                         </ion-item>
                         <ion-item button :class="{ active: selectedType === 0 }" @click="changeType(0)">
-                            <ion-icon name="close-circle" slot="start" color="danger"></ion-icon>
+                            <ion-icon name="time-outline" slot="start" color="warning"></ion-icon>
                             {{ $t('posts.unpublished') }}
                         </ion-item>
                         <ion-item button :class="{ active: selectedType === 2 }" @click="changeType(2)">
@@ -29,7 +29,7 @@
                             {{ $t('posts.file') }}
                         </ion-item>
                         <ion-item button :class="{ active: selectedType === 4 }" @click="changeType(4)">
-                            <ion-icon name="document" slot="start" color="primary"></ion-icon>
+                            <ion-icon name="close-circle" slot="start" color="danger"></ion-icon>
                             {{ $t('posts.rejected') }}
                         </ion-item>
                     </div>
@@ -211,6 +211,9 @@ import axios from 'axios'
 import slugify from 'slugify'
 import BlogListingComponent from '../components/BlogListingComponent.vue'
 import NavBarComponent from '../components/NavBarComponent.vue'
+import { addIcons } from 'ionicons'
+import { checkmarkCircle, closeCircle, create, document, timeOutline } from 'ionicons/icons'
+addIcons ({checkmarkCircle, timeOutline, closeCircle, create, document})
 
 export default defineComponent({
     name: 'MyBlogsPage',
