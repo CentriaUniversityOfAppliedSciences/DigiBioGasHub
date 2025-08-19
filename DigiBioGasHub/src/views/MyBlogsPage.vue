@@ -246,7 +246,8 @@ export default defineComponent({
 
         },
         viewPost(post) {
-
+            const link = `/blog/${post.postID}/${slugify(post.title, { lower: true, strict: true })}`;
+            this.$router.push(link);
         },
         async sendForReview(post) {
             const response = await axios.post(this.$api_add + "/blog/sendforreview", { postID: post.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
