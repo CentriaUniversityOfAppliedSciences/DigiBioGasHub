@@ -259,8 +259,17 @@ export default defineComponent({
         editPost(postId, title) {
             window.location.href = `/blog/edit-blog-post/${postId}/${slugify(title, { lower: true, strict: true })}`;
         },
-        unpublishPost(post) {
-
+        async unpublishPost(post) {
+            const response = await axios.post(this.$api_add + "/blog/unpublishreq", { postID: post.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+            if (response.data.type === "result" && response.data.result === "ok") {
+                this.fetchPosts(1)
+            }
+        },
+        async deletePost(post) {
+            const response = await axios.post(this.$api_add + "/blog/deleteblogpost", { postID: post.postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+            if (response.data.type === "result" && response.data.result === "ok") {
+                this.fetchPosts(1)
+            }
         }
     }
 })
