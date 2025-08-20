@@ -2,18 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Backend on DigiBioGasHubs Documentation</title>
-    <link>http://localhost:1313/docs/backend/</link>
+    <link>http://localhost:1313/DigiBioGasHubs/docs/backend/</link>
     <description>Recent content in Backend on DigiBioGasHubs Documentation</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 May 2023 00:44:31 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/docs/backend/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Jul 2025 09:48:33 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/DigiBioGasHubs/docs/backend/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Backend Architecture</title>
-      <link>http://localhost:1313/docs/backend/backend/</link>
+      <title>Backend</title>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/backend/backend/</link>
       <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
-      <guid>http://localhost:1313/docs/backend/backend/</guid>
-      <description>&lt;h2 id=&#34;architecture&#34;&gt;Architecture &lt;a href=&#34;#architecture&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/backend/backend/</guid>
+      <description>&lt;h2 id=&#34;backend&#34;&gt;Backend &lt;a href=&#34;#backend&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Backend is a REST-server built with nodejs and expressjs.&lt;/p&gt;&#xA;&lt;p&gt;You need Docker to run backend.&lt;/p&gt;&#xA;&lt;p&gt;Note!! Install database before starting backend for the first time&#xA;As database the backend uses PostgreSQL (&lt;a href=&#34;https://www.postgresql.org/)&#34; rel=&#34;external&#34; target=&#34;_blank&#34;&gt;https://www.postgresql.org/)&lt;svg width=&#34;16&#34; height=&#34;16&#34; viewBox=&#34;0 0 24 24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;path fill=&#34;currentColor&#34; d=&#34;M14 5c-.552 0-1-.448-1-1s.448-1 1-1h6c.552 0 1 .448 1 1v6c0 .552-.448 1-1 1s-1-.448-1-1v-3.586l-7.293 7.293c-.391.39-1.024.39-1.414 0-.391-.391-.391-1.024 0-1.414l7.293-7.293h-3.586zm-9 2c-.552 0-1 .448-1 1v11c0 .552.448 1 1 1h11c.552 0 1-.448 1-1v-4.563c0-.552.448-1 1-1s1 .448 1 1v4.563c0 1.657-1.343 3-3 3h-11c-1.657 0-3-1.343-3-3v-11c0-1.657 1.343-3 3-3h4.563c.552 0 1 .448 1 1s-.448 1-1 1h-4.563z&#34;/&gt;&lt;/svg&gt;&lt;/a&gt;. The docker from project repository uses TimescaleDB that is a PostgreSQL extension. You can use any kind of PostgreSQL installation you have access to (docker/local install/remote server).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Installation</title>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/backend/installation/</link>
+      <pubDate>Mon, 14 Jul 2025 09:48:33 +0000</pubDate>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/backend/installation/</guid>
+      <description>&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Install PostgreSQL&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Install Docker&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Create PostgreSQL role with password for backend (in example code username &amp;ldquo;biogas&amp;rdquo;)&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Create database (in example code &amp;ldquo;digibiogashub&amp;rdquo;)&lt;/p&gt;&#xA;&#xA;&#xA;    &#xA;    &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;sudo -i -u postgres&#xA;createuser --interactive&#xA;Enter name of role to add: biogas&#xA;Shall the new role be a superuser? (y/n) n&#xA;Shall the new role be allowed to create databases? (y/n) n&#xA;Shall the new role be allowed to create more new roles? (y/n) n&#xA;psql&#xA;\password biogas&#xA;Enter new password for user &amp;#34;biogas&amp;#34;:&#xA;Enter it again:&#xA;CREATE DATABASE &amp;#34;digibiogashub&amp;#34; OWNER biogas;&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Clone the repository&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

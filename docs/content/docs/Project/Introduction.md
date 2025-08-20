@@ -8,8 +8,12 @@ toc: true
 weight: 101
 
 ---
-
+# DigiBioGasHubs
 ![Project Logo](/images/DBH_logo_en_up.png)
+
+![Funder Logo](/images/funder-logo-en.png)
+Project is funded by the European Regional Development Fund. 
+
 ## Short Project Description
 
 **1.12.2023 - 30.11.2025**
@@ -25,10 +29,17 @@ DigiBiogasHubs project develops a digital platform that facilitates collaboratio
 - Effective project communication and implementation of results.
 
 The main results of the project are:
-- Digital platform concept and piloting of the platform and selected services (open code + report)
+- **Digital platform concept** and piloting of the platform and selected services (open code + report)
 - Cooperation and interaction model, platform service descriptions, and platform operational model (report)
 - Analytical descriptions of three biogas hubs with different profiles and synergy analysis between them (reports)
 - Process model for developing biogas hubs and analysis methods toolkit (report)
 - Analysis of legal framework conditions and policy review (reports)
 
 The results are assumed to improve the development and growth of the regional biogas ecosystem (e.g., new actors, increased amount of biogas production and consumption,etc.), reduce the amount of carbon dioxide emissions and waste, increase the amount of renewable energy in the energy system, and improve regional energy self-sufficiency and food and supply security. In addition, it creates new information for actors about biogas-related opportunities in the region.
+
+## Project Partners
+
+![University of Vaasa](/images/vaasa.png) 
+![SEAMK](/images/seamk.png) 
+![Centria](/images/Centria.jpg)
+

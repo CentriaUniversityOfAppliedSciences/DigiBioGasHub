@@ -15,10 +15,10 @@ weight: 210
 
 Project is split into five separate repositories + documentation  
 
-Frontend. THIS IS REQUIRED (https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub)  
-Backend THIS IS REQUIRED (https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend)   
-ChatServer THIS IS REQUIRED (https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHubs-Chat-Server)  
-CubeJS THIS IS REQUIRED (https://github.com/CentriaUniversityOfAppliedSciences/DigiBiogasHubsCube)  
+Frontend. **THIS IS REQUIRED** (https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub)  
+Backend **THIS IS REQUIRED** (https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend)   
+ChatServer **THIS IS REQUIRED** (https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHubs-Chat-Server)  
+CubeJS **THIS IS REQUIRED** (https://github.com/CentriaUniversityOfAppliedSciences/DigiBiogasHubsCube)  
 Docker for PostgreSQL OPTIONAL (https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-database)  
 
 Note!! PostgreSQL database has to exist. It can be in Docker (see DigiBioGasHub-database repo) or installed locally or you can use remote PostgreSQL database. Tested with local and Docker  

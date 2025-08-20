@@ -37,7 +37,7 @@ hero:
   ctaButton:
     icon: docs
     btnText: "Docs"
-    url: "/docs/"
+    url: "docs/"
   cta2Button:
     icon: code
     btnText: "Checkout the code"
@@ -67,17 +67,17 @@ featureGrid:
       icon: news
       description: Platform admin can create articles for the community. Articles can be used to share knowledge and news about biogas. Platform provides easy-to-use WYSIWYG editor for creating articles.
 
-    - title: Knowledge Base
-      icon: lightbulb
-      description: Platform provides a wiki-like knowledge base for the community. Knowledge base will have regulatory documents, guides, and other useful information for the community. Platform provides easy-to-use WYSIWYG editor for creating knowledge base articles.
+    - title: Analytics
+      icon: analytics
+      description: Platform provides analytics features for the community. Users with companies can access data their data and insights about biogas related products and services.
 
     - title: Map
       icon: explore
       description: Map feature will be used to show biogas related products and services on the map. Users can find offerings, companies or services near them.
 
-    - title: Dark Mode
-      icon: dark_mode
-      description: "Prefer not to be blasted by the sun while reading? Switch to a low-light UI with the click of a button. Modify colour variables to match your branding."
+    - title: Chat
+      icon: chat
+      description: "Chat feature is used for networking with the community. Users can chat with each other and share knowledge."
 
     - title: Search by DocSearch
       icon: search
@@ -87,7 +87,7 @@ featureGrid:
       icon: translate
       description: The platform is available in Finnish, Swedish, and English. Users can choose their preferred language in the platform. Developers can add more languages to the platform.
 
-    - title: Bootstrap v5
-      icon: palette
-      description: Built on Bootstrap 5, Lotus Docs allows for a familiar, flexible, and intuitive developer experience. Easily customise your site via SCSS variables and files.
+    - title: Open Source
+      icon: code
+      description: DigiBioGasHub is an open source project. The source code is available on GitHub. Developers can contribute to the project and help to improve it.
 

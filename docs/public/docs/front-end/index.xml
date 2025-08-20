@@ -2,18 +2,32 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Front-end on DigiBioGasHubs Documentation</title>
-    <link>http://localhost:1313/docs/front-end/</link>
+    <link>http://localhost:1313/DigiBioGasHubs/docs/front-end/</link>
     <description>Recent content in Front-end on DigiBioGasHubs Documentation</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 May 2023 00:44:31 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/docs/front-end/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Jul 2025 12:57:03 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/DigiBioGasHubs/docs/front-end/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Front-end Documentation</title>
-      <link>http://localhost:1313/docs/front-end/frontend/</link>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/front-end/frontend/</link>
       <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
-      <guid>http://localhost:1313/docs/front-end/frontend/</guid>
-      <description>&lt;h2 id=&#34;front-end&#34;&gt;Front-End &lt;a href=&#34;#front-end&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/front-end/frontend/</guid>
+      <description>&lt;h2 id=&#34;front-end&#34;&gt;Front-End &lt;a href=&#34;#front-end&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Frontend is build on open source mobile UI toolkit called Ionic. Ios, Android and web applications can be built with the same code with Ionic. For javascript framework Vue was selected.&lt;br&gt;&#xA;Vue is a JavaScript framework for building user interfaces. It builds on top of standard HTML, CSS, and JavaScript and provides a declarative, component-based programming model that helps efficiently develop user interfaces of any complexity.&lt;/p&gt;&#xA;&lt;h3 id=&#34;structure-of-the-project&#34;&gt;Structure of the project &lt;a href=&#34;#structure-of-the-project&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h3&gt;&#xA;&#xA;    &#xA;    &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;DigiBioGasHub  &#xA;|&#xA;|-- DigiBioGasHub (frontend code)&#xA;|-- |  &#xA;|-- .env (environmental variables)  &#xA;|-- .gitignore (files excluded from git)  &#xA;|-- package.json (npm libraries used)  &#xA;|-- vite.config.js (config for vite)  &#xA;|-- src  &#xA;|-- |&#xA;|-- \-- assets (static files used in the app)  &#xA;|-- \-- components (vue components)  &#xA;|-- \-- locale (json files for translations)  &#xA;|-- \-- router (routing for the app)&#xA;|-- \-- |  &#xA;|-- \-- \-- index.js (routing inside the app)  &#xA;|&#xA;|-- \-- views  (vue pages)&#xA;|-- \-- main.js (global libraries and variables) &#xA;|-- \-- socket.js (socket init for chat) &#xA;|-- docs (code of documentation you are reading)  &lt;/code&gt;&lt;/pre&gt;</description>
+    </item>
+    <item>
+      <title>Installation</title>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/front-end/installation/</link>
+      <pubDate>Mon, 14 Jul 2025 09:46:08 +0000</pubDate>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/front-end/installation/</guid>
+      <description>&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Clone the repository&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Change directory to project folder&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Install nodeJS modules from npm&lt;/p&gt;&#xA;&#xA;&#xA;    &#xA;    &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub.git&#xA;cd DigiBioGasHub&#xA;npm install --legacy-peer-deps&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Create .env file&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Create missing file (Biokaasuklinikka chatbot is not part of this project)&lt;/p&gt;&#xA;&#xA;&#xA;    &#xA;    &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;nano .env&#xA;touch src/components/BKKlinikkaComponent.vue&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;.env file contents&lt;/p&gt;&#xA;&#xA;&#xA;    &#xA;    &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;VITE_BACKEND_ADDRESS=https://address_to_server/api&#xA;VITE_CHATSERVER=https://address_to_server/chatserver&#xA;VITE_CHATSOCKET=https://address_to_server&#xA;VITE_ENABLE_BIOKAASUKLINIKKA=false #true only if BKKlinikkaComponent.vue file exists&#xA;VITE_CUBE_ADDRESS=https://address_to_server/analytics&#xA;VITE_USE_PAYMENT=false&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Start frontend. Run in dev mode (ionic serve) or build for production&lt;/p&gt;&#xA;&#xA;&#xA;    &#xA;    &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ionic serve #development&#xA;ionic build --prod #build production site&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;NOTE! You need to change memory limit for nodejs to be able to build the project&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Translations</title>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/front-end/translations/</link>
+      <pubDate>Mon, 14 Jul 2025 12:57:03 +0000</pubDate>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/front-end/translations/</guid>
+      <description>&lt;p&gt;DigiBiogasHubs frontend uses i18n for translations. JSON-files containing translations can be found in src/locale. Currently available translations are english, finnish and swedish.&lt;/p&gt;&#xA;&lt;p&gt;In Vue you can add tranlations in Pages or Components with syntax &lt;code&gt;{{ $t(&#39;translation_key.sub_key&#39;) }}&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;For example: if current language in session is english,&lt;br&gt;&#xA;&lt;code&gt;{{ $t(&#39;menu.home&#39;) }}&lt;/code&gt; will get translation in en.json from &lt;code&gt;{ &amp;quot;menu&amp;quot;: { &amp;quot;home&amp;quot;: &amp;quot;Home&amp;quot;}}&lt;/code&gt; where value is &amp;ldquo;Home&amp;rdquo;&lt;/p&gt;&#xA;&lt;p&gt;In javascript (ionic/vue code) the translation can be used with syntax &lt;code&gt;this.$t(&#39;menu.home&#39;)&lt;/code&gt;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

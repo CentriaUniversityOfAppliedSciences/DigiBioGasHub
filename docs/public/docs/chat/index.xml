@@ -2,18 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Chat on DigiBioGasHubs Documentation</title>
-    <link>http://localhost:1313/docs/chat/</link>
+    <link>http://localhost:1313/DigiBioGasHubs/docs/chat/</link>
     <description>Recent content in Chat on DigiBioGasHubs Documentation</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 May 2023 00:44:31 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/docs/chat/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 14 Jul 2025 11:45:34 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/DigiBioGasHubs/docs/chat/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Group Chat</title>
-      <link>http://localhost:1313/docs/chat/groupchat/</link>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/chat/groupchat/</link>
       <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
-      <guid>http://localhost:1313/docs/chat/groupchat/</guid>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/chat/groupchat/</guid>
       <description>&lt;h2 id=&#34;group-chat&#34;&gt;Group Chat &lt;a href=&#34;#group-chat&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+    </item>
+    <item>
+      <title>Installation</title>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/chat/installation/</link>
+      <pubDate>Mon, 14 Jul 2025 11:45:34 +0000</pubDate>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/chat/installation/</guid>
+      <description>&lt;ol&gt;&#xA;&lt;li&gt;Clone the repository&lt;/li&gt;&#xA;&lt;li&gt;Change directory to project folder&lt;/li&gt;&#xA;&lt;li&gt;add .env file into server folder&lt;/li&gt;&#xA;&lt;li&gt;install mongodb (&lt;a href=&#34;https://www.mongodb.com/&#34; rel=&#34;external&#34; target=&#34;_blank&#34;&gt;https://www.mongodb.com/&lt;svg width=&#34;16&#34; height=&#34;16&#34; viewBox=&#34;0 0 24 24&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34;&gt;&lt;path fill=&#34;currentColor&#34; d=&#34;M14 5c-.552 0-1-.448-1-1s.448-1 1-1h6c.552 0 1 .448 1 1v6c0 .552-.448 1-1 1s-1-.448-1-1v-3.586l-7.293 7.293c-.391.39-1.024.39-1.414 0-.391-.391-.391-1.024 0-1.414l7.293-7.293h-3.586zm-9 2c-.552 0-1 .448-1 1v11c0 .552.448 1 1 1h11c.552 0 1-.448 1-1v-4.563c0-.552.448-1 1-1s1 .448 1 1v4.563c0 1.657-1.343 3-3 3h-11c-1.657 0-3-1.343-3-3v-11c0-1.657 1.343-3 3-3h4.563c.552 0 1 .448 1 1s-.448 1-1 1h-4.563z&#34;/&gt;&lt;/svg&gt;&lt;/a&gt;) (tested with mongodb community server 8.0)&lt;/li&gt;&#xA;&lt;li&gt;install modules from npm&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&#xA;&#xA;    &#xA;    &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;git clone https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHubs-Chat-Server.git&#xA;cd DigiBioGasHubs-Chat-Server&#xA;nano server/.env&#xA;npm i&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;p&gt;ENV File&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

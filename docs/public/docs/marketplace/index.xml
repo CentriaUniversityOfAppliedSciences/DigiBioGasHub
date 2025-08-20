@@ -2,18 +2,25 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Marketplace on DigiBioGasHubs Documentation</title>
-    <link>http://localhost:1313/docs/marketplace/</link>
+    <link>http://localhost:1313/DigiBioGasHubs/docs/marketplace/</link>
     <description>Recent content in Marketplace on DigiBioGasHubs Documentation</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 22 May 2023 00:44:31 +0100</lastBuildDate>
-    <atom:link href="http://localhost:1313/docs/marketplace/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 01 Aug 2025 10:01:49 +0000</lastBuildDate>
+    <atom:link href="http://localhost:1313/DigiBioGasHubs/docs/marketplace/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Marketplace</title>
-      <link>http://localhost:1313/docs/marketplace/marketplace/</link>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/marketplace/marketplace/</link>
       <pubDate>Mon, 22 May 2023 00:44:31 +0100</pubDate>
-      <guid>http://localhost:1313/docs/marketplace/marketplace/</guid>
-      <description>&lt;h2 id=&#34;marketplace&#34;&gt;Marketplace &lt;a href=&#34;#marketplace&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;</description>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/marketplace/marketplace/</guid>
+      <description>&lt;h2 id=&#34;marketplace&#34;&gt;Marketplace &lt;a href=&#34;#marketplace&#34; class=&#34;anchor&#34; aria-hidden=&#34;true&#34;&gt;&lt;i class=&#34;material-icons align-middle&#34;&gt;link&lt;/i&gt;&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;The DigiBioGasHubs Marketplace is a core feature of the platform, providing a digital space where users can offer or request biogas and biomass products and services. It enables efficient matching between supply and demand within the biogas ecosystem. Key functions include:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Listing Offers and Requests&lt;/strong&gt;: Users can create, browse, and manage listings for biogas, biomass, and related services.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Filtering&lt;/strong&gt;: Advanced tools allow users to filter listings by criteria such as product type, price, and availability.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Geographical Map View&lt;/strong&gt;: Listings can be visualized on a map, helping users find resources and partners nearby.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Direct Communication&lt;/strong&gt;: Integrated chat functionality enables users to communicate directly regarding marketplace listings.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Company and User Profiles&lt;/strong&gt;: Organizations and individuals can showcase their offerings and credentials, supporting trust and collaboration.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Admin Tools&lt;/strong&gt;: Administrators can manage listings, moderate content, and oversee marketplace operations.&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>How to use</title>
+      <link>http://localhost:1313/DigiBioGasHubs/docs/marketplace/howtouse/</link>
+      <pubDate>Fri, 01 Aug 2025 10:01:49 +0000</pubDate>
+      <guid>http://localhost:1313/DigiBioGasHubs/docs/marketplace/howtouse/</guid>
+      <description></description>
     </item>
   </channel>
 </rss>
