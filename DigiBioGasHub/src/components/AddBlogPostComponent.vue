@@ -569,19 +569,10 @@ export default defineComponent({
         }
       }
 
-      const token = localStorage.getItem('token');
-      if (!token) {
-        console.error('No token found');
-        return;
-      }
-
-      const decodedToken = jwtDecode(token);
-      const userID = decodedToken.id;
-
       try {
         console.log('Saving blog post...');
-        let url = isUpdate ? this.$api_add + `/admin/updateBlogPost` : this.$api_add + "/admin/createblogpost";
-        const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+        let url = isUpdate ? this.$api_add + `/blog/updateBlogPost` : this.$api_add + "/blog/createblogpost";
+        const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 
         if (response.data.type == "result" && response.data.result == "ok") {
           console.log('Blog post saved successfully ---');

@@ -14,10 +14,13 @@
       <ion-text class="article-description">
         <p>{{ article.abstract }}</p>
       </ion-text>
-
-      <ion-button fill="clear" size="small" @click="openArticle(article.link)">
-        {{ $t('general.read_more') }}
-      </ion-button>
+      <div>
+        <slot name="actions">
+          <ion-button fill="clear" size="small" @click="openArticle(article.link)">
+            {{ $t('general.read_more') }}
+          </ion-button>
+        </slot>
+      </div>
     </ion-card-content>
   </ion-card>
 </template>
