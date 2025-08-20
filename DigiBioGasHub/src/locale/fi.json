@@ -472,6 +472,7 @@
         "sales":"Myynti"
     },
     "posts": {
+        "blogsManagement": "Blogien hallinta",
         "addPost": "Lisää blogikirjoitus",
         "uploadPdf": "Lataa PDF",
         "published": "Julkaistu",

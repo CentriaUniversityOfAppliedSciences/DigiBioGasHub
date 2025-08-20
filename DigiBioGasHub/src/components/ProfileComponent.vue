@@ -7,6 +7,7 @@
                     <div class="action-link" @click="toggleEditUser">{{ $t('menu.edit') }}</div>
                     <div class="action-link" @click="settings_button">{{ $t('general.settings') }}</div>
                     <div class="action-link" @click="goToApiKey">{{ $t('apiKeys.title') }}</div>
+                     <div class="action-link" @click="goToBlogsManagement">{{ $t('posts.blogsManagement') }}</div>
                     <div v-if="use_payment == 'true'" class="action-link" @click="goToSubscriptionPage">
                         {{ $t('premium.manage_subscriptions') }}
                     </div>
@@ -249,6 +250,9 @@ export default defineComponent({
         },
         goToApiKey() {
             this.$router.push({ name: 'ApiKeysPage' });
+        },
+        goToBlogsManagement() {
+            this.$router.push({ name: 'MyBlogsPage' });
         },
         goToSubscriptionPage() {
             this.$router.push({ name: 'SubscriptionPage' });

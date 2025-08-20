@@ -130,7 +130,7 @@ const routes = [
     meta: { requiresAuth: true }
   },
   {
-    path: '/my-blogs',
+    path: '/blogs-management',
     name: 'MyBlogsPage',
     component: MyBlogsPage,
     meta: { requiresAuth: true }

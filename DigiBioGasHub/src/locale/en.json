@@ -470,6 +470,7 @@
         "sales": "Sales"
     },
     "posts": {
+        "blogsManagement": "Blogs Management",
         "addPost": "Add Blog Post",
         "uploadPdf": "Upload PDF",
         "published": "Published",

@@ -472,6 +472,7 @@
         "sales":"Försäljning"
     },
     "posts": {
+        "blogsManagement": "Blogghantering",
         "addPost": "Lägg till blogginlägg",
         "uploadPdf": "Ladda upp PDF",
         "published": "Publicerad",
