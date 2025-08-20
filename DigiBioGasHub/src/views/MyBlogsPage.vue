@@ -317,7 +317,10 @@ export default defineComponent({
         async fetchPosts(type) {
             try {
                 this.loading = true;
-                const response = await axios.post(this.$api_add + "/blogs/myblogs", { type: type }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+
+                const currentType = type ?? this.selectedType;
+
+                const response = await axios.post(this.$api_add + "/blogs/myblogs", { type: currentType }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 
                 if (response.data.type === "result" && response.data.result === "ok" && response.data.message.length > 0) {
                     this.posts = response.data.message.map(post => ({
@@ -396,7 +399,7 @@ export default defineComponent({
                 .then(response => {
                     if (response.data.result === 'ok') {
                         this.$refs.toastComponent.showToast(this.$t('posts.uploadSuccess'), 2000, 'success');
-                        this.fetchPosts(1);
+                        this.fetchPosts();
                     } else {
                         this.$refs.toastComponent.showToast(this.$t('posts.uploadFail'), 2000, 'danger');
                     }
@@ -420,7 +423,7 @@ export default defineComponent({
             const response = await axios.post(this.$api_add + "/blog/sendforreview", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
                 this.$refs.toastComponent.showToast(this.$t('posts.sendForReviewSuccess'), 2000, 'success');
-                this.fetchPosts(2)
+                this.fetchPosts()
             }
         },
         editPost(postId, title) {
@@ -436,7 +439,7 @@ export default defineComponent({
             const response = await axios.post(this.$api_add + "/blog/unpublishreq", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
                 this.$refs.toastComponent.showToast(this.$t('posts.unpublishSuccess'), 2000, 'success');
-                this.fetchPosts(1)
+                this.fetchPosts()
             }
         },
 
@@ -449,7 +452,7 @@ export default defineComponent({
             const response = await axios.post(this.$api_add + "/blog/deleteblogpost", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
                 this.$refs.toastComponent.showToast(this.$t('posts.deleteSuccess'), 2000, 'success');
-                this.fetchPosts(1)
+                this.fetchPosts()
             }
         },
         async processImg(file) {
