@@ -185,6 +185,8 @@
             ]"></ion-alert>
 
         <ion-alert :is-open="showAddFromFileAlert" :buttons="addfilebuttons" :inputs="addfileinputs"></ion-alert>
+
+        <ToastComponent ref="toastComponent" />
     </ion-page>
 </template>
 
@@ -214,6 +216,7 @@ import NavBarComponent from '../components/NavBarComponent.vue'
 import { addIcons } from 'ionicons'
 import { checkmarkCircle, closeCircle, create, document, timeOutline } from 'ionicons/icons'
 addIcons ({checkmarkCircle, timeOutline, closeCircle, create, document})
+import ToastComponent from '../components/ToastComponent.vue'
 
 export default defineComponent({
     name: 'MyBlogsPage',
@@ -234,7 +237,8 @@ export default defineComponent({
         IonCardContent,
         IonSpinner,
         BlogListingComponent,
-        NavBarComponent
+        NavBarComponent,
+        ToastComponent
     },
     data() {
         return {
@@ -324,7 +328,6 @@ export default defineComponent({
                         link: `/blog/${post.postID}/${slugify(post.title, { lower: true, strict: true })}`,
                         date: post.createdAt ? new Date(post.createdAt).toLocaleDateString() : 'Unknown Date'
                     }));
-                    console.log("this posts: ", this.posts)
                 } else {
                     this.posts = [];
                 }
@@ -392,15 +395,15 @@ export default defineComponent({
             })
                 .then(response => {
                     if (response.data.result === 'ok') {
-                        this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadSuccess'), 2000, 'success');
+                        this.$refs.toastComponent.showToast(this.$t('posts.uploadSuccess'), 2000, 'success');
                         this.fetchPosts(1);
                     } else {
-                        this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadFail'), 2000, 'danger');
+                        this.$refs.toastComponent.showToast(this.$t('posts.uploadFail'), 2000, 'danger');
                     }
                 })
                 .catch(error => {
                     console.error('Error uploading file:', error);
-                    this.$refs.toastComponent.showToast(this.$t('admin.blogpost.uploadFail'), 2000, 'danger');
+                    this.$refs.toastComponent.showToast(this.$t('posts.uploadFail'), 2000, 'danger');
                 });
         },
         viewPost(post) {
@@ -416,7 +419,7 @@ export default defineComponent({
         async sendForReview(postID) {
             const response = await axios.post(this.$api_add + "/blog/sendforreview", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
-                console.log("Success review send")
+                this.$refs.toastComponent.showToast(this.$t('posts.sendForReviewSuccess'), 2000, 'success');
                 this.fetchPosts(2)
             }
         },
@@ -432,12 +435,12 @@ export default defineComponent({
         async unpublishPost(postID) {
             const response = await axios.post(this.$api_add + "/blog/unpublishreq", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
+                this.$refs.toastComponent.showToast(this.$t('posts.unpublishSuccess'), 2000, 'success');
                 this.fetchPosts(1)
             }
         },
 
         confirmDelete(post) {
-            console.log("Post", post)
             this.postIdToDelete = post.postID;
             this.showDeleteAlert = true;
         },
@@ -445,6 +448,7 @@ export default defineComponent({
         async deletePost(postID) {
             const response = await axios.post(this.$api_add + "/blog/deleteblogpost", { postID: postID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
             if (response.data.type === "result" && response.data.result === "ok") {
+                this.$refs.toastComponent.showToast(this.$t('posts.deleteSuccess'), 2000, 'success');
                 this.fetchPosts(1)
             }
         },
