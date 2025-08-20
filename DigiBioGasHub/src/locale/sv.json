@@ -118,7 +118,8 @@
         "add_company": "Lägg till företag",
         "preview": "Förhandsgranska",
         "manage": "Hantera",
-        "pricing": "Prissättning"
+        "pricing": "Prissättning",
+        "image": "Bild"
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -471,16 +472,35 @@
         "sales":"Försäljning"
     },
     "posts": {
-        "addPost": "Lägg till bloggpost",
+        "addPost": "Lägg till blogginlägg",
         "uploadPdf": "Ladda upp PDF",
         "published": "Publicerad",
-        "unpublished": "Ej publicerad",
+        "unpublished": "Väntar på godkännande",
         "draft": "Utkast",
         "file": "Fil",
+        "rejected": "Avvisad",
         "posts": "Inlägg",
         "noPosts": "Inga inlägg hittades.",
         "loading": "Laddar...",
-        "unknown": "Okänd"
+        "unknown": "Okänd",
+        "unpublish": "Avpublicera",
+        "edit": "Redigera",
+        "send": "Skicka",
+        "uploadSuccess": "Uppladdning lyckades!",
+        "uploadFail": "Uppladdning misslyckades!",
+        "sendForReview": "Skicka för godkännande",
+        "confirmDelete": "Bekräfta radering",
+        "confirmSendForReview": "Bekräfta skickning",
+        "confirmUnpublish": "Bekräfta avpublicering",
+        "confirmSendForReviewMessage": "Är du säker på att du vill skicka detta inlägg för granskning?",
+        "confirmUnpublishMessage": "Är du säker på att du vill avpublicera detta inlägg?",
+        "confirmDeleteMessage": "Är du säker på att du vill radera detta inlägg permanent? Denna åtgärd kan inte ångras!",
+        "sendForReviewSuccess": "Inlägget skickades för granskning!",
+        "unpublishSuccess": "Inlägget avpublicerades!",
+        "deleteSuccess": "Inlägget raderades!",
+        "sendFail": "Kunde inte skicka för granskning!",
+        "unpublishFail": "Kunde inte avpublicera!",
+        "deleteFail": "Kunde inte radera!"
     },
     "admin": {
         "company": {

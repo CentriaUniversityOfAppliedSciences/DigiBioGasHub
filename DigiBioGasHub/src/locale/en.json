@@ -490,7 +490,7 @@
         "confirmDelete": "Confirm Delete",
         "confirmSendForReview": "Confirm Send",
         "confirmUnpublish": "Confirm Unpublish",
-        "cconfirmSendForReviewMessage": "Are you sure you want to send this post for review?",
+        "confirmSendForReviewMessage": "Are you sure you want to send this post for review?",
         "confirmUnpublishMessage": "Are you sure you want to unpublish this post?",
         "confirmDeleteMessage": "Are you sure you want to permanently delete this post? This action cannot be undone!",
         "sendForReviewSuccess": "Post sent for review successfully!",

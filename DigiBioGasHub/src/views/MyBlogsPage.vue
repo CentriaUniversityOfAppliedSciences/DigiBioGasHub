@@ -130,7 +130,7 @@
 
         <!-- Send For Review Alert -->
         <ion-alert :is-open="showSendForReviewAlert" :header="$t('posts.confirmSendForReview')"
-            :message="$t('posts.cconfirmSendForReviewMessage')" :buttons="[
+            :message="$t('posts.confirmSendForReviewMessage')" :buttons="[
                 {
                     text: $t('general.cancel'),
                     role: 'cancel',

@@ -118,7 +118,8 @@
         "add_company": "Lisää yritys",
         "preview": "Esikatselu",
         "manage": "Hallitse",
-        "pricing": "Hinnoittelu"
+        "pricing": "Hinnoittelu",
+        "image": "Kuva"
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -474,13 +475,32 @@
         "addPost": "Lisää blogikirjoitus",
         "uploadPdf": "Lataa PDF",
         "published": "Julkaistu",
-        "unpublished": "Ei julkaistu",
+        "unpublished": "Odottaa hyväksyntää",
         "draft": "Luonnos",
         "file": "Tiedosto",
-        "posts": "Julkaisut",
-        "noPosts": "Ei julkaisuja.",
+        "rejected": "Hylätty",
+        "posts": "Artikkelit",
+        "noPosts": "Artikkeleita ei löytynyt.",
         "loading": "Ladataan...",
-        "unknown": "Tuntematon"
+        "unknown": "Tuntematon",
+        "unpublish": "Peru julkaisu",
+        "edit": "Muokkaa",
+        "send": "Lähetä",
+        "uploadSuccess": "Lataus onnistui!",
+        "uploadFail": "Lataus epäonnistui!",
+        "sendForReview": "Lähetä hyväksyttäväksi",
+        "confirmDelete": "Vahvista poisto",
+        "confirmSendForReview": "Vahvista lähetys",
+        "confirmUnpublish": "Vahvista julkaisun peruminen",
+        "confirmSendForReviewMessage": "Haluatko varmasti lähettää tämän artikkelin hyväksyttäväksi?",
+        "confirmUnpublishMessage": "Haluatko varmasti peruuttaa tämän artikkelin julkaisun?",
+        "confirmDeleteMessage": "Haluatko varmasti poistaa tämän artikkelin pysyvästi? Tätä toimintoa ei voi perua!",
+        "sendForReviewSuccess": "Artikkeli lähetettiin onnistuneesti hyväksyttäväksi!",
+        "unpublishSuccess": "Artikkelin julkaisu peruutettu onnistuneesti!",
+        "deleteSuccess": "Artikkeli poistettu onnistuneesti!",
+        "sendFail": "Artikkelia ei voitu lähettää hyväksyttäväksi!",
+        "unpublishFail": "Julkaisua ei voitu peruuttaa!",
+        "deleteFail": "Artikkelia ei voitu poistaa!"
     },
     "admin": {
         "company": {
