@@ -10,7 +10,13 @@
         </ion-header>
         <ion-card style="height: 100%;">
             <ion-content>
-                <ion-card-content>
+                <ion-card-content v-if="companies.length == 0">
+                    <p class="required-note">
+                        {{ $t('offers.noCompaniesToCreateOffer') }}
+                        <a href="/company">{{ $t('offers.createCompany') }}</a>
+                    </p>
+                </ion-card-content>
+                <ion-card-content v-else>
 
                     <p class="required-note">
                         {{ $t('validation.requiredField') }}
@@ -20,9 +26,10 @@
                         <ion-label position="stacked" class="label">
                             {{ $t('menu.company') }} <span class="required-asterisk">*</span>
                         </ion-label>
-                        <ion-select required v-model="companyID" :placeholder="$t('product.chooseCompany')" @ionChange="getCompanyCertificates">
+                        <ion-select required v-model="companyID" :placeholder="$t('product.chooseCompany')"
+                            @ionChange="getCompanyCertificates">
                             <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.id">{{ comp.name
-                                }}</ion-select-option>
+                            }}</ion-select-option>
                             <p v-if="hasError('companyID')" class="error">{{ errors.companyID }}</p>
                         </ion-select>
                     </ion-item>
@@ -61,7 +68,8 @@
                             {{ $t('product.offerTypes') }} <span class="required-asterisk">*</span>
                         </ion-label>
                         <ion-select required v-model="type" :placeholder="$t('product.chooseType')">
-                            <ion-select-option v-for="offerType in offerTypes" :key="offerType.key" :value="offerType.key">{{ offerType.value }}</ion-select-option>
+                            <ion-select-option v-for="offerType in offerTypes" :key="offerType.key"
+                                :value="offerType.key">{{ offerType.value }}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
@@ -100,7 +108,7 @@
 
                     <ion-item>
                         <ion-label position="stacked" class="label">
-                            {{ $t('product.price.offer') }} <span class="required-asterisk">*</span>
+                            {{ $t('product.price.pricePerUnit') }} <span class="required-asterisk">*</span>
                         </ion-label>
                         <ion-input required type="number" v-model="price" min="0"></ion-input>
                         <p v-if="hasError('price')" class="error">{{ errors.price }}</p>
@@ -131,7 +139,7 @@
                         </ion-label>
                         <ion-select v-model="logisticType">
                             <ion-select-option value="1">{{ $t('product.logistic.includedInPrice')
-                                }}</ion-select-option>
+                            }}</ion-select-option>
                             <ion-select-option value="2">{{ $t('product.logistic.freeToPickup') }}</ion-select-option>
                             <ion-select-option value="3">{{ $t('product.logistic.agreedupon') }}</ion-select-option>
 
@@ -171,9 +179,12 @@
                             {{ $t('admin.certificate.certificates') }}
                         </ion-label>
                         <ion-label v-if="!companyID">{{ $t('admin.certificate.selectCompany') }}</ion-label>
-                        <ion-label v-else-if="companyCertificates.length === 0">{{ $t('admin.certificate.nocertificates_available') }}</ion-label>
-                        <ion-select v-model="selectedCertificates" :multiple="true" :placeholder="$t('admin.certificate.chooseCertificate')">
-                            <ion-select-option v-for="cert in companyCertificates" :key="cert.name" :value="cert.id">{{ cert.name }}</ion-select-option>
+                        <ion-label v-else-if="companyCertificates.length === 0">{{
+                            $t('admin.certificate.nocertificates_available') }}</ion-label>
+                        <ion-select v-model="selectedCertificates" :multiple="true"
+                            :placeholder="$t('admin.certificate.chooseCertificate')">
+                            <ion-select-option v-for="cert in companyCertificates" :key="cert.name" :value="cert.id">{{
+                                cert.name }}</ion-select-option>
                         </ion-select>
                     </ion-item>
 
@@ -331,7 +342,7 @@ export default defineComponent({
             try {
 
                 var url = this.$api_add + "/createoffer";
-                axios.post(url, { "certificates":this.selectedCertificates,"image64": this.image64, "imageName": this.imageName, "type": this.type, "materialID": this.material, "companyID": this.companyID, "locationID": "1", "unit": this.unit, "price": this.price, "amount": this.quantity, "startDate": this.startDate, "endDate": this.endDate, "visibility": this.visibility, "cargoType": this.logisticType, "description": this.description, "address": this.address, "city": this.city, "zipcode": this.zipcode }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                axios.post(url, { "certificates": this.selectedCertificates, "image64": this.image64, "imageName": this.imageName, "type": this.type, "materialID": this.material, "companyID": this.companyID, "locationID": "1", "unit": this.unit, "price": this.price, "amount": this.quantity, "startDate": this.startDate, "endDate": this.endDate, "visibility": this.visibility, "cargoType": this.logisticType, "description": this.description, "address": this.address, "city": this.city, "zipcode": this.zipcode }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                     if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined) {
                         this.modalController.dismiss();
                         this.$refs.toast.showToast(this.$t('product.successMessage'), 2000, 'success');
@@ -397,7 +408,6 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 .required-note {
     padding: 0.5rem;
     border-radius: 10px;
@@ -423,6 +433,6 @@ export default defineComponent({
 
 .required-asterisk {
     color: red;
-    font-size: 20PX;
+    font-size:20PX;
 }
 </style>

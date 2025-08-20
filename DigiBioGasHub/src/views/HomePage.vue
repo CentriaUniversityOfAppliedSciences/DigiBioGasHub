@@ -7,39 +7,105 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-        <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
-        <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
-          <ion-button @click="goOffers">{{ $t("general.allOffers") }}</ion-button>
+      <h2 style="margin: 20px ;">{{ $t("general.latestOffers") }}</h2>
+      <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
+        <ion-button @click="goOffers">{{ $t("general.allOffers") }}</ion-button>
+      </div>
+      <swiper v-if="products.length > 0"
+        style='--swiper-pagination-bullet-size: 15px; --swiper-pagination-bullet-inactive-color: var(--ion-color-light-contrast);'
+        :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true"
+        :modules="modules" :autoplay="{ delay: 3000, disableOnInteraction: false }" @swiper="onSwiper"
+        @slideChange="onSlideChange" :breakpoints="{
+          0: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          480: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          768: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 25,
+          },
+          1280: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          }
+        }" :space-between="10">
+        <swiper-slide v-for="product in products" :key="product.id">
+          <ListingComponent :product="product" :isMarketplace="true" />
+        </swiper-slide>
+      </swiper>
+      <h2 style="margin: 20px ;">{{ $t("general.latestArticles") }}</h2>
+      <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
+        <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
+      </div>
+      <swiper v-if="articles.length > 0"
+        style='--swiper-pagination-bullet-size: 15px; --swiper-pagination-bullet-inactive-color: var(--ion-color-light-contrast);'
+        :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true"
+        :modules="modules" :autoplay="{ delay: 3000, disableOnInteraction: false }" @swiper="onSwiper"
+        @slideChange="onSlideChange" :breakpoints="{
+          0: {
+            slidesPerView: 2,
+            spaceBetween: 10,
+          },
+          480: {
+            slidesPerView: 2,
+            spaceBetween: 15,
+          },
+          768: {
+            slidesPerView: 2.5,
+            spaceBetween: 20,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 25,
+          },
+          1280: {
+            slidesPerView: 4,
+            spaceBetween: 30,
+          }
+        }" :space-between="10">
+        <swiper-slide style="padding: 10px;" v-for="article in articles" :key="article.title">
+          <BlogListingComponent class="blog-card" :article="article" />
+        </swiper-slide>
+      </swiper>
+
+      <div>
+        <div v-if="!chatboxVisible" @click="chatboxVisible = true" class="chat-box" aria-label="Open chat"
+          title="Open chat">
+          <!-- <div class="text-bubble">
+            Hi! Ask about bio gas
+          </div> -->
+          <div class="chat-icon">
+            <ion-icon name="chatbox-outline" style="font-size: 28px;"></ion-icon>
+          </div>
         </div>
-        <swiper style= '--swiper-pagination-bullet-size: 25px'  :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2.5" :space-between="10">
-          <swiper-slide v-for="product in products" :key="product.id">
-            <ListingComponent :product="product" :isMarketplace="true" />
-          </swiper-slide>
-        </swiper>
-        <h2 style="margin: 20px ;">{{ $t("general.latestArticles") }}</h2>
-        <div style="display: flex; justify-content: flex-end; margin: 0 20px 10px 20px;">
-          <ion-button @click="goArticles">{{ $t("general.allArticles") }}</ion-button>
+
+        <div v-if="KllComponent && chatboxVisible" :class="['chatcont']" :style="chatboxStyle">
+          <button @click="toggleChatboxSize"
+            style="position: absolute; top: 5px; right: 70px; width: 3vw; max-width:20px ; z-index: 1001;">
+            {{ chatboxLarge ? '🗗' : '🗖' }}
+          </button>
+          <button @click="toggleChatbox"
+            style="position: absolute; top: 5px; right: 45px; width: 3vw; max-width:20px ; z-index: 1001;">
+            {{ chatboxMinimized ? '▲' : '▼' }}
+          </button>
+          <button @click="closeChatbox"
+            style="position: absolute; top: 5px; right: 20px; width: 3vw; max-width:20px ; z-index: 1001;">
+            ✖
+          </button>
+          <div v-if="chatboxMinimized" style="padding: 10px; text-align: center; color:var(--background)">
+            <!-- Static header shown when minimized -->
+            <strong>Biokaasuklinikka</strong>
+          </div>
+          <component v-else :is="KllComponent" style="width: 100%; height: 100%;" />
         </div>
-        <swiper style= '--swiper-pagination-bullet-size: 25px' :pagination="{ dynamicBullets: true, clickable: true }" :loop="true" :centeredSlides="true" :navigation="true" :modules="modules" @swiper="onSwiper" @slideChange="onSlideChange" :slides-per-view="2" :space-between="10">
-            <swiper-slide style="padding: 10px;" v-for="article in articles" :key="article.title">
-              <BlogListingComponent class="blog-card" :article="article" />
-            </swiper-slide>
-        </swiper>
-      <div v-if="KllComponent && chatboxVisible" :style="chatboxStyle">
-        <button @click="toggleChatboxSize" style="position: absolute; top: 5px; right: 70px; width: 3vw; max-width:20px ; z-index: 1001;">
-          {{ chatboxLarge ? '🗗' : '🗖' }}
-        </button>
-        <button @click="toggleChatbox" style="position: absolute; top: 5px; right: 45px; width: 3vw; max-width:20px ; z-index: 1001;">
-          {{ chatboxMinimized ? '▲' : '▼' }}
-        </button>
-        <button @click="closeChatbox" style="position: absolute; top: 5px; right: 20px; width: 3vw; max-width:20px ; z-index: 1001;">
-          ✖
-        </button>
-        <div v-if="chatboxMinimized" style="padding: 10px; text-align: center;">
-          <!-- Static header shown when minimized -->
-          <strong>Biokaasuklinikka</strong>
-        </div>
-        <component v-else :is="KllComponent" style="width: 100%; height: 100%;" />
       </div>
       <FooterComponent />
     </ion-content>
@@ -47,45 +113,43 @@
 </template>
 
 <script>
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow, IonFooter, IonButton } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonGrid, IonCol, IonRow, IonFooter, IonButton, IonIcon } from '@ionic/vue';
 import { defineComponent, shallowRef } from 'vue';
 import NavBarComponent from '../components/NavBarComponent.vue';
 import FooterComponent from '../components/FooterComponent.vue';
 import BlogListingComponent from '../components/BlogListingComponent.vue';
 import ListingComponent from '../components/ListingComponent.vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { Navigation, Pagination } from 'swiper/modules';
+import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-
+import { addIcons } from 'ionicons';
+import { chatboxOutline } from 'ionicons/icons';
+addIcons({ chatboxOutline })
 import axios from 'axios';
 import slugify from 'slugify';
 
 export default defineComponent({
   name: 'HomePage',
-  components: { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, FooterComponent, BlogListingComponent, ListingComponent, IonFooter, Swiper, SwiperSlide },
+  components: { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, NavBarComponent, IonGrid, IonCol, IonRow, IonIcon, FooterComponent, BlogListingComponent, ListingComponent, IonFooter, Swiper, SwiperSlide },
   data() {
     return {
       KllComponent: null,
       chatboxMinimized: false,
-      chatboxVisible: true,
+      chatboxVisible: false,
       chatboxLarge: false,
-      products: [
-
-      ],
+      products: [],
       currentProducts: [],
-      articles: [
-
-      ]
+      articles: []
     }
   },
-  setup(){
+  setup() {
     const onSwiper = (swiper) => {
     };
     const onSlideChange = () => {
     };
-    return { onSwiper, onSlideChange, modules:[ Navigation, Pagination] };
+    return { onSwiper, onSlideChange, modules: [Navigation, Pagination, Autoplay] };
   },
   computed: {
     chatboxStyle() {
@@ -94,7 +158,7 @@ export default defineComponent({
         bottom: '2%',
         right: '2%',
         width: this.chatboxLarge ? '90vw' : '50vw',
-        height: this.chatboxMinimized ? '40px' : (this.chatboxLarge ? '80vh' : '50%'),
+        height: this.chatboxMinimized ? '40px !important' : (this.chatboxLarge ? '80vh' : '50%'),
         zIndex: 1000,
         background: '#fff',
         border: '1px solid #ccc',
@@ -107,7 +171,7 @@ export default defineComponent({
   },
   async created() {
     if (import.meta.env.VITE_ENABLE_BIOKAASUKLINIKKA === 'true') {
-      try{
+      try {
         const module = await import("../components/BKKlinikkaComponent.vue");
         this.KllComponent = shallowRef(module.default);
       }
@@ -171,11 +235,11 @@ export default defineComponent({
     },
 
     extractAbstract(htmlContent) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(htmlContent, 'text/html');
-            const firstParagraph = doc.querySelector('p');
-            return firstParagraph ? firstParagraph.textContent.substring(0, 200) + '...' : '';
-        }
+      const parser = new DOMParser();
+      const doc = parser.parseFromString(htmlContent, 'text/html');
+      const firstParagraph = doc.querySelector('p');
+      return firstParagraph ? firstParagraph.textContent.substring(0, 200) + '...' : '';
+    }
 
   },
   mounted() {
@@ -221,7 +285,48 @@ export default defineComponent({
   text-align: center;
 
 }
+
 .main-grid {
   min-height: 75vh;
+}
+
+.chat-box {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  z-index: 1000;
+  gap: 8px;
+}
+
+/* .text-bubble {
+  background: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border-radius: 16px;
+  font-size: 14px;
+  white-space: nowrap;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  user-select: none;
+} */
+
+.chat-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: green;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+@media (min-width: 1200px) {
+  .chatcont {
+    height: 70% !important;
+  }
 }
 </style>

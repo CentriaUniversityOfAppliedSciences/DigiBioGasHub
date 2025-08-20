@@ -10,7 +10,6 @@ import { UmoEditor } from '@umoteam/editor';
 import axios from 'axios';
 import { onBeforeRouteLeave } from 'vue-router';
 import { useEventListener } from '@vueuse/core';
-import { jwtDecode } from '../router/index';
 import { IonContent } from '@ionic/vue';
 
 export default defineComponent({
@@ -570,20 +569,11 @@ export default defineComponent({
             const doc = parser.parseFromString(content, 'text/html');
             const title = this.extractTitle(doc) || 'Default Title';
             const image = this.extractImage(doc) || this.imageBase64;
-            const token = localStorage.getItem('token');
-            if (!token) {
-                console.error('No token found');
-                return;
-            }
-
-            const decodedToken = jwtDecode(token);
-            const userID = decodedToken.id;
 
             try {
-
                 console.log('Saving post...');
-                let url = this.$api_add + "/admin/updateBlogPost";
-                const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image, "userID": userID, "blogPostType": 2 }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                let url = this.$api_add + "/blog/updateblogpost";
+                const response = await axios.post(url, { "postID": this.postID, "title": title, "content": content, "image": image }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.type == "result" && response.data.result == "ok") {
                     console.log('Blog post saved successfully ---');
                     this.isDirty = false;

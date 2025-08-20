@@ -118,7 +118,8 @@
         "add_company": "Lägg till företag",
         "preview": "Förhandsgranska",
         "manage": "Hantera",
-        "pricing": "Prissättning"
+        "pricing": "Prissättning",
+        "image": "Bild"
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -214,7 +215,9 @@
         "productDetails": {
             "title": "Produktdetaljer",
             "type": "Typ",
-            "price": "Pris",
+            "price": "Pris per enhet",
+            "description": "Beskrivning",
+            "pricePerUnit": "Pris per {unit}",
             "location": "Plats",
             "offerValidFrom": "Erbjudandet gäller från",
             "pickUpNeeded": "Hämtning behövs",
@@ -222,68 +225,72 @@
             "yes": "Ja",
             "no": "Nej",
             "amount": "Mängd",
-            "available": "Tillgänglig"
+            "available": "Tillgänglig",
+            "total": "Total",
+            "noVerifiedCompaniesToBuyOffer": "Inga verifierade företag finns tillgängliga för att köpa ett erbjudande. Skapa ett företag eller vänta på verifiering om ditt företag ännu inte är verifierat.",
+            "companyManagement": "Företagshantering"
         },
-            "image": "Bild",
-            "material": "Material",
-            "chooseMaterial": "Välj material",
-            "chooseCompany": "Välj företag",
-            "name": "Produktnamn",
-            "offerTypes": "Offertyper",
-            "chooseType": "Välj typ",
-            "buy": "Köp",
-            "type": {
-                "offer": "Erbjudande",
-                "demand": "Efterfrågan",
-                "auction": "Auktion",
-                "other": "Annat"
-            },
-            "typenum":{
-                "0":"Tjänst",
-                "1":"Erbjudande",
-                "2":"Efterfrågan",
-                "3":"Auktion",
-                "4":"Annat"
-            },
-            "desc": "Beskrivning",
-            "price": {
-                "offer": "Erbjudande",
-                "demand": "Begärt",
-                "auction": "Auktions"
-            },
-            "quantity": "Antal",
-            "unit": "Enhet",
-            "logistic": {
-                "type": "Logistik",
-                "includedInPrice": "Ingår i priset",
-                "freeToPickup": "Gratis att hämta",
-                "agreedupon": "Bestäms"
-            },
-            "logisticType": {
-                "0": "Ingen logistik",
-                "1": "Ingår i priset",
-                "2": "Gratis att hämta",
-                "3": "Bestäms"
-            },
-            "endTime": "Sluttid",
-            "time": "Tid",
-            "submit": "Skicka",
-            "visibility": {
-                "info": "Synlighet",
-                "chooseVisibility": "Välj synlighet",
-                "public": "Offentlig",
-                "private": "Privat"
-            },
-            "openlink": "Information",
-            "error":{
-                "product_buy_over_amount": "Mängden överskrider det erbjudna beloppet",
-                "product_buy_zero_amount": "Mängden kan inte vara noll"
-            },
-            "buySuccess":" Produkten har köpts",
-            "successMessage": "Produkten har lagts till",
-            "errorMessage": "Det gick inte att lägga till produkten. Kontrollera uppgifterna och försök igen.",
-            "invalidCompany": "Ogiltigt eller overifierat företag! Vänligen välj ett giltigt företag.",
-            "contract_history":"Avtalshistorik"
+        "image": "Bild",
+        "material": "Material",
+        "chooseMaterial": "Välj material",
+        "chooseCompany": "Välj företag",
+        "name": "Produktnamn",
+        "offerTypes": "Offertyper",
+        "chooseType": "Välj typ",
+        "buy": "Köp",
+        "type": {
+            "offer": "Erbjudande",
+            "demand": "Efterfrågan",
+            "auction": "Auktion",
+            "other": "Annat"
+        },
+        "typenum": {
+            "0": "Tjänst",
+            "1": "Erbjudande",
+            "2": "Efterfrågan",
+            "3": "Auktion",
+            "4": "Annat"
+        },
+        "desc": "Beskrivning",
+        "price": {
+            "pricePerUnit": "Pris per enhet (€)",
+            "offer": "Erbjudande",
+            "demand": "Begärt",
+            "auction": "Auktions"
+        },
+        "quantity": "Antal",
+        "unit": "Enhet",
+        "logistic": {
+            "type": "Logistik",
+            "includedInPrice": "Ingår i priset",
+            "freeToPickup": "Gratis att hämta",
+            "agreedupon": "Bestäms"
+        },
+        "logisticType": {
+            "0": "Ingen logistik",
+            "1": "Ingår i priset",
+            "2": "Gratis att hämta",
+            "3": "Bestäms"
+        },
+        "endTime": "Sluttid",
+        "time": "Tid",
+        "submit": "Skicka",
+        "visibility": {
+            "info": "Synlighet",
+            "chooseVisibility": "Välj synlighet",
+            "public": "Offentlig",
+            "private": "Privat"
+        },
+        "openlink": "Information",
+        "error": {
+            "product_buy_over_amount": "Mängden överskrider det erbjudna beloppet",
+            "product_buy_zero_amount": "Mängden kan inte vara noll"
+        },
+        "buySuccess": " Produkten har köpts",
+        "successMessage": "Produkten har lagts till",
+        "errorMessage": "Det gick inte att lägga till produkten. Kontrollera uppgifterna och försök igen.",
+        "invalidCompany": "Ogiltigt eller overifierat företag! Vänligen välj ett giltigt företag.",
+        "contract_history": "Avtalshistorik"
     },
     "validation":{
         "companyRegistration":{
@@ -293,6 +300,7 @@
             "companyEmailRequired": "E-postadress är obligatorisk." 
         },
         "invalidEmail": "Ogiltig e-postadress.",
+        "nameRequired": "Namn krävs",
         "companyRequired": "Företag är obligatoriskt",
         "materialRequired": "Material är obligatoriskt",
         "materialNameRequired": "Namn är obligatoriskt",
@@ -381,6 +389,8 @@
         }
     },
     "offers": {
+        "noCompaniesToCreateOffer": "Inga verifierade företag finns tillgängliga för att skapa ett erbjudande. Skapa ett företag eller vänta på verifiering om ditt företag ännu inte är verifierat.",
+        "companyManagement": "Företagshantering",
         "addOffer": "Lägg till erbjudande",
         "editOffer": "Redigera erbjudande",
         "deleteOffer": "Radera erbjudande"
@@ -423,7 +433,7 @@
         "editWarning": "Varning: Du redigerar ett företag som inte är verifierat. Om du sparar ändringarna kommer företaget att skickas för godkännande igen.",
         "waiting_approval": "Obs: Alla företag som listas nedan väntar på godkännande!",
         "rejected": "Obs: Alla företag som listas nedan har avvisats! Vänligen redigera din företagsinformation och skicka in den på nytt för godkännande.",
-        "noCompanies": "Inga företag ännu! Du kan skapa ditt eget företag genom att klicka på ”Lägg till företag” eller vänta på godkännande om ditt företag finns i den obekräftade listan",
+        "noCompanies": "Inga företag ännu! Du kan skapa ditt eget företag genom att klicka på “Lägg till företag” uppe till höger, eller vänta på godkännande om ditt företag finns i listan över overifierade.",
         "noRejectedCompanies": "Yahoo! Inga avvisade företag ännu!",
         "logisticsRegistration": {
             "title": "Registrering av logistik",
@@ -460,6 +470,38 @@
         },
         "reports":"Rapporter",
         "sales":"Försäljning"
+    },
+    "posts": {
+        "blogsManagement": "Blogghantering",
+        "addPost": "Lägg till blogginlägg",
+        "uploadPdf": "Ladda upp PDF",
+        "published": "Publicerad",
+        "unpublished": "Väntar på godkännande",
+        "draft": "Utkast",
+        "file": "Fil",
+        "rejected": "Avvisad",
+        "posts": "Inlägg",
+        "noPosts": "Inga inlägg hittades.",
+        "loading": "Laddar...",
+        "unknown": "Okänd",
+        "unpublish": "Avpublicera",
+        "edit": "Redigera",
+        "send": "Skicka",
+        "uploadSuccess": "Uppladdning lyckades!",
+        "uploadFail": "Uppladdning misslyckades!",
+        "sendForReview": "Skicka för godkännande",
+        "confirmDelete": "Bekräfta radering",
+        "confirmSendForReview": "Bekräfta skickning",
+        "confirmUnpublish": "Bekräfta avpublicering",
+        "confirmSendForReviewMessage": "Är du säker på att du vill skicka detta inlägg för granskning?",
+        "confirmUnpublishMessage": "Är du säker på att du vill avpublicera detta inlägg?",
+        "confirmDeleteMessage": "Är du säker på att du vill radera detta inlägg permanent? Denna åtgärd kan inte ångras!",
+        "sendForReviewSuccess": "Inlägget skickades för granskning!",
+        "unpublishSuccess": "Inlägget avpublicerades!",
+        "deleteSuccess": "Inlägget raderades!",
+        "sendFail": "Kunde inte skicka för granskning!",
+        "unpublishFail": "Kunde inte avpublicera!",
+        "deleteFail": "Kunde inte radera!"
     },
     "admin": {
         "company": {

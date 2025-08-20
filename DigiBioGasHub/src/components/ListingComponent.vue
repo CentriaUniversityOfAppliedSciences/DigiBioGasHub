@@ -1,31 +1,37 @@
 <template>
-    <ion-card>
-        <ion-card-header>
-            <ion-img :src="checkFileLink()" alt="Material Image"
-                style="width: 100%; height: 200px; object-fit: fit-content;"></ion-img>
-            <ion-card-title>{{ product.Material.name }}</ion-card-title>
-            <ion-card-subtitle> {{ getMaterialTypeTranslation(product.Material.type) }}</ion-card-subtitle>
+    <ion-card class="offer-card">
+        <ion-img class="offer-thumbnail" :src="checkFileLink()" alt="Product Image" />
 
-        </ion-card-header>
-        <ion-card-content>
-            <p>{{ product.Material.description }}</p>
-            <p>{{ product.description }}</p>
-            <ion-item>
+        <ion-card-content class="offer-content">
+            <ion-text class="offer-title">
+                <h2>{{ product.Material.name }}</h2>
+            </ion-text>
+
+            <ion-text class="offer-subtitle">
+                <small>{{ $t('product.productDetails.type') }}: {{ getMaterialTypeTranslation(product.Material.type) }}</small>
+            </ion-text>
+
+            <ion-text class="offer-description">
+                <p>{{ product.description }}</p>
+            </ion-text>
+
+            <ion-text class="offer-meta">
                 <ion-label>{{ $t('product.productDetails.price') }}: {{ product.price }} €</ion-label>
-            </ion-item>
-            <ion-item>
                 <ion-label>{{ $t('product.productDetails.amount') }}: {{ product.availableAmount }} {{
                     getUnitAmountTranslation(product.unit) }}</ion-label>
-            </ion-item>
+            </ion-text>
             <ion-item>
-                <ion-button v-if="isMarketplace" expand="full" @click="openModal">{{
+                <ion-button v-if="isMarketplace" fill="clear" size="small" @click="openModal">{{
                     $t('product.openlink') }}</ion-button>
-                <ion-button v-if="isCompanyParent" expand="full" @click="openEdit(product.id)">{{ $t('menu.edit')
+                <ion-button v-if="isCompanyParent" fill="clear" size="small" @click="openEdit(product.id)">{{
+                    $t('menu.edit')
                     }}</ion-button>
-                <ion-button v-if="isCompanyParent" expand="full" color="danger" @click="deleteOffer(product.id)">{{
-                    $t('menu.delete') }}</ion-button>
-                <ion-button v-if="isCompanyParent" expand="full" color="success" @click="contractHistory(product.id)">{{
-                    $t('product.contract_history') }}</ion-button>
+                <ion-button v-if="isCompanyParent" fill="clear" size="small" color="danger"
+                    @click="deleteOffer(product.id)">{{
+                        $t('menu.delete') }}</ion-button>
+                <ion-button v-if="isCompanyParent" fill="clear" size="small" color="success"
+                    @click="contractHistory(product.id)">{{
+                        $t('product.contract_history') }}</ion-button>
             </ion-item>
         </ion-card-content>
     </ion-card>
@@ -36,7 +42,7 @@
 </template>
 
 <script>
-import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg, IonAlert, alertController, IonModal } from '@ionic/vue';
+import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonLabel, IonButton, IonImg, IonAlert, alertController, IonModal, IonText } from '@ionic/vue';
 import axios from 'axios';
 import OfferPage from '../views/OfferPage.vue';
 export default {
@@ -49,6 +55,7 @@ export default {
         IonCardContent,
         IonItem,
         IonLabel,
+        IonText,
         IonButton,
         IonImg,
         IonAlert,
@@ -75,7 +82,7 @@ export default {
             isModalOpen: false
         };
     },
-    emits: ['updateOffers'],
+    emits: ['updateOffers', 'close'],
     mounted() {
     },
     methods: {
@@ -136,7 +143,95 @@ export default {
 </script>
 
 <style scoped>
-ion-card {
-    margin: 20px;
+.offer-card {
+    max-width: 310px;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: max-width 0.3s ease;
 }
+
+.offer-thumbnail {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    background-color: #f1f1f1;
+}
+
+.offer-content {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.offer-title h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--ion-color-light-contrast);
+    max-height: 2.4em;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.offer-subtitle small {
+    font-size: 1rem;
+    color: var(--ion-color-medium-tint);
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+}
+
+.offer-description p {
+    font-size: 0.95rem;
+    color: var(--ion-color-medium-tint);
+    line-height: 1.4;
+    max-height: 2.8em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    text-overflow: ellipsis;
+    margin: 0;
+}
+
+.offer-meta ion-label {
+    font-size: 1rem;
+    color: var(--ion-color-light-contrast);
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+ion-item {
+    --padding-start: 0;
+    --inner-border-width: 0;
+}
+
+@media (max-width: 480px) {
+  .offer-card {
+    max-width: 260px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .offer-card {
+    max-width: 340px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .offer-card {
+    max-width: 650px;
+  }
+}
+
 </style>

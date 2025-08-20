@@ -213,8 +213,10 @@
     "product": {
         "productDetails": {
             "title": "Product Details",
+            "description": "Description",
             "type": "Type",
-            "price": "Price",
+            "pricePerUnit": "Price per {unit}",
+            "price": "Price per unit",
             "location": "Location",
             "offerValidFrom": "Offer Valid From",
             "pickUpNeeded": "Pick Up Needed",
@@ -222,7 +224,10 @@
             "yes": "Yes",
             "no": "No",
             "amount": "Amount",
-            "available": "Available"
+            "available": "Available",
+            "total": "Total",
+            "noVerifiedCompaniesToBuyOffer": "No verified companies are available to buy an offer. Please create a company or wait for verification if your company is not yet verified.",
+            "companyManagement": "Company Management"
         },
         "image": "Image",
         "material": "Material",
@@ -247,7 +252,7 @@
         },
         "desc": "Description",
         "price": {
-            "offer": "Offer",
+            "pricePerUnit": "Price per unit (€)",
             "demand": "Ask for offers",
             "auction": "Auction"
         },
@@ -293,6 +298,7 @@
             "companyEmailRequired": "Email cannot be empty."
         },
         "invalidEmail": "Invalid email!",
+        "nameRequired": "Name required",
         "companyRequired": "Please select a company.",
         "materialRequired": "Please select a material.",
         "materialNameRequired": "Material name cannot be empty.",
@@ -381,6 +387,8 @@
             }
         },
     "offers": {
+        "noCompaniesToCreateOffer": "No verified companies are available to create an offer. Please create a company or wait for verification if your company has not yet been verified.",
+        "companyManagement": "Company Management",
         "addOffer": "Add offer",
         "editOffer": "Edit offer",
         "deleteOffer": "Delete offer"
@@ -423,7 +431,7 @@
         "editWarning": "If you edit this company, it will need to be verified again. Are you sure?",
         "waiting_approval": "Note: All the companies listed below are waiting for approval!",
         "rejected": "Note: All the companies listed below have been rejected! Please edit your company information and resubmit for approval.",
-        "noCompanies": "No companies yet! You can create your own company by clicking 'Add Company' or wait for approval if your company is in the unverified list",
+        "noCompanies": "No companies yet! You can create your own company by clicking 'Add Company' in the top right, or wait for approval if your company is in the unverified list",
         "noRejectedCompanies": "Yahoo! No rejected companies yet!",
         "logisticsRegistration": {
             "title": "Logistics Registration",
@@ -461,6 +469,38 @@
         "reports":"Reports",
         "sales": "Sales"
     },
+    "posts": {
+        "blogsManagement": "Blogs Management",
+        "addPost": "Add Blog Post",
+        "uploadPdf": "Upload PDF",
+        "published": "Published",
+        "unpublished": "Pending Approval",
+        "draft": "Draft",
+        "file": "File",
+        "rejected": "Rejected",
+        "posts": "Posts",
+        "noPosts": "No posts found.",
+        "loading": "Loading...",
+        "unknown": "Unknown",
+        "unpublish": "Unpublish",
+        "edit": "Edit",
+        "send": "Send",
+        "uploadSuccess": "Upload Successful!",
+        "uploadFail": "Upload Failed!",
+        "sendForReview":"Send for approval",
+        "confirmDelete": "Confirm Delete",
+        "confirmSendForReview": "Confirm Send",
+        "confirmUnpublish": "Confirm Unpublish",
+        "confirmSendForReviewMessage": "Are you sure you want to send this post for review?",
+        "confirmUnpublishMessage": "Are you sure you want to unpublish this post?",
+        "confirmDeleteMessage": "Are you sure you want to permanently delete this post? This action cannot be undone!",
+        "sendForReviewSuccess": "Post sent for review successfully!",
+        "unpublishSuccess": "Post unpublished successfully!",
+        "deleteSuccess": "Post deleted successfully!",
+        "sendFail": "Unable to send for review!",
+        "unpublishFail": "Unable to unpublish!",
+        "deleteFail": "Unable to delete!"
+    },
     "admin": {
         "company": {
             "manageCompanies": "Companies",
@@ -493,14 +533,17 @@
             "published":"Published",
             "unpublished": "Unpublished",
             "drafts": "Drafts",
+            "rejectPost": "Reject",
             "publish": "publish",
             "unpublish": "unpublish",
             "confirmDelete": "Confirm Delete",
             "confirmPublish": "Confirm Publish",
+            "confirmReject": "Confirm Reject",
             "confirmUnpublish": "Confirm Unpublish",
             "confirmPublishMessage": "Are you sure you want to publish this post?",
             "confirmUnpublishMessage": "Are you sure you want to unpublish this post?",
             "confirmDeleteMessage": "Are you sure you want to permanently delete this post? This action cannot be undone!",
+            "confirmRejectMessage": "Are you sure you want to reject this post?",
             "publishSuccess":"Post published successfully!",
             "unpublishSuccess": "Post unpublished successfully!",
             "deleteSuccess": "Post deleted successfully!",

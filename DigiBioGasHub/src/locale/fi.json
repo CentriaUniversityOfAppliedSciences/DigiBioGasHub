@@ -118,7 +118,8 @@
         "add_company": "Lisää yritys",
         "preview": "Esikatselu",
         "manage": "Hallitse",
-        "pricing": "Hinnoittelu"
+        "pricing": "Hinnoittelu",
+        "image": "Kuva"
     },
     "footer":{
         "KP": "/assets/kp.jpg",
@@ -214,7 +215,9 @@
         "productDetails": {
             "title": "Tuotetiedot",
             "type": "Tyyppi",
-            "price": "Hinta",
+            "price": "Hinta per yksikkö",
+            "description": "Kuvaus",
+            "pricePerUnit": "Hinta per {unit}",
             "location": "Sijainti",
             "offerValidFrom": "Tarjous voimassa alkaen",
             "pickUpNeeded": "Nouto tarvitaan",
@@ -222,7 +225,10 @@
             "yes": "Kyllä",
             "no": "Ei",
             "amount": "Määrä",
-            "available": "Saatavilla"
+            "available": "Saatavilla",
+            "total": "Kokonais",
+            "noVerifiedCompaniesToBuyOffer": "Vahvistettuja yrityksiä ei ole saatavilla tarjouksen ostamiseen. Luo yritys tai odota vahvistusta, jos yrityksesi ei ole vielä vahvistettu.",
+            "companyManagement": "Yritysten hallinta"
         },
         "image": "Kuva",
         "material": "Materiaali",
@@ -247,6 +253,7 @@
         },
         "desc": "Kuvaus",
         "price": {
+            "pricePerUnit": "Yksikköhinta (€)",
             "offer": "Tarjoushinta",
             "demand": "Pyyntihinta",
             "auction": "Huutokauppahinta"
@@ -293,6 +300,7 @@
             "companyEmailRequired": "Sähköposti on pakollinen."
         },
         "invalidEmail": "Sähköposti on virheellinen.",
+        "nameRequired": "Nimi on pakollinen",
         "companyRequired": "Yritys on pakollinen",
         "materialRequired": "Materiaali on pakollinen",
         "materialNameRequired": "Nimi on pakollinen",
@@ -380,7 +388,9 @@
             "3":"muu"
         }
     },
-    "offers":{
+    "offers": {
+        "noCompaniesToCreateOffer": "Vahvistettuja yrityksiä ei ole saatavilla tarjouksen tekemiseen. Luo yritys tai odota vahvistusta, jos yrityksesi ei ole vielä vahvistettu.",
+        "companyManagement": "Yritysten hallinta",
         "addOffer": "Lisää tarjous",
         "editOffer": "Muokkaa tarjousta",
         "deleteOffer": "Poista tarjous"
@@ -423,7 +433,7 @@
         "editWarning": "Varoitus: Muokkaat vahvistamatonta yritystä. Jos tallennat muutokset, yritys lähetetään uudelleen hyväksyttäväksi.",
         "waiting_approval": "Huomautus: Kaikki alla luetellut yritykset odottavat hyväksyntää!",
         "rejected": "Huomautus: Kaikki alla luetellut yritykset on hylätty! Muokkaa yritystietojasi ja lähetä ne uudelleen hyväksyttäväksi.",
-        "noCompanies": "Ei vielä yrityksiä! Voit luoda oman yrityksen klikkaamalla ‘Lisää yritys’ tai odottaa hyväksyntää, jos yrityksesi on vahvistamattomien listalla.",
+        "noCompanies": "Ei vielä yhtään yritystä! Voit luoda oman yrityksen napsauttamalla “Lisää yritys” oikeasta yläkulmasta tai odottaa hyväksyntää, jos yrityksesi on vahvistamattomien listalla.",
         "noRejectedCompanies": "Jippii! Ei vielä yhtään hylättyä yritystä!",
         "logisticsRegistration": {
             "title": "Logistiikan rekisteröinti",
@@ -460,6 +470,38 @@
         },
         "reports":"Raportit",
         "sales":"Myynti"
+    },
+    "posts": {
+        "blogsManagement": "Blogien hallinta",
+        "addPost": "Lisää blogikirjoitus",
+        "uploadPdf": "Lataa PDF",
+        "published": "Julkaistu",
+        "unpublished": "Odottaa hyväksyntää",
+        "draft": "Luonnos",
+        "file": "Tiedosto",
+        "rejected": "Hylätty",
+        "posts": "Artikkelit",
+        "noPosts": "Artikkeleita ei löytynyt.",
+        "loading": "Ladataan...",
+        "unknown": "Tuntematon",
+        "unpublish": "Peru julkaisu",
+        "edit": "Muokkaa",
+        "send": "Lähetä",
+        "uploadSuccess": "Lataus onnistui!",
+        "uploadFail": "Lataus epäonnistui!",
+        "sendForReview": "Lähetä hyväksyttäväksi",
+        "confirmDelete": "Vahvista poisto",
+        "confirmSendForReview": "Vahvista lähetys",
+        "confirmUnpublish": "Vahvista julkaisun peruminen",
+        "confirmSendForReviewMessage": "Haluatko varmasti lähettää tämän artikkelin hyväksyttäväksi?",
+        "confirmUnpublishMessage": "Haluatko varmasti peruuttaa tämän artikkelin julkaisun?",
+        "confirmDeleteMessage": "Haluatko varmasti poistaa tämän artikkelin pysyvästi? Tätä toimintoa ei voi perua!",
+        "sendForReviewSuccess": "Artikkeli lähetettiin onnistuneesti hyväksyttäväksi!",
+        "unpublishSuccess": "Artikkelin julkaisu peruutettu onnistuneesti!",
+        "deleteSuccess": "Artikkeli poistettu onnistuneesti!",
+        "sendFail": "Artikkelia ei voitu lähettää hyväksyttäväksi!",
+        "unpublishFail": "Julkaisua ei voitu peruuttaa!",
+        "deleteFail": "Artikkelia ei voitu poistaa!"
     },
     "admin": {
         "company": {
