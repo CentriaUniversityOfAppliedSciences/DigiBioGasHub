@@ -126,6 +126,7 @@
                     </div>
                 </div>
             </div>
+            <FooterComponent/>
         </ion-content>
 
         <!-- Send For Review Alert -->
@@ -217,6 +218,7 @@ import { addIcons } from 'ionicons'
 import { checkmarkCircle, closeCircle, create, document, timeOutline } from 'ionicons/icons'
 addIcons ({checkmarkCircle, timeOutline, closeCircle, create, document})
 import ToastComponent from '../components/ToastComponent.vue'
+import FooterComponent from '../components/FooterComponent.vue'
 
 export default defineComponent({
     name: 'MyBlogsPage',
@@ -238,7 +240,8 @@ export default defineComponent({
         IonSpinner,
         BlogListingComponent,
         NavBarComponent,
-        ToastComponent
+        ToastComponent,
+        FooterComponent
     },
     data() {
         return {
