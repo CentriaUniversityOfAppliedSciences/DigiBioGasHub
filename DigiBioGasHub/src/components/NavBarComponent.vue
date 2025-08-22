@@ -1,83 +1,49 @@
 <template>
-    <nav class="navbar">
+  <nav class="navbar">
+    <ion-grid>
+      <ion-row class="header-row">
+        <!-- Mobile Hamburger -->
+        <ion-col size="auto" class="mobile-only">
+          <ion-menu-button auto-hide="false"></ion-menu-button>
+        </ion-col>
 
-        <ion-grid>
-            <ion-row class="header-row">
-                <ion-col size="auto">
-                    <img :src="$t('menu.logoPath')" alt="Funder Logo" class="logo" />
-                </ion-col>
+        <ion-col size="auto">
+          <img :src="$t('menu.logoPath')" alt="Funder Logo" class="logo" />
+        </ion-col>
+        <ion-col class="ion-text-center">
+          <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo" />
+        </ion-col>
 
-                <ion-col class="ion-text-center">
-                    <img src="@/assets/DBH-logo.png" alt="DigiBioGasHubs Logo" class="logo" />
-                </ion-col>
+        <ion-col size="auto" class="desktop-only ion-text-end">
+          <ion-button color="success" @click="openFeedback">
+            <span>{{ $t('menu.giveFeedback') }}</span>
+            <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-                <ion-col size="auto" class="desktop-only ion-text-end">
-                    <ion-button color="success" @click="openFeedback">
-                        <span>{{ $t('menu.giveFeedback') }}</span>
-                        <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
-                    </ion-button>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
-
-        <!-- Side Menu for Mobile -->
-        <ion-menu content-id="main-content" side="start">
-            <ion-header>
-                <ion-toolbar>
-                    <ion-title>{{ $t('menu.title') }}</ion-title>
-                </ion-toolbar>
-            </ion-header>
-            <ion-content>
-                <ion-list>
-                    <ion-item router-link="/home">{{ $t('menu.home') }}</ion-item>
-                    <ion-item router-link="/marketplace">{{ $t('menu.marketplace') }}</ion-item>
-                    <ion-item router-link="/map">{{ $t('menu.map') }}</ion-item>
-                    <ion-item router-link="/articles">{{ $t('menu.articles') }}</ion-item>
-                    <ion-item router-link="/chat">{{ $t('menu.chat') }}</ion-item>
-                    <ion-item v-if="!LoggedIn" router-link="/login">{{ $t('menu.login') }}</ion-item>
-                    <ion-item v-if="LoggedIn && inCompany" router-link="/contracts">{{ $t('menu.mycontracts')
-                        }}</ion-item>
-                    <ion-item v-if="LoggedIn" router-link="/company">{{ $t('menu.mycompany') }}</ion-item>
-                    <ion-item v-if="LoggedIn && inCompany" router-link="/companyanalytics">{{ $t('company.reports')
-                        }}</ion-item>
-                    <ion-item v-if="LoggedIn" router-link="/profile">{{ $t('menu.profile') }}</ion-item>
-                    <ion-item v-if="LoggedIn">
-                        <LogoutComponent />
-                    </ion-item>
-                    <ion-item v-if="Admin">
-                        <AdminComponent />
-                    </ion-item>
-                    <ion-item>
-                        <LocaleComponent />
-                    </ion-item>
-                </ion-list>
-            </ion-content>
-        </ion-menu>
-
-        <div id="main-content">
-            <ion-toolbar class="desktop-only">
-                <ion-buttons>
-                    <ion-button router-link="/home">{{ $t('menu.home') }}</ion-button>
-                    <ion-button router-link="/marketplace">{{ $t('menu.marketplace') }}</ion-button>
-                    <ion-button router-link="/map">{{ $t('menu.map') }}</ion-button>
-                    <ion-button router-link="/articles">{{ $t('menu.articles') }}</ion-button>
-                    <ion-button router-link="/chat">{{ $t('menu.chat') }}</ion-button>
-                    <ion-button v-if="!LoggedIn" router-link="/login">{{ $t('menu.login') }}</ion-button>
-                    <ion-button v-if="LoggedIn && inCompany" router-link="/contracts">{{ $t('menu.mycontracts')
-                        }}</ion-button>
-                    <ion-button v-if="LoggedIn" router-link="/company">{{ $t('menu.mycompany') }}</ion-button>
-                    <ion-button v-if="LoggedIn && inCompany" router-link="/companyanalytics">{{ $t('company.reports')
-                        }}</ion-button>
-                    <ion-button v-if="LoggedIn" router-link="/profile">{{ $t('menu.profile') }}</ion-button>
-                    <LogoutComponent v-if="LoggedIn" />
-                    <div class="inline-components">
-                        <AdminComponent v-if="Admin" />
-                        <LocaleComponent />
-                    </div>
-                </ion-buttons>
-            </ion-toolbar>
+    <!-- Desktop Nav Links -->
+    <ion-toolbar class="desktop-only">
+      <ion-buttons>
+        <ion-button router-link="/home">{{ $t('menu.home') }}</ion-button>
+        <ion-button router-link="/marketplace">{{ $t('menu.marketplace') }}</ion-button>
+        <ion-button router-link="/map">{{ $t('menu.map') }}</ion-button>
+        <ion-button router-link="/articles">{{ $t('menu.articles') }}</ion-button>
+        <ion-button router-link="/chat">{{ $t('menu.chat') }}</ion-button>
+        <ion-button v-if="!LoggedIn" router-link="/login">{{ $t('menu.login') }}</ion-button>
+        <ion-button v-if="LoggedIn && inCompany" router-link="/contracts">{{ $t('menu.mycontracts') }}</ion-button>
+        <ion-button v-if="LoggedIn" router-link="/company">{{ $t('menu.mycompany') }}</ion-button>
+        <ion-button v-if="LoggedIn && inCompany" router-link="/companyanalytics">{{ $t('company.reports') }}</ion-button>
+        <ion-button v-if="LoggedIn" router-link="/profile">{{ $t('menu.profile') }}</ion-button>
+        <LogoutComponent v-if="LoggedIn" />
+        <div class="inline-components">
+          <AdminComponent v-if="Admin" />
+          <LocaleComponent />
         </div>
-    </nav>
+      </ion-buttons>
+    </ion-toolbar>
+  </nav>
 </template>
 
 <script>

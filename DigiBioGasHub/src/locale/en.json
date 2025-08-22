@@ -47,7 +47,8 @@
         "yes": "Yes",
         "giveFeedback": "Give feedback",
         "chat": "Chat",
-        "close": "Close"
+        "close": "Close",
+        "title": "Menu"
     },
     "general":{
         "welcome": "Welcome to DigiBioGasHub",
