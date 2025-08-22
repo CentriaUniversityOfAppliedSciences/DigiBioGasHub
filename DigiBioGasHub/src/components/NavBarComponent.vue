@@ -26,18 +26,18 @@
         <!-- Desktop Nav Links -->
         <ion-toolbar class="desktop-only">
             <ion-buttons>
-                <ion-button router-link="/home">{{ $t('menu.home') }}</ion-button>
-                <ion-button router-link="/marketplace">{{ $t('menu.marketplace') }}</ion-button>
-                <ion-button router-link="/map">{{ $t('menu.map') }}</ion-button>
-                <ion-button router-link="/articles">{{ $t('menu.articles') }}</ion-button>
-                <ion-button router-link="/chat">{{ $t('menu.chat') }}</ion-button>
+                <ion-button router-link="/home"  :class="{ 'active-menu': isActiveRoute('/home') }">{{ $t('menu.home') }}</ion-button>
+                <ion-button router-link="/marketplace"  :class="{ 'active-menu': isActiveRoute('/marketplace') }">{{ $t('menu.marketplace') }}</ion-button>
+                <ion-button router-link="/map" :class="{ 'active-menu': isActiveRoute('/map') }">{{ $t('menu.map') }}</ion-button>
+                <ion-button router-link="/articles" :class="{ 'active-menu': isActiveRoute('/articles') }">{{ $t('menu.articles') }}</ion-button>
+                <ion-button router-link="/chat" :class="{ 'active-menu': isActiveRoute('/chat') }">{{ $t('menu.chat') }}</ion-button>
                 <ion-button v-if="!LoggedIn" router-link="/login">{{ $t('menu.login') }}</ion-button>
-                <ion-button v-if="LoggedIn && inCompany" router-link="/contracts">{{ $t('menu.mycontracts')
+                <ion-button v-if="LoggedIn && inCompany" router-link="/contracts" :class="{ 'active-menu': isActiveRoute('/contracts') }">{{ $t('menu.mycontracts')
                 }}</ion-button>
-                <ion-button v-if="LoggedIn" router-link="/company">{{ $t('menu.mycompany') }}</ion-button>
-                <ion-button v-if="LoggedIn && inCompany" router-link="/companyanalytics">{{ $t('company.reports')
+                <ion-button v-if="LoggedIn" router-link="/company" :class="{ 'active-menu': isActiveRoute('/company') }">{{ $t('menu.mycompany') }}</ion-button>
+                <ion-button v-if="LoggedIn && inCompany" router-link="/companyanalytics" :class="{ 'active-menu': isActiveRoute('/companyanalytics') }">{{ $t('company.reports')
                 }}</ion-button>
-                <ion-button v-if="LoggedIn" router-link="/profile">{{ $t('menu.profile') }}</ion-button>
+                <ion-button v-if="LoggedIn" router-link="/profile" :class="{ 'active-menu': isActiveRoute('/profile') }">{{ $t('menu.profile') }}</ion-button>
                 <LogoutComponent v-if="LoggedIn" />
                 <div class="inline-components">
                     <AdminComponent v-if="Admin" />
@@ -138,6 +138,9 @@ export default defineComponent({
         },
         openFeedback() {
             window.open('https://link.webropolsurveys.com/S/941E350F901601ED', '_blank');
+        },
+        isActiveRoute(route) {
+            return this.$route.path === route;
         }
     },
     data() {
@@ -161,6 +164,7 @@ export default defineComponent({
 .navbar {
     background-color: #333;
     color: #fff;
+    z-index: 1000;
 }
 
 .mobile-only {
@@ -219,5 +223,10 @@ ion-buttons {
 
 ion-toolbar {
     --background: none;
+}
+
+.active-menu {
+    border-bottom: 3px solid #2196f3;
+    font-weight: 500;
 }
 </style>
