@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { IonApp, IonContent, IonHeader, IonItem, IonList, IonMenu, IonRouterOutlet, IonTitle, IonToolbar } from '@ionic/vue';
+import { IonApp, IonContent, IonHeader, IonItem, IonList, IonMenu, IonRouterOutlet, IonTitle, IonToolbar, menuController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import LogoutComponent from './components/LogoutComponent.vue';
 import AdminComponent from './components/AdminComponent.vue';
@@ -57,7 +57,8 @@ export default defineComponent({
     IonItem,
     LogoutComponent,
     AdminComponent,
-    LocaleComponent
+    LocaleComponent,
+    menuController
   },
   data() {
     return {
@@ -107,11 +108,25 @@ export default defineComponent({
         }
       }
     },
+    checkMenu() {
+      if (window.innerWidth >= 768) {
+        menuController.enable(false, 'main-menu');
+      } else {
+        menuController.enable(true, 'main-menu');
+      }
+    }
   },
   mounted() {
     this.checkLogin();
     this.checkCompany();
     this.checkAdmin();
+    this.checkMenu();
+    window.addEventListener('resize', this.checkMenu);
+  },
+
+  onUnmounted() {
+    window.removeEventListener('resize', this.checkMenu);
   }
 });
+
 </script>
