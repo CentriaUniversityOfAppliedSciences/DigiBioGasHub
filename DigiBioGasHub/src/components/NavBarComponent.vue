@@ -219,6 +219,7 @@ ion-buttons {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    color:white;
 }
 
 ion-toolbar {
