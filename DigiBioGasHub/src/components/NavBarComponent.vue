@@ -195,7 +195,7 @@ export default defineComponent({
 .inline-components {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
 }
 
 .inline-components>* {

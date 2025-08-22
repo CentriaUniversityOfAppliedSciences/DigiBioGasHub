@@ -1,6 +1,6 @@
 <template>
 
-            <ion-select placeholder="Select an option" @ionChange="handleSelectChange">
+            <ion-select placeholder="Admin" @ionChange="handleSelectChange">
                 <ion-select-option value="materials">{{ $t('admin.materials') }}</ion-select-option>
                 <ion-select-option value="users">{{ $t('admin.manage_users') }}</ion-select-option>
                 <ion-select-option value="blog">{{ $t('admin.blogpost.blogs') }}</ion-select-option>
