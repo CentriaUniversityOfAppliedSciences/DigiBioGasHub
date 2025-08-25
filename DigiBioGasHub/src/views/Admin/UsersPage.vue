@@ -7,53 +7,63 @@
                     <IonTitle class="margin-style">{{ $t('admin.users.title') }}</IonTitle>
                 </IonToolbar>
             </IonHeader>
-            <IonGrid class="margin-style">
-                <IonRow>
-                    <IonCol><strong>{{ $t('general.username') }}</strong></IonCol>
-                    <IonCol><strong>{{ $t('general.name') }}</strong></IonCol>
-                    <IonCol><strong>{{ $t('general.email') }}</strong></IonCol>
-                    <IonCol><strong>{{ $t('general.phone') }}</strong></IonCol>
-                    <IonCol><strong>{{ $t('admin.users.userlevel') }}</strong></IonCol>
-                    <IonCol><strong>{{ $t('admin.users.isPremiumUser') }}</strong></IonCol>
-                    <IonCol><strong>{{ $t('admin.users.hubID') }}</strong></IonCol>
-                    <IonCol><strong>{{ $t('admin.users.actions') }}</strong></IonCol>
-                </IonRow>
-                <IonRow v-for="user in users" :key="user.id">
-                    <IonCol>{{ user.username }}</IonCol>
-                    <IonCol>{{ user.name }}</IonCol>
-                    <IonCol>{{ user.email }}</IonCol>
-                    <IonCol>{{ user.phone }}</IonCol>
-                    <IonCol>{{ user.userlevel }}</IonCol>
-                    <IonCol><span v-if="user.isPremiumUser">{{ user.isPremiumUser }} {{ parseTime(user.Subscriptions[0].expirationDate) }}</span><span v-else>{{ user.isPremiumUser }}</span></IonCol>
-                    <IonCol>{{ user.hubID }}</IonCol>
-                    <IonCol>
-                        <IonButton :id="'action-btn-' + user.id">
-                            <ion-icon name="settings-outline"></ion-icon>
-                        </IonButton>
 
-                        <IonPopover v-if="user.id" :trigger="'action-btn-' + user.id" triggerAction="click">
-                            <IonContent>
-                                <IonList>
-                                    <IonItem button @click="editUser(user.id)">
-                                        {{ $t('general.edit') }}
-                                    </IonItem>
-                                    <IonItem button @click="openGiftModal(user)">
-                                        {{ $t('premium.giftNow') }}
-                                    </IonItem>
-                                    <IonItem button @click="confirmDelete(user.id)">
-                                        {{ $t('general.delete') }}
-                                    </IonItem>
-                                    <IonItem button v-if="user.isPremiumUser"
-                                        @click="confirmCancleSubscription(user.id)">
-                                        {{ $t('premium.cancelSubscription') }}
-                                    </IonItem>
-                                </IonList>
-                            </IonContent>
-                        </IonPopover>
-                    </IonCol>
-                </IonRow>
-            </IonGrid>
+            <div class="table-wrapper">
+                <IonGrid class="margin-style">
+                    <IonRow>
+                        <IonCol><input type="checkbox" v-model="selectAll" @change="toggleAll" /></IonCol>
+                        <IonCol><strong>{{ $t('general.username') }}</strong></IonCol>
+                        <IonCol><strong>{{ $t('general.name') }}</strong></IonCol>
+                        <IonCol><strong>{{ $t('general.email') }}</strong></IonCol>
+                        <IonCol><strong>{{ $t('general.phone') }}</strong></IonCol>
+                        <IonCol><strong>{{ $t('admin.users.userlevel') }}</strong></IonCol>
+                        <IonCol><strong>{{ $t('admin.users.isPremiumUser') }}</strong></IonCol>
+                        <IonCol><strong>{{ $t('admin.users.hubID') }}</strong></IonCol>
+                        <IonCol><strong>{{ $t('admin.users.actions') }}</strong></IonCol>
+                    </IonRow>
+                    <IonRow v-for="user in users" :key="user.id" class="user-row"
+                        :class="{ 'selected-row': selectedUsers.includes(user.id) }">
+                        <IonCol>
+                            <input type="checkbox" :value="user.id" v-model="selectedUsers" />
+                        </IonCol>
+                        <IonCol>{{ user.username }}</IonCol>
+                        <IonCol>{{ user.name }}</IonCol>
+                        <IonCol>{{ user.email }}</IonCol>
+                        <IonCol>{{ user.phone }}</IonCol>
+                        <IonCol>{{ user.userlevel }}</IonCol>
+                        <IonCol><span v-if="user.isPremiumUser">{{ user.isPremiumUser }} {{
+                            parseTime(user.Subscriptions[0].expirationDate) }}</span><span v-else>{{
+                                    user.isPremiumUser
+                                }}</span></IonCol>
+                        <IonCol>{{ user.hubID }}</IonCol>
+                        <IonCol>
+                            <IonButton :id="'action-btn-' + user.id" fill="clear" size="small" class="actions">
+                                <ion-icon name="settings-outline"></ion-icon>
+                            </IonButton>
 
+                            <IonPopover v-if="user.id" :trigger="'action-btn-' + user.id" triggerAction="click">
+                                <IonContent>
+                                    <IonList>
+                                        <IonItem button @click="editUser(user.id)">
+                                            {{ $t('general.edit') }}
+                                        </IonItem>
+                                        <IonItem button @click="openGiftModal(user)">
+                                            {{ $t('premium.giftNow') }}
+                                        </IonItem>
+                                        <IonItem button @click="confirmDelete(user.id)">
+                                            {{ $t('general.delete') }}
+                                        </IonItem>
+                                        <IonItem button v-if="user.isPremiumUser"
+                                            @click="confirmCancleSubscription(user.id)">
+                                            {{ $t('premium.cancelSubscription') }}
+                                        </IonItem>
+                                    </IonList>
+                                </IonContent>
+                            </IonPopover>
+                        </IonCol>
+                    </IonRow>
+                </IonGrid>
+            </div>
             <div class="pagination">
 
                 <IonItem>
@@ -162,7 +172,7 @@ import axios from 'axios';
 import { addIcons } from 'ionicons';
 import { settingsOutline } from 'ionicons/icons';
 addIcons({
-  settingsOutline
+    settingsOutline
 });
 
 export default {
@@ -212,7 +222,9 @@ export default {
                 hubID: ''
             },
             selectedGiftUser: null,
-            isGiftModalOpen: false
+            isGiftModalOpen: false,
+            selectedUsers: [],
+            selectAll: false,
         };
     },
 
@@ -223,6 +235,14 @@ export default {
     },
 
     methods: {
+
+        toggleAll() {
+            if (this.selectAll) {
+                this.selectedUsers = this.users.map(u => u.id);
+            } else {
+                this.selectedUsers = [];
+            }
+        },
         parseTime(dateString) {
             const date = new Date(dateString);
             return this.$t('product.endTime') + " " + date.toLocaleDateString(this.$i18n.locale, {
@@ -243,7 +263,6 @@ export default {
 
             }
         },
-
         changePage(pageNumber) {
             if (this.page !== pageNumber) {
                 this.page = pageNumber;
@@ -251,7 +270,6 @@ export default {
                 this.fetchUsers();
             }
         },
-
         async editUser(userId) {
             try {
                 const url = this.$api_add + `/getuser`;
@@ -263,11 +281,9 @@ export default {
                 this.$refs.toastComponent.showToast(this.$t('admin.users.fetchUserFail'), 2000, 'danger');
             }
         },
-
         closeModal() {
             this.isModalOpen = false;
         },
-
         async saveUser() {
             try {
                 const url = this.$api_add + `/admin/updateuser`;
@@ -287,7 +303,6 @@ export default {
             }
             this.closeModal();
         },
-
         openGiftModal(user) {
             this.selectedGiftUser = user;
             this.isGiftModalOpen = true;
@@ -345,6 +360,9 @@ export default {
             this.page = 1;
             this.$router.replace({ path: '/admin/manage-users', query: { page: this.page, limit: newLimit } });
             this.fetchUsers();
+        },
+        selectedUsers(newVal) {
+            this.selectAll = newVal.length === this.users.length;
         }
     },
 
@@ -355,17 +373,71 @@ export default {
 </script>
 
 <style scoped>
+.table-wrapper {
+    height: 60vh;
+    overflow-x: auto;
+}
+
+ion-grid.margin-style {
+    display: table;
+}
+
 ion-col {
-    padding: 10px;
-    border: 1px solid #ddd;
+    display: table-cell;
+    padding: 6px 10px;
+    width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    border: 1px solid #dddddd;
+    white-space: nowrap;
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
 }
 
-ion-button {
-    margin: 0 5px;
+ion-row {
+    display: table-row;
 }
 
-.margin-style {
-    margin: 0 1rem;
+.actions {
+    --padding-start: 0;
+    --padding-end: 0;
+    --min-width: 0;
+    --color: none;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.user-row:nth-child(even) {
+    background: #f8f9fa;
+}
+
+.user-row:nth-child(odd) {
+    background: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+    .user-row:nth-child(even) {
+        background: #23272b;
+    }
+
+    .user-row:nth-child(odd) {
+        background: #181a1b;
+    }
+
+    ion-col {
+        border-color: #333333;
+    }
+}
+
+.selected-row {
+    background-color: rgba(209, 231, 221, 0.7) !important;
+}
+
+@media (prefers-color-scheme: dark) {
+    .selected-row {
+        background-color: #2d4836 !important;
+    }
 }
 
 .pagination {
@@ -375,8 +447,8 @@ ion-button {
     margin-bottom: 10px;
 }
 
-.selected {
+.pagination .selected {
     --background: green;
+    color: white;
 }
-
 </style>
