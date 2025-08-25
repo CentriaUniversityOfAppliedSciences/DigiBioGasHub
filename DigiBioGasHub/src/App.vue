@@ -10,16 +10,23 @@
 
       <ion-content>
         <ion-list>
-          <ion-item router-link="/home">{{ $t('menu.home') }}</ion-item>
-          <ion-item router-link="/marketplace">{{ $t('menu.marketplace') }}</ion-item>
-          <ion-item router-link="/map">{{ $t('menu.map') }}</ion-item>
-          <ion-item router-link="/articles">{{ $t('menu.articles') }}</ion-item>
-          <ion-item router-link="/chat">{{ $t('menu.chat') }}</ion-item>
-          <ion-item v-if="!LoggedIn" router-link="/login">{{ $t('menu.login') }}</ion-item>
-          <ion-item v-if="LoggedIn && inCompany" router-link="/contracts">{{ $t('menu.mycontracts') }}</ion-item>
-          <ion-item v-if="LoggedIn" router-link="/company">{{ $t('menu.mycompany') }}</ion-item>
-          <ion-item v-if="LoggedIn && inCompany" router-link="/companyanalytics">{{ $t('company.reports') }}</ion-item>
-          <ion-item v-if="LoggedIn" router-link="/profile">{{ $t('menu.profile') }}</ion-item>
+          <ion-item router-link="/home" @click="closeMenu">{{ $t('menu.home') }}</ion-item>
+          <ion-item router-link="/marketplace" @click="closeMenu">{{ $t('menu.marketplace')
+            }}</ion-item>
+          <ion-item router-link="/map" @click="closeMenu">{{ $t('menu.map') }}</ion-item>
+          <ion-item router-link="/articles" @click="closeMenu">{{ $t('menu.articles')
+            }}</ion-item>
+          <ion-item router-link="/chat" @click="closeMenu">{{ $t('menu.chat') }}</ion-item>
+          <ion-item v-if="!LoggedIn" router-link="/login" @click="closeMenu">{{ $t('menu.login')
+            }}</ion-item>
+          <ion-item v-if="LoggedIn && inCompany" router-link="/contracts" @click="closeMenu">{{
+            $t('menu.mycontracts') }}</ion-item>
+          <ion-item v-if="LoggedIn" router-link="/company" @click="closeMenu">{{
+            $t('menu.mycompany') }}</ion-item>
+          <ion-item v-if="LoggedIn && inCompany" router-link="/companyanalytics" @click="closeMenu">{{
+            $t('company.reports') }}</ion-item>
+          <ion-item v-if="LoggedIn" router-link="/profile" @click="closeMenu">{{
+            $t('menu.profile') }}</ion-item>
           <ion-item v-if="LoggedIn">
             <LogoutComponent />
           </ion-item>
@@ -73,6 +80,12 @@ export default defineComponent({
         return JSON.parse(atob(token.split('.')[1]));
       } catch (e) {
         return null;
+      }
+    },
+    async closeMenu() {
+      const isOpen = await menuController.isOpen('main-menu');
+      if (isOpen) {
+        await menuController.close('main-menu');
       }
     },
     checkCompany() {
