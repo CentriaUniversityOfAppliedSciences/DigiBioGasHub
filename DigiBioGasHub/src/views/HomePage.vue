@@ -1,9 +1,9 @@
 <template>
   <ion-page>
     <ion-header :translucent="true">
-      <ion-toolbar>
+  
         <NavBarComponent />
-      </ion-toolbar>
+    
     </ion-header>
 
     <ion-content :fullscreen="true">
