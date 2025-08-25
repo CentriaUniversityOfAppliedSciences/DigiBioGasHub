@@ -15,7 +15,7 @@
                 </ion-col>
 
                 <ion-col size="auto" class="desktop-only">
-                    <ion-button color="success" @click="openFeedback">
+                    <ion-button color="success" shape="round"  fill="outline" size="small" @click="openFeedback">
                         <span>{{ $t('menu.giveFeedback') }}</span>
                         <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
                     </ion-button>
