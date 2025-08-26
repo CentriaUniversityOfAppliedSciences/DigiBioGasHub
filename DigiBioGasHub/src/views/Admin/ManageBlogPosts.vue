@@ -4,141 +4,61 @@
     <ion-content :fullscreen="true">
       <ion-grid>
         <ion-row>
-          <ion-col>
-            <ion-button @click="addPost">{{ $t('admin.blogpost.addPost') }}</ion-button>
-            <ion-button @click="addFromFile">{{ $t('admin.blogpost.addFromFile') }}</ion-button>
+          <ion-col size="3" class="sidebar">
+            <ion-list>
+              <ion-item button @click="activeTab = 'published'" :class="{ active: activeTab === 'published' }">
+                {{ $t('admin.blogpost.published') }}
+              </ion-item>
+              <ion-item button @click="activeTab = 'unpublished'" :class="{ active: activeTab === 'unpublished' }">
+                {{ $t('admin.blogpost.unpublished') }}
+              </ion-item>
+              <ion-item button @click="activeTab = 'files'" :class="{ active: activeTab === 'files' }">
+                {{ $t('admin.blogpost.filePosts') }}
+              </ion-item>
+              <ion-item button @click="activeTab = 'rejected'" :class="{ active: activeTab === 'rejected' }">
+                {{ $t('admin.blogpost.rejected') }}
+              </ion-item>
+            </ion-list>
           </ion-col>
-        </ion-row>
-        <!-- Published Section -->
-        <ion-row>
-          <ion-col>
-            <h2>{{ $t('admin.blogpost.published') }}</h2>
-            <ion-row>
-              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in publishedPosts" :key="post.postID">
-                <ion-card class="blog-card">
-                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
-                  <ion-card-header>
-                    <ion-card-title>{{ post.title }}</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <div class="button-group">
-                      <ion-button @click="confirmUnpublish(post.postID)" expand="block">{{
-                        $t('admin.blogpost.unpublish') }}</ion-button>
-                      <ion-button @click="preview(post)">
-                        {{ $t('general.preview') }}
-                      </ion-button>
-                      <ion-button @click="confirmReject(post.postID)" color="danger" expand="block">{{
-                        $t('admin.blogpost.rejectPost') }}</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
-                        $t('general.delete') }}</ion-button>
-                    </div>
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
 
-        <!-- Unpublished Section -->
-        <ion-row>
-          <ion-col>
-            <h2>{{ $t('admin.blogpost.unpublished') }}</h2>
-            <ion-row>
-              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in unpublishedPosts"
-                :key="post.postID">
-                <ion-card class="blog-card">
-                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
-                  <ion-card-header>
-                    <ion-card-title>{{ post.title }}</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <div class="button-group">
-                      <ion-button @click="confirmPublish(post.postID)" expand="block">{{ $t('admin.blogpost.publish')
-                        }}</ion-button>
-                      <ion-button @click="preview(post)">
-                        {{ $t('general.preview') }}
-                      </ion-button>
-                      <ion-button @click="confirmReject(post.postID)" color="danger" expand="block">{{
-                        $t('admin.blogpost.rejectPost') }}</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
-                        $t('general.delete') }}</ion-button>
-                    </div>
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row>
+          <ion-col size="9">
 
-        <!-- Draft Section -->
-        <!-- <ion-row>
-          <ion-col>
-            <h2>{{ $t('admin.blogpost.drafts') }}</h2>
-            <ion-row>
-              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in draftPosts" :key="post.postID">
-                <ion-card class="blog-card">
-                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
-                  <ion-card-header>
-                    <ion-card-title>{{ post.title }}</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <ion-button :id="'manage-btn-' + post.postID" expand="block">
-                      {{ $t('general.manage') }}
-                    </ion-button>
+            <h2>{{ sectionTitle }}</h2>
 
-                    <ion-popover :key="post.postID" :trigger="'manage-btn-' + post.postID" triggerAction="click"
-                      size="auto" :dismiss-on-select="true" :show-backdrop="false">
-                      <ion-content class="ion-padding">
-                        <ion-list>
-                          <ion-item button @click="confirmPublish(post.postID)">
-                            {{ $t('admin.blogpost.publish') }}
-                          </ion-item>
-                          <ion-item button @click="confirmUnpublish(post.postID)">
-                            {{ $t('admin.blogpost.unpublish') }}
-                          </ion-item>
-                          <ion-item button @click="editPost(post.postID, post.title)">
-                            {{ $t('admin.blogpost.reviewEdit') }}
-                          </ion-item>
-                          <ion-item button @click="preview(post)">
-                            {{ $t('general.preview') }}
-                          </ion-item>
-                          <ion-item button @click="confirmDelete(post.postID)">
-                            {{ $t('general.delete') }}
-                          </ion-item>
-                        </ion-list>
-                      </ion-content>
-                    </ion-popover>
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
-          </ion-col>
-        </ion-row> -->
-        <!-- File Posts Section -->
-        <ion-row>
-          <ion-col>
-            <h2>{{ $t('admin.blogpost.filePosts') }}</h2>
-            <ion-row>
-              <ion-col size="12" size-sm="6" size-md="4" size-lg="3" v-for="post in filePosts" :key="post.postID">
-                <ion-card class="blog-card">
-                  <ion-img class="blog-card-img" :src="post.image" alt="Post Image"></ion-img>
-                  <ion-card-header>
-                    <ion-card-title>{{ post.title }}</ion-card-title>
-                  </ion-card-header>
-                  <ion-card-content>
-                    <div class="button-group">
-                      <ion-button @click="preview(post)">
-                        {{ $t('general.preview') }}
-                      </ion-button>
-                      <ion-button @click="confirmReject(post.postID)" color="danger" expand="block">{{
-                        $t('admin.blogpost.rejectPost') }}</ion-button>
-                      <ion-button @click="confirmDelete(post.postID)" color="danger" expand="block">{{
-                        $t('general.delete') }}</ion-button>
-                    </div>
-                  </ion-card-content>
-                </ion-card>
-              </ion-col>
-            </ion-row>
+            <ion-list>
+              <ion-item v-for="post in filteredPosts" :key="post.postID" lines="full">
+                <ion-label>
+                  <h3>{{ post.title }}</h3>
+                  <p>{{ post.author }} • {{ new Date(post.createdAt).toLocaleDateString("en-GB", {
+                    day: "2-digit",
+                    month: "2-digit", year: "numeric"}) }}</p>
+                </ion-label>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+
+                  <ion-button @click="preview(post)">
+                    {{ $t('general.preview') }}
+                  </ion-button>
+
+                  <ion-button v-if="activeTab === 'published'" @click="confirmUnpublish(post.postID)">
+                    {{ $t('admin.blogpost.unpublish') }}
+                  </ion-button>
+
+                  <ion-button v-if="activeTab === 'unpublished'" @click="confirmPublish(post.postID)">
+                    {{ $t('admin.blogpost.publish') }}
+                  </ion-button>
+
+                  <ion-button v-if="activeTab === 'unpublished'" color="warning" @click="confirmReject(post.postID)">
+                    {{ $t('admin.blogpost.rejectPost') }}
+                  </ion-button>
+
+                  <ion-button color="danger" @click="confirmDelete(post.postID)">
+                    {{ $t('general.delete') }}
+                  </ion-button>
+                </div>
+              </ion-item>
+            </ion-list>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -266,9 +186,10 @@ export default defineComponent({
   },
   data() {
     return {
+      activeTab: 'published',
       publishedPosts: [],
       unpublishedPosts: [],
-      draftPosts: [],
+      rejectedPosts: [],
       filePosts: [],
       pdfFileImage64: '',
       showDeleteAlert: false,
@@ -277,6 +198,24 @@ export default defineComponent({
       showRejectAlert: false,
       postIdToDelete: null
     };
+  },
+  computed: {
+    filteredPosts() {
+      if (this.activeTab === "published") return this.publishedPosts;
+      if (this.activeTab === "unpublished") return this.unpublishedPosts;
+      if (this.activeTab === "files") return this.filePosts;
+      if (this.activeTab === "rejected") return this.rejectedPosts;
+      return [];
+    },
+    sectionTitle() {
+      switch (this.activeTab) {
+        case "published": return this.$t("admin.blogpost.published");
+        case "unpublished": return this.$t("admin.blogpost.unpublished");
+        case "files": return this.$t("admin.blogpost.filePosts");
+        case "rejected": return this.$t("admin.blogpost.rejected");
+        default: return "";
+      }
+    }
   },
   methods: {
 
@@ -393,7 +332,7 @@ export default defineComponent({
           const posts = response.data.message;
           this.publishedPosts = posts.filter(post => post.blogPostType === 1);
           this.unpublishedPosts = posts.filter(post => post.blogPostType === 0);
-          this.draftPosts = posts.filter(post => post.blogPostType === 2);
+          this.rejectedPosts = posts.filter(post => post.blogPostType === 4);
           this.filePosts = posts.filter(post => post.blogPostType === 3);
         }
       } catch (error) {
@@ -423,32 +362,25 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.blog-card {
-  margin: 10px;
+.sidebar {
+  border-right: 1px solid #ddd;
+  min-height: 100vh;
 }
 
-
-.blog-card-img {
-  margin: auto;
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
+.sidebar .active {
+  font-weight: bold;
+  background: #f0f0f0;
+  border-radius: 6px;
 }
 
-ion-card-content {
+.header-actions {
   display: flex;
-  flex-direction: column;
   gap: 10px;
+  margin-bottom: 1rem;
 }
 
-.button-group {
+.action-buttons {
   display: flex;
-  margin-top: 2rem;
-  justify-content: space-between;
-  gap: 5px;
-}
-
-ion-button {
-  flex: 1;
+  gap: 8px;
 }
 </style>

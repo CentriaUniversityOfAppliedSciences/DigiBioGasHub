@@ -533,6 +533,7 @@
             "blogs": "Blog posts",
             "published":"Published",
             "unpublished": "Unpublished",
+            "rejected": "Rejected",
             "drafts": "Drafts",
             "rejectPost": "Reject",
             "publish": "publish",
