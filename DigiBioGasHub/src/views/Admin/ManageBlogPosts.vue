@@ -7,15 +7,19 @@
           <ion-col size="3" class="sidebar">
             <ion-list>
               <ion-item button @click="activeTab = 'published'" :class="{ active: activeTab === 'published' }">
+                <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
                 {{ $t('admin.blogpost.published') }}
               </ion-item>
               <ion-item button @click="activeTab = 'unpublished'" :class="{ active: activeTab === 'unpublished' }">
+                <ion-icon name="hourglass-outline" slot="start"></ion-icon>
                 {{ $t('admin.blogpost.unpublished') }}
               </ion-item>
               <ion-item button @click="activeTab = 'files'" :class="{ active: activeTab === 'files' }">
+                <ion-icon name="document" slot="start" color="primary"></ion-icon>
                 {{ $t('admin.blogpost.filePosts') }}
               </ion-item>
               <ion-item button @click="activeTab = 'rejected'" :class="{ active: activeTab === 'rejected' }">
+                <ion-icon name="close-circle" slot="start" color="danger"></ion-icon>
                 {{ $t('admin.blogpost.rejected') }}
               </ion-item>
             </ion-list>
@@ -59,6 +63,9 @@
                 </div>
               </ion-item>
             </ion-list>
+            <div v-if="filteredPosts.length === 0" class="no-posts-message">
+              {{ $t('admin.blogpost.noPostsAvailable') }}
+            </div>
           </ion-col>
         </ion-row>
       </ion-grid>
@@ -149,7 +156,7 @@
 
 <script>
 
-import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonImg, IonAlert, IonPopover, IonList, IonItem, IonLabel, IonSelect, IonSelectOption } from '@ionic/vue';
+import { IonContent, IonPage, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonButton, IonImg, IonAlert, IonPopover, IonList, IonItem, IonLabel, IonSelect, IonSelectOption, IonIcon } from '@ionic/vue';
 import axios from 'axios';
 import { defineComponent } from 'vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
@@ -157,6 +164,9 @@ import FooterComponent from '../../components/FooterComponent.vue';
 import ToastComponent from '../../components/ToastComponent.vue';
 import EditBlogPostPage from './EditBlogPostPage.vue';
 import slugify from 'slugify';
+import { addIcons } from 'ionicons'
+import { checkmarkCircle, closeCircle, create, document, hourglassOutline } from 'ionicons/icons'
+addIcons ({checkmarkCircle, hourglassOutline, closeCircle, create, document})
 
 export default defineComponent({
   name: 'ManageBlogPosts',
@@ -175,6 +185,7 @@ export default defineComponent({
     IonAlert,
     IonList,
     IonItem,
+    IonIcon,
     IonPopover,
     IonLabel,
     IonSelect,
@@ -377,6 +388,13 @@ export default defineComponent({
   display: flex;
   gap: 10px;
   margin-bottom: 1rem;
+}
+
+.no-posts-message {
+  text-align: center;
+  color: #888;
+  margin: 2rem 0;
+  font-size: 1.1rem;
 }
 
 .action-buttons {
