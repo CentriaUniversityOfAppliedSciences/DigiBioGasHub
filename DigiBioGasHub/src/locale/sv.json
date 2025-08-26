@@ -47,7 +47,8 @@
         "yes": "Ja",
         "giveFeedback": "Ge feedback",
         "chat": "Chat",
-        "close": "Stäng"
+        "close": "Stäng",
+        "title": "Meny"
     },
     "general":{
         "welcome": "Välkommen till DigiBioGasHub",
@@ -530,9 +531,9 @@
                 "companyAdmin": "Företagsadministratör"
             }
         },
-        "blogpost":{
+        "blogpost": {
             "blogs": "Inlägg",
-            "published":"Publicerad",
+            "published": "Publicerad",
             "unpublished": "Opublicerad",
             "drafts": "Utkast",
             "publish": "publicera",
@@ -543,7 +544,7 @@
             "confirmPublishMessage": "Är du säker på att du vill publicera denna artikel?",
             "confirmUnpublishMessage": "Är du säker på att du vill ta bort publiceringen av denna artikel?",
             "confirmDeleteMessage": "Är du säker på att du vill ta bort denna artikel permanent? Denna åtgärd kan inte ångras!",
-            "publishSuccess":"Artikeln har publicerats!",
+            "publishSuccess": "Artikeln har publicerats!",
             "unpublishSuccess": "Artikeln har avpublicerats!",
             "deleteSuccess": "Artikeln har tagits bort!",
             "publishFail": "Publicering misslyckades!",
@@ -554,7 +555,12 @@
             "addPost": "Lägg till artikel",
             "addFromFile": "Lägg till artikel från pdf-fil",
             "title": "Titel",
-            "filePosts": "Artiklar från PDF"
+            "filePosts": "Artiklar från PDF",
+            "confirmReject": "Vill du verkligen avslå detta blogginlägg?",
+            "confirmRejectMessage": "Om du fortsätter kommer inlägget inte publiceras.",
+            "rejectPost": "Avslå inlägg",
+            "rejected": "Avslaget",
+            "noPostsAvailable": "Inga blogginlägg tillgängliga."
         },
         "users": {
             "title": "Användare",

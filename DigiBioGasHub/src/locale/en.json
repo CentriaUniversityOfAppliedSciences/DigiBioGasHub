@@ -533,6 +533,7 @@
             "blogs": "Blog posts",
             "published":"Published",
             "unpublished": "Unpublished",
+            "rejected": "Rejected",
             "drafts": "Drafts",
             "rejectPost": "Reject",
             "publish": "publish",
@@ -556,7 +557,8 @@
             "addPost": "Add blog post",
             "addFromFile": "Add blog post from pdf-file",
             "title": "Title",
-            "filePosts": "Articles from PDF"
+            "filePosts": "Articles from PDF",
+            "noPostsAvailable": "No posts available"
         },
         "users": {
             "title": "Users",
