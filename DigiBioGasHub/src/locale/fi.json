@@ -47,7 +47,8 @@
         "yes":"Kyllä",
         "giveFeedback": "Anna palautetta",
         "chat":"Keskustelu",
-        "close":"Sulje"
+        "close":"Sulje",
+        "title": "Valikko"
     },
     "general":{
         "welcome": "Tervetuloa DigiBioGasHubiin",
@@ -554,7 +555,12 @@
             "addPost": "Lisää artikkeli",
             "addFromFile": "Lisää artikkeli pdf-tiedostosta",
             "title": "Otsikko",
-            "filePosts": "Tiedostosta lisätyt artikkelit"
+            "filePosts": "Tiedostosta lisätyt artikkelit",
+            "confirmReject": "Haluatko varmasti hylätä tämän blogikirjoituksen?",
+            "confirmRejectMessage": "Jos jatkat, kirjoitusta ei julkaista.",
+            "rejectPost": "Hylkää kirjoitus",
+            "rejected": "Hylätty",
+            "noPostsAvailable": "Ei saatavilla olevia blogikirjoituksia."
         },
         "users": {
             "title": "Käyttäjät",
