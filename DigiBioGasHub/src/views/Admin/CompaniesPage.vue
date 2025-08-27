@@ -11,14 +11,17 @@
                             <ion-item><ion-title>{{ $t('admin.company.title') }}</ion-title></ion-item>
                             <ion-item button :class="{ active: selectedSegment === 'verified' }"
                                 @click="selectedSegment = 'verified'">
+                                <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
                                 {{ $t('admin.company.verified') }}
                             </ion-item>
                             <ion-item button :class="{ active: selectedSegment === 'unverified' }"
                                 @click="selectedSegment = 'unverified'">
+                                <ion-icon name="alert-circle-outline" slot="start" color="warning"></ion-icon>
                                 {{ $t('admin.company.unverified') }}
                             </ion-item>
                             <ion-item button :class="{ active: selectedSegment === 'disabled' }"
                                 @click="selectedSegment = 'disabled'">
+                                 <ion-icon name="eye-off-outline" slot="start"></ion-icon>
                                 {{ $t('admin.company.disabled') }}
                             </ion-item>
                         </ion-list>
@@ -161,12 +164,15 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonGrid, IonRow, IonCol, IonInput, IonSearchbar } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonGrid, IonRow, IonCol, IonInput, IonSearchbar, IonIcon } from '@ionic/vue';
 import axios from 'axios';
 import ToastComponent from '../../components/ToastComponent.vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import { defineComponent } from 'vue';
+import { addIcons } from 'ionicons'
+import { alertCircleOutline, checkmarkCircle, eyeOffOutline } from 'ionicons/icons'
+addIcons ({checkmarkCircle, alertCircleOutline, eyeOffOutline,})
 
 export default defineComponent({
     name: 'CompaniesPage',
@@ -188,6 +194,7 @@ export default defineComponent({
         IonGrid,
         IonRow,
         IonCol,
+        IonIcon,
         IonSearchbar,
         ToastComponent,
         NavBarComponent,
