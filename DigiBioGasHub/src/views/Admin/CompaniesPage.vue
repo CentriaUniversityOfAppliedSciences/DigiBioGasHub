@@ -2,30 +2,50 @@
     <ion-page>
         <ion-header>
             <NavBarComponent />
-            <ion-toolbar>
-                <ion-title>{{ $t('admin.company.title') }}</ion-title>
-            </ion-toolbar>
         </ion-header>
-        <ion-content :fullscreen="true">
-            <ion-segment v-model="selectedSegment">
-                <ion-segment-button value="verified">{{ $t('admin.company.verified') }}</ion-segment-button>
-                <ion-segment-button value="unverified">{{ $t('admin.company.unverified') }}</ion-segment-button>
-                <ion-segment-button value="disabled">{{ $t('admin.company.disabled') }}</ion-segment-button>
-            </ion-segment>
-            
-            <div v-if="filteredCompanies.length === 0" style="text-align:center; margin-top:2em;">
-                {{ $t('admin.company.noCompanies') }}
-            </div>
+        <ion-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col size="3" class="sidebar">
+                        <ion-list>
+                            <ion-item><ion-title>{{ $t('admin.company.title') }}</ion-title></ion-item>
+                            <ion-item button :class="{ active: selectedSegment === 'verified' }"
+                                @click="selectedSegment = 'verified'">
+                                {{ $t('admin.company.verified') }}
+                            </ion-item>
+                            <ion-item button :class="{ active: selectedSegment === 'unverified' }"
+                                @click="selectedSegment = 'unverified'">
+                                {{ $t('admin.company.unverified') }}
+                            </ion-item>
+                            <ion-item button :class="{ active: selectedSegment === 'disabled' }"
+                                @click="selectedSegment = 'disabled'">
+                                {{ $t('admin.company.disabled') }}
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
 
-            <ion-list v-else>
-                <ion-item v-for="company in filteredCompanies" :key="company.id" @click="openCompanyModal(company)"
-                    style="cursor: pointer;">
-                    <ion-label>
-                        <h2>{{ company.name }}</h2>
-                        <p>{{ company.city }}</p>
-                    </ion-label>
-                </ion-item>
-            </ion-list>
+                    <ion-col size="9" class="content-area">
+                        <ion-searchbar v-model="searchQuery" :placeholder="$t('general.search')"
+                            class="custom-searchbar" show-clear-button="always" />
+
+                        <div v-if="filteredCompanies.length === 0" style="text-align:center; margin-top:2em;">
+                            {{ $t('admin.company.noCompanies') }}
+                        </div>
+
+                        <ion-list v-else>
+                            <ion-item v-for="company in filteredCompanies" :key="company.id"
+                                @click="openCompanyModal(company)" style="cursor: pointer;">
+                                <ion-label>
+                                    <h2>{{ company.name }}</h2>
+                                    <p>{{ company.city }}</p>
+                                </ion-label>
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+
+            <FooterComponent />
         </ion-content>
 
         <ion-modal :is-open="isReviewOpen" @didDismiss="isReviewOpen = false">
@@ -131,17 +151,17 @@
                     </ion-item>
                 </ion-list>
                 <ion-button expand="block" @click="saveCompanyChanges" :disabled="!isChanged">{{ $t('general.save')
-                    }}</ion-button>
+                }}</ion-button>
             </ion-content>
+
         </ion-modal>
 
         <ToastComponent ref="toastComponent" />
-        <FooterComponent />
     </ion-page>
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonGrid, IonRow, IonCol, IonInput } from '@ionic/vue';
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonSegment, IonSegmentButton, IonList, IonItem, IonLabel, IonButtons, IonButton, IonModal, alertController, IonGrid, IonRow, IonCol, IonInput, IonSearchbar } from '@ionic/vue';
 import axios from 'axios';
 import ToastComponent from '../../components/ToastComponent.vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
@@ -168,6 +188,7 @@ export default defineComponent({
         IonGrid,
         IonRow,
         IonCol,
+        IonSearchbar,
         ToastComponent,
         NavBarComponent,
         FooterComponent
@@ -265,7 +286,7 @@ export default defineComponent({
             try {
                 const url = this.$api_add + "/admin/deletecompany";
 
-                const response = await axios.post(url, {  id: id } ,{ headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+                const response = await axios.post(url, { id: id }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
                 if (response.data.type === "result" && response.data.result === "ok") {
                     this.$refs.toastComponent.showToast(this.$t('company.deleteCompanySuccess'), 2000, 'success');
                     this.companies = this.companies.filter(company => company.id !== id);
@@ -314,3 +335,41 @@ export default defineComponent({
     }
 });
 </script>
+
+<style scoped>
+ion-title {
+    padding-inline: 0;
+}
+
+.sidebar {
+    position: sticky;
+    top: 0;
+    height: calc(100vh - 206px);
+    border-right: 1px solid #dddddd;
+}
+
+
+.content-area {
+    padding-left: 1em;
+}
+
+.sidebar .active {
+    font-weight: bold;
+    background: #e0e0e0;
+    border-radius: 8px;
+}
+
+.list-toolbar {
+    border-bottom: 1px solid #ddd;
+    padding: 0 8px;
+}
+
+.custom-searchbar {
+    max-width: 480px;
+    border-radius: 20px;
+    --box-shadow: none;
+    padding: 2px 6px;
+    border: 1px solid #ada6a6;
+    margin: 1em 0;
+}
+</style>
