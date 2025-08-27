@@ -37,7 +37,7 @@
 
                         <ion-list v-else>
                             <ion-item v-for="company in filteredCompanies" :key="company.id"
-                                @click="openCompanyModal(company)" style="cursor: pointer;">
+                                @click="openCompanyModal(company)" class="company-list" style="cursor: pointer;">
                                 <ion-label>
                                     <h2>{{ company.name }}</h2>
                                     <p>{{ company.city }}</p>
@@ -379,4 +379,10 @@ ion-title {
     border: 1px solid #ada6a6;
     margin: 1em 0;
 }
+
+.company-list:hover {
+    --background: #8080801e !important;
+    transition: background 0.2s;
+}
+
 </style>
