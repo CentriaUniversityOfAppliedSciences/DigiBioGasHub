@@ -473,8 +473,11 @@ export default defineComponent({
 
 <style scoped>
 .company-card {
-    max-width: 400px;
+    max-width: 600px;
     margin: 0.1rem;
     text-align: center;
+    word-break: break-word;
+    white-space: normal;
+    overflow-y: auto;
 }
 </style>

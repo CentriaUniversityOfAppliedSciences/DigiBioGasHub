@@ -211,24 +211,18 @@ export default defineComponent({
     display: grid;
     gap: 16px;
     margin: 1rem;
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 
-@media (min-width: 480px) {
+@media (max-width: 1280px) {
     .main-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 780px) {
     .main-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .main-grid {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(1, 1fr);
     }
 }
 
