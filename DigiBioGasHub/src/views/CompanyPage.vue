@@ -2,13 +2,19 @@
     <ion-page>
         <NavBarComponent />
         <ion-content>
-
             <ion-grid>
                 <ion-row>
                     <ion-col size="3" class="sidebar">
                         <ion-list>
                             <ion-item>
                                 <ion-title>{{ $t("general.companies") }}</ion-title>
+                            </ion-item>
+                            <ion-item>
+                                <ion-button expand="block" fill="solid" shape="round" color="primary"
+                                    @click="toggleAddCompany(true)">
+                                    <ion-icon name="add-outline"></ion-icon>
+                                    {{ $t("general.add_company") }}
+                                </ion-button>
                             </ion-item>
                             <ion-item button :class="{ active: selectedSegment === 'verified' }"
                                 @click="selectedSegment = 'verified'">
@@ -24,12 +30,6 @@
                                 @click="selectedSegment = 'not verified'">
                                 <ion-icon name="eye-off-outline" slot="start"></ion-icon>
                                 {{ $t("admin.company.notVerified") }}
-                            </ion-item>
-                            <ion-item>
-                                <ion-button expand="block" fill="solid" shape="round" color="primary"
-                                    @click="toggleAddCompany(true)">
-                                    {{ $t("general.add_company") }}
-                                </ion-button>
                             </ion-item>
                         </ion-list>
                     </ion-col>
@@ -99,8 +99,8 @@ import FooterComponent from '../components/FooterComponent.vue';
 import AddCompanyComponent from '../components/AddCompanyComponent.vue';
 import axios from 'axios';
 import { addIcons } from 'ionicons'
-import { alertCircleOutline, checkmarkCircle, eyeOffOutline } from 'ionicons/icons'
-addIcons({ checkmarkCircle, alertCircleOutline, eyeOffOutline })
+import { addOutline, alertCircleOutline, checkmarkCircle, eyeOffOutline } from 'ionicons/icons'
+addIcons({ addOutline, checkmarkCircle, alertCircleOutline, eyeOffOutline })
 
 export default defineComponent({
     name: 'CompanyPage',
