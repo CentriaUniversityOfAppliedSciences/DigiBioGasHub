@@ -5,6 +5,11 @@
       <ion-header>
         <ion-toolbar>
           <ion-title>{{ $t('menu.title') }}</ion-title>
+             <ion-buttons slot="end">
+            <ion-button @click="closeMenu">
+              <ion-icon :icon="close" />
+            </ion-button>
+          </ion-buttons>
         </ion-toolbar>
       </ion-header>
 
@@ -36,6 +41,12 @@
           <ion-item>
             <LocaleComponent />
           </ion-item>
+          <ion-item>
+            <ion-button color="success" shape="round" fill="outline" size="small" @click="openFeedback">
+              <span>{{ $t('menu.giveFeedback') }}</span>
+              <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+            </ion-button>
+          </ion-item>
         </ion-list>
       </ion-content>
     </ion-menu>
@@ -45,11 +56,14 @@
 </template>
 
 <script>
-import { IonApp, IonContent, IonHeader, IonItem, IonList, IonMenu, IonRouterOutlet, IonTitle, IonToolbar, menuController } from '@ionic/vue';
+import { IonApp, IonButton, IonButtons, IonContent, IonHeader, IonIcon, IonItem, IonList, IonMenu, IonRouterOutlet, IonTitle, IonToolbar, menuController } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import LogoutComponent from './components/LogoutComponent.vue';
 import AdminComponent from './components/AdminComponent.vue';
 import LocaleComponent from './components/LocaleComponent.vue';
+import { close, chevronForwardOutline } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+addIcons({ close, chevronForwardOutline });
 export default defineComponent({
   name: 'App',
   components: {
@@ -62,6 +76,9 @@ export default defineComponent({
     IonContent,
     IonList,
     IonItem,
+    IonButton,
+    IonButtons,
+    IonIcon,
     LogoutComponent,
     AdminComponent,
     LocaleComponent,
@@ -72,6 +89,7 @@ export default defineComponent({
       LoggedIn: false,
       inCompany: false,
       Admin: false,
+      close
     };
   },
   methods: {
@@ -127,6 +145,9 @@ export default defineComponent({
       } else {
         menuController.enable(true, 'main-menu');
       }
+    },
+    openFeedback() {
+      window.open('https://link.webropolsurveys.com/S/941E350F901601ED', '_blank');
     }
   },
   mounted() {

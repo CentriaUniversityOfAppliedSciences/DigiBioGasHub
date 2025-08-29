@@ -26,6 +26,7 @@
         <!-- Desktop Nav Links -->
         <ion-toolbar class="desktop-only">
             <ion-buttons>
+                <NotificationComponent v-if="LoggedIn" />
                 <ion-button router-link="/home"  :class="{ 'active-menu': isActiveRoute('/home') }">{{ $t('menu.home') }}</ion-button>
                 <ion-button router-link="/marketplace"  :class="{ 'active-menu': isActiveRoute('/marketplace') }">{{ $t('menu.marketplace') }}</ion-button>
                 <ion-button router-link="/map" :class="{ 'active-menu': isActiveRoute('/map') }">{{ $t('menu.map') }}</ion-button>
