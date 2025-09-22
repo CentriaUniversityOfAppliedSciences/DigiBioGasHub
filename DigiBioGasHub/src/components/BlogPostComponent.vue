@@ -31,7 +31,7 @@ export default defineComponent({
             iframeSrc: null,
             linkPDF: null,
             linkPages: null,
-            watermarkText: 'DigiBiogasHub',
+            watermarkText: 'DigiBiogasHubs',
             watermarkOptions: {
                 columns: 6,
                 rows: 6,

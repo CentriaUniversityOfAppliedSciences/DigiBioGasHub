@@ -470,7 +470,8 @@
             "2": "Yrityksen ylläpitäjä"
         },
         "reports":"Raportit",
-        "sales":"Myynti"
+        "sales":"Myynti",
+        "contracts":"Sopimukset"
     },
     "posts": {
         "blogsManagement": "Blogien hallinta",

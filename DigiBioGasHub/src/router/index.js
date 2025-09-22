@@ -29,6 +29,7 @@ import LoginPage from '../views/LoginPage.vue';
 import JoinCompanyPage from '../views/JoinCompanyPage.vue';
 import ContractHistoryPage from '../views/Company/ContractHistoryPage.vue';
 import ContractsPage from '../views/ContractsPage.vue';
+import CompanyContractsPage from '../views/Company/ContractsPage.vue';
 import UserSettingsPage from '../views/SettingsPage.vue';
 import LandingPage from '../views/LandingPage.vue';
 import LogisticsRegisterComponent from '../components/LogisticsRegisterComponent.vue';
@@ -265,6 +266,25 @@ const routes = [
       }
     },
     component: CompanyPage,
+    meta: { requiresAuth: true }
+  },
+  {
+    path: '/company/bought/:companyID',
+    name: 'CompanyBought',
+    beforeEnter: (to, from, next) => {
+      let token = localStorage.getItem('token')
+      if (token) {
+        if (jwtDecode(token).userlevel >= 1) {
+          next()
+        }
+        else {
+          next('/home')
+        }
+      } else {
+        next('/home')
+      }
+    },
+    component: CompanyContractsPage,
     meta: { requiresAuth: true }
   },
   {

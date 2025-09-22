@@ -32,10 +32,7 @@
 <script>
 import { IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonItem, IonList, IonLabel, IonInput, IonButton } from '@ionic/vue';
 import { defineComponent } from 'vue';
-import axios from 'axios';
-import { get } from 'ol/proj';
-export default {
-    
+export default defineComponent({
     name: 'ContractListing',
     components: {
         IonCard,
@@ -75,5 +72,5 @@ export default {
             }
         },
     }
-}
+});
 </script>

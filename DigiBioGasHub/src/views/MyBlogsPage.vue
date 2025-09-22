@@ -185,8 +185,30 @@
                 }
             ]"></ion-alert>
 
-        <ion-alert :is-open="showAddFromFileAlert" :buttons="addfilebuttons" :inputs="addfileinputs"></ion-alert>
-
+        <!--<ion-alert :is-open="showAddFromFileAlert" :buttons="addfilebuttons" :inputs="addfileinputs"></ion-alert>-->
+        <ion-modal :is-open="showAddFromFileAlert" @did-dismiss="showAddFromFileAlert = false">
+            <template #default>
+                <div class="modal-content">
+                    <h2>{{ $t('posts.uploadPdf') }}</h2>
+                    <ion-item>
+                        <ion-label position="stacked">{{ $t('admin.blogpost.title') }}</ion-label>
+                        <ion-input v-model="modalForm.title" type="text"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">{{ $t('general.image') }}</ion-label>
+                        <input type="file" accept="image/*" @change="onImageChange" />
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">{{ $t('admin.blogpost.addFromFile') }}</ion-label>
+                        <input type="file" accept=".pdf" @change="onFileChange" />
+                    </ion-item>
+                    <div class="modal-actions">
+                        <ion-button color="medium" @click="showAddFromFileAlert = false">{{ $t('general.cancel') }}</ion-button>
+                        <ion-button color="primary" @click="submitModalUpload">{{ $t('general.upload') }}</ion-button>
+                    </div>
+                </div>
+            </template>
+        </ion-modal>
         <ToastComponent ref="toastComponent" />
     </ion-page>
 </template>
@@ -207,7 +229,11 @@ import {
     IonTitle,
     IonToolbar,
     IonSpinner,
-    IonAlert
+    IonAlert,
+    IonModal,
+    IonLabel,
+    IonInput,
+
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import axios from 'axios'
@@ -241,7 +267,10 @@ export default defineComponent({
         BlogListingComponent,
         NavBarComponent,
         ToastComponent,
-        FooterComponent
+        FooterComponent,
+        IonModal,
+        IonLabel,
+        IonInput
     },
     data() {
         return {
@@ -254,7 +283,7 @@ export default defineComponent({
             showUnpublishAlert: false,
             postIdToDelete: null,
             showAddFromFileAlert: false,
-            addfilebuttons: [
+            /*addfilebuttons: [
                 {
                     text: this.$t('general.cancel'),
                     role: 'cancel',
@@ -264,7 +293,7 @@ export default defineComponent({
                 },
                 {
                     text: this.$t('general.upload'),
-                    handler: () => {
+                    handler: (data) => {
                         const titleInput = document.getElementById('titlePdfInput');
                         const fileInput = document.getElementById('filePdfInput');
                         const imageInput = document.getElementById('imagePdfInput');
@@ -304,13 +333,43 @@ export default defineComponent({
                     accept: '.pdf',
                     placeholder: this.$t('admin.blogpost.addFromFile')
                 }
-            ],
+            ],*/
+            modalForm: {
+                title: '',
+                file: null,
+                image: null
+            },
         }
     },
     mounted() {
         this.fetchPosts(this.selectedType)
     },
     methods: {
+        onImageChange(event) {
+            const file = event.target.files[0];
+            this.modalForm.image = file;
+        },
+        onFileChange(event) {
+            const file = event.target.files[0];
+            this.modalForm.file = file;
+        },
+        async submitModalUpload(){
+            if (!this.modalForm.file || !this.modalForm.image) {
+                this.$refs.toastComponent.showToast(this.$t('admin.blogpost.noFileSelected'), 2000, 'danger');
+                return;
+            }
+            let imageBase64 = '';
+            if (this.modalForm.image) {
+                imageBase64 = await this.processImg(this.modalForm.image);
+            }
+           const formData = new FormData();
+            formData.append('file', this.modalForm.file);
+            formData.append('title', this.modalForm.title);
+            formData.append('image', imageBase64);
+
+            this.uploadFile(formData);
+            this.modalForm = { title: '', image: null, file: null };
+        },
         async changeType(type) {
             if (this.selectedType !== type) {
                 this.selectedType = type

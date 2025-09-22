@@ -119,7 +119,8 @@
         "add_company": "Add company",
         "preview": "Preview",
         "manage": "Manage",
-        "pricing": "Pricing"
+        "pricing": "Pricing",
+        "image": "Image"
     },
     "footer":{
         "KP": "/assets/kp-eng.jpg",
@@ -254,6 +255,7 @@
         "desc": "Description",
         "price": {
             "pricePerUnit": "Price per unit (€)",
+            "offer": "Offer price",
             "demand": "Ask for offers",
             "auction": "Auction"
         },
@@ -468,7 +470,8 @@
             "2": "Administrator"
         },
         "reports":"Reports",
-        "sales": "Sales"
+        "sales": "Sales",
+        "contracts":"Contracts"
     },
     "posts": {
         "blogsManagement": "Blogs Management",

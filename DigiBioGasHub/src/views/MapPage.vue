@@ -74,7 +74,7 @@ export default defineComponent({
         getMarkers() {
             // Fetch markers from the server
             this.markerData = [
-                { coords: [22.846, 62.792], color: 'red', name: 'Test 1', location: 'Seinäjoki', type: 'Farm', info: 'Testing functionality', category: 'Farm', id: 1 },
+                //{ coords: [22.846, 62.792], color: 'red', name: 'Test 1', location: 'Seinäjoki', type: 'Farm', info: 'Testing functionality', category: 'Farm', id: 1 },
                 //{coords:[22.846,62.992],color:'green', name: 'Test 2', location: 'Seinäjoki', type: 'Offer', info: 'Testing functionality', category: 'Offer'},
                 { coords: [25.336759, 63.741336], color: 'orange', name: 'Haapajärven ammattiopisto biokaasulaitos', location: 'Haapajärvi', type: 'Plant', info: 'https://www.youtube.com/watch?v=TM48FjCIvZ8', address: "Erkkiläntie 1, 85800 Haapajärvi", category: 'Plant', id: 1 },
                 { coords: [21.763391742, 63.133012353], color: 'orange', name: 'Ab Stormossen Oy', location: 'Kokkola', type: 'Plant', info: 'http://www.stormossen.fi', address: "Stormossenintie 56, 66530 Koivulahti", category: 'Plant', id: 2 },

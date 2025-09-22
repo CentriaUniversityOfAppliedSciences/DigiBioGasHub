@@ -470,7 +470,8 @@
             "2": "Administratör"
         },
         "reports":"Rapporter",
-        "sales":"Försäljning"
+        "sales":"Försäljning",
+        "contracts":"Avtal"
     },
     "posts": {
         "blogsManagement": "Blogghantering",

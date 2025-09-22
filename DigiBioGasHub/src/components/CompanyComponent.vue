@@ -72,6 +72,8 @@
             <ion-button @click="goToOffers(company.id)"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
                     $t('company.offers') }}</ion-button>
+            <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'" @click="goToContracts(company.id)" :disabled="company.companyStatus === 0 || company.companyStatus === 2"
+                color="primary">{{ $t('company.contracts') }}</ion-button>
             <ion-button v-if="companyData.userlevel === '23' || userLevel === '99'"
                 @click="goToInsertCompanyLocations(company.id, company.name)"
                 :disabled="company.companyStatus === 0 || company.companyStatus === 2" color="primary">{{
@@ -388,6 +390,11 @@ export default defineComponent({
         },
         goToOffers(companyID) {
             this.$router.push('/companyoffers/' + companyID, {
+
+            });
+        },
+        goToContracts(companyID) {
+            this.$router.push('/company/bought/' + companyID, {
 
             });
         },
