@@ -10,8 +10,12 @@
                     </ion-button>
                 </ion-buttons>
             </ion-toolbar>
+            
             <ion-grid class="main-grid">
                 <ion-row class="ion-align-items-start">
+                    <ion-col size="auto">
+                        <FilterComponent :filtersData=fData :dataToFilter=originalData @filtered-data="updateFilterData"/>
+                    </ion-col>
                     <ion-col>
                         <div v-if="Object.keys(groupedFilteredContracts).length === 0" class="no-results">
                             <p> {{ $t("premium.noContractsInSelectedRange") }}</p>
@@ -70,6 +74,7 @@ import axios from 'axios';
 import NavBarComponent from '@/components/NavBarComponent.vue';
 import FooterComponent from '@/components/FooterComponent.vue';
 import ContractListing from '@/components/ContractListing.vue';
+import FilterComponent from '@/components/FilterComponent.vue';
 import { addIcons } from 'ionicons';
 import { filterCircleOutline } from 'ionicons/icons';
 addIcons({ filterCircleOutline });
@@ -97,7 +102,8 @@ export default defineComponent({
         IonGrid,
         IonRow,
         IonCol,
-        IonIcon
+        IonIcon,
+        FilterComponent
     },
     data() {
         return {
@@ -105,9 +111,11 @@ export default defineComponent({
             startDate: null,
             endDate: null,
             showAdvanced: false,
-            activeFilter: { start: null, end: null },
+            activeFilter: { start: null, end: null, company: null, material: null },
             isPremium: false,
-            companyID: this.$route.params.companyID
+            companyID: this.$route.params.companyID,
+            fData: [],
+            originalData: []
         };
     },
     computed: {
@@ -149,10 +157,25 @@ export default defineComponent({
             axios.post(url, { companyID: this.companyID}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                 if (response.data.type = "result" && response.data.result == "ok") {
                     this.contracts = response.data.message;
-                    const buyer = this.contracts[0]?.User;
-                    this.isPremium = buyer?.isPremiumUser === true
+                    //const buyer = this.contracts[0]?.User;
+                    //this.isPremium = buyer?.isPremiumUser === true;
+                    this.checkIsPremium();
+                    this.fillBasicFilters(this.contracts);
                 }
             });
+        },
+        checkIsPremium(){
+            const token = localStorage.getItem('token');
+            if (!token) {
+                this.isPremium = false;
+                return;
+            }
+            const decoded = this.jwtDecode(token);
+            if (decoded && decoded.isPremiumUser) {
+                this.isPremium = true;
+            } else {
+                this.isPremium = false;
+            }
         },
         formatMonthYear(key) {
             var lang = this.$i18n.locale;
@@ -195,7 +218,28 @@ export default defineComponent({
         },
         onModalClose() {
             this.showAdvanced = false;
-        }
+        },
+        fillBasicFilters(data) {
+            this.fData = [];
+            for (let i = 0; i < data.length; i++) {
+                data[i].category = data[i].Offer.Company.id.toString();
+                if (!this.fData.find(f => f.value === data[i].Offer.Company.id)) {
+                    this.fData.push({ label: data[i].Offer.Company.name, value: data[i].Offer.Company.id });
+                }
+            }
+            this.originalData = data;
+        },
+        updateFilterData(data){
+            console.log("updateFilterData", data);
+            this.contracts = data;
+        },
+        jwtDecode(token) {
+            try {
+                return JSON.parse(atob(token.split('.')[1]));
+            } catch (e) {
+                return null;
+            }
+        },
     }
 });
 

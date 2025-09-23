@@ -61,7 +61,6 @@ export default defineComponent({
             this.isModalOpen = false;
         },
         openModal(product) {
-            console.log("openModal", product);
             this.product = product;
             this.isModalOpen = true;
         },
