@@ -33,6 +33,10 @@
         <ion-button id="buyOffer" expand="block" class="buy-button">
             {{ $t('product.buy') }}
         </ion-button>
+
+        <ion-button id="contactSeller" expand="block" class="buy-button">
+            {{ $t('product.contact') }}
+        </ion-button>
     </ion-card>
 
     <ion-modal id="buyOfferModal" trigger="buyOffer">
@@ -48,6 +52,42 @@
             <OfferBuyComponent :offer="offer" @updateOffers="updateOffers" />
         </ion-header>
     </ion-modal>
+
+    <ion-modal id="contactSellerModal" trigger="contactSeller">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>{{ $t('product.contactSeller') }}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button id="closeModal" @click="modalController.dismiss()">
+                        <ion-icon name="close"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <form @submit.prevent="submitContactForm">
+                <ion-item>
+                    <ion-label position="stacked">
+                        {{ $t('user.emailOrPhone') }} <span style="color:red">*</span>
+                    </ion-label>
+                    <ion-input v-model="contactForm.contact" required
+                        :placeholder="$t('user.emailOrPhonePlaceholder')" />
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked">
+                        {{ $t('user.message') }} <span style="color:red">*</span>
+                    </ion-label>
+                    <ion-textarea v-model="contactForm.message" required :placeholder="$t('user.messagePlaceholder')" />
+                </ion-item>
+                <ion-button expand="block" type="submit" :disabled="!contactForm.contact.trim() || !contactForm.message.trim()">
+                    {{ $t('product.send') }}
+                </ion-button>
+            </form>
+        </ion-content>
+
+    </ion-modal>
+
 </template>
 
 <script>
@@ -65,7 +105,12 @@ import {
     IonTitle,
     modalController,
     IonIcon,
-    IonButtons
+    IonButtons,
+    IonContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonTextarea
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import OfferBuyComponent from './OfferBuyComponent.vue'
@@ -88,6 +133,11 @@ export default defineComponent({
         IonHeader,
         IonToolbar,
         IonTitle,
+        IonContent,
+        IonItem,
+        IonLabel,
+        IonInput,
+        IonTextarea,
         IonIcon,
         OfferBuyComponent,
         modalController
@@ -105,6 +155,11 @@ export default defineComponent({
     data() {
         return {
             modalController: modalController,
+
+            contactForm: {
+                contact: '',
+                message: ''
+            }
         }
     },
     emits: ['updateOffers', 'close'],
@@ -190,6 +245,19 @@ export default defineComponent({
             } else {
                 console.warn('Location coordinates not found');
             }
+        },
+        submitContactForm() {
+            const contact = this.contactForm.contact.trim();
+            const message = this.contactForm.message.trim();
+
+            if (!contact || !message) {
+
+                return;
+            }
+
+            this.contactForm.contact = '';
+            this.contactForm.message = '';
+            this.modalController.dismiss();
         }
     },
 });

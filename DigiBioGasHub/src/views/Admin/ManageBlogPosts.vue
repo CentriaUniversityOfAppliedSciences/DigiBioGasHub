@@ -35,7 +35,8 @@
                   <h3>{{ post.title }}</h3>
                   <p>{{ post.author }} • {{ new Date(post.createdAt).toLocaleDateString("en-GB", {
                     day: "2-digit",
-                    month: "2-digit", year: "numeric"}) }}</p>
+                    month: "2-digit", year: "numeric"
+                  }) }}</p>
                 </ion-label>
 
                 <!-- Action Buttons -->
@@ -166,7 +167,7 @@ import EditBlogPostPage from './EditBlogPostPage.vue';
 import slugify from 'slugify';
 import { addIcons } from 'ionicons'
 import { checkmarkCircle, closeCircle, create, document, hourglassOutline } from 'ionicons/icons'
-addIcons ({checkmarkCircle, hourglassOutline, closeCircle, create, document})
+addIcons({ checkmarkCircle, hourglassOutline, closeCircle, create, document })
 
 export default defineComponent({
   name: 'ManageBlogPosts',
