@@ -259,6 +259,7 @@ export default defineComponent({
 
             const payload = {
                 toCompanyId: this.offer.Company.id,
+                toCompanyName: this.offer.Company.name,
                 toEmail: this.offer.Company.email,
                 contact: contact,
                 message: message,
