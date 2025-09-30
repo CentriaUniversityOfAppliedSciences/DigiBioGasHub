@@ -251,7 +251,6 @@ export default defineComponent({
         async submitContactForm() {
             const contact = this.contactForm.contact.trim();
             const message = this.contactForm.message.trim();
-            console.log("COmpany id and email", this.offer.Company.id, this.offer.Company.email);
 
             if (!contact || !message) {
                 return;
@@ -271,7 +270,7 @@ export default defineComponent({
                 const response = await axios.post(url, { payload }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 
                 if (response.data.type == "result" && response.data.result == "ok") {
-                    console.log('Messafe sent successfully ---');
+                    console.log('Message sent successfully ---');
 
                 } else {
                     console.error('Failed to send message');
