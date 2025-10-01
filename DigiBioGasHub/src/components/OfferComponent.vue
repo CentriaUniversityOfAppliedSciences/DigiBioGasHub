@@ -90,6 +90,8 @@
 
     </ion-modal>
 
+    <ToastComponent ref="toastComponent" />
+
 </template>
 
 <script>
@@ -119,6 +121,7 @@ import OfferBuyComponent from './OfferBuyComponent.vue'
 import axios from 'axios';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
+import ToastComponent from './ToastComponent.vue';
 addIcons({ close });
 
 export default defineComponent({
@@ -143,7 +146,8 @@ export default defineComponent({
         IonTextarea,
         IonIcon,
         OfferBuyComponent,
-        modalController
+        modalController,
+        ToastComponent
     },
     props: {
         offer: {
@@ -271,13 +275,14 @@ export default defineComponent({
                 const response = await axios.post(url, { payload }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
 
                 if (response.data.type == "result" && response.data.result == "ok") {
-                    console.log('Message sent successfully ---');
+                    this.$refs.toastComponent.showToast(this.$t('product.messageSent'), 4000, 'success');
 
                 } else {
-                    console.error('Failed to send message');
+                    this.$refs.toastComponent.showToast(this.$t('product.messageSendError'), 4000, 'danger');
+                    return false;
                 }
             } catch (error) {
-                console.error('Error:', error);
+                this.$refs.toastComponent.showToast(this.$t('product.messageSendError'), 4000, 'danger');
                 return false;
             }
 

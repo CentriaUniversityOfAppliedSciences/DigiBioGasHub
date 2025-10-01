@@ -240,6 +240,8 @@
         "chooseType": "Välj typ",
         "buy": "Köp",
         "contactSeller": "Kontakta säljaren",
+        "messageSent": "Meddelandet skickades framgångsrikt!",
+        "messageSendError": "Misslyckades att skicka meddelandet! Kontrollera informationen och försök igen.",
         "user": {
             "emailOrPhone": "E-post eller telefon",
             "emailOrPhonePlaceholder": "Ange din e-post eller telefonnummer",

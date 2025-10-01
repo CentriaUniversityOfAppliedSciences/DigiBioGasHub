@@ -240,6 +240,8 @@
         "chooseType": "Valitse tyyppi",
         "buy": "Osta",
         "contactSeller": "Ota yhteyttä myyjään",
+        "messageSent": "Viesti lähetetty onnistuneesti!",
+        "messageSendError": "Viestin lähetys epäonnistui! Tarkista tiedot ja yritä uudelleen.",
         "user": {
             "emailOrPhone": "Sähköposti tai puhelin",
             "emailOrPhonePlaceholder": "Syötä sähköpostisi tai puhelinnumerosi",

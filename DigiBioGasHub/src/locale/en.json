@@ -240,6 +240,8 @@
         "chooseType": "Choose type",
         "buy": "Buy",
         "contactSeller": "Contact seller",
+        "messageSent": "Message sent successfully!",
+        "messageSendError": "Failed to send message! Check the information and try again.",
         "user": {
             "emailOrPhone": "Email or phone",
             "emailOrPhonePlaceholder": "Enter your email or phone",
