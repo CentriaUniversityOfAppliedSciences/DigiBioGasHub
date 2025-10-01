@@ -33,6 +33,10 @@
         <ion-button id="buyOffer" expand="block" class="buy-button">
             {{ $t('product.buy') }}
         </ion-button>
+
+        <ion-button id="contactSeller" expand="block" class="buy-button">
+            {{ $t('product.contactSeller') }}
+        </ion-button>
     </ion-card>
 
     <ion-modal id="buyOfferModal" trigger="buyOffer">
@@ -48,6 +52,46 @@
             <OfferBuyComponent :offer="offer" @updateOffers="updateOffers" />
         </ion-header>
     </ion-modal>
+
+    <ion-modal id="contactSellerModal" trigger="contactSeller">
+        <ion-header>
+            <ion-toolbar>
+                <ion-title>{{ $t('product.contactSeller') }}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-button id="closeModal" @click="modalController.dismiss()">
+                        <ion-icon name="close"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-toolbar>
+        </ion-header>
+
+        <ion-content>
+            <form @submit.prevent="submitContactForm">
+                <ion-item>
+                    <ion-label position="stacked">
+                        {{ $t('product.user.emailOrPhone') }} <span style="color:red">*</span>
+                    </ion-label>
+                    <ion-input v-model="contactForm.contact" required
+                        :placeholder="$t('product.user.emailOrPhonePlaceholder')" />
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked">
+                        {{ $t('product.user.message') }} <span style="color:red">*</span>
+                    </ion-label>
+                    <ion-textarea v-model="contactForm.message" required
+                        :placeholder="$t('product.user.messagePlaceholder')" />
+                </ion-item>
+                <ion-button expand="block" type="submit"
+                    :disabled="!contactForm.contact.trim() || !contactForm.message.trim()">
+                    {{ $t('chat.send') }}
+                </ion-button>
+            </form>
+        </ion-content>
+
+    </ion-modal>
+
+    <ToastComponent ref="toastComponent" />
+
 </template>
 
 <script>
@@ -65,13 +109,20 @@ import {
     IonTitle,
     modalController,
     IonIcon,
-    IonButtons
+    IonButtons,
+    IonContent,
+    IonItem,
+    IonLabel,
+    IonInput,
+    IonTextarea
 } from '@ionic/vue'
 import { defineComponent } from 'vue'
 import OfferBuyComponent from './OfferBuyComponent.vue'
+import axios from 'axios';
 import { addIcons } from 'ionicons';
 import { close } from 'ionicons/icons';
-addIcons({ close });   
+import ToastComponent from './ToastComponent.vue';
+addIcons({ close });
 
 export default defineComponent({
     name: 'OfferComponent',
@@ -88,14 +139,20 @@ export default defineComponent({
         IonHeader,
         IonToolbar,
         IonTitle,
+        IonContent,
+        IonItem,
+        IonLabel,
+        IonInput,
+        IonTextarea,
         IonIcon,
         OfferBuyComponent,
-        modalController
+        modalController,
+        ToastComponent
     },
-    props:{
+    props: {
         offer: {
             type: Object,
-            required: true,  
+            required: true,
         },
         certificates: {
             type: Array,
@@ -105,27 +162,32 @@ export default defineComponent({
     data() {
         return {
             modalController: modalController,
+
+            contactForm: {
+                contact: '',
+                message: ''
+            }
         }
     },
     emits: ['updateOffers', 'close'],
-    mounted(){
+    mounted() {
     },
     methods: {
         getOfferTypeTranslation(type) {
             if (type == null || type == undefined) {
                 return "";
             }
-            else{
+            else {
                 return this.$t(`product.typenum.${type}`);
             }
-        },  
+        },
         getMaterialTypeTranslation(material) {
             if (material != null && material.Material != null) {
                 var mat = material.Material;
                 var type = mat.type;
                 return this.$t(`material.type.${type}`);
             }
-            else{
+            else {
                 return "";
             }
         },
@@ -133,18 +195,18 @@ export default defineComponent({
             if (category == null || category == undefined) {
                 return "";
             }
-            else{
+            else {
                 return this.$t(`material.type.${category}`);
             }
         },
-        getImageSource(o){
+        getImageSource(o) {
             if (o != null && o.fileLink != null && o.fileLink != undefined && o.fileLink != "") {
                 return o.fileLink;
             }
             else if (o != null && o.Material != null) {
                 return this.$t('material.placeholder.' + o.Material.type);
             }
-            else{
+            else {
                 return "";
             }
         },
@@ -152,7 +214,7 @@ export default defineComponent({
             if (cargoType == null || cargoType == undefined) {
                 return "";
             }
-            else{
+            else {
                 return this.$t(`product.logisticType.${cargoType}`);
             }
         },
@@ -160,7 +222,7 @@ export default defineComponent({
             if (type == null || type == undefined) {
                 return "";
             }
-            else{
+            else {
                 return this.$t(`unit.amount.${type}`);
             }
         },
@@ -171,7 +233,7 @@ export default defineComponent({
             return '';
         },
         updateOffers() {
-            this.$emit('updateOffers');  
+            this.$emit('updateOffers');
         },
         goToMap(offer) {
             const loc = offer?.Locations?.[0];
@@ -186,10 +248,47 @@ export default defineComponent({
                         info: `${loc.address}, ${loc.city}`,
                     }
                 });
-                 this.$emit('close');
+                this.$emit('close');
             } else {
                 console.warn('Location coordinates not found');
             }
+        },
+        async submitContactForm() {
+            const contact = this.contactForm.contact.trim();
+            const message = this.contactForm.message.trim();
+
+            if (!contact || !message) {
+                return;
+            }
+
+            const payload = {
+                toCompanyId: this.offer.Company.id,
+                toCompanyName: this.offer.Company.name,
+                toEmail: this.offer.Company.email,
+                contact: contact,
+                message: message,
+                offerId: this.offer.id
+            };
+
+            try {
+                let url = this.$api_add + `/offer/contact-seller`;
+                const response = await axios.post(url, { payload }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false });
+
+                if (response.data.type == "result" && response.data.result == "ok") {
+                    this.$refs.toastComponent.showToast(this.$t('product.messageSent'), 4000, 'success');
+
+                } else {
+                    this.$refs.toastComponent.showToast(this.$t('product.messageSendError'), 4000, 'danger');
+                    return false;
+                }
+            } catch (error) {
+                this.$refs.toastComponent.showToast(this.$t('product.messageSendError'), 4000, 'danger');
+                return false;
+            }
+
+            this.contactForm.contact = '';
+            this.contactForm.message = '';
+            this.modalController.dismiss();
         }
     },
 });
@@ -199,57 +298,57 @@ export default defineComponent({
 ion-card {
     margin: 1rem;
 }
+
 ion-img {
     width: 100%;
     height: auto;
 }
 
 .location-link.clickable {
-  color: var(--ion-color-primary);
-  cursor: pointer;
-  text-decoration: underline;
+    color: var(--ion-color-primary);
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 .offer-card {
-  margin: 1rem;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
+    margin: 1rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s ease;
 }
 
 .offer-card:hover {
-  transform: translateY(-5px);
+    transform: translateY(-5px);
 }
 
 .offer-img {
-  width: 100%;
-  height: 200px;
-  object-fit: contain;
-  object-position: center;
+    width: 100%;
+    height: 200px;
+    object-fit: contain;
+    object-position: center;
 }
 
 .offer-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 0.25rem;
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.25rem;
 }
 
 .offer-subtitle {
-  font-size: 1rem;
+    font-size: 1rem;
 }
 
 .offer-detail p {
-  margin: 0.25rem 0;
-  font-size: 0.95rem;
+    margin: 0.25rem 0;
+    font-size: 0.95rem;
 }
 
 .buy-button {
-  margin: 1rem;
-  font-weight: bold;
-  --background: #3880ff;
-  --color: white;
-  border-radius: 0.75rem;
+    margin: 1rem;
+    font-weight: bold;
+    --background: #3880ff;
+    --color: white;
+    border-radius: 0.75rem;
 }
-
 </style>
