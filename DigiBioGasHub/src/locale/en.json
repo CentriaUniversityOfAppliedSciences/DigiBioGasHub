@@ -239,6 +239,13 @@
         "offerTypes": "Offer types",
         "chooseType": "Choose type",
         "buy": "Buy",
+        "contactSeller": "Contact seller",
+        "user": {
+            "emailOrPhone": "Email or phone",
+            "emailOrPhonePlaceholder": "Enter your email or phone",
+            "message": "Message",
+            "messagePlaceholder": "Enter your message"
+        },
         "type": {
             "offer": "Offer",
             "demand": "Demand",

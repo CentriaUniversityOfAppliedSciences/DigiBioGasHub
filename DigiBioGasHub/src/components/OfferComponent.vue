@@ -35,7 +35,7 @@
         </ion-button>
 
         <ion-button id="contactSeller" expand="block" class="buy-button">
-            {{ $t('product.contact') }}
+            {{ $t('product.contactSeller') }}
         </ion-button>
     </ion-card>
 
@@ -69,20 +69,21 @@
             <form @submit.prevent="submitContactForm">
                 <ion-item>
                     <ion-label position="stacked">
-                        {{ $t('user.emailOrPhone') }} <span style="color:red">*</span>
+                        {{ $t('product.user.emailOrPhone') }} <span style="color:red">*</span>
                     </ion-label>
                     <ion-input v-model="contactForm.contact" required
-                        :placeholder="$t('user.emailOrPhonePlaceholder')" />
+                        :placeholder="$t('product.user.emailOrPhonePlaceholder')" />
                 </ion-item>
                 <ion-item>
                     <ion-label position="stacked">
-                        {{ $t('user.message') }} <span style="color:red">*</span>
+                        {{ $t('product.user.message') }} <span style="color:red">*</span>
                     </ion-label>
-                    <ion-textarea v-model="contactForm.message" required :placeholder="$t('user.messagePlaceholder')" />
+                    <ion-textarea v-model="contactForm.message" required
+                        :placeholder="$t('product.user.messagePlaceholder')" />
                 </ion-item>
                 <ion-button expand="block" type="submit"
                     :disabled="!contactForm.contact.trim() || !contactForm.message.trim()">
-                    {{ $t('product.send') }}
+                    {{ $t('chat.send') }}
                 </ion-button>
             </form>
         </ion-content>
