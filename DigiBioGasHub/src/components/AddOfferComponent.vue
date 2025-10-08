@@ -264,7 +264,7 @@ export default defineComponent({
     methods: {
         getOfferTypes() {
             let locale = this.i18n.global.locale.value
-            const offerTypes = this.i18n.global.messages.value[locale]?.product?.typenum;
+            const offerTypes = this.i18n.global.messages.value[locale]?.product?.typenumb;
             for (const k in offerTypes) {
                 offerTypes[k] = { key: k, value: offerTypes[k] };
             }

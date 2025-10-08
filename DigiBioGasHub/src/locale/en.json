@@ -254,7 +254,7 @@
             "auction": "Auction",
             "other": "Other"
         },
-        "typenum": {
+        "typenumb": {
             "0": "Service",
             "1": "Offer",
             "2": "Demand",

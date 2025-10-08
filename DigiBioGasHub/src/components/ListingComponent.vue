@@ -124,11 +124,13 @@ export default {
                         text: this.$t('menu.yes'),
                         handler: () => {
                             var url = this.$api_add + "/deleteoffer";
-                            axios.post(url, { "id": id }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
-                                if (response.data.type = "result" && response.data.result == "ok") {
-                                    this.$router.push('/company/', {});
-                                }
-                            });
+                            if (this.isCompanyParent){
+                                axios.post(url, { "id": id, "companyID": this.product.companyID }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                                    if (response.data.type = "result" && response.data.result == "ok") {
+                                        this.$router.push('/company/', {});
+                                    }
+                                });
+                            }
                         }
                     }
                 ]

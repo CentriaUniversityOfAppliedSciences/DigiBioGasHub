@@ -254,7 +254,11 @@
             "auction": "Huutokauppa",
             "other": "Muu"
         },
-        "typenum":{
+        "test":{
+            "0":"Testi0",
+            "1": "Testi"
+        },
+        "typenumb":{
             "0": "Palvelu",
             "1": "Tarjous",
             "2": "Kysyntä",

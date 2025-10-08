@@ -178,7 +178,7 @@ export default defineComponent({
                 return "";
             }
             else {
-                return this.$t(`product.typenum.${type}`);
+                return this.$t(`product.typenumb.${type}`);
             }
         },
         getMaterialTypeTranslation(material) {

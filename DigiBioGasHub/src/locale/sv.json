@@ -254,7 +254,7 @@
             "auction": "Auktion",
             "other": "Annat"
         },
-        "typenum": {
+        "typenumb": {
             "0": "Tjänst",
             "1": "Erbjudande",
             "2": "Efterfrågan",
