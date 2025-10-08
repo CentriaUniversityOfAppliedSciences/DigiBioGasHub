@@ -37,19 +37,37 @@ export default defineComponent ({
     },
     methods:{
         getMyUser(){
-            axios.post(this.$api_add + '/getuser', {id: this.getUserID()}).then(response => {
+            var url = this.$api_add + '/getuser';
+            axios.post(url, {id: this.getUserID()}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+            if (response.data.type == "result" && response.data.result == "ok" && response.data.message.length > 0) {
                     this.myUser = response.data.message;
+                }
             });
+            /*axios.post(this.$api_add + '/getuser', {id: this.getUserID()}).then(response => {
+                    this.myUser = response.data.message;
+            });*/
         },
         getMyCompanies(){
-            axios.post(this.$api_add + '/getusercompanies', {id: this.getUserID()}).then(response => {
-                this.myCompanies = response.data.message;
+            var url = this.$api_add + '/getusercompanies';
+            axios.post(url, {id: this.getUserID()}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+            if (response.data.type == "result" && response.data.result == "ok" && response.data.message.length > 0) {
+                    this.myCompanies = response.data.message;
+                }
             });
+            /*axios.post(this.$api_add + '/getusercompanies', {id: this.getUserID()}).then(response => {
+                this.myCompanies = response.data.message;
+            });*/
         },
         getOffers(){
-            axios.post(this.$api_add + '/getuseroffers', {id: this.getUserID()}).then(response => {
-                this.myOffers = response.data.message;
+            var url = this.$api_add + '/getuseroffers';
+            axios.post(url, {id: this.getUserID()}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+            if (response.data.type == "result" && response.data.result == "ok" && response.data.message.length > 0) {
+                    this.myOffers = response.data.message;
+                }
             });
+            /*axios.post(this.$api_add + '/getuseroffers', {id: this.getUserID()}).then(response => {
+                this.myOffers = response.data.message;
+            });*/
         },
         getUserID(){
             let token = localStorage.getItem('token');
