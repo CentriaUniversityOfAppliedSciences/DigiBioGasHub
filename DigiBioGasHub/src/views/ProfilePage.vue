@@ -39,7 +39,8 @@ export default defineComponent ({
         getMyUser(){
             var url = this.$api_add + '/getuser';
             axios.post(url, {id: this.getUserID()}, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
-            if (response.data.type == "result" && response.data.result == "ok" && response.data.message.length > 0) {
+            if (response.data.type == "result" && response.data.result == "ok") {
+                console.log("if through")
                     this.myUser = response.data.message;
                 }
             });
