@@ -453,7 +453,8 @@
         "locationRegistration": {
             "location": "Platser",
             "title": "Platsregistrering",
-            "addLocationBtn": "Lägg till plats"
+            "addLocationBtn": "Lägg till plats",
+            "noLocationMessage": "Ingen plats har lagts till ännu. Du kan lägga till en genom att klicka på 'Lägg till plats' ovanför."
         },
         "addCompany": "Lägg till företag",
         "type": {

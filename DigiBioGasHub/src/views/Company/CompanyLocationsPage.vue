@@ -7,19 +7,28 @@
                     <h2>{{ $t('company.locationRegistration.location') }}</h2>
                 </ion-col>
                 <ion-col size="auto">
-                    <ion-button @click="add_location">{{ $t('company.locationRegistration.addLocationBtn') }}</ion-button>
+                    <ion-button @click="add_location">{{ $t('company.locationRegistration.addLocationBtn')
+                        }}</ion-button>
                 </ion-col>
             </ion-row>
         </ion-toolbar>
 
         <ion-content>
             <ion-grid class="main-grid">
-                <ion-row v-for="loc in locations">
-                    <ion-col>
-                        <CompanyLocationComponent :companyData="companyData" :location="loc"
-                            @locationDeleted="updateLocations" />
-                    </ion-col>
-                </ion-row>
+
+                <template v-if="locations.length === 0">
+                    {{ $t('company.locationRegistration.noLocationMessage') }}
+                </template>
+
+                <template v-else>
+                    <ion-row v-for="loc in locations" :key="loc.id">
+                        <ion-col>
+                            <CompanyLocationComponent :companyData="companyData" :location="loc"
+                                @locationDeleted="updateLocations" />
+                        </ion-col>
+                    </ion-row>
+                </template>
+
             </ion-grid>
             <FooterComponent />
         </ion-content>
@@ -79,9 +88,8 @@ export default defineComponent({
         getLocations() {
             var url = this.$api_add + "/company/getlocations/by-company";
             axios.post(url, { "companyID": this.thisCompany }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
-                if (response.data.type = "result" && response.data.result == "ok" && response.data.message.length > 0) {
-                    this.locations = response.data.message;
-
+                if (response.data.type === "result" && response.data.result === "ok") {
+                    this.locations = response.data.message || [];
                 }
             });
         },

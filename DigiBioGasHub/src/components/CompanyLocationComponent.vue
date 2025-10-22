@@ -1,51 +1,51 @@
 <template>
     <ion-card class="location-card">
-      <ion-card-header>
-        <ion-item>
-          <ion-card-title class="center-icon">
-            <ion-icon name="location"></ion-icon>
-          </ion-card-title>
-        </ion-item>
-      </ion-card-header>
-  
-      <ion-card-content>
-        <ion-list>
-          <ion-item>
-            <ion-label style="margin-right: 12px;">{{ $t('general.company') }}:</ion-label>
-            <ion-input :value="location.name" type="text" readonly></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label style="margin-right: 12px;">{{ $t('general.address') }}:</ion-label>
-            <ion-input v-model="editLocation.address" :readonly="!showEdit" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label style="margin-right: 12px;">{{ $t('general.city') }}:</ion-label>
-            <ion-input v-model="editLocation.city" :readonly="!showEdit" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label style="margin-right: 12px;">{{ $t('general.postalCode') }}:</ion-label>
-            <ion-input v-model="editLocation.zipcode" :readonly="!showEdit" type="text"></ion-input>
-          </ion-item>
-          <ion-item>
-            <template v-if="showEdit">
-              <ion-button @click="saveLocation" color="success">{{ $t('general.save') }}</ion-button>
-              <ion-button @click="cancelEdit" color="medium">{{ $t('general.cancel') }}</ion-button>
-            </template>
-            <template v-else>
-              <ion-button v-if="companyData.userlevel === '23'" @click="enableEdit" color="primary">
-                {{ $t('menu.edit') }}
-              </ion-button>
-              <ion-button v-if="companyData.userlevel === '23' || companyData.userlevel === '99'"
-                @click="confirmDelete" id="deleteCompany" color="danger">
-                {{ $t('menu.delete') }}
-              </ion-button>
-            </template>
-          </ion-item>
-        </ion-list>
-      </ion-card-content>
+        <ion-card-header>
+            <ion-item>
+                <ion-card-title class="center-icon">
+                    <ion-icon name="location"></ion-icon>
+                </ion-card-title>
+            </ion-item>
+        </ion-card-header>
+
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label style="margin-right: 12px;">{{ $t('general.company') }}:</ion-label>
+                    <ion-input :value="location.name" type="text" readonly></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label style="margin-right: 12px;">{{ $t('general.address') }}:</ion-label>
+                    <ion-input v-model="editLocation.address" :readonly="!showEdit" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label style="margin-right: 12px;">{{ $t('general.city') }}:</ion-label>
+                    <ion-input v-model="editLocation.city" :readonly="!showEdit" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label style="margin-right: 12px;">{{ $t('general.postalCode') }}:</ion-label>
+                    <ion-input v-model="editLocation.zipcode" :readonly="!showEdit" type="text"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <template v-if="showEdit">
+                        <ion-button @click="saveLocation" color="success">{{ $t('general.save') }}</ion-button>
+                        <ion-button @click="cancelEdit" color="medium">{{ $t('general.cancel') }}</ion-button>
+                    </template>
+                    <template v-else>
+                        <ion-button v-if="companyData.userlevel === '23'" @click="enableEdit" color="primary">
+                            {{ $t('menu.edit') }}
+                        </ion-button>
+                        <ion-button v-if="companyData.userlevel === '23' || companyData.userlevel === '99'"
+                            @click="confirmDelete" id="deleteCompany" color="danger">
+                            {{ $t('menu.delete') }}
+                        </ion-button>
+                    </template>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
     </ion-card>
-  </template>
-  
+</template>
+
 
 <script>
 import { IonPage, IonContent, IonToolbar, IonTitle, IonItem, IonLabel, IonInput, IonSelect, IonSelectOption, IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonList, alertController, IonIcon } from '@ionic/vue';

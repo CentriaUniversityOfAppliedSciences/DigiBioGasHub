@@ -186,7 +186,7 @@ export default defineComponent({
     border-radius: 8px;
     border: 2px solid gray;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    margin-bottom: 1rem;
+    margin-bottom: 4rem;
 }
 
 .label {

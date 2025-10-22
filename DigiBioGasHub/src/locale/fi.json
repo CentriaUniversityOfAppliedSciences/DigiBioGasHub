@@ -457,7 +457,8 @@
            "locationRegistration": {
             "location": "Sijainnit",
             "title": "Sijainnin rekisteröinti",
-            "addLocationBtn": "Lisää sijainti"
+            "addLocationBtn": "Lisää sijainti",
+            "noLocationMessage": "Sijaintia ei ole vielä lisätty. Voit lisätä sen napsauttamalla yläpuolella olevaa 'Lisää sijainti' -painiketta."
         },
         "addCompany": "Lisää yritys",
         "type": {

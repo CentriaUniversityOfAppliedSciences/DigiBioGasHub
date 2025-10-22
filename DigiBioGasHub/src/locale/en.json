@@ -453,7 +453,8 @@
         "locationRegistration": {
             "location": "Locations",
             "title": "Location Registration",
-            "addLocationBtn": "Add Location"
+            "addLocationBtn": "Add Location",
+            "noLocationMessage": "No location added yet. You can add one by clicking 'Add Location' above."
         },
         "addCompany": "Add company",
         "type":{

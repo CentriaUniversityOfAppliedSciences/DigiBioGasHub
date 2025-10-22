@@ -35,9 +35,8 @@
                     </ion-col>
 
                     <ion-col size="9" class="content-area">
-                        <ion-searchbar v-model="searchQuery" :placeholder="$t('general.search')"
+                        <ion-searchbar :placeholder="$t('general.search')"
                             class="custom-searchbar" show-clear-button="always" />
-
 
                         <div v-if="selectedSegment === 'unverified' && filteredCompanies.length > 0"
                             class="approval-note">
@@ -90,7 +89,11 @@ import {
     IonRow,
     IonCol,
     IonSegment,
-    IonSegmentButton
+    IonSegmentButton,
+    IonList,
+    IonItem,
+    IonIcon,
+    IonSearchbar
 } from '@ionic/vue'
 import NavBarComponent from '../components/NavBarComponent.vue';
 import CompanyComponent from '../components/CompanyComponent.vue';
@@ -121,7 +124,11 @@ export default defineComponent({
         IonRow,
         IonCol,
         IonSegment,
-        IonSegmentButton
+        IonSegmentButton,
+        IonList,
+        IonItem,
+        IonIcon,
+        IonSearchbar
     },
     data() {
         return {
