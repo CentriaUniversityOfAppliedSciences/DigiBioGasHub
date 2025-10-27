@@ -15,11 +15,17 @@
         <ion-content>
 
             <ion-grid class="main-grid">
-                <ion-row v-for="term in terminals">
-                    <ion-col>
-                        <LogisticsComponent :companyData="companyData" :terminal="term" @terminalDeleted="updateTerminals"/>
-                    </ion-col>
-                </ion-row>
+                <template v-if="terminals.length === 0">
+                    {{ $t('company.logistics.noTerminalMessage') }}
+                </template>
+
+                <template v-else>
+                    <ion-row v-for="term in terminals" :key="term.id">
+                        <ion-col>
+                            <LogisticsComponent :companyData="companyData" :terminal="term" @terminalDeleted="updateTerminals"/>
+                        </ion-col>
+                    </ion-row>
+                </template>
                 
             </ion-grid>
              <FooterComponent />

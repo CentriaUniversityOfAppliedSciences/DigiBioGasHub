@@ -476,7 +476,8 @@
             "haulType":"Kuljetustyyppi",
             "registerSuccess":"Terminaali luotu onnistuneesti",
             "registerFail":"Terminaalin luonti epäonnistui",
-            "confirmDeleteTerminal":"Haluatko varmasti poistaa tämän terminaalin?"
+            "confirmDeleteTerminal":"Haluatko varmasti poistaa tämän terminaalin?",
+            "noTerminalMessage":"Terminaaleja ei ole vielä lisätty. Voit lisätä terminaalin napsauttamalla yläpuolella olevaa 'Luo terminaali' -painiketta."
         },
         "userlevels":{
             "0": "Tuntematon",

@@ -472,7 +472,8 @@
             "haulType":"Haul Type",
             "registerSuccess":"Terminal registered successfully!",
             "registerFail":"Failed to register terminal. Check the information and try again.",
-            "confirmDeleteTerminal":"Are you sure you want to delete this terminal? This action cannot be undone."
+            "confirmDeleteTerminal":"Are you sure you want to delete this terminal? This action cannot be undone.",
+            "noTerminalMessage":"No terminals added yet. You can add one by clicking 'Create Terminal' above."
         },
         "userlevels":{
             "0": "Unknown",

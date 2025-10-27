@@ -472,7 +472,8 @@
             "haulType":"Transporttyp",
             "registerSuccess":"Terminal registrerad",
             "registerFail":"Registrering av terminal misslyckades",
-            "confirmDeleteTerminal":"Är du säker på att du vill radera denna terminal?"
+            "confirmDeleteTerminal":"Är du säker på att du vill radera denna terminal?",
+            "noTerminalMessage":"Inga terminaler har tillagts ännu. Du kan lägga till en genom att klicka på 'Skapa terminal' ovan."
         },
         "userlevels":{
             "0": "Okänd",
