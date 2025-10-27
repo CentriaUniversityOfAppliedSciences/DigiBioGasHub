@@ -1,23 +1,23 @@
 <template>
     <ion-page>
-        <ion-header>
-            <ion-toolbar>
-                <ion-title>{{ $t('company.users') }}</ion-title>
-            </ion-toolbar>
-        </ion-header>
+        <NavBarComponent />
+
+        <ion-toolbar>
+            <ion-title>{{ $t('company.users') }}</ion-title>
+        </ion-toolbar>
+
         <ion-content>
-            <NavBarComponent />
             <ion-grid>
-                <ion-row v-for="user in users" >
+                <ion-row v-for="user in users">
                     <ion-col>
-                        <CompanyUserComponent @userUpdated="refreshList" @userRemoved="refreshList" :user="user.User" :userData="user"/>
+                        <CompanyUserComponent @userUpdated="refreshList" @userRemoved="refreshList" :user="user.User"
+                            :userData="user" />
                     </ion-col>
                 </ion-row>
             </ion-grid>
-            
         </ion-content>
         <FooterComponent />
-    </ion-page> 
+    </ion-page>
 </template>
 
 <script>
@@ -54,7 +54,6 @@ export default defineComponent({
         getCompanyUsers() {
             axios.post(this.$api_add + '/company/getusers', { id: this.companyID }).then(response => {
                 this.users = response.data.message;
-                
             });
         },
         refreshList() {
