@@ -362,7 +362,7 @@ ion-title {
 
 .sidebar .active {
     font-weight: bold;
-    background: #e0e0e0;
+    --background: #2c555ff5;
     border-radius: 8px;
 }
 
