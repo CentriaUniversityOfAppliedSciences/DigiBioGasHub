@@ -163,7 +163,7 @@ import { defineComponent } from 'vue';
 import NavBarComponent from '../../components/NavBarComponent.vue';
 import FooterComponent from '../../components/FooterComponent.vue';
 import ToastComponent from '../../components/ToastComponent.vue';
-import EditBlogPostPage from './EditBlogPostPage.vue';
+import EditBlogPostPage from '../EditBlogPostPage.vue';
 import slugify from 'slugify';
 import { addIcons } from 'ionicons'
 import { checkmarkCircle, closeCircle, create, document, hourglassOutline } from 'ionicons/icons'

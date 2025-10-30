@@ -3,7 +3,7 @@ import { createRouter, createWebHistory } from '@ionic/vue-router';
 import HomePage from '../views/HomePage.vue'
 import RegisterPage from '../views/RegisterPage.vue'
 import MapPage from '../views/MapPage.vue';
-import AddBlogPostPage from '../views/Admin/AddBlogPostPage.vue';
+import AddBlogPostPage from '../views/AddBlogPostPage.vue';
 import BlogListingPage from '../views/BlogListingPage.vue';
 import BlogPage from '../views/BlogPage.vue';
 import OfferPage from '../views/OfferPage.vue';
@@ -13,7 +13,7 @@ import ProductPage from '../views/ProductPage.vue';
 import CompanyPage from '../views/CompanyPage.vue';
 import KnowledgeBasePage from '../views/KnowledgeBasePage.vue';
 import ManageBlogPosts from '../views/Admin/ManageBlogPosts.vue';
-import EditBlogPostPage from '../views/Admin/EditBlogPostPage.vue';
+import EditBlogPostPage from '../views/EditBlogPostPage.vue';
 import UsersPage from '../views/Admin/UsersPage.vue';
 import CompaniesPage from '../views/Admin/CompaniesPage.vue';
 import ChatComponent from '../components/ChatComponent.vue';

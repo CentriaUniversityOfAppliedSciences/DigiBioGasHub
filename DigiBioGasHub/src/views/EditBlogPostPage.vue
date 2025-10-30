@@ -5,17 +5,14 @@
             <div v-if="loading">loading....</div>
             <div v-if="postNotFound">Blog post not found</div>
             <EditBlogPostComponent v-show="!loading && !postNotFound" :content="content" :postID="postID" />
-            
         </ion-content>
-        <FooterComponent />
     </IonPage>
 </template>
 
 <script>
 import { IonPage, IonContent } from '@ionic/vue';
-import NavBarComponent from '../../components/NavBarComponent.vue';
-import FooterComponent from '../../components/FooterComponent.vue';
-import EditBlogPostComponent from '../../components/EditBlogPostComponent.vue';
+import NavBarComponent from './../components/NavBarComponent.vue';
+import EditBlogPostComponent from './../components/EditBlogPostComponent.vue';
 import { defineComponent } from 'vue';
 import axios from 'axios';
 
@@ -25,7 +22,6 @@ export default defineComponent({
         IonPage,
         IonContent,
         NavBarComponent,
-        FooterComponent,
         EditBlogPostComponent
     },
     data() {

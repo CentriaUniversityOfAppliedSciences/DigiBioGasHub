@@ -8,21 +8,24 @@
                 </div>
                 <BlogPostComponent v-else :content="content" />
             </div>
-            <FooterComponent />
         </ion-content>
     </ion-page>
 </template>
 <script>
 import { defineComponent } from 'vue'
 import NavBarComponent from '../../components/NavBarComponent.vue'
-import FooterComponent from '../../components/FooterComponent.vue'
 import BlogPostComponent from '../../components/BlogPostComponent.vue'
 import { IonPage, IonContent } from '@ionic/vue'
 import axios from 'axios'
 
 export default defineComponent({
     name: 'BlogPreview',
-    components: { NavBarComponent, FooterComponent, IonPage, IonContent, BlogPostComponent },
+    components: { 
+        NavBarComponent,
+        IonPage, 
+        IonContent, 
+        BlogPostComponent 
+    },
     data() {
         return {
             content: '',
