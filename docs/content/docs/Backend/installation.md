@@ -103,7 +103,7 @@ It might be necessary to open port on firewall or vm settings to access backend
 
 ## Payment Integration (Optional)
 
-Integrate Stripe payments into your backend by following these steps. Note!! If you wish to use Stripe payment system, set environment variable VITE_USE_PAYMENT=true in frontend and USE_PAYMENT=true in backend
+Integrate Stripe payments into your backend by following these steps. Note!! If you wish to use Stripe payment system, *set environment variable* **VITE_USE_PAYMENT=true** in *frontend* and **USE_PAYMENT=true** in *backend*
 
 ---
 
@@ -111,7 +111,7 @@ Integrate Stripe payments into your backend by following these steps. Note!! If 
 1. Create an account on **[Stripe](https://stripe.com)**.  
 2. In the Stripe dashboard, obtain your **Stripe Secret Key** (`STRIPE_SECRET_KEY`).
 3. Create product and get the **stripe price ids** (`THREE_MONTHS_SUBSCRIPTION_PRICE, SIX_MONTHS_SUBSCRIPTION_PRICE, TWELVE_MONTHS_SUBSCRIPTION_PRICE`).
-4. Update backend environment variables
+4. Update backend environment variables in your `.env` file.
 ---
 
 ### 2. Configure Stripe Webhook
@@ -127,7 +127,7 @@ Integrate Stripe payments into your backend by following these steps. Note!! If 
 4. Obtain your **Stripe webhook secret** (`STRIPE_WEBHOOK_SECRET`)
 
    > When testing locally, replace `your-domain` with your **ngrok** URL (see next section).
-5. Update backend environment variables
+5. Update backend environment variables in your `.env` file.
 ---
 
 ### 3. Local Development with ngrok
@@ -145,7 +145,7 @@ If you are running the application on your local machine:
 ---
 
 ### 4. Configure `traffic-policy.yml`
-1. Open the file `traffic-policy.yml`.  
+1. Open the file `traffic-policy.yml`. ( backend root folder ) 
 2. Set the `Origin` to your ngrok URL, e.g.:
 
    ```yaml
@@ -161,7 +161,7 @@ Navigate to the directory containing `traffic-policy.yml`, then run:
 ngrok http --url=your-ngrok-domain 28765 --traffic-policy-file traffic-policy.yml
 ```
 
-- `28765` is the local port your application listens on-adjust if necessary.  
+- `28765` is the local port your application listens on- adjust if necessary.  
 
 ---
 
