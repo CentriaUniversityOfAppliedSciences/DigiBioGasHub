@@ -6,7 +6,9 @@ date: "2023-05-22T00:44:31+01:00"
 lastmod: "2023-05-22T00:44:31+01:00"
 draft: false
 toc: true
-weight: 510
+weight: 501
 ---
 
 ## Group Chat
+
+A feature that allows users to join chat rooms and communicate in real time.

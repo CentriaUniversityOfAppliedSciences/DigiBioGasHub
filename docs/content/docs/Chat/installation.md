@@ -1,11 +1,11 @@
 ---
-weight: 999
+weight: 502
 title: "Installation"
 description: ""
 icon: "article"
 date: "2025-07-14T11:45:34Z"
 lastmod: "2025-07-14T11:45:34Z"
-draft: true
+draft: false
 toc: true
 ---
 
