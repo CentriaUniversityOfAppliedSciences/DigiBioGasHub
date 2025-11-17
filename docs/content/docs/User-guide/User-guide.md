@@ -1,6 +1,6 @@
 ---
 title: "User Guide"
-description: "Complete step-by-step guide for using the platform, designed for all users including beginners."
+description: "Genereal guide for using the platform"
 weight: 1001
 menu:
   docs:
@@ -10,7 +10,7 @@ menu:
 
 # General User Guide
 
-Welcome to the platform! This guide explains **how to use the platform from start to finish**, from registration to managing companies, offers, articles, chat, subscriptions, and more.  
+Welcome to the platform! This guide explains **how to use the platform**, from registration to managing companies, offers, articles, chat, subscriptions, and more.  
 
 ---
 
