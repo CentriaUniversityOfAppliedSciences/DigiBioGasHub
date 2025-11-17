@@ -19,6 +19,7 @@ Welcome to the platform! This guide explains **how to use the platform from star
 Before accessing all features, you must **register** or **login**.
 
 ### Navbar
+ 
 The **navbar** provides quick access to all main features:
 - Home  
 - Marketplace  
@@ -27,10 +28,14 @@ The **navbar** provides quick access to all main features:
 - Chat  
 - My Contracts
 - My Company  
-- Reports
+- Reports (admin only)
 - Profile
 
 You can also **change the platform language** from the navbar. Currently supported languages: **Finnish (fi), English (en), Swedish (sv)**.
+
+![alt](/images/navbar.png) 
+*Figure: The platform navbar provides quick access to all main features.*
+<br><br>
 
 ---
 
@@ -46,6 +51,12 @@ After logging in, the **Home Page** is your starting point. Here you can quickly
 - **Buy Offers**: If you like an offer click **Buy** and proceed.  
 - **Contact Seller**: If you have questions, click **Contact Seller** to send a message.  
 - **Read Articles**: Click any article title to read the full content.
+
+<br>
+
+![alt](/images/homepage.png) 
+*Figure: Homepage*
+<br><br>
 
 ---
 
@@ -77,6 +88,12 @@ The **Marketplace** is where you can browse, filter, and purchase offers.
 3. Click **Buy** and follow the checkout instructions.  
 4. A purchase success notification will appear once completed. (Note: Actual payment integration is not yet implemented.)
 
+<br>
+
+![alt](/images/marketplace.png) 
+*Figure: Marketplace*
+<br><br>
+
 ---
 
 ## 4. Map
@@ -88,6 +105,12 @@ The **Map Page** provides a visual overview of biogas plants, offers, and compan
 - Click an offer icon to **view details** and **buy directly**.  
 - Use the **left sidebar filters** to control which icons are visible on the map.
 
+<br>
+
+![alt](/images/map.png) 
+*Figure: Mappage*
+<br><br>
+
 ---
 
 ## 5. Articles
@@ -95,6 +118,12 @@ The **Map Page** provides a visual overview of biogas plants, offers, and compan
 The **Articles Page** shows all **verified articles**.  
 
 - Click any article to read it.  
+
+<br>
+
+![alt](/images/articles.png) 
+*Figure: Articles page*
+<br><br>
 
 ---
 
@@ -110,6 +139,12 @@ The **Chat Page** allows users to communicate in **groups** or via **private mes
 1. Go to **Profile → Settings → Chat Settings → Enable Private Chat → Save**.  
 2. Go back to Chat and select a user from the **private chat list**.  
 3. Send messages directly once private chat is enabled.
+
+<br>
+
+![alt](/images/chat.png) 
+*Figure: Chatpage*
+<br><br>
 
 ---
 
@@ -138,9 +173,15 @@ Manage your companies and access company-specific features.
 - **Users**: Manage members and their roles within the company  
 - **Certificates**: Manage company certificates
 
+<br>
+
+![alt](/images/mycompany.png) 
+*Figure: MycompanyPage*
+<br><br>
+
 ---
 
-## 8. Reports
+## 8. Reports (only for admin)
 
 The **Reports Page** displays analytical data about company and marketplace activities:
 
@@ -190,6 +231,13 @@ Generate API keys for platform services:
 
 ### Delete Account
 - Permanently delete your account if needed
+
+<br>
+
+![alt](/images/profile.png) 
+*Figure: ProfilePage*
+<br><br>
+
 
 ---
 
