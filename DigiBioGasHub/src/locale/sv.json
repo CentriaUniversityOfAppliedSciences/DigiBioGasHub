@@ -395,7 +395,8 @@
             "0":"inte tillgänglig",
             "1":"kg",
             "2":"m3",
-            "3":"annat"
+            "3":"st",
+            "4":"annat"
         }
     },
     "offers": {

@@ -395,7 +395,8 @@
                 "0":"not available",
                 "1":"kg",
                 "2":"m3",
-                "3":"other"
+                "3":"pcs",
+                "4":"other"
             }
         },
     "offers": {

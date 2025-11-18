@@ -399,7 +399,8 @@
             "0":"ei saatavilla",
             "1":"kg",
             "2":"m3",
-            "3":"muu"
+            "3":"kpl",
+            "4":"muu"
         }
     },
     "offers": {
