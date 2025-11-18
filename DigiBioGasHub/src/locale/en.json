@@ -319,7 +319,7 @@
         "addressRequired": "Address cannot be empty.",
         "zipcodeRequired": "Postal code cannot be empty.",
         "cityRequired": "City cannot be empty.",
-        "priceRequired": "Price must be greater than 0.",
+        "priceRequired": "Price cannot be negative.",
         "quantityRequired": "Quantity must be greater than 0.",
         "unitRequired": "Please select a unit.",
         "logisticTypeRequired": "Please select a logistic type.",

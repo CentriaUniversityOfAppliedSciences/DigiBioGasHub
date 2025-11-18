@@ -281,7 +281,7 @@ export default defineComponent({
             if (!this.address) this.errors.address = this.$t('validation.addressRequired');
             if (!this.zipcode) this.errors.zipcode = this.$t('validation.zipcodeRequired');
             if (!this.city) this.errors.city = this.$t('validation.cityRequired');
-            if (!this.price || this.price <= 0) this.errors.price = this.$t('validation.priceRequired');
+            if (!this.price || this.price < 0) this.errors.price = this.$t('validation.priceRequired');
             if (!this.quantity || this.quantity <= 0) this.errors.quantity = this.$t('validation.quantityRequired');
             if (!this.unit) this.errors.unit = this.$t('validation.unitRequired');
             if (!this.logisticType) this.errors.logisticType = this.$t('validation.logisticTypeRequired');

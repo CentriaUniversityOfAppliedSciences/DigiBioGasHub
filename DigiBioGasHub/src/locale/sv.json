@@ -319,7 +319,7 @@
         "addressRequired": "Adress är obligatoriskt",
         "zipcodeRequired": "Postnummer är obligatoriskt",
         "cityRequired": "Stad är obligatoriskt",
-        "priceRequired": "Pris är obligatoriskt",
+        "priceRequired": "Priset kan inte vara negativt",
         "quantityRequired": "Mängd är obligatoriskt",
         "unitRequired": "Enhet är obligatoriskt",
         "logisticTypeRequired": "Logistiktyp är obligatoriskt",

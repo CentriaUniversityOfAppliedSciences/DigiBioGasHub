@@ -323,7 +323,7 @@
         "addressRequired": "Osoite on pakollinen",
         "zipcodeRequired": "Postinumero on pakollinen",
         "cityRequired": "Kaupunki on pakollinen",
-        "priceRequired": "Hinta on pakollinen",
+        "priceRequired": "Hinta ei voi olla negatiivinen",
         "quantityRequired": "Määrä on pakollinen",
         "unitRequired": "Yksikkö on pakollinen",
         "logisticTypeRequired": "Logistiikkatyyppi on pakollinen",
