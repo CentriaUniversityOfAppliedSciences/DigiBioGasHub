@@ -440,6 +440,7 @@
         "deleteAgreement": "Delete agreement",
         "products": "Products",
         "types": "Types",
+        "companyManagement": "Company Management",
         "editWarning": "If you edit this company, it will need to be verified again. Are you sure?",
         "waiting_approval": "Note: All the companies listed below are waiting for approval!",
         "rejected": "Note: All the companies listed below have been rejected! Please edit your company information and resubmit for approval.",

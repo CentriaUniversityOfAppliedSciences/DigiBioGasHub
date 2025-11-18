@@ -13,7 +13,7 @@
                 <ion-card-content v-if="companies.length == 0">
                     <p class="required-note">
                         {{ $t('offers.noCompaniesToCreateOffer') }}
-                        <a href="/company">{{ $t('offers.createCompany') }}</a>
+                        <a href="/company">{{ $t('company.companyManagement') }}</a>
                     </p>
                 </ion-card-content>
                 <ion-card-content v-else>

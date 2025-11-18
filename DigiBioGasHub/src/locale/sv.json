@@ -440,6 +440,7 @@
         "deleteAgreement": "Radera avtal",
         "products": "Produkter",
         "types": "Typer",
+        "companyManagement": "Företagshantering",
         "editWarning": "Varning: Du redigerar ett företag som inte är verifierat. Om du sparar ändringarna kommer företaget att skickas för godkännande igen.",
         "waiting_approval": "Obs: Alla företag som listas nedan väntar på godkännande!",
         "rejected": "Obs: Alla företag som listas nedan har avvisats! Vänligen redigera din företagsinformation och skicka in den på nytt för godkännande.",
