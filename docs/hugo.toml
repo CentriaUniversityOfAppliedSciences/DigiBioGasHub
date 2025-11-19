@@ -35,3 +35,8 @@ timeZone = 'Europe/Helsinki'
 [params.docs]
     sidebarIcons = true
     darkMode = true
+
+[caches]
+  [caches.images]
+    dir = ':cacheDir/images'
+    

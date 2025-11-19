@@ -238,6 +238,7 @@
         "name": "Tuotenimi",
         "offerTypes": "Tarjoustyypit",
         "chooseType": "Valitse tyyppi",
+        "offerPermanent": "Tee tarjous pysyväksi",
         "buy": "Osta",
         "contactSeller": "Ota yhteyttä myyjään",
         "messageSent": "Viesti lähetetty onnistuneesti!",
@@ -323,7 +324,7 @@
         "addressRequired": "Osoite on pakollinen",
         "zipcodeRequired": "Postinumero on pakollinen",
         "cityRequired": "Kaupunki on pakollinen",
-        "priceRequired": "Hinta on pakollinen",
+        "priceRequired": "Hinta ei voi olla negatiivinen",
         "quantityRequired": "Määrä on pakollinen",
         "unitRequired": "Yksikkö on pakollinen",
         "logisticTypeRequired": "Logistiikkatyyppi on pakollinen",
@@ -399,7 +400,8 @@
             "0":"ei saatavilla",
             "1":"kg",
             "2":"m3",
-            "3":"muu"
+            "3":"kpl",
+            "4":"muu"
         }
     },
     "offers": {
@@ -444,6 +446,7 @@
         "deleteAgreement": "Poista sopimus",
         "products": "Tuotteet",
         "types": "Tyypit",
+        "companyManagement": "Yrityksen hallinta",
         "editWarning": "Varoitus: Muokkaat vahvistamatonta yritystä. Jos tallennat muutokset, yritys lähetetään uudelleen hyväksyttäväksi.",
         "waiting_approval": "Huomautus: Kaikki alla luetellut yritykset odottavat hyväksyntää!",
         "rejected": "Huomautus: Kaikki alla luetellut yritykset on hylätty! Muokkaa yritystietojasi ja lähetä ne uudelleen hyväksyttäväksi.",

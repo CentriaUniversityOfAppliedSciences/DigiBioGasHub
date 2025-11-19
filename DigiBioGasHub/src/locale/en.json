@@ -238,6 +238,7 @@
         "name": "Product name",
         "offerTypes": "Offer types",
         "chooseType": "Choose type",
+        "offerPermanent": "Make offer permanent",
         "buy": "Buy",
         "contactSeller": "Contact seller",
         "messageSent": "Message sent successfully!",
@@ -319,7 +320,7 @@
         "addressRequired": "Address cannot be empty.",
         "zipcodeRequired": "Postal code cannot be empty.",
         "cityRequired": "City cannot be empty.",
-        "priceRequired": "Price must be greater than 0.",
+        "priceRequired": "Price cannot be negative.",
         "quantityRequired": "Quantity must be greater than 0.",
         "unitRequired": "Please select a unit.",
         "logisticTypeRequired": "Please select a logistic type.",
@@ -395,7 +396,8 @@
                 "0":"not available",
                 "1":"kg",
                 "2":"m3",
-                "3":"other"
+                "3":"pcs",
+                "4":"other"
             }
         },
     "offers": {
@@ -440,6 +442,7 @@
         "deleteAgreement": "Delete agreement",
         "products": "Products",
         "types": "Types",
+        "companyManagement": "Company Management",
         "editWarning": "If you edit this company, it will need to be verified again. Are you sure?",
         "waiting_approval": "Note: All the companies listed below are waiting for approval!",
         "rejected": "Note: All the companies listed below have been rejected! Please edit your company information and resubmit for approval.",

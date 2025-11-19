@@ -116,7 +116,7 @@ export default defineComponent({
             }
         },
         buyOffer() {
-            if (parseFloat(this.buy.amount) == 0) {
+            if (parseFloat(this.buy.amount) <= 0) {
                 this.ToastComponent.methods.showToast(this.$t('product.error.product_buy_zero_amount'), 2000, 'danger');
                 return;
             }
