@@ -238,6 +238,7 @@
         "name": "Produktnamn",
         "offerTypes": "Offertyper",
         "chooseType": "Välj typ",
+        "offerPermanent": "Gör erbjudandet permanent",
         "buy": "Köp",
         "contactSeller": "Kontakta säljaren",
         "messageSent": "Meddelandet skickades framgångsrikt!",

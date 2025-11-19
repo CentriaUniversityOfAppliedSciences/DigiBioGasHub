@@ -238,6 +238,7 @@
         "name": "Product name",
         "offerTypes": "Offer types",
         "chooseType": "Choose type",
+        "offerPermanent": "Make offer permanent",
         "buy": "Buy",
         "contactSeller": "Contact seller",
         "messageSent": "Message sent successfully!",

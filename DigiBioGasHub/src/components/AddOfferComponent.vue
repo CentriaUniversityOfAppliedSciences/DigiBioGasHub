@@ -29,7 +29,7 @@
                         <ion-select required v-model="companyID" :placeholder="$t('product.chooseCompany')"
                             @ionChange="getCompanyCertificates">
                             <ion-select-option v-for="comp in companies" :key="comp.name" :value="comp.id">{{ comp.name
-                            }}</ion-select-option>
+                                }}</ion-select-option>
                             <p v-if="hasError('companyID')" class="error">{{ errors.companyID }}</p>
                         </ion-select>
                     </ion-item>
@@ -141,7 +141,7 @@
                         </ion-label>
                         <ion-select v-model="logisticType">
                             <ion-select-option value="1">{{ $t('product.logistic.includedInPrice')
-                            }}</ion-select-option>
+                                }}</ion-select-option>
                             <ion-select-option value="2">{{ $t('product.logistic.freeToPickup') }}</ion-select-option>
                             <ion-select-option value="3">{{ $t('product.logistic.agreedupon') }}</ion-select-option>
 
@@ -150,16 +150,23 @@
                     </ion-item>
 
                     <ion-item>
+                        <ion-label position="stacked" class="label">
+                            {{ $t('product.productDetails.offerValidFrom') }} <span class="required-asterisk">*</span>
+                        </ion-label>
                         <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h23" v-model="startDate">
-                            <span slot="title">{{ $t('product.productDetails.offerValidFrom') }}</span>
-                            <span slot="time-label">{{ $t('product.time') }}</span>
                         </ion-datetime>
                         <p v-if="hasError('startDate')" class="error">{{ errors.startDate }}</p>
                     </ion-item>
 
                     <ion-item>
-                        <ion-datetime :locale="getLocale()" :first-day-of-week="1" hour-cycle="h23" v-model="endDate">
-                            <span slot="title">{{ $t('product.endTime') }}</span>
+                        <ion-label>{{ $t('product.offerPermanent') }}</ion-label>
+                        <ion-checkbox v-model="isPermanent"></ion-checkbox>
+                    </ion-item>
+
+                    <ion-item v-if="!isPermanent">
+                        <ion-label position="stacked">{{ $t('product.endTime') }}</ion-label>
+                        <ion-datetime v-model="endDate" :locale="getLocale()" :first-day-of-week="1" hour-cycle="h23"
+                            placeholder="Select end date">
                             <span slot="time-label">{{ $t('product.time') }}</span>
                         </ion-datetime>
                         <p v-if="hasError('endDate')" class="error">{{ errors.endDate }}</p>
@@ -201,7 +208,7 @@
 </template>
 
 <script>
-import { IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime, IonCard, IonContent, IonTitle, IonToolbar, IonButtons, IonHeader, modalController, IonCardContent, IonModal } from '@ionic/vue';
+import { IonItem, IonLabel, IonInput, IonTextarea, IonButton, IonSelectOption, IonSelect, IonDatetime, IonCard, IonContent, IonTitle, IonToolbar, IonButtons, IonHeader, modalController, IonCardContent, IonModal, IonCheckbox } from '@ionic/vue';
 import { defineComponent, ref } from 'vue';
 import axios from 'axios';
 import ToastComponent from './ToastComponent.vue';
@@ -223,6 +230,7 @@ export default defineComponent({
         IonToolbar,
         IonButtons,
         IonHeader,
+        IonCheckbox,
         IonCardContent,
         IonModal,
         ToastComponent
@@ -252,7 +260,8 @@ export default defineComponent({
             material: "",
             offerTypes: [],
             startDate: new Date().toISOString(),
-            endDate: new Date().toISOString(),
+            endDate: null,
+            isPermanent: true,
             selectedMaterialId: null,
             selectedMaterialName: '',
             address: '',
@@ -288,7 +297,7 @@ export default defineComponent({
             if (!this.unit) this.errors.unit = this.$t('validation.unitRequired');
             if (!this.logisticType) this.errors.logisticType = this.$t('validation.logisticTypeRequired');
             if (!this.startDate) this.errors.startDate = this.$t('validation.startDateRequired');
-            if (!this.endDate) this.errors.endDate = this.$t('validation.endDateRequired');
+            if (!this.isPermanent && !this.endDate) this.errors.endDate = this.$t('validation.endDateRequired');
             if (!this.visibility) this.errors.visibility = this.$t('validation.visibilityRequired');
 
             return Object.keys(this.errors).length === 0;
@@ -344,7 +353,7 @@ export default defineComponent({
             try {
 
                 var url = this.$api_add + "/createoffer";
-                axios.post(url, { "certificates": this.selectedCertificates, "image64": this.image64, "imageName": this.imageName, "type": this.type, "materialID": this.material, "companyID": this.companyID, "locationID": "1", "unit": this.unit, "price": this.price, "amount": this.quantity, "startDate": this.startDate, "endDate": this.endDate, "visibility": this.visibility, "cargoType": this.logisticType, "description": this.description, "address": this.address, "city": this.city, "zipcode": this.zipcode }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
+                axios.post(url, { "certificates": this.selectedCertificates, "image64": this.image64, "imageName": this.imageName, "type": this.type, "materialID": this.material, "companyID": this.companyID, "locationID": "1", "unit": this.unit, "price": this.price, "amount": this.quantity, "startDate": this.startDate, "endDate": this.isPermanent? null : this.endDate, "isPermanent": this.isPermanent,  "visibility": this.visibility, "cargoType": this.logisticType, "description": this.description, "address": this.address, "city": this.city, "zipcode": this.zipcode }, { headers: { 'authorization': localStorage.getItem('token') }, withCredentials: false }).then((response) => {
                     if (response.data.result == "ok" && response.data.message != null && response.data.message != undefined) {
                         this.modalController.dismiss();
                         this.$refs.toast.showToast(this.$t('product.successMessage'), 2000, 'success');
@@ -436,5 +445,11 @@ export default defineComponent({
 .required-asterisk {
     color: red;
     font-size:20PX;
+}
+
+ion-datetime {
+    margin: 1rem;
+    padding: 0.5rem;
+    
 }
 </style>

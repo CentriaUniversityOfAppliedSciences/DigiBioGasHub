@@ -238,6 +238,7 @@
         "name": "Tuotenimi",
         "offerTypes": "Tarjoustyypit",
         "chooseType": "Valitse tyyppi",
+        "offerPermanent": "Tee tarjous pysyväksi",
         "buy": "Osta",
         "contactSeller": "Ota yhteyttä myyjään",
         "messageSent": "Viesti lähetetty onnistuneesti!",
