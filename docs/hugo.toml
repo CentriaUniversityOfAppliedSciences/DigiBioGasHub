@@ -1,4 +1,4 @@
-baseURL = 'https://centriauniversityofappliedsciences.github.io/DigiBioGasHubs'
+baseURL = 'https://centriauniversityofappliedsciences.github.io/DigiBioGasHub'
 languageCode = 'en-us'
 title = 'DigiBioGasHubs Documentation'
 contentDir = 'content'
