@@ -447,6 +447,7 @@
         "products": "Tuotteet",
         "types": "Tyypit",
         "companyManagement": "Yrityksen hallinta",
+        "companyAdded": "Yritys lisätty onnistuneesti! Se odottaa hyväksyntää.",
         "editWarning": "Varoitus: Muokkaat vahvistamatonta yritystä. Jos tallennat muutokset, yritys lähetetään uudelleen hyväksyttäväksi.",
         "waiting_approval": "Huomautus: Kaikki alla luetellut yritykset odottavat hyväksyntää!",
         "rejected": "Huomautus: Kaikki alla luetellut yritykset on hylätty! Muokkaa yritystietojasi ja lähetä ne uudelleen hyväksyttäväksi.",

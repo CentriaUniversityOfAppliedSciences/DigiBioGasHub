@@ -191,7 +191,7 @@ export default defineComponent({
                 }
                 this.$emit('companyAdded');
                 this.editModalOpen = false;
-
+                this.$refs.toastComponent.showToast(this.$t('company.companyAdded'), 2000, 'success');
             });
         },
         onDismiss() {
