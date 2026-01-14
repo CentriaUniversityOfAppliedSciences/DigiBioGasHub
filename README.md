@@ -82,6 +82,6 @@ See LICENSE for more information.
 
 ## Developers
 Centria University of Applied Sciences Ltd.
-Jyri Mäkelä
-Risto Hietala
-Prakash Acharya
+- Jyri Mäkelä
+- Risto Hietala
+- Prakash Acharya
