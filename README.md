@@ -79,3 +79,9 @@ Please submit it as an issue to this repository with as much explanation about t
 
 ## License: MIT
 See LICENSE for more information.
+
+## Developers
+Centria University of Applied Sciences Ltd.
+Jyri Mäkelä
+Risto Hietala
+Prakash Acharya
