@@ -17,7 +17,7 @@ PostgreSQL
 ```
 
 ## Project structure
-Project is split into 4 parts + docs
+Project is split into 6 parts + docs
 - This repository is for the front end. THIS IS REQUIRED
 - [Backend](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend) THIS IS REQUIRED
 - [ChatServer](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHubs-Chat-Server) THIS IS REQUIRED
