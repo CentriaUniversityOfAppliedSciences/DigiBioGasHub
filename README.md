@@ -21,6 +21,8 @@ Project is split into 4 parts + docs
 - This repository is for the front end. THIS IS REQUIRED
 - [Backend](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-backend) THIS IS REQUIRED
 - [ChatServer](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHubs-Chat-Server) THIS IS REQUIRED
+- [Analytics](https://github.com/CentriaUniversityOfAppliedSciences/DigiBiogasHubsCube) THIS IS REQUIRED
+- [OpenAPI](https://github.com/CentriaUniversityOfAppliedSciences/DigiBiogasHubsOpenAPI) OPTIONAL
 - [Docker for PostgreSQL](https://github.com/CentriaUniversityOfAppliedSciences/DigiBioGasHub-database) OPTIONAL
 
 ## Features
